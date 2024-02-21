@@ -11,3 +11,5 @@
 # New Ignores
 .env
 node_modules
+build
+.firebase
