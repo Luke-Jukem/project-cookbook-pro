@@ -18,7 +18,7 @@
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
+[data-theme="dark"] {
   --ifm-color-primary: #ff3858;
   --ifm-color-primary-dark: #ff193e;
   --ifm-color-primary-darker: #ff0931;
@@ -29,15 +29,15 @@
   --ifm-footer-background-color: black;
 }
 
-.medium-zoom-overlay{
+.medium-zoom-overlay {
   /*background-color: #00a400 !important;*/
   z-index: 999;
 }
 
-.medium-zoom-image--opened{
+.medium-zoom-image--opened {
   z-index: 1000;
 }
 
-#atlwdg-trigger.atlwdg-trigger.atlwdg-RIGHT{
+#atlwdg-trigger.atlwdg-trigger.atlwdg-RIGHT {
   background-color: #9d2235;
 }

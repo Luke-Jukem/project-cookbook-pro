@@ -23,7 +23,7 @@ async function PutRecipe(collection, recipe) {
 
   try {
     const convertedIngredients = recipe.ingredients.map((ingredient) =>
-      convertIngredient(ingredient)
+      convertIngredient(ingredient),
     );
 
     const recipeWithConvertedIngredients = {
@@ -32,7 +32,7 @@ async function PutRecipe(collection, recipe) {
     };
 
     const ref = doc(firestoreDb, collection, String(recipe.id)).withConverter(
-      recipeConverter
+      recipeConverter,
     );
 
     await setDoc(ref, recipeWithConvertedIngredients);

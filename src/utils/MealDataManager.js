@@ -55,10 +55,10 @@ class MealDataManager {
               ingredient.amount,
               ingredient.id,
               ingredient.nameClean ? ingredient.nameClean : ingredient.name,
-              ingredient.unit
+              ingredient.unit,
             );
             return ing;
-          }
+          },
         );
 
         const mappedResult = new Recipe(
@@ -70,7 +70,7 @@ class MealDataManager {
           recipe.analyzedInstructions,
           recipe.title,
           recipe.servings,
-          recipe.summary
+          recipe.summary,
         );
 
         PutRecipe("recipes", mappedResult);

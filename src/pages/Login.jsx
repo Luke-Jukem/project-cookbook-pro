@@ -29,7 +29,7 @@ var Login = () => {
       const userCredential = await signInWithEmailAndPassword(
         auth,
         userEmail,
-        userPassword
+        userPassword,
       );
       const user = userCredential.user;
       document.location.href = "/";

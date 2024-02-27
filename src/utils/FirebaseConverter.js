@@ -67,7 +67,7 @@ class FirebaseConverter {
         data.name,
         data.servings,
         data.summary,
-        data.isSaved
+        data.isSaved,
       );
     },
   };

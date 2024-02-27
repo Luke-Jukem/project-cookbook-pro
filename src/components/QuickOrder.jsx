@@ -31,7 +31,7 @@ const quickOrder = () => {
             ingredient.amount,
             ingredient.id,
             ingredient.name,
-            ingredient.unit
+            ingredient.unit,
           );
 
           if (ingredientMap.has(newIngredient.id)) {
@@ -46,7 +46,7 @@ const quickOrder = () => {
       body += `%0D%0AIngredients:%0D%0A`;
       ingredientMap.forEach(
         (ingredient) =>
-          (body += `[  ] ${ingredient.amount} ${ingredient.unit} ${ingredient.name}\n%0D%0A`)
+          (body += `[  ] ${ingredient.amount} ${ingredient.unit} ${ingredient.name}\n%0D%0A`),
       );
       body += "%0D%0A";
     }
