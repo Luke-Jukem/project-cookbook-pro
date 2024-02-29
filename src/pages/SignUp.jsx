@@ -12,7 +12,9 @@ import "./Home.jsx";
 var SignUp = () => {
   const [userName, isUserName] = useState("");
   const [userEmail, isUserEmail] = useState("");
+  const [signupError, isSignUpError] = useState("");
   const [userPassword, isUserPassword] = useState("");
+
   const auth = getAuth();
   useEffect(() => {
     document.title = "CookBook-Pro: SignUp";
@@ -33,6 +35,7 @@ var SignUp = () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        isSignUpError(errorMessage);
         console.log(errorCode, errorMessage);
       });
     await updateProfile(auth.currentUser, {
@@ -85,10 +88,13 @@ var SignUp = () => {
           value={userPassword}
           onChange={(e) => isUserPassword(e.target.value)}
           className="getPassword"
-          type="text"
+          type="password"
           id="isPassword"
           name="isPassword"
         />
+        {signupError ? (
+          <label className="isInvalid">{signupError}</label>
+        ) : null}
         <br />
         <br />
         <input
