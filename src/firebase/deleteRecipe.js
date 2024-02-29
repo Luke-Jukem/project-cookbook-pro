@@ -1,10 +1,8 @@
 import { doc, deleteDoc, getFirestore } from "firebase/firestore";
-import { firebaseApp } from "./firebaseConfig.js";
-
-const db = getFirestore(firebaseApp);
+import { firestoreDb } from "./firebaseConfig.js";
 
 async function deleteRecipe(collection, recipeID) {
-  deleteDoc(doc(db, collection, recipeID));
+  deleteDoc(doc(firestoreDb, collection, recipeID));
 }
 
 export default deleteRecipe;

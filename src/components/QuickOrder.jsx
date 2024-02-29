@@ -7,7 +7,7 @@ import {
   Button,
   Input,
 } from "reactstrap";
-
+import RecipeDetails from "../components/RecipeDetails"
 import deleteRecipe from "../firebase/deleteRecipe";
 import { Ingredient } from "../customObjects/Ingredient.js";
 
