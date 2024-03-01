@@ -15,8 +15,34 @@
   text-overflow: ellipsis;
 }
 
+.add-meal-btn {
+  background-color: #ff7f7f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition-duration: 0.4s;
+}
+
+.add-meal-btn:hover {
+  background-color: #8b0000;
+  color: white;
+}
+
 .date-display {
   font-size: 1.2em;
+  font-weight: bold;
+  color: #8b0000;
+}
+
+.past-date {
+  color: #999 !important;
 }
 
 .meal-tile {
@@ -47,23 +73,28 @@
   font-size: 1em;
 }
 
+.react-calendar__month-view__days__day--weekend {
+  color: inherit;
+}
+
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
-  font-size: 1.2em;
+  /* font-size: 1.2em; */
 }
 
 .react-calendar__tile--active {
-  background: #006edc;
-  color: white;
+  background: #ffa6a6;
+  color: white !important;
 }
 
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: #1087ff;
+  background: #ff7f7f;
 }
 
 .react-calendar__tile--now {
-  background: #ffa6a6;
+  background: #ffc2c2;
+  color: #570000 !important;
 }
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {

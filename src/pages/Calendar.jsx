@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
+import Modal from "react-modal";
+import MealForm from "../components/MealForm";
 import "react-calendar/dist/Calendar.css";
 import "../css/calendarStyle.css";
 
@@ -10,6 +12,8 @@ const MyCalendar = () => {
   const [selectedDay, setSelectedDay] = useState(new Date());
   //empty array of plans
   const [plans, setPlans] = useState([]);
+  //modal state
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   //placeholder variables for later use
   const [formState, setFormState] = useState({
@@ -54,6 +58,16 @@ const MyCalendar = () => {
     };
     setPlans([...plans, newPlan]);
   };
+
+  //opening/closing modal (meal form)
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   //for later
   // const handleInputChange = (event) => {
   //   const target = event.target;
@@ -108,11 +122,24 @@ const MyCalendar = () => {
           );
           return (
             <div>
+              <p>
+                {dayPlans.length} {dayPlans.length === 1 ? "plan" : "plans"}
+              </p>
               {dayPlans.map((plan) => (
                 <div>{plan.title}</div>
               ))}
             </div>
           );
+        }}
+        //greying out past dates
+        tileClassName={({ date, view }) => {
+          //splits the strings and compares only the dates (so that current day isn't greyed)
+          if (
+            date.toISOString().split("T")[0] <
+            new Date().toISOString().split("T")[0]
+          ) {
+            return "past-date";
+          }
         }}
       />
       <div className="selected-day">
@@ -125,7 +152,12 @@ const MyCalendar = () => {
           })}
         </span>{" "}
         <br />
-        <button onClick={handleAddMeal}>Add Meal</button>
+        <button className="add-meal-btn" onClick={openModal}>
+          Add Meal
+        </button>
+        <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
+          <MealForm closeModal={closeModal} addPlan={addPlan} />
+        </Modal>
         <br />
         <br />
         {plans
