@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import getListener from "../firebase/setListener.js";
+import getSavedRecipesListener from "../firebase/FirestoreListeners/SavedRecipesListener.js";
 import {
   ListGroup,
   ListGroupItem,
@@ -16,13 +16,20 @@ const savedMeals = () => {
   const [meal, setMeal] = useState();
 
   const toggle = (recipe) => {
+    console.log(recipe);
     setMeal(recipe);
     setShowDetails(!showDetails);
   };
 
-  //important to only get 1 listener, so use this thingy
   useEffect(() => {
-    const unsubscibe = getListener("savedRecipes", setSavedRecipes);
+    const unsubscribeFromSavedRecipesListener = getSavedRecipesListener(
+      "savedRecipes",
+      setSavedRecipes
+    );
+    // Cleanup function
+    return () => {
+      unsubscribeFromSavedRecipesListener();
+    };
   }, []);
 
   function unsaveRecipe() {
