@@ -1,75 +1,78 @@
-/**
- * convert to and from firebase and JSON recipe object
- */
-
-import { Recipe } from "../customObjects/Recipe.js";
-import { Ingredient } from "../customObjects/Ingredient.js";
-
 class FirebaseConverter {
-  constructor() {}
+  constructor() {
+    this.objectConverter = {
+      toFirestore: (object) => {
+        if (!object) {
+          console.error("Object is undefined or null");
+          return null;
+        }
 
-  // Firestore data converter for Ingredients
-  ingredientsConverter = {
-    toFirestore: (ingredient) => {
-      if (!ingredient) {
-        console.error("Ingredient is undefined or null");
-        return null;
-      }
+        const properties = Object.keys(object);
+        const convertedObject = {};
 
-      return {
-        amount: ingredient.amount,
-        id: ingredient.id,
-        name: ingredient.name,
-        unit: ingredient.unit,
-      };
-    },
-    fromFirestore: (snapshot, options) => {
-      const data = snapshot.data(options);
-      return new Ingredient(data.amount, data.id, data.name, data.unit);
-    },
-  };
+        properties.forEach((property) => {
+          convertedObject[property] = object[property];
+        });
 
-  /**
-   *
-   * Firestore data converter for CustomMeal
-   * @function toFirestore convert to firestore object
-   * @function fromFirestore convert to JSON
-   */
-  recipeConverter = {
-    toFirestore: (recipe) => {
-      if (!recipe) {
-        console.error("Recipe is undefined or null");
-        return null;
-      }
-      return {
-        cuisine: recipe.cuisine,
-        dishType: recipe.dishType,
-        id: recipe.id,
-        image: recipe.image,
-        ingredients: recipe.ingredients,
-        instructions: recipe.instructions,
-        name: recipe.name,
-        servings: recipe.servings,
-        summary: recipe.summary,
-        isSaved: recipe.isSaved,
-      };
-    },
+        return convertedObject;
+      },
+      fromFirestore: (snapshot, objectClass, options) => {
+        const data = snapshot.data(options);
+        return new objectClass(...Object.values(data));
+      },
+    };
 
-    fromFirestore: (snapshot) => {
-      const data = snapshot.data();
-      return new Recipe(
-        data.cuisine,
-        data.dishType,
-        data.id,
-        data.image,
-        data.ingredients,
-        data.instructions,
-        data.name,
-        data.servings,
-        data.summary,
-        data.isSaved
-      );
-    },
-  };
+    this.convertArray = (array, converter) => {
+      return array.map((item) => converter.toFirestore(item));
+    };
+
+    this.recipeConverter = {
+      toFirestore: (recipe) => {
+        if (!recipe) {
+          console.error("Recipe is undefined or null");
+          return null;
+        }
+
+        const convertedIngredients = this.convertArray(
+          recipe.ingredients,
+          this.objectConverter
+        );
+
+        return {
+          cuisine: recipe.cuisine,
+          dishType: recipe.dishType,
+          id: recipe.id,
+          image: recipe.image,
+          ingredients: convertedIngredients,
+          instructions: recipe.instructions,
+          name: recipe.name,
+          servings: recipe.servings,
+          summary: recipe.summary,
+          isSaved: recipe.isSaved,
+        };
+      },
+      fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        const convertedIngredients = this.convertArray(
+          data.ingredients,
+          this.objectConverter
+        );
+
+        return new Recipe(
+          data.cuisine,
+          data.dishType,
+          data.id,
+          data.image,
+          convertedIngredients,
+          data.instructions,
+          data.name,
+          data.servings,
+          data.summary,
+          data.isSaved
+        );
+      },
+    };
+  }
 }
+
 export default FirebaseConverter;

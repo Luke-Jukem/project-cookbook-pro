@@ -8,7 +8,8 @@ import { firestoreDb } from "../firebaseConfig.js";
  * @param {String} collectionName
  * @returns {Unsubscribe}
  */
-function getSavedRecipesListener(collectionName, setter) {
+function getSavedRecipesListener(setter, userId) {
+  const collectionName = `Users/${userId}/SavedRecipes`;
   var q = query(collection(firestoreDb, collectionName));
 
   const unsubscribe = onSnapshot(q, (querySnapshot) => {

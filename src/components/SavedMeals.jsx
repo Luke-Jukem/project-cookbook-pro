@@ -1,42 +1,57 @@
 import React, { useState, useEffect } from "react";
-import getSavedRecipesListener from "../firebase/FirestoreListeners/SavedRecipesListener.js";
 import {
   ListGroup,
   ListGroupItem,
   ListGroupItemHeading,
   Button,
 } from "reactstrap";
-
 import RecipeDetails from "./RecipeDetails";
-import deleteRecipe from "../firebase/deleteRecipe.js";
+import { useAuth } from "../utils/AuthContext";
+import FirestoreService from "../firebase/FirebaseService.js";
+import FirestoreListener from "../firebase/FirestoreListeners/FirestoreListener.js";
 
 const savedMeals = () => {
   const [savedRecipes, setSavedRecipes] = useState([""]);
   const [showDetails, setShowDetails] = useState(false);
   const [meal, setMeal] = useState();
 
+  const { user } = useAuth();
+  const firestoreListener = new FirestoreListener();
+
   const toggle = (recipe) => {
-    console.log(recipe);
     setMeal(recipe);
     setShowDetails(!showDetails);
   };
 
   useEffect(() => {
-    const unsubscribeFromSavedRecipesListener = getSavedRecipesListener(
-      "savedRecipes",
-      setSavedRecipes
-    );
-    // Cleanup function
-    return () => {
-      unsubscribeFromSavedRecipesListener();
-    };
-  }, []);
+    const userSavedRecipesPath = `Users/${user.uid}/SavedRecipes`;
 
-  function unsaveRecipe() {
+    const unsubscribeFromSavedRecipes = firestoreListener.subscribeToCollection(
+      userSavedRecipesPath,
+      (docs) => {
+        const recipes = docs.map((doc) => doc);
+        setSavedRecipes(recipes);
+      }
+    );
+
+    // Cleanup function
+    return unsubscribeFromSavedRecipes;
+  }, [user.uid]);
+
+  async function unsaveRecipe() {
     meal.isSaved = false;
     //close the modal and remove the recipe
     toggle();
-    deleteRecipe("savedRecipes", String(meal.id));
+    try {
+      const collectionPath = `Users/${user.uid}/SavedRecipes/`;
+      await FirestoreService.deleteDocument(
+        collectionPath,
+        String(meal.id),
+        "recipe"
+      );
+    } catch (error) {
+      console.error("Error deleting the document:", error);
+    }
   }
 
   let recipeDetails;
