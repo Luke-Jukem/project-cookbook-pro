@@ -8,7 +8,7 @@ import {
 import RecipeDetails from "./RecipeDetails";
 import { useAuth } from "../utils/AuthContext";
 import FirestoreService from "../firebase/FirebaseService.js";
-import FirestoreListener from "../firebase/FirestoreListeners/FirestoreListener.js";
+import FirestoreListener from "../firebase/FirestoreListener.js";
 
 const savedMeals = () => {
   const [savedRecipes, setSavedRecipes] = useState([""]);

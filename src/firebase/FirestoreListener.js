@@ -1,4 +1,4 @@
-import { firestoreDb } from "../firebaseConfig.js";
+import { firestoreDb } from "./firebaseConfig.js";
 import { collection, onSnapshot, query } from "firebase/firestore";
 
 class FirestoreListener {

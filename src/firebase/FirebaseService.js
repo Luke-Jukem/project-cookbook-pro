@@ -7,7 +7,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { firestoreDb } from "./firebaseConfig";
-import FirebaseConverter from "../utils/FirebaseConverter";
+import FirebaseConverter from "./FirebaseConverter";
 
 class FirestoreService {
   static async getDocument(collectionPath, documentId, dataType) {
