@@ -1,5 +1,5 @@
 import { collection, query, onSnapshot } from "firebase/firestore";
-import { firestoreDb } from "./firebaseConfig.js";
+import { firestoreDb } from "../firebaseConfig.js";
 
 /**
  * needs a collection name and useState setter
@@ -8,7 +8,7 @@ import { firestoreDb } from "./firebaseConfig.js";
  * @param {String} collectionName
  * @returns {Unsubscribe}
  */
-function getListener(collectionName, setter) {
+function getQuickOrderListener(collectionName, setter) {
   var q = query(collection(firestoreDb, collectionName));
 
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -23,4 +23,4 @@ function getListener(collectionName, setter) {
   return unsubscribe;
 }
 
-export default getListener;
+export default getQuickOrderListener;
