@@ -51,15 +51,6 @@
   cursor: pointer;
 }
 
-.option-description {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  }
-  
-  .option-description.show {
-    opacity: 1;
-  }
-
 @media (min-width: 600px) {
   .meal-form-container {
     width: 80%;

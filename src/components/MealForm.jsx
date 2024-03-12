@@ -57,7 +57,7 @@ const MealForm = ({ selectedDay, addPlan, closeModal }) => {
           </button>
         </div>
       )}
-      {showText && <p className={`option-description ${showText !== '' ? 'show' : ''}`}>{showText}</p>}
+      {showText && <p>{showText}</p>}
       {option === "Saved" && <p>Saved Meals</p>}
       {option === "Recommended" && <p>Recommended Meals</p>}
       {option === "Custom" && (
