@@ -5,6 +5,7 @@ import "../css/mealFormStyle.css";
 const MealForm = ({ selectedDay, addPlan, closeModal }) => {
   const { register, handleSubmit, watch, errors } = useForm();
   const [option, setOption] = useState(null);
+  const [showText, setShowText] = useState("");
 
   const watchAddToCart = watch("autoAddToCart", false);
 
@@ -22,19 +23,41 @@ const MealForm = ({ selectedDay, addPlan, closeModal }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="meal-form-container">
+      <button type="button" onClick={closeModal} className="exit-button">
+        X
+      </button>
       {!option && (
         <div>
-          <button type="button" onClick={() => setOption("Saved")}>
+          <button
+            type="button"
+            className="option-button"
+            onClick={() => setOption("Saved")}
+            onMouseEnter={() => setShowText("Choose from your saved recipes.")}
+            onMouseLeave={() => setShowText("")}
+          >
             Saved
           </button>
-          <button type="button" onClick={() => setOption("Recommended")}>
+          <button
+            type="button"
+            className="option-button"
+            onClick={() => setOption("Recommended")}
+            onMouseEnter={() => setShowText("Choose from recommended recipes.")}
+            onMouseLeave={() => setShowText("")}
+          >
             Recommended
           </button>
-          <button type="button" onClick={() => setOption("Custom")}>
+          <button
+            type="button"
+            className="option-button"
+            onClick={() => setOption("Custom")}
+            onMouseEnter={() => setShowText("Input a custom meal.")}
+            onMouseLeave={() => setShowText("")}
+          >
             Custom
           </button>
         </div>
       )}
+      {showText && <p className={`option-description ${showText !== '' ? 'show' : ''}`}>{showText}</p>}
       {option === "Saved" && <p>Saved Meals</p>}
       {option === "Recommended" && <p>Recommended Meals</p>}
       {option === "Custom" && (
