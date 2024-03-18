@@ -71,9 +71,6 @@ class MealDataManager {
           recipe.servings,
           recipe.summary
         );
-
-        PutRecipe("recipes", mappedResult);
-
         return mappedResult;
       });
 
