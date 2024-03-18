@@ -1,5 +1,5 @@
 import { firestoreDb } from "./firebaseConfig.js";
-import { collection, onSnapshot, query } from "firebase/firestore";
+import { collection, doc, onSnapshot, query } from "firebase/firestore";
 
 class FirestoreListener {
   constructor() {
@@ -12,7 +12,8 @@ class FirestoreListener {
    * @param {Function} callback - The callback function to be executed when data changes
    */
   subscribeToDocument(documentPath, callback) {
-    this.unsubscribe = firestoreDb.doc(documentPath).onSnapshot((snapshot) => {
+    const docRef = doc(firestoreDb, documentPath);
+    this.unsubscribe = onSnapshot(docRef, (snapshot) => {
       callback(snapshot);
     });
   }
@@ -23,6 +24,7 @@ class FirestoreListener {
    * @param {Function} callback - The callback function to be executed when data changes
    */
   subscribeToCollection(collectionPath, callback) {
+    console.log("Attempting query on:", collectionPath);
     const q = query(collection(firestoreDb, collectionPath));
     this.unsubscribe = onSnapshot(q, (querySnapshot) => {
       const data = [];
