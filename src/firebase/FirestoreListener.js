@@ -24,7 +24,6 @@ class FirestoreListener {
    * @param {Function} callback - The callback function to be executed when data changes
    */
   subscribeToCollection(collectionPath, callback) {
-    console.log("Attempting query on:", collectionPath);
     const q = query(collection(firestoreDb, collectionPath));
     this.unsubscribe = onSnapshot(q, (querySnapshot) => {
       const data = [];
