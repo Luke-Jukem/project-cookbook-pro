@@ -1,6 +1,6 @@
 import { doc, setDoc } from "firebase/firestore";
 import { firestoreDb } from "./firebaseConfig.js";
-import FirebaseConverter from "../utils/FirebaseConverter.js";
+import FirebaseConverter from "./FirebaseConverter.js";
 
 const fb = new FirebaseConverter();
 const recipeConverter = fb.recipeConverter;

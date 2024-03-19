@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import getListener from "../firebase/setListener.js";
+import getQuickOrderListener from "../firebase/FirestoreListeners/QuickOrderListener.js";
 import {
   ListGroup,
   ListGroupItem,
@@ -7,7 +7,7 @@ import {
   Button,
   Input,
 } from "reactstrap";
-
+import RecipeDetails from "../components/RecipeDetails";
 import deleteRecipe from "../firebase/deleteRecipe";
 import { Ingredient } from "../customObjects/Ingredient.js";
 
@@ -69,9 +69,15 @@ const quickOrder = () => {
     setShowDetails(!showDetails);
   };
 
-  //important to only get 1 listener, so use this thingy
   useEffect(() => {
-    const unsubscibe = getListener("quickOrder", setSavedRecipes);
+    const unsubscribeFromQuickOrderListener = getQuickOrderListener(
+      "quickOrder",
+      setSavedRecipes
+    );
+    // Cleanup function
+    return () => {
+      unsubscribeFromQuickOrderListener();
+    };
   }, []);
 
   let recipeDetails;

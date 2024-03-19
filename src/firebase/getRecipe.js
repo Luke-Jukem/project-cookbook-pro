@@ -1,8 +1,6 @@
-import { doc, getDoc, getFirestore } from "firebase/firestore";
-import { firebaseApp } from "./firebaseConfig.js";
-import FirebaseConverter from "../managers_and_parsers/FirebaseConverter.js";
-
-const db = getFirestore(firebaseApp);
+import { doc, getDoc } from "firebase/firestore";
+import { firestoreDb } from "./firebaseConfig.js";
+import FirebaseConverter from "./FirebaseConverter.js";
 
 const fb = new FirebaseConverter();
 const recipeConverter = fb.recipeConverter;
@@ -13,7 +11,7 @@ const recipeConverter = fb.recipeConverter;
  * @returns promise
  */
 async function GetRecipes(collection, recipeID) {
-  const docRef = doc(db, collection, recipeID);
+  const docRef = doc(firestoreDb, collection, recipeID);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
