@@ -35,13 +35,13 @@ class FirestoreService {
         typeof collectionPath !== "string"
       ) {
         console.error(
-          "Invalid collection path. Collection path must be a string or an array of strings."
+          "Invalid collection path. Collection path must be a string or an array of strings.",
         );
         return null;
       }
 
       const docRef = doc(collectionRef, String(data.id)).withConverter(
-        converter.objectConverter // Use the objectConverter for generic objects
+        converter.objectConverter, // Use the objectConverter for generic objects
       );
 
       // Convert the data using the objectConverter
@@ -58,7 +58,7 @@ class FirestoreService {
   static async updateDocument(collectionPath, documentId, data, dataType) {
     const firebaseConverter = new FirebaseConverter();
     const docRef = doc(firestoreDb, collectionPath, documentId).withConverter(
-      getConverter(dataType, firebaseConverter)
+      getConverter(dataType, firebaseConverter),
     );
     try {
       await updateDoc(docRef, data);
@@ -78,17 +78,16 @@ class FirestoreService {
         typeof collectionPath !== "string"
       ) {
         console.error(
-          "Invalid collection path. Collection path must be a string or an array of strings."
+          "Invalid collection path. Collection path must be a string or an array of strings.",
         );
         return null;
       }
 
       const docRef = doc(collectionRef, String(documentId)).withConverter(
-        converter.objectConverter // Use the objectConverter for generic objects
+        converter.objectConverter, // Use the objectConverter for generic objects
       );
 
       await deleteDoc(docRef);
-
     } catch (error) {
       console.error("Error deleting document: ", error);
     }

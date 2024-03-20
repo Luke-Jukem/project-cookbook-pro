@@ -63,3 +63,19 @@
     max-width: none;
   }
 }
+
+.meal-entry {
+  display: flex;
+  align-items: center;
+  background-color: pink;
+  border-radius: 2%;
+  margin-bottom: 1%;
+}
+
+.meal-entry img {
+  width: 100px;
+}
+
+.meal-entry p {
+  padding-left: 3%;
+}

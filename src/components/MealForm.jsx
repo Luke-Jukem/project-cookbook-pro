@@ -1,13 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import "../css/mealFormStyle.css";
+import FirestoreListener from "../firebase/FirestoreListener.js";
+import { useAuth } from "../utils/AuthContext";
 
+//form for inputting/selecting meals in calendar
+//opens as modal on calendar page
 const MealForm = ({ selectedDay, addPlan, closeModal }) => {
   const { register, handleSubmit, watch, errors } = useForm();
   const [option, setOption] = useState(null);
   const [showText, setShowText] = useState("");
+  const [savedRecipes, setSavedRecipes] = useState([]);
+  const { user } = useAuth();
+  const firestoreListener = new FirestoreListener();
 
   const watchAddToCart = watch("autoAddToCart", false);
+
+  useEffect(() => {
+    const userSavedRecipesPath = `Users/${user.uid}/SavedRecipes`;
+
+    const unsubscribeFromSavedRecipes = firestoreListener.subscribeToCollection(
+      userSavedRecipesPath,
+      (docs) => {
+        const recipes = docs.map((doc) => doc);
+        setSavedRecipes(recipes);
+      },
+    );
+
+    return () => {
+      firestoreListener.stopListening();
+    };
+  }, [user.uid]);
 
   const onSubmit = (data) => {
     addPlan(
@@ -58,7 +81,19 @@ const MealForm = ({ selectedDay, addPlan, closeModal }) => {
         </div>
       )}
       {showText && <p>{showText}</p>}
-      {option === "Saved" && <p>Saved Meals</p>}
+      {option === "Saved" && (
+        <div>
+          {savedRecipes.map((recipe, index) => (
+            //planning on making each entry some sort of card
+            //basic info shown will be name, photo, calories
+            //when clicked, a modal will open with further information
+            <div key={index} className="meal-entry">
+              <img src={recipe.image} alt={recipe.name} />
+              <p>{recipe.name}</p>
+            </div>
+          ))}
+        </div>
+      )}
       {option === "Recommended" && <p>Recommended Meals</p>}
       {option === "Custom" && (
         <>

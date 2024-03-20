@@ -31,7 +31,7 @@ const savedMeals = () => {
       (docs) => {
         const recipes = docs.map((doc) => doc);
         setSavedRecipes(recipes);
-      }
+      },
     );
 
     // Cleanup function
@@ -47,7 +47,7 @@ const savedMeals = () => {
       await FirestoreService.deleteDocument(
         collectionPath,
         String(meal.id),
-        "recipe"
+        "recipe",
       );
     } catch (error) {
       console.error("Error deleting the document:", error);

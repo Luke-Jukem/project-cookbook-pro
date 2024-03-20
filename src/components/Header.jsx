@@ -21,7 +21,7 @@ const Header = () => {
     <div id="header" className="header">
       <div>
         <Link id="header-logo" to="/">
-          INSERT LOGO
+          CookBook-Pro
         </Link>
       </div>
       <div className="links--wrapper">

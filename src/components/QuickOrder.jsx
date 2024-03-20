@@ -72,7 +72,7 @@ const quickOrder = () => {
   useEffect(() => {
     const unsubscribeFromQuickOrderListener = getQuickOrderListener(
       "quickOrder",
-      setSavedRecipes
+      setSavedRecipes,
     );
     // Cleanup function
     return () => {
