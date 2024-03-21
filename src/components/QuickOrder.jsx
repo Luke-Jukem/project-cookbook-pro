@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import getQuickOrderListener from "../firebase/FirestoreListeners/QuickOrderListener.js";
 import {
   ListGroup,
   ListGroupItem,
@@ -8,8 +7,9 @@ import {
   Input,
 } from "reactstrap";
 import RecipeDetails from "../components/RecipeDetails";
-import deleteRecipe from "../firebase/deleteRecipe";
 import { Ingredient } from "../customObjects/Ingredient.js";
+import FirestoreService from "../firebase/FirebaseService.js";
+import FirestoreListener from "../firebase/FirestoreListener.js";
 
 const quickOrder = () => {
   const [savedRecipes, setSavedRecipes] = useState([""]);
@@ -18,6 +18,7 @@ const quickOrder = () => {
   const [email, setEmail] = useState("");
 
   const subject = "Your CookBook Pro shopping list";
+  const firestoreListener = new FirestoreListener();
 
   const mailLinkGenerator = () => {
     let body = "";
@@ -70,22 +71,42 @@ const quickOrder = () => {
   };
 
   useEffect(() => {
-    const unsubscribeFromQuickOrderListener = getQuickOrderListener(
-      "quickOrder",
-      setSavedRecipes
+    const quickOrderPath = `quickOrder`;
+
+    const unsubscribeFromQuickOrder = firestoreListener.subscribeToCollection(
+      quickOrderPath,
+      (docs) => {
+        const recipes = docs.map((doc) => doc);
+        setSavedRecipes(recipes);
+      }
     );
+
     // Cleanup function
-    return () => {
-      unsubscribeFromQuickOrderListener();
-    };
+    return unsubscribeFromQuickOrder;
   }, []);
+
+  async function removeRecipeFromQuickOrder(
+    collectionPath,
+    documentId,
+    dataType
+  ) {
+    try {
+      await FirestoreService.deleteDocument(
+        collectionPath,
+        documentId,
+        dataType
+      );
+    } catch (error) {
+      console.error("Error creating document:", error);
+    }
+  }
 
   let recipeDetails;
   const buttonOptions = (
     <Button
       onClick={() => {
+        removeRecipeFromQuickOrder("quickOrder", String(meal.id), "recipe");
         toggle();
-        deleteRecipe("quickOrder", String(meal.id));
       }}
     >
       Remove from order
