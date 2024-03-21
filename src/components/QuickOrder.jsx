@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import getQuickOrderListener from "../firebase/FirestoreListeners/QuickOrderListener.js";
 import {
   ListGroup,
   ListGroupItem,
@@ -10,6 +9,7 @@ import {
 import RecipeDetails from "../components/RecipeDetails";
 import { Ingredient } from "../customObjects/Ingredient.js";
 import FirestoreService from "../firebase/FirebaseService.js";
+import FirestoreListener from "../firebase/FirestoreListener.js";
 
 const quickOrder = () => {
   const [savedRecipes, setSavedRecipes] = useState([""]);
@@ -18,6 +18,7 @@ const quickOrder = () => {
   const [email, setEmail] = useState("");
 
   const subject = "Your CookBook Pro shopping list";
+  const firestoreListener = new FirestoreListener();
 
   const mailLinkGenerator = () => {
     let body = "";
@@ -70,14 +71,18 @@ const quickOrder = () => {
   };
 
   useEffect(() => {
-    const unsubscribeFromQuickOrderListener = getQuickOrderListener(
-      "quickOrder",
-      setSavedRecipes
+    const quickOrderPath = `quickOrder`;
+
+    const unsubscribeFromQuickOrder = firestoreListener.subscribeToCollection(
+      quickOrderPath,
+      (docs) => {
+        const recipes = docs.map((doc) => doc);
+        setSavedRecipes(recipes);
+      }
     );
+
     // Cleanup function
-    return () => {
-      unsubscribeFromQuickOrderListener();
-    };
+    return unsubscribeFromQuickOrder;
   }, []);
 
   async function removeRecipeFromQuickOrder(
@@ -85,7 +90,6 @@ const quickOrder = () => {
     documentId,
     dataType
   ) {
-    // Build the path here with the context provided by the current user
     try {
       await FirestoreService.deleteDocument(
         collectionPath,
@@ -101,11 +105,7 @@ const quickOrder = () => {
   const buttonOptions = (
     <Button
       onClick={() => {
-        removeRecipeFromQuickOrder(
-          `Users/${user.uid}/SavedRecipes/`,
-          String(meal.id),
-          "recipe"
-        );
+        removeRecipeFromQuickOrder("quickOrder", String(meal.id), "recipe");
         toggle();
       }}
     >

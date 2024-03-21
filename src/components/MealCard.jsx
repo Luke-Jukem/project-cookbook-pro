@@ -18,7 +18,7 @@ const MealCard = ({ meal }) => {
   };
   const { user } = useAuth();
 
-  async function saveRecipeToUser(collectionPath, documentId, data, dataType) {
+  async function saveData(collectionPath, documentId, data, dataType) {
     /*
         TODO: also refactor to remove showDetails and replace the toggle function
         they are extra and we can achive the same functionality by checking if meal is null or not
@@ -50,7 +50,7 @@ const MealCard = ({ meal }) => {
       <Button
         color="primary"
         onClick={() => {
-          saveRecipeToUser(
+          saveData(
             `Users/${user.uid}/SavedRecipes/`,
             String(meal.id),
             meal,
@@ -95,7 +95,7 @@ const MealCard = ({ meal }) => {
         />
         <Button
           onClick={() => {
-            saveData("quickOrder", String(meal.id), meal);
+            saveData("quickOrder", String(meal.id), meal, "recipe");
           }}
         >
           Add to Quick Order
