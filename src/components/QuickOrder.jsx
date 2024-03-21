@@ -8,8 +8,8 @@ import {
   Input,
 } from "reactstrap";
 import RecipeDetails from "../components/RecipeDetails";
-import deleteRecipe from "../firebase/deleteRecipe";
 import { Ingredient } from "../customObjects/Ingredient.js";
+import FirestoreService from "../firebase/FirebaseService.js";
 
 const quickOrder = () => {
   const [savedRecipes, setSavedRecipes] = useState([""]);
@@ -80,12 +80,33 @@ const quickOrder = () => {
     };
   }, []);
 
+  async function removeRecipeFromQuickOrder(
+    collectionPath,
+    documentId,
+    dataType
+  ) {
+    // Build the path here with the context provided by the current user
+    try {
+      await FirestoreService.deleteDocument(
+        collectionPath,
+        documentId,
+        dataType
+      );
+    } catch (error) {
+      console.error("Error creating document:", error);
+    }
+  }
+
   let recipeDetails;
   const buttonOptions = (
     <Button
       onClick={() => {
+        removeRecipeFromQuickOrder(
+          `Users/${user.uid}/SavedRecipes/`,
+          String(meal.id),
+          "recipe"
+        );
         toggle();
-        deleteRecipe("quickOrder", String(meal.id));
       }}
     >
       Remove from order

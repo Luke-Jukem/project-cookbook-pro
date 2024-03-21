@@ -38,17 +38,17 @@ const savedMeals = () => {
     return unsubscribeFromSavedRecipes;
   }, [user.uid]);
 
-  async function unsaveRecipe() {
+  async function unsaveRecipeFromCurrentUser(
+    collectionPath,
+    documentId,
+    dataType
+  ) {
     meal.isSaved = false;
-    //close the modal and remove the recipe
-    toggle();
     try {
-      const collectionPath = `Users/${user.uid}/SavedRecipes/`;
-      const documentId = String(meal.id);
       await FirestoreService.deleteDocument(
         collectionPath,
         documentId,
-        "recipe"
+        dataType
       );
     } catch (error) {
       console.error("Error deleting the document:", error);
@@ -59,7 +59,18 @@ const savedMeals = () => {
 
   const buttonOptions = (
     <>
-      <Button color="primary" onClick={unsaveRecipe}>
+      <Button
+        color="primary"
+        onClick={() => {
+          unsaveRecipeFromCurrentUser(
+            `Users/${user.uid}/SavedRecipes/`,
+            String(meal.id),
+            "recipe"
+          );
+          //close the modal and remove the recipe
+          toggle();
+        }}
+      >
         Unsave recipe
       </Button>
       <Button color="secondary" onClick={toggle}>

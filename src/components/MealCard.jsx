@@ -18,7 +18,7 @@ const MealCard = ({ meal }) => {
   };
   const { user } = useAuth();
 
-  async function saveData(collectionPath, documentId, data) {
+  async function saveRecipeToUser(collectionPath, documentId, data, dataType) {
     /*
         TODO: also refactor to remove showDetails and replace the toggle function
         they are extra and we can achive the same functionality by checking if meal is null or not
@@ -32,7 +32,7 @@ const MealCard = ({ meal }) => {
         collectionPath,
         documentId,
         data,
-        "recipe"
+        dataType
       );
     } catch (error) {
       console.error("Error creating document:", error);
@@ -50,7 +50,12 @@ const MealCard = ({ meal }) => {
       <Button
         color="primary"
         onClick={() => {
-          saveData(`Users/${user.uid}/SavedRecipes/`, String(meal.id), meal);
+          saveRecipeToUser(
+            `Users/${user.uid}/SavedRecipes/`,
+            String(meal.id),
+            meal,
+            "recipe"
+          );
           toggle();
         }}
       >
