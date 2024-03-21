@@ -24,7 +24,7 @@ class FirestoreService {
     }
   }
 
-  static async createDocument(collectionPath, data, dataType) {
+  static async createDocument(collectionPath, documentId, data, dataType) {
     try {
       const firebaseConverter = new FirebaseConverter();
       const converter = getConverter(dataType, firebaseConverter);
@@ -40,8 +40,8 @@ class FirestoreService {
         return null;
       }
 
-      const docRef = doc(collectionRef, String(data.id)).withConverter(
-        converter.objectConverter, // Use the objectConverter for generic objects
+      const docRef = doc(collectionRef, documentId).withConverter(
+        converter.objectConverter // Use the objectConverter for generic objects
       );
 
       // Convert the data using the objectConverter

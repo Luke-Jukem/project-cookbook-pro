@@ -4,7 +4,6 @@
 // Ingredients as well as Meals will be handled by this manager (for now)
 import { Recipe } from "../customObjects/Recipe.js";
 import { Ingredient } from "../customObjects/Ingredient.js";
-import PutRecipe from "../firebase/putRecipe.js";
 class MealDataManager {
   constructor() {
     // https://spoonacular.com/food-api/console#Dashboard
