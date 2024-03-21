@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CookBookPro</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_dashboard">New</string>
+    <string name="title_notifications">Profile</string>
+    <string name="default_web_client_id">736357828051-matr4u7qb4d3b18t932qc2chicnl0673.apps.googleusercontent.com</string>
 </resources>

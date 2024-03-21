@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "736357828051",
+    "project_id": "cookbook-pro-49b95",
+    "storage_bucket": "cookbook-pro-49b95.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:736357828051:android:f4eaeb0b4e0786aae0db26",
+        "android_client_info": {
+          "package_name": "com.example.cookbookpro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "736357828051-matr4u7qb4d3b18t932qc2chicnl0673.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-ZUtlsLmFmoNSgqpypR1jqO5PQOs2hkE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "736357828051-matr4u7qb4d3b18t932qc2chicnl0673.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
