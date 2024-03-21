@@ -8,7 +8,6 @@ import {
   CardTitle,
 } from "reactstrap";
 import RecipeDetails from "./RecipeDetails";
-import PutRecipe from "../firebase/putRecipe.js";
 import FirestoreService from "../firebase/FirebaseService.js";
 import { useAuth } from "../utils/AuthContext";
 
@@ -19,7 +18,7 @@ const MealCard = ({ meal }) => {
   };
   const { user } = useAuth();
 
-  async function saveData() {
+  async function saveData(collectionPath, documentId, data) {
     /*
         TODO: also refactor to remove showDetails and replace the toggle function
         they are extra and we can achive the same functionality by checking if meal is null or not
@@ -29,12 +28,15 @@ const MealCard = ({ meal }) => {
 
     // Build the path here with the context provided by the current user
     try {
-      const collectionPath = `Users/${user.uid}/SavedRecipes/`;
-      await FirestoreService.createDocument(collectionPath, meal, "recipe");
+      await FirestoreService.createDocument(
+        collectionPath,
+        documentId,
+        data,
+        "recipe"
+      );
     } catch (error) {
       console.error("Error creating document:", error);
     }
-    toggle(); //close modal
   }
 
   const width = { width: "18rem" };
@@ -45,7 +47,13 @@ const MealCard = ({ meal }) => {
 
   const buttonOptions = (
     <>
-      <Button color="primary" onClick={saveData}>
+      <Button
+        color="primary"
+        onClick={() => {
+          saveData(`Users/${user.uid}/SavedRecipes/`, String(meal.id), meal);
+          toggle();
+        }}
+      >
         Save Recipe
       </Button>
       <Button color="secondary" onClick={toggle}>
@@ -82,7 +90,7 @@ const MealCard = ({ meal }) => {
         />
         <Button
           onClick={() => {
-            PutRecipe("quickOrder", meal);
+            saveData("quickOrder", String(meal.id), meal);
           }}
         >
           Add to Quick Order

@@ -44,9 +44,10 @@ const savedMeals = () => {
     toggle();
     try {
       const collectionPath = `Users/${user.uid}/SavedRecipes/`;
+      const documentId = String(meal.id);
       await FirestoreService.deleteDocument(
         collectionPath,
-        String(meal.id),
+        documentId,
         "recipe"
       );
     } catch (error) {
