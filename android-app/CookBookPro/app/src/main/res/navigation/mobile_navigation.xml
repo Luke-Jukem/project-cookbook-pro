@@ -7,19 +7,31 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.cookbookpro.ui.home.HomeFragment"
+        android:name="com.example.cookbookpro.ui.fragmentContainers.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home"/>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.cookbookpro.ui.dashboard.DashboardFragment"
+        android:id="@+id/navigation_profile"
+        android:name="com.example.cookbookpro.ui.fragmentContainers.profile.ProfileFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.cookbookpro.ui.notifications.NotificationsFragment"
+        android:name="com.example.cookbookpro.ui.fragmentContainers.newListItem.NewListItemFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_new_list_item" />
+
+    <fragment
+        android:id="@+id/navigation_ingredient_list"
+        android:name="com.example.cookbookpro.ui.ingredientsList.IngredientListFragment"
+        android:label="Ingredient List"
+        tools:layout="@layout/fragment_ingredient_list"/>
+
+    <fragment
+        android:id="@+id/navigation_sign_in"
+        android:name="com.example.cookbookpro.ui.fragmentContainers.home.homeFragments.signInFragment.SignIn"
+        android:label="Sign In"
+        tools:layout="@layout/fragment_sign_in"/>
 </navigation>
