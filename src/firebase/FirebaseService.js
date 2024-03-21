@@ -24,7 +24,7 @@ class FirestoreService {
     }
   }
 
-  static async createDocument(collectionPath, data, dataType) {
+  static async createDocument(collectionPath, documentId, data, dataType) {
     try {
       const firebaseConverter = new FirebaseConverter();
       const converter = getConverter(dataType, firebaseConverter);
@@ -40,7 +40,7 @@ class FirestoreService {
         return null;
       }
 
-      const docRef = doc(collectionRef, String(data.id)).withConverter(
+      const docRef = doc(collectionRef, documentId).withConverter(
         converter.objectConverter // Use the objectConverter for generic objects
       );
 
@@ -88,7 +88,6 @@ class FirestoreService {
       );
 
       await deleteDoc(docRef);
-
     } catch (error) {
       console.error("Error deleting document: ", error);
     }
