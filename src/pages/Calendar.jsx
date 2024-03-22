@@ -4,9 +4,13 @@ import Modal from "react-modal";
 import MealForm from "../components/MealForm";
 import "react-calendar/dist/Calendar.css";
 import "../css/calendarStyle.css";
+import FirestoreService from "../firebase/FirebaseService.js";
+import { useAuth } from "../utils/AuthContext";
 
 //rough calendar implementation
 const MyCalendar = () => {
+  //firebase auth
+  const { user } = useAuth();
   //state variables, initial value of date and selectedDay are both current date
   const [date, setDate] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(new Date());
@@ -43,7 +47,6 @@ const MyCalendar = () => {
     addToCartTime,
   ) => {
     const newPlan = {
-      //this splits the string and discards the time
       date: selectedDay.toISOString().split("T")[0],
       meals: [
         {
@@ -57,6 +60,10 @@ const MyCalendar = () => {
       ],
     };
     setPlans([...plans, newPlan]);
+  
+    //saving plan to firestore
+    //not working currently, have to mess with firebaseconverter
+    // console.log(FirestoreService.createDocument(`Users/${user.uid}/MealPlans/`, String(selectedDay.toISOString().split("T")[0]), newPlan));
   };
 
   //opening/closing modal (meal form)
