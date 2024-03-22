@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Recipe } from "../customObjects/Recipe";
 import { Ingredient } from "../customObjects/Ingredient";
+import SavedMeals from "../components/SavedMeals";
 import MappedInputFieldsForm from "../components/MappedInputFieldsForm";
 
 const CreateRecipe = () => {
@@ -119,56 +120,61 @@ const CreateRecipe = () => {
   };
 
   return (
-    <div className="recipe-creation-container">
-      <div id="recipe-container">
-        Recipe Container
-        <MappedInputFieldsForm
-          fields={recipeFields}
-          formData={recipeFormData}
-          onChange={(e) =>
-            setRecipeFormData({
-              ...recipeFormData,
-              [e.target.name]: e.target.value,
-            })
-          }
-          onSubmit={handleRecipeSubmit}
-        />
-        <button type="button" onClick={handleSubmitRecipe}>
-          Submit Recipe
-        </button>
+    <div className="recipe-creation-page">
+      <div className="saved-meals-container">
+        <SavedMeals />
       </div>
-      <div id="ingredient-container">
-        Ingredients Container
-        {ingredients.map((ingredient, index) => (
-          <div key={index}>
-            <MappedInputFieldsForm
-              fields={ingredientFields}
-              formData={ingredient}
-              onChange={(e) =>
-                setIngredients((prevIngredients) =>
-                  prevIngredients.map((prevIngredient, i) =>
-                    i === index
-                      ? { ...prevIngredient, [e.target.name]: e.target.value }
-                      : prevIngredient
+      <div className="recipe-creation-container">
+        <div id="recipe-container">
+          Recipe Container
+          <MappedInputFieldsForm
+            fields={recipeFields}
+            formData={recipeFormData}
+            onChange={(e) =>
+              setRecipeFormData({
+                ...recipeFormData,
+                [e.target.name]: e.target.value,
+              })
+            }
+            onSubmit={handleRecipeSubmit}
+          />
+          <button type="button" onClick={handleSubmitRecipe}>
+            Submit Recipe
+          </button>
+        </div>
+        <div id="ingredient-container">
+          Ingredients Container
+          {ingredients.map((ingredient, index) => (
+            <div key={index}>
+              <MappedInputFieldsForm
+                fields={ingredientFields}
+                formData={ingredient}
+                onChange={(e) =>
+                  setIngredients((prevIngredients) =>
+                    prevIngredients.map((prevIngredient, i) =>
+                      i === index
+                        ? { ...prevIngredient, [e.target.name]: e.target.value }
+                        : prevIngredient
+                    )
                   )
-                )
-              }
-              onSubmit={handleIngredientSubmit}
-            />
-            {/* Only render the "Remove Ingredient" button if there is more than one ingredient */}
-            {ingredients.length > 1 && (
-              <button
-                type="button"
-                onClick={() => removeIngredient(ingredient.id)}
-              >
-                Remove Ingredient
-              </button>
-            )}
-          </div>
-        ))}
-        <button type="button" onClick={addIngredient}>
-          Add New Ingredient
-        </button>
+                }
+                onSubmit={handleIngredientSubmit}
+              />
+              {/* Only render the "Remove Ingredient" button if there is more than one ingredient */}
+              {ingredients.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => removeIngredient(ingredient.id)}
+                >
+                  Remove Ingredient
+                </button>
+              )}
+            </div>
+          ))}
+          <button type="button" onClick={addIngredient}>
+            Add New Ingredient
+          </button>
+        </div>
       </div>
     </div>
   );

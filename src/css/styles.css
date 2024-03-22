@@ -84,3 +84,16 @@ body {
   flex-direction: column;
   gap: 20px;
 }
+
+.recipe-creation-page {
+  display: flex;
+}
+
+.saved-meals-container {
+  flex: 0 0 200px; /* Adjust the width as needed */
+  margin-right: 20px; /* Add some spacing between the containers */
+}
+
+.recipe-creation-container {
+  flex: 1;
+}
