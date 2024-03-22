@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Header from "./components/Header";
 import Health from "./pages/Health";
+import CreateRecipe from "./pages/CreateRecipe";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { AuthProvider } from "./utils/AuthContext";
 import "./css/styles.css";
@@ -23,6 +24,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
             <Route path="/health" element={<Health />} />
+            <Route path="/create-recipe" element={<CreateRecipe />} />
           </Route>
         </Routes>
       </AuthProvider>
