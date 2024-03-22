@@ -7,10 +7,7 @@ const HealthPage = () => {
     <Container>
       <h1 className="d-flex justify-content-center">Health Page</h1>
       <Row>
-        <Container className="d-flex justify-content-center">
-          <MacroGoalForm />
-          <br></br>
-        </Container>
+        <MacroGoalForm />
       </Row>
     </Container>
   );
