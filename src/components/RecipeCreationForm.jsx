@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useAuth } from "../utils/AuthContext";
 import { Recipe } from "../customObjects/Recipe";
 import { Ingredient } from "../customObjects/Ingredient";
+import FirestoreService from "../firebase/FirebaseService.js";
 import MappedInputFieldsForm from "../components/MappedInputFieldsForm";
 
 const RecipeCreationForm = () => {
@@ -61,6 +63,8 @@ const RecipeCreationForm = () => {
     { name: "unit", label: "Unit", type: "text", placeholder: "Enter unit" },
   ];
 
+  const { user } = useAuth();
+
   const handleIngredientSubmit = (formData, id) => {
     console.log("Ingredient Form Data:", formData);
     setIngredients((prevIngredients) =>
@@ -89,7 +93,7 @@ const RecipeCreationForm = () => {
     );
   };
 
-  const handleSubmitRecipe = () => {
+  async function handleSubmitRecipe() {
     const ingredientObjects = ingredients.map(
       (ingredient) =>
         new Ingredient(
@@ -112,8 +116,23 @@ const RecipeCreationForm = () => {
       recipeFormData.summary
     );
 
+    // Write the new Recipe to the User's CustomRecipes collection
     console.log("Recipe Object:", recipeObject);
-  };
+
+    const collectionPath = `Users/${user.uid}/CustomRecipes`;
+    const documentId = recipeObject.id;
+    const dataType = "recipe";
+    try {
+      await FirestoreService.createDocument(
+        collectionPath,
+        documentId,
+        recipeObject,
+        dataType
+      );
+    } catch (error) {
+      console.error("Error creating document:", error);
+    }
+  }
 
   return (
     <div className="recipe-creation-container">
