@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  ListGroup,
-  ListGroupItem,
-  ListGroupItemHeading,
-  Button,
-} from "reactstrap";
+import { ListGroup, ListGroupItem, Button } from "reactstrap";
 import RecipeDetails from "./RecipeDetails.jsx";
 import { useAuth } from "../utils/AuthContext.js";
 import FirestoreService from "../firebase/FirebaseService.js";

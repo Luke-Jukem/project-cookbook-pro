@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../css/macroGoals.css";
+import "../macroGoals.css";
 
 const MacroGoalForm = () => {
   const [formData, setFormData] = useState({

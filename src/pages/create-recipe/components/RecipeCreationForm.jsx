@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useAuth } from "../utils/AuthContext";
-import { Recipe } from "../customObjects/Recipe";
-import { Ingredient } from "../customObjects/Ingredient";
-import FirestoreService from "../firebase/FirebaseService.js";
-import MappedInputFieldsForm from "../components/MappedInputFieldsForm";
+import { useAuth } from "../../../utils/AuthContext.js";
+import { Recipe } from "../../../customObjects/Recipe.js";
+import { Ingredient } from "../../../customObjects/Ingredient.js";
+import FirestoreService from "../../../firebase/FirebaseService.js";
+import MappedInputFieldsForm from "./MappedInputFieldsForm.jsx";
 
 const RecipeCreationForm = () => {
   const [recipeFormData, setRecipeFormData] = useState({});

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Row, Col, Container, Spinner } from "reactstrap";
-import MealCard from "../components/MealCard.jsx";
-import QuickOrder from "../components/QuickOrder.jsx";
-import SearchBox from "../components/SearchBox.jsx";
-import MealDataManager from "../utils/MealDataManager.js";
+import MealCard from "../../components/MealCard.jsx";
+import QuickOrder from "../../components/QuickOrder.jsx";
+import SearchBox from "./components/SearchBox.jsx";
+import MealDataManager from "../../utils/MealDataManager.js";
 import InfiniteScroll from "react-infinite-scroll-component";
-import UserRecipesViewer from "../components/UserRecipesViewer.jsx";
+import UserRecipesViewer from "../../components/UserRecipesViewer.jsx";
 
 const SearchPage = () => {
   const [searchResults, setSearchResults] = useState("initial page load");

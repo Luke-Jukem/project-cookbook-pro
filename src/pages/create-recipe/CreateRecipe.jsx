@@ -1,6 +1,6 @@
 import React from "react";
-import RecipeCreationForm from "../components/RecipeCreationForm";
-import UserRecipesViewer from "../components/UserRecipesViewer";
+import RecipeCreationForm from "./components/RecipeCreationForm";
+import UserRecipesViewer from "../../components/UserRecipesViewer";
 
 const CreateRecipe = () => {
   return (
