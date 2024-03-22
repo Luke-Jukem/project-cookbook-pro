@@ -119,7 +119,7 @@ const CreateRecipe = () => {
   };
 
   return (
-    <div className="container">
+    <div className="recipe-creation-container">
       <div id="recipe-container">
         Recipe Container
         <MappedInputFieldsForm
