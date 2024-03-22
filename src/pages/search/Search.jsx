@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Row, Col, Container, Spinner } from "reactstrap";
-import MealCard from "../components/MealCard.jsx";
-import QuickOrder from "../components/QuickOrder.jsx";
-import SavedMeals from "../components/SavedMeals.jsx";
-import SearchBox from "../components/SearchBox.jsx";
-import MealDataManager from "../utils/MealDataManager.js";
+import MealCard from "../../components/MealCard.jsx";
+import QuickOrder from "../../components/QuickOrder.jsx";
+import SearchBox from "./components/SearchBox.jsx";
+import MealDataManager from "../../utils/MealDataManager.js";
 import InfiniteScroll from "react-infinite-scroll-component";
+import UserRecipesViewer from "../../components/UserRecipesViewer.jsx";
 
 const SearchPage = () => {
   const [searchResults, setSearchResults] = useState("initial page load");
@@ -106,7 +106,7 @@ const SearchPage = () => {
       </Row>
       <Row>
         <Col className="col-2">
-          <SavedMeals />
+          <UserRecipesViewer />
         </Col>
         <Container className="col-8">{results}</Container>
 

@@ -4,12 +4,7 @@ import { useAuth } from "../utils/AuthContext";
 import "../css/styles.css";
 
 const Header = () => {
-  const navigate = useNavigate();
   const { user, logoutUser } = useAuth();
-
-  const logoutClick = () => {
-    navigate("/login");
-  };
 
   return (
     <div id="header" className="header">
@@ -29,6 +24,9 @@ const Header = () => {
             </Link>
             <Link to="/health" className="header--link">
               Health
+            </Link>
+            <Link to="/create-recipe" className="header--link">
+              Create Recipe
             </Link>
             <button onClick={logoutUser} className="btn">
               Logout {user.displayName ? `(${user.displayName})` : ""}
