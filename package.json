@@ -20,7 +20,8 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-router-dom": "^6.0.0",
     "react-scripts": "^5.0.0",
-    "reactstrap": "^9.2.1"
+    "reactstrap": "^9.2.1",
+    "styled-components": "^6.1.8"
   },
   "browserslist": {
     "production": [

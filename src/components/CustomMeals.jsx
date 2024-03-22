@@ -5,12 +5,12 @@ import {
   ListGroupItemHeading,
   Button,
 } from "reactstrap";
-import RecipeDetails from "./RecipeDetails";
-import { useAuth } from "../utils/AuthContext";
+import RecipeDetails from "./RecipeDetails.jsx";
+import { useAuth } from "../utils/AuthContext.js";
 import FirestoreService from "../firebase/FirebaseService.js";
 import FirestoreListener from "../firebase/FirestoreListener.js";
 
-const SavedMeals = () => {
+const CustomMeals = () => {
   const [savedRecipes, setSavedRecipes] = useState([""]);
   const [showDetails, setShowDetails] = useState(false);
   const [meal, setMeal] = useState();
@@ -24,9 +24,9 @@ const SavedMeals = () => {
   };
 
   useEffect(() => {
-    const userSavedRecipesPath = `Users/${user.uid}/SavedRecipes`;
+    const userSavedRecipesPath = `Users/${user.uid}/CustomRecipes`;
 
-    const unsubscribeFromSavedRecipes = firestoreListener.subscribeToCollection(
+    const unsubscribeCustomRecipes = firestoreListener.subscribeToCollection(
       userSavedRecipesPath,
       (docs) => {
         const recipes = docs.map((doc) => doc);
@@ -35,7 +35,7 @@ const SavedMeals = () => {
     );
 
     // Cleanup function
-    return unsubscribeFromSavedRecipes;
+    return unsubscribeCustomRecipes;
   }, [user.uid]);
 
   async function unsaveRecipeFromCurrentUser(
@@ -63,7 +63,7 @@ const SavedMeals = () => {
         color="primary"
         onClick={() => {
           unsaveRecipeFromCurrentUser(
-            `Users/${user.uid}/SavedRecipes/`,
+            `Users/${user.uid}/CustomRecipes/`,
             String(meal.id),
             "recipe"
           );
@@ -104,4 +104,4 @@ const SavedMeals = () => {
   );
 };
 
-export default SavedMeals;
+export default CustomMeals;
