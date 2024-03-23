@@ -97,3 +97,7 @@ body {
 .recipe-creation-container {
   flex: 1;
 }
+
+.card-button {
+  margin-right: 1%;
+}

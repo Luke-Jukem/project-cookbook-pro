@@ -32,7 +32,7 @@ const quickOrder = () => {
             ingredient.amount,
             ingredient.id,
             ingredient.name,
-            ingredient.unit
+            ingredient.unit,
           );
 
           if (ingredientMap.has(newIngredient.id)) {
@@ -47,7 +47,7 @@ const quickOrder = () => {
       body += `%0D%0AIngredients:%0D%0A`;
       ingredientMap.forEach(
         (ingredient) =>
-          (body += `[  ] ${ingredient.amount} ${ingredient.unit} ${ingredient.name}\n%0D%0A`)
+          (body += `[  ] ${ingredient.amount} ${ingredient.unit} ${ingredient.name}\n%0D%0A`),
       );
       body += "%0D%0A";
     }
@@ -78,7 +78,7 @@ const quickOrder = () => {
       (docs) => {
         const recipes = docs.map((doc) => doc);
         setSavedRecipes(recipes);
-      }
+      },
     );
 
     // Cleanup function
@@ -88,13 +88,13 @@ const quickOrder = () => {
   async function removeRecipeFromQuickOrder(
     collectionPath,
     documentId,
-    dataType
+    dataType,
   ) {
     try {
       await FirestoreService.deleteDocument(
         collectionPath,
         documentId,
-        dataType
+        dataType,
       );
     } catch (error) {
       console.error("Error creating document:", error);

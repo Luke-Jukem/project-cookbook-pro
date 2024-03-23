@@ -69,8 +69,8 @@ const RecipeCreationForm = () => {
     console.log("Ingredient Form Data:", formData);
     setIngredients((prevIngredients) =>
       prevIngredients.map((ingredient) =>
-        ingredient.id === id ? formData : ingredient
-      )
+        ingredient.id === id ? formData : ingredient,
+      ),
     );
   };
 
@@ -89,7 +89,7 @@ const RecipeCreationForm = () => {
     }
 
     setIngredients((prevIngredients) =>
-      prevIngredients.filter((ingredient) => ingredient.id !== id)
+      prevIngredients.filter((ingredient) => ingredient.id !== id),
     );
   };
 
@@ -100,8 +100,8 @@ const RecipeCreationForm = () => {
           ingredient.amount,
           ingredient.id,
           ingredient.name,
-          ingredient.unit
-        )
+          ingredient.unit,
+        ),
     );
 
     const recipeObject = new Recipe(
@@ -113,7 +113,7 @@ const RecipeCreationForm = () => {
       [], // instructions is an empty array for now
       recipeFormData.name,
       recipeFormData.servings,
-      recipeFormData.summary
+      recipeFormData.summary,
     );
 
     // Write the new Recipe to the User's CustomRecipes collection
@@ -127,7 +127,7 @@ const RecipeCreationForm = () => {
         collectionPath,
         documentId,
         recipeObject,
-        dataType
+        dataType,
       );
     } catch (error) {
       console.error("Error creating document:", error);
@@ -164,8 +164,8 @@ const RecipeCreationForm = () => {
                   prevIngredients.map((prevIngredient, i) =>
                     i === index
                       ? { ...prevIngredient, [e.target.name]: e.target.value }
-                      : prevIngredient
-                  )
+                      : prevIngredient,
+                  ),
                 )
               }
               onSubmit={handleIngredientSubmit}

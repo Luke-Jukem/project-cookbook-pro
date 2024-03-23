@@ -31,7 +31,7 @@ const SavedMeals = () => {
       (docs) => {
         const recipes = docs.map((doc) => doc);
         setSavedRecipes(recipes);
-      }
+      },
     );
 
     // Cleanup function
@@ -41,14 +41,14 @@ const SavedMeals = () => {
   async function unsaveRecipeFromCurrentUser(
     collectionPath,
     documentId,
-    dataType
+    dataType,
   ) {
     meal.isSaved = false;
     try {
       await FirestoreService.deleteDocument(
         collectionPath,
         documentId,
-        dataType
+        dataType,
       );
     } catch (error) {
       console.error("Error deleting the document:", error);
@@ -65,7 +65,7 @@ const SavedMeals = () => {
           unsaveRecipeFromCurrentUser(
             `Users/${user.uid}/SavedRecipes/`,
             String(meal.id),
-            "recipe"
+            "recipe",
           );
           //close the modal and remove the recipe
           toggle();
