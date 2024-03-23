@@ -19,6 +19,11 @@ const MealCard = ({ meal }) => {
   async function saveData(collectionPath, documentId, data, dataType) {
     const savedMeal = meal;
     savedMeal.isSaved = true;
+    //savedMeal.instructions kept showing up as null, preventing the recipes from being saved
+    if (savedMeal.instructions === undefined) {
+      savedMeal.instructions = "";
+    }
+
     // Build the path here with the context provided by the current user
     try {
       await FirestoreService.createDocument(
