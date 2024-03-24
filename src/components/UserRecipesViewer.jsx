@@ -11,7 +11,7 @@ const ToggleContainer = styled.div`
 `;
 
 const ToggleButton = styled.button`
-  background-color: ${(props) => (props.active ? "#ddd" : "#eee")};
+  background-color: ${(props) => (props.active === "true" ? "#ddd" : "#eee")};
   border: none;
   padding: 0.5rem 1rem;
   cursor: pointer;
@@ -36,13 +36,13 @@ const UserRecipesViewer = () => {
       </h4>
       <ToggleContainer>
         <ToggleButton
-          active={currentCollection === "custom"}
+          active={currentCollection === "custom" ? "true" : undefined}
           onClick={() => toggleCollection("custom")}
         >
           Custom
         </ToggleButton>
         <ToggleButton
-          active={currentCollection === "saved"}
+          active={currentCollection === "saved" ? "true" : undefined}
           onClick={() => toggleCollection("saved")}
         >
           Saved
