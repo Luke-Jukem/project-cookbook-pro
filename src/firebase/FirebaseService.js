@@ -104,6 +104,10 @@ const getConverter = (dataType, firebaseConverter) => {
       return {
         objectConverter: firebaseConverter.ingredientsConverter,
       };
+    case "order":
+      return {
+        objectConverter: firebaseConverter.orderConverter,
+      };
     default:
       return null;
   }

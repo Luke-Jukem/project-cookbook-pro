@@ -121,7 +121,12 @@ const MealCard = ({ meal }) => {
         <Button
           className="card-button"
           onClick={() => {
-            saveData("quickOrder", String(meal.id), meal, "recipe");
+            saveData(
+              `Users/${user.uid}/Cart/`,
+              String(meal.id),
+              meal,
+              "recipe",
+            );
           }}
         >
           Add to Cart
