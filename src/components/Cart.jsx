@@ -10,14 +10,6 @@ const Cart = ({ modalOpen, setModalOpen, cartItems }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedMeal, setSelectedMeal] = useState(null);
 
-  //logging order data to console (can be removed later)
-  const logData = (cartItems, orderData, path, selectedDate) => {
-    console.log("Cart items:", cartItems);
-    console.log("Order data:", orderData);
-    console.log("Path:", path);
-    console.log("Selected date:", selectedDate);
-  };
-
   //button options for RecipeDetails
   const buttonOptions = (
     <Button color="secondary" onClick={() => setSelectedMeal(null)}>
@@ -44,18 +36,24 @@ const Cart = ({ modalOpen, setModalOpen, cartItems }) => {
 
     if (!cartItems.every((item) => item.name && item.ingredients)) {
       console.log(
-        "One or more items in cartItems does not have a name or ingredients",
+        "One or more items in cartItems does not have a name or ingredients"
       );
       return;
     }
 
     //ensuring the user doesn't select a date that's in the past
     const today = new Date();
-    const selectedDateObj = new Date(selectedDate);
-    //sets time 0 to match selectedDateObj
     today.setHours(0, 0, 0, 0);
+    // Subtract one day from today to get yesterday
+    const oneDayInMilliseconds = 24 * 60 * 60 * 1000; // One day in milliseconds
+    const yesterday = new Date(today.getTime() - oneDayInMilliseconds);
 
-    if (selectedDateObj < today) {
+    // Get the selected date without time
+    const selectedDateObj = new Date(selectedDate);
+    selectedDateObj.setHours(0, 0, 0, 0);
+
+    // Check if the selected date is yesterday or before
+    if (selectedDateObj < yesterday) {
       console.log("Selected date is before today");
       return;
     }
@@ -67,14 +65,12 @@ const Cart = ({ modalOpen, setModalOpen, cartItems }) => {
 
     const path = `Users/${user.uid}/Orders`;
 
-    logData(cartItems, orderData, path, selectedDate);
-
     try {
       await FirestoreService.createDocument(
         `Users/${user.uid}/Orders`,
         selectedDate,
         { recipes: orderData },
-        "order",
+        "order"
       );
       console.log("Order created successfully");
       //removing all items from cart after an order is placed
