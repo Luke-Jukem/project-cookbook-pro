@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { Modal } from "reactstrap";
+import { Modal, Button } from "reactstrap";
 import { useAuth } from "../utils/AuthContext";
 import FirestoreService from "../firebase/FirebaseService.js";
+import RecipeDetails from "./RecipeDetails";
 
 const Cart = ({ modalOpen, setModalOpen, cartItems }) => {
   const { user } = useAuth();
   const userCartPath = `Users/${user.uid}/Cart`;
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedMeal, setSelectedMeal] = useState(null);
 
   //logging order data to console (can be removed later)
   const logData = (cartItems, orderData, path, selectedDate) => {
@@ -15,6 +17,13 @@ const Cart = ({ modalOpen, setModalOpen, cartItems }) => {
     console.log("Path:", path);
     console.log("Selected date:", selectedDate);
   };
+
+  //button options for RecipeDetails
+  const buttonOptions = (
+    <Button color="secondary" onClick={() => setSelectedMeal(null)}>
+      Close
+    </Button>
+  );
 
   //removing items from cart
   const removeFromCart = async (recipeId) => {
@@ -37,6 +46,17 @@ const Cart = ({ modalOpen, setModalOpen, cartItems }) => {
       console.log(
         "One or more items in cartItems does not have a name or ingredients",
       );
+      return;
+    }
+
+    //ensuring the user doesn't select a date that's in the past
+    const today = new Date();
+    const selectedDateObj = new Date(selectedDate);
+    //sets time 0 to match selectedDateObj
+    today.setHours(0, 0, 0, 0);
+
+    if (selectedDateObj < today) {
+      console.log("Selected date is before today");
       return;
     }
 
@@ -72,15 +92,17 @@ const Cart = ({ modalOpen, setModalOpen, cartItems }) => {
         <h2>Cart ({cartItems.length})</h2>
         {cartItems.map((recipe, index) => (
           <div key={index} className="cart-display">
-            <img
-              src={recipe.image}
-              alt={recipe.name}
-              style={{ width: "100px" }}
-            />
+            <img src={recipe.image} alt={recipe.name} />
             <div>
               <h4>{recipe.name}</h4>
               <p>{recipe.amount}</p>
             </div>
+            <button
+              className="details-button"
+              onClick={() => setSelectedMeal(recipe)}
+            >
+              Details
+            </button>
             <button
               className="remove-button"
               onClick={() => removeFromCart(recipe.id)}
@@ -97,6 +119,13 @@ const Cart = ({ modalOpen, setModalOpen, cartItems }) => {
           />
         </div>
       </div>
+      {selectedMeal && (
+        <RecipeDetails
+          meal={selectedMeal}
+          isOpen={selectedMeal !== null}
+          buttonOptions={buttonOptions}
+        />
+      )}
     </Modal>
   );
 };

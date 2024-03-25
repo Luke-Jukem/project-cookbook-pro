@@ -160,3 +160,18 @@
 .remove-button:hover {
   background-color: darkred;
 }
+
+.details-button {
+  background-color: blue;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+  margin-left: 2%;
+}
+
+.details-button:hover {
+  background-color: darkblue;
+}
