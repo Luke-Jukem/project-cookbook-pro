@@ -43,6 +43,9 @@ const Header = () => {
             <Link to="/search" className="header--link">
               Search
             </Link>
+            <Link to="/recommendations" className="header--link">
+              Recommendations
+            </Link>
             <Link to="/health" className="header--link">
               Health
             </Link>
