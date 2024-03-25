@@ -42,7 +42,7 @@ const GPT = () => {
       }
 
       const assistantResponse = completion.choices.find(
-        (choice) => choice.message.role === "assistant"
+        (choice) => choice.message.role === "assistant",
       );
 
       // Check for ChatGPT error
