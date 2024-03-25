@@ -13,8 +13,7 @@ import FirestoreListener from "../firebase/FirestoreListener.js";
 
 const quickOrder = () => {
   const [savedRecipes, setSavedRecipes] = useState([""]);
-  const [showDetails, setShowDetails] = useState(false);
-  const [meal, setMeal] = useState();
+  const [selectedMeal, setSelectedMeal] = useState(null);
   const [email, setEmail] = useState("");
 
   const subject = "Your CookBook Pro shopping list";
@@ -32,7 +31,7 @@ const quickOrder = () => {
             ingredient.amount,
             ingredient.id,
             ingredient.name,
-            ingredient.unit
+            ingredient.unit,
           );
 
           if (ingredientMap.has(newIngredient.id)) {
@@ -47,7 +46,7 @@ const quickOrder = () => {
       body += `%0D%0AIngredients:%0D%0A`;
       ingredientMap.forEach(
         (ingredient) =>
-          (body += `[  ] ${ingredient.amount} ${ingredient.unit} ${ingredient.name}\n%0D%0A`)
+          (body += `[  ] ${ingredient.amount} ${ingredient.unit} ${ingredient.name}\n%0D%0A`),
       );
       body += "%0D%0A";
     }
@@ -78,7 +77,7 @@ const quickOrder = () => {
       (docs) => {
         const recipes = docs.map((doc) => doc);
         setSavedRecipes(recipes);
-      }
+      },
     );
 
     // Cleanup function
@@ -88,45 +87,50 @@ const quickOrder = () => {
   async function removeRecipeFromQuickOrder(
     collectionPath,
     documentId,
-    dataType
+    dataType,
   ) {
     try {
       await FirestoreService.deleteDocument(
         collectionPath,
         documentId,
-        dataType
+        dataType,
       );
     } catch (error) {
       console.error("Error creating document:", error);
     }
   }
 
-  let recipeDetails;
   const buttonOptions = (
-    <Button
-      onClick={() => {
-        removeRecipeFromQuickOrder("quickOrder", String(meal.id), "recipe");
-        toggle();
-      }}
-    >
-      Remove from order
-    </Button>
+    <>
+      <Button
+        color="primary"
+        onClick={() => {
+          removeRecipeFromQuickOrder(
+            "quickOrder",
+            String(selectedMeal.id),
+            "recipe",
+          );
+          setSelectedMeal(null);
+        }}
+      >
+        Remove from order
+      </Button>
+      <Button color="secondary" onClick={() => setSelectedMeal(null)}>
+        Cancel
+      </Button>
+    </>
   );
-
-  if (showDetails) {
-    recipeDetails = (
-      <RecipeDetails
-        meal={meal}
-        showDetails={showDetails}
-        toggle={toggle}
-        buttonOptions={buttonOptions}
-      />
-    );
-  }
 
   return (
     <>
-      {recipeDetails}
+      {selectedMeal && (
+        <RecipeDetails
+          meal={selectedMeal}
+          isOpen={selectedMeal !== null}
+          toggle={() => setSelectedMeal(null)}
+          buttonOptions={buttonOptions}
+        />
+      )}
       <ListGroup>
         <ListGroupItemHeading>Quick Order</ListGroupItemHeading>
 
@@ -148,7 +152,11 @@ const quickOrder = () => {
 
         {savedRecipes.map((recipe, key) => {
           return (
-            <ListGroupItem action onClick={() => toggle(recipe)} key={key}>
+            <ListGroupItem
+              action
+              onClick={() => setSelectedMeal(recipe)}
+              key={key}
+            >
               {recipe.name}
             </ListGroupItem>
           );

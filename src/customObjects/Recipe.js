@@ -8,7 +8,7 @@ class Recipe {
     instructions,
     name,
     servings,
-    summary
+    summary,
   ) {
     this.cuisine = cuisine;
     this.dishType = dishType;
