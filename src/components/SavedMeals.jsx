@@ -12,16 +12,10 @@ import FirestoreListener from "../firebase/FirestoreListener.js";
 
 const SavedMeals = () => {
   const [savedRecipes, setSavedRecipes] = useState([""]);
-  const [showDetails, setShowDetails] = useState(false);
-  const [meal, setMeal] = useState();
+  const [selectedMeal, setSelectedMeal] = useState(null);
 
   const { user } = useAuth();
   const firestoreListener = new FirestoreListener();
-
-  const toggle = (recipe) => {
-    setMeal(recipe);
-    setShowDetails(!showDetails);
-  };
 
   useEffect(() => {
     const userSavedRecipesPath = `Users/${user.uid}/SavedRecipes`;
@@ -43,7 +37,7 @@ const SavedMeals = () => {
     documentId,
     dataType,
   ) {
-    meal.isSaved = false;
+    selectedMeal.isSaved = false;
     try {
       await FirestoreService.deleteDocument(
         collectionPath,
@@ -55,8 +49,6 @@ const SavedMeals = () => {
     }
   }
 
-  let recipeDetails;
-
   const buttonOptions = (
     <>
       <Button
@@ -64,38 +56,38 @@ const SavedMeals = () => {
         onClick={() => {
           unsaveRecipeFromCurrentUser(
             `Users/${user.uid}/SavedRecipes/`,
-            String(meal.id),
+            String(selectedMeal.id),
             "recipe",
           );
           //close the modal and remove the recipe
-          toggle();
+          setSelectedMeal(null);
         }}
       >
         Unsave recipe
       </Button>
-      <Button color="secondary" onClick={toggle}>
+      <Button color="secondary" onClick={() => setSelectedMeal(null)}>
         Cancel
       </Button>
     </>
   );
 
-  if (showDetails) {
-    recipeDetails = (
-      <RecipeDetails
-        meal={meal}
-        showDetails={showDetails}
-        toggle={toggle}
-        buttonOptions={buttonOptions}
-      />
-    );
-  }
-
   return (
     <ListGroup>
-      {recipeDetails}
+      {selectedMeal && (
+        <RecipeDetails
+          meal={selectedMeal}
+          isOpen={selectedMeal !== null}
+          toggle={() => setSelectedMeal(null)}
+          buttonOptions={buttonOptions}
+        />
+      )}
       {savedRecipes.map((recipe, key) => {
         return (
-          <ListGroupItem action onClick={() => toggle(recipe)} key={key}>
+          <ListGroupItem
+            action
+            onClick={() => setSelectedMeal(recipe)}
+            key={key}
+          >
             {recipe.name}
           </ListGroupItem>
         );

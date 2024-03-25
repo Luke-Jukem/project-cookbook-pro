@@ -13,8 +13,7 @@ import FirestoreListener from "../firebase/FirestoreListener.js";
 
 const quickOrder = () => {
   const [savedRecipes, setSavedRecipes] = useState([""]);
-  const [showDetails, setShowDetails] = useState(false);
-  const [meal, setMeal] = useState();
+  const [selectedMeal, setSelectedMeal] = useState(null);
   const [email, setEmail] = useState("");
 
   const subject = "Your CookBook Pro shopping list";
@@ -101,32 +100,37 @@ const quickOrder = () => {
     }
   }
 
-  let recipeDetails;
   const buttonOptions = (
-    <Button
-      onClick={() => {
-        removeRecipeFromQuickOrder("quickOrder", String(meal.id), "recipe");
-        toggle();
-      }}
-    >
-      Remove from order
-    </Button>
+    <>
+      <Button
+        color="primary"
+        onClick={() => {
+          removeRecipeFromQuickOrder(
+            "quickOrder",
+            String(selectedMeal.id),
+            "recipe",
+          );
+          setSelectedMeal(null);
+        }}
+      >
+        Remove from order
+      </Button>
+      <Button color="secondary" onClick={() => setSelectedMeal(null)}>
+        Cancel
+      </Button>
+    </>
   );
-
-  if (showDetails) {
-    recipeDetails = (
-      <RecipeDetails
-        meal={meal}
-        showDetails={showDetails}
-        toggle={toggle}
-        buttonOptions={buttonOptions}
-      />
-    );
-  }
 
   return (
     <>
-      {recipeDetails}
+      {selectedMeal && (
+        <RecipeDetails
+          meal={selectedMeal}
+          isOpen={selectedMeal !== null}
+          toggle={() => setSelectedMeal(null)}
+          buttonOptions={buttonOptions}
+        />
+      )}
       <ListGroup>
         <ListGroupItemHeading>Quick Order</ListGroupItemHeading>
 
@@ -148,7 +152,11 @@ const quickOrder = () => {
 
         {savedRecipes.map((recipe, key) => {
           return (
-            <ListGroupItem action onClick={() => toggle(recipe)} key={key}>
+            <ListGroupItem
+              action
+              onClick={() => setSelectedMeal(recipe)}
+              key={key}
+            >
               {recipe.name}
             </ListGroupItem>
           );
