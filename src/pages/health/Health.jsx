@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Row, Col, Container, Spinner } from "reactstrap";
 import MacroGoalForm from "./components/MacroGoalForm";
+import "./macroGoals.css";
 
 const HealthPage = () => {
   return (
-    <Container>
-      <h1 className="d-flex justify-content-center">Health Page</h1>
-      <Row>
+   <div className="health-page">
+      <h1 id="health-header">Health Page</h1>
         <MacroGoalForm />
-      </Row>
-    </Container>
+    </div>
   );
 };
 
