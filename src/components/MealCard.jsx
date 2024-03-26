@@ -30,7 +30,7 @@ const MealCard = ({ meal }) => {
         collectionPath,
         documentId,
         data,
-        dataType
+        dataType,
       );
     } catch (error) {
       console.error("Error creating document:", error);
@@ -54,7 +54,7 @@ const MealCard = ({ meal }) => {
               `Users/${user.uid}/SavedRecipes/`,
               String(meal.id),
               meal,
-              "recipe"
+              "recipe",
             );
             setSelectedMeal(null); //setting selected meal = null closes the RecipeDetails component
           }}
@@ -115,7 +115,7 @@ const MealCard = ({ meal }) => {
                   `Users/${user.uid}/SavedRecipes/`,
                   String(meal.id),
                   meal,
-                  "recipe"
+                  "recipe",
                 );
               }}
             >
@@ -128,7 +128,7 @@ const MealCard = ({ meal }) => {
                   `Users/${user.uid}/Cart/`,
                   String(meal.id),
                   meal,
-                  "recipe"
+                  "recipe",
                 );
               }}
             >

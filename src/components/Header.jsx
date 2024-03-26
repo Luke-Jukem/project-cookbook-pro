@@ -17,7 +17,7 @@ const Header = () => {
     //using user.uid breaks the application if the user is not logged in
     if (user) {
       const userCartPath = `Users/${user.uid}/Cart`;
-  
+
       const unsubscribeFromCart = firestoreListener.subscribeToCollection(
         userCartPath,
         (docs) => {
@@ -25,7 +25,7 @@ const Header = () => {
           setCartItems(recipes);
         },
       );
-  
+
       //cleanup function
       return unsubscribeFromCart;
     }

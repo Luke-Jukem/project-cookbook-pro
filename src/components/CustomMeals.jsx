@@ -13,7 +13,7 @@ const CustomMeals = () => {
   const firestoreListener = new FirestoreListener();
 
   useEffect(() => {
-    if(user){
+    if (user) {
       const userSavedRecipesPath = `Users/${user.uid}/CustomRecipes`;
 
       const unsubscribeCustomRecipes = firestoreListener.subscribeToCollection(
@@ -23,7 +23,7 @@ const CustomMeals = () => {
           setSavedRecipes(recipes);
         },
       );
-  
+
       // Cleanup function
       return unsubscribeCustomRecipes;
     }
