@@ -30,7 +30,7 @@ const MealCard = ({ meal }) => {
         collectionPath,
         documentId,
         data,
-        dataType,,
+        dataType,
       );
     } catch (error) {
       console.error("Error creating document:", error);
