@@ -13,18 +13,20 @@ const CustomMeals = () => {
   const firestoreListener = new FirestoreListener();
 
   useEffect(() => {
-    const userSavedRecipesPath = `Users/${user.uid}/CustomRecipes`;
+    if(user){
+      const userSavedRecipesPath = `Users/${user.uid}/CustomRecipes`;
 
-    const unsubscribeCustomRecipes = firestoreListener.subscribeToCollection(
-      userSavedRecipesPath,
-      (docs) => {
-        const recipes = docs.map((doc) => doc);
-        setSavedRecipes(recipes);
-      },
-    );
-
-    // Cleanup function
-    return unsubscribeCustomRecipes;
+      const unsubscribeCustomRecipes = firestoreListener.subscribeToCollection(
+        userSavedRecipesPath,
+        (docs) => {
+          const recipes = docs.map((doc) => doc);
+          setSavedRecipes(recipes);
+        },
+      );
+  
+      // Cleanup function
+      return unsubscribeCustomRecipes;
+    }
   }, [user.uid]);
 
   async function unsaveRecipeFromCurrentUser(

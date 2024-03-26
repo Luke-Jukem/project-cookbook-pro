@@ -6,6 +6,8 @@ import RecipeDetails from "./RecipeDetails";
 
 const Cart = ({ modalOpen, setModalOpen, cartItems }) => {
   const { user } = useAuth();
+  //should be okay to use user.uid without checking if the user is logged in here
+  //this is because this component is only rendered when the user is logged in
   const userCartPath = `Users/${user.uid}/Cart`;
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedMeal, setSelectedMeal] = useState(null);

@@ -18,20 +18,22 @@ const SavedMeals = () => {
   const firestoreListener = new FirestoreListener();
 
   useEffect(() => {
-    const userSavedRecipesPath = `Users/${user.uid}/SavedRecipes`;
+    if(user){
+      const userSavedRecipesPath = `Users/${user.uid}/SavedRecipes`;
 
-    const unsubscribeFromSavedRecipes = firestoreListener.subscribeToCollection(
-      userSavedRecipesPath,
-      (docs) => {
-        const recipes = docs.map((doc) => doc);
-        setSavedRecipes(recipes);
-      },
-    );
-
-    // Cleanup function
-    return unsubscribeFromSavedRecipes;
-  }, [user.uid]);
-
+      const unsubscribeFromSavedRecipes = firestoreListener.subscribeToCollection(
+        userSavedRecipesPath,
+        (docs) => {
+          const recipes = docs.map((doc) => doc);
+          setSavedRecipes(recipes);
+        },
+      );
+  
+      // Cleanup function
+      return unsubscribeFromSavedRecipes;
+    }
+  }, [user]);
+  
   async function unsaveRecipeFromCurrentUser(
     collectionPath,
     documentId,
