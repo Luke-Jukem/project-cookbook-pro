@@ -1,7 +1,3 @@
-body {
-  padding-top: 65px;
-}
-
 .content-container {
   max-width: 1320px;
   margin-left: 40px;
@@ -96,4 +92,86 @@ body {
 
 .recipe-creation-container {
   flex: 1;
+}
+
+.card-button {
+  margin-right: 1%;
+}
+
+.cart-button {
+  background-color: black;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.8em;
+}
+
+.cart-display {
+  display: flex;
+  align-items: center;
+  padding: 3%;
+}
+
+.cart-display img {
+  margin-right: 10px;
+  width: 100px;
+}
+
+.cart-date {
+  display: flex;
+  justify-content: center;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+.cart-date button {
+  background-color: blue;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+  margin-left: 2%;
+}
+
+.cart-date button:hover {
+  background-color: darkblue;
+}
+
+.cart-date input {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.remove-button {
+  background-color: red;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+  margin-left: 2%;
+}
+
+.remove-button:hover {
+  background-color: darkred;
+}
+
+.details-button {
+  background-color: blue;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+  margin-left: 2%;
+}
+
+.details-button:hover {
+  background-color: darkblue;
 }

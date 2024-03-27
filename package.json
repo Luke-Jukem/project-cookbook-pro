@@ -7,16 +7,19 @@
     "test": "react-scripts test --env=jsdom",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^5.3.2",
     "firebase": "^10.6.0",
+    "openai": "^4.29.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-google-button": "^0.7.2",
+    "react-icons": "^5.0.1",
     "react-infinite-scroll-component": "^6.1.0",
     "react-router-dom": "^6.0.0",
     "react-scripts": "^5.0.0",
