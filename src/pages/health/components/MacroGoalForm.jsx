@@ -38,22 +38,20 @@ const MacroGoalForm = () => {
 
   if (!isVisible) {
     return (
-      <div style={{ textAlign: "center" }}>
+      <div className="macro-form-container">
         <p>Goals saved to profile!</p>
-        <div style={{ marginTop: "20px" }}>
           <button onClick={handleEdit}>Edit</button>
-        </div>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="macro-form-container">
       <br />
       <h3>Enter your desired macronutrients below:</h3>
       <p>(You'll be able to go back and edit them later!)</p>
       <br />
-      <form onSubmit={handleSubmit} className="form-container">
+      <form onSubmit={handleSubmit} className="input-form-container">
         <label>
           Calorie Goal (cal):
           <input
@@ -62,7 +60,6 @@ const MacroGoalForm = () => {
             name="caloriesGoal"
             value={formData.caloriesGoal}
             onChange={handleChange}
-            className="form-input"
           />
         </label>
         <br />
@@ -74,7 +71,6 @@ const MacroGoalForm = () => {
             name="proteinGoal"
             value={formData.proteinGoal}
             onChange={handleChange}
-            className="form-input"
           />
         </label>
         <br />
@@ -86,7 +82,6 @@ const MacroGoalForm = () => {
             name="carbGoal"
             value={formData.carbGoal}
             onChange={handleChange}
-            className="form-input"
           />
         </label>
         <br />
@@ -98,7 +93,6 @@ const MacroGoalForm = () => {
             name="fatGoal"
             value={formData.fatGoal}
             onChange={handleChange}
-            className="form-input"
           />
         </label>
         <br />
