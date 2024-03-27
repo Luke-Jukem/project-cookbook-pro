@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "@firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { getFunctions } from "firebase/functions";
+import { httpsCallable } from "firebase/functions";
 
 // Web app firebase config
 const firebaseConfig = {
@@ -18,4 +20,11 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const firebaseAuth = getAuth(firebaseApp);
 const firestoreDb = getFirestore(firebaseApp);
-export { firebaseApp, firebaseAuth, firestoreDb };
+const firebaseFunctions = getFunctions(firebaseApp);
+export {
+  firebaseApp,
+  firebaseAuth,
+  firestoreDb,
+  firebaseFunctions,
+  httpsCallable,
+};
