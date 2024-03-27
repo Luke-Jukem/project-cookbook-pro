@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Row, Col, Container, Spinner } from "reactstrap";
-import MealCard from "../../components/MealCard.jsx";
-import QuickOrder from "../../components/QuickOrder.jsx";
-import SearchBox from "./components/SearchBox.jsx";
-import MealDataManager from "../../utils/MealDataManager.js";
+import MealCard from "../../../components/MealCard.jsx";
+import QuickOrder from "../../../components/QuickOrder.jsx";
+import SearchBox from "./SearchBox.jsx";
+import MealDataManager from "../../../utils/MealDataManager.js";
 import InfiniteScroll from "react-infinite-scroll-component";
-import UserRecipesViewer from "../../components/UserRecipesViewer.jsx";
 
-const SearchPage = () => {
+const Search = () => {
   const [searchResults, setSearchResults] = useState("initial page load");
   const [query, setQuery] = useState("");
   const [numResults, setNumResults] = useState(-1);
@@ -31,11 +30,11 @@ const SearchPage = () => {
       const spoonacularQueryResults =
         await mealDataManager.queryRecipeFromSpoonacular(
           query,
-          searchResults.length,
+          searchResults.length
         );
 
       setSearchResults(
-        searchResults.concat(spoonacularQueryResults.resultsList),
+        searchResults.concat(spoonacularQueryResults.resultsList)
       );
       //spoonacular caps results to 1000
       if (searchResults.length >= numResults || searchResults.length >= 999) {
@@ -43,7 +42,7 @@ const SearchPage = () => {
           "searchResults.length=" +
             searchResults.length +
             " numResults=" +
-            numResults,
+            numResults
         );
         setNumResults(false);
       }
@@ -105,9 +104,6 @@ const SearchPage = () => {
         </Container>
       </Row>
       <Row>
-        <Col className="col-2">
-          <UserRecipesViewer />
-        </Col>
         <Container className="col-8">{results}</Container>
 
         <Col className="col-2">
@@ -118,4 +114,4 @@ const SearchPage = () => {
   );
 };
 
-export default SearchPage;
+export default Search;
