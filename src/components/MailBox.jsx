@@ -14,12 +14,9 @@ const MailBox = () => {
       text: "Send From Cookbook-Pro!",
     };
 
-    console.log("Email data:", emailData);
-
     const sendMailFunction = httpsCallable(firebaseFunctions, "sendMail");
     try {
       const result = await sendMailFunction(emailData);
-      console.log("Email sent:", result.data.success);
     } catch (err) {
       console.error("Error sending email:", err);
     }
