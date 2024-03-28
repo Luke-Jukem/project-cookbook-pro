@@ -1,11 +1,14 @@
-package com.example.cookbookpro
+package com.example.cookbookpro.signin
 
 import android.content.Context
+import android.content.Intent
 import android.content.IntentSender
+import com.example.cookbookpro.R
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.BeginSignInRequest.GoogleIdTokenRequestOptions
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.Firebase
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
@@ -27,8 +30,39 @@ class GoogleAuthUiClient (private val context: Context, private val oneTapClient
         return result?.pendingIntent?.intentSender
     }
 
-    suspend fun getSignInResultFromIntent(intent: Intenet): SignInResult {
-        
+    suspend fun signInWithIntent(intent: Intent): SignInResult {
+        val credential = oneTapClient.getSignInCredentialFromIntent(intent)
+        val googleIdToken = credential.googleIdToken
+        val googleCredentials = GoogleAuthProvider.getCredential(googleIdToken, null)
+        return try {
+            val user = auth.signInWithCredential(googleCredentials).await().user
+            SignInResult(
+                data = user?.run {
+                    UserData(
+                        userId = uid,
+                        userName = displayName,
+                        profilePictureURL = photoUrl?.toString()
+                    )
+                },
+                errorMessage = null
+            )
+        } catch (e: Exception){
+            e.printStackTrace()
+            if(e is CancellationException) throw e
+            SignInResult(
+                data = null,
+                errorMessage = e.message)
+        }
+    }
+
+    suspend fun signOut(){
+        try {
+            oneTapClient.signOut().await()
+            auth.signOut()
+        } catch (e: Exception){
+            e.printStackTrace()
+            if(e is CancellationException) throw e
+        }
     }
     private fun buildSignInRequest() : BeginSignInRequest {
         return BeginSignInRequest.Builder()
