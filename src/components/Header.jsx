@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../utils/AuthContext";
 import { FaShoppingCart } from "react-icons/fa";
-import Cart from "./Cart";
+import Cart from "./cart/Cart";
 import FirestoreListener from "../firebase/FirestoreListener.js";
 import "../css/styles.css";
 
@@ -20,7 +20,7 @@ const Header = () => {
       (docs) => {
         const recipes = docs.map((doc) => doc);
         setCartItems(recipes);
-      },
+      }
     );
 
     //cleanup function
