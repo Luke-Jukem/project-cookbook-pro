@@ -72,6 +72,24 @@ class FirebaseConverter {
         );
       },
     };
+
+    this.orderConverter = {
+      toFirestore: (order) => {
+        const convertedRecipes = order.recipes.map((recipe) => {
+          return {
+            name: recipe.name,
+            ingredients: this.convertArray(
+              recipe.ingredients,
+              this.objectConverter,
+            ),
+          };
+        });
+
+        return {
+          recipes: convertedRecipes,
+        };
+      },
+    };
   }
 }
 

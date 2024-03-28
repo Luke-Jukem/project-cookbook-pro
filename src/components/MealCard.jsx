@@ -12,19 +12,17 @@ import FirestoreService from "../firebase/FirebaseService.js";
 import { useAuth } from "../utils/AuthContext";
 
 const MealCard = ({ meal }) => {
-  const [showDetails, setShowDetails] = useState(false);
-  const toggle = () => {
-    setShowDetails(!showDetails);
-  };
+  //selected meal is initally set to null
+  const [selectedMeal, setSelectedMeal] = useState(null);
   const { user } = useAuth();
 
   async function saveData(collectionPath, documentId, data, dataType) {
-    /*
-        TODO: also refactor to remove showDetails and replace the toggle function
-        they are extra and we can achive the same functionality by checking if meal is null or not
-        */
     const savedMeal = meal;
     savedMeal.isSaved = true;
+    //savedMeal.instructions kept showing up as null, preventing the recipes from being saved
+    if (savedMeal.instructions === undefined) {
+      savedMeal.instructions = "";
+    }
 
     // Build the path here with the context provided by the current user
     try {
@@ -32,7 +30,7 @@ const MealCard = ({ meal }) => {
         collectionPath,
         documentId,
         data,
-        dataType
+        dataType,
       );
     } catch (error) {
       console.error("Error creating document:", error);
@@ -45,6 +43,7 @@ const MealCard = ({ meal }) => {
     border: "2px outset #FFA6A6",
   };
 
+  //button options for RecipeDetails
   const buttonOptions = (
     <>
       <Button
@@ -54,14 +53,19 @@ const MealCard = ({ meal }) => {
             `Users/${user.uid}/SavedRecipes/`,
             String(meal.id),
             meal,
-            "recipe"
+            "recipe",
           );
-          toggle();
+          setSelectedMeal(null); //setting selected meal = null closes the RecipeDetails component
         }}
       >
         Save Recipe
       </Button>
-      <Button color="secondary" onClick={toggle}>
+      <Button
+        color="secondary"
+        onClick={
+          () => setSelectedMeal(null) //setting selected meal = null closes the RecipeDetails component
+        }
+      >
         Close
       </Button>
     </>
@@ -84,21 +88,49 @@ const MealCard = ({ meal }) => {
         <CardText className="text-truncate m-2 p-0">
           {String(meal.summary).replace(/<[^>]*>/g, "")}
         </CardText>
-        <Button color="primary" onClick={toggle}>
-          Details
-        </Button>
-        <RecipeDetails
-          meal={meal}
-          showDetails={showDetails}
-          toggle={toggle}
-          buttonOptions={buttonOptions}
-        />
         <Button
+          className="card-button"
+          color="primary"
           onClick={() => {
-            saveData("quickOrder", String(meal.id), meal, "recipe");
+            setSelectedMeal({ ...meal });
           }}
         >
-          Add to Quick Order
+          Details
+        </Button>
+        {
+          selectedMeal && (
+            <RecipeDetails
+              meal={selectedMeal}
+              buttonOptions={buttonOptions}
+              isOpen={selectedMeal !== null}
+            />
+          ) /* if selectedMeal is not null, render the RecipeDetails component */
+        }
+        <Button
+          className="card-button"
+          onClick={() => {
+            saveData(
+              `Users/${user.uid}/SavedRecipes/`,
+              String(meal.id),
+              meal,
+              "recipe",
+            );
+          }}
+        >
+          Save
+        </Button>
+        <Button
+          className="card-button"
+          onClick={() => {
+            saveData(
+              `Users/${user.uid}/Cart/`,
+              String(meal.id),
+              meal,
+              "recipe",
+            );
+          }}
+        >
+          Add to Cart
         </Button>
       </CardBody>
     </Card>

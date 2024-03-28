@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MealDataManager from "../utils/MealDataManager.js";
+import MealDataManager from "../../../utils/MealDataManager.js";
 import {
   Dropdown,
   DropdownMenu,
@@ -12,7 +12,7 @@ import {
   Col,
 } from "reactstrap";
 
-import SearchBoxFilter from "./SearchBoxFilter";
+import SearchBoxFilter from "./SearchBoxFilter.jsx";
 
 const mealDataManager = new MealDataManager();
 

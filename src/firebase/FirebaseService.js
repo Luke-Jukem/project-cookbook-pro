@@ -41,7 +41,7 @@ class FirestoreService {
       }
 
       const docRef = doc(collectionRef, documentId).withConverter(
-        converter.objectConverter // Use the objectConverter for generic objects
+        converter.objectConverter, // Use the objectConverter for generic objects
       );
 
       // Convert the data using the objectConverter
@@ -103,6 +103,10 @@ const getConverter = (dataType, firebaseConverter) => {
     case "ingredient":
       return {
         objectConverter: firebaseConverter.ingredientsConverter,
+      };
+    case "order":
+      return {
+        objectConverter: firebaseConverter.orderConverter,
       };
     default:
       return null;
