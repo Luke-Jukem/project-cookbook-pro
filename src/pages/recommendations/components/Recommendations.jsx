@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import GPT from "../components/GPT";
+import GPT from "./GPT";
 
 const Recommendations = () => {
   const [toggle, setToggle] = useState(false);
