@@ -177,3 +177,20 @@
 .details-button:hover {
   background-color: darkblue;
 }
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 64px); /* Assuming the header height is 64px */
+}
+
+.sidebar-container {
+  width: 20%;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.content-container {
+  width: 80%;
+  padding: 20px;
+}
