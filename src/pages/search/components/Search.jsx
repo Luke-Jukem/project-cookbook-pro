@@ -30,11 +30,11 @@ const Search = () => {
       const spoonacularQueryResults =
         await mealDataManager.queryRecipeFromSpoonacular(
           query,
-          searchResults.length
+          searchResults.length,
         );
 
       setSearchResults(
-        searchResults.concat(spoonacularQueryResults.resultsList)
+        searchResults.concat(spoonacularQueryResults.resultsList),
       );
       //spoonacular caps results to 1000
       if (searchResults.length >= numResults || searchResults.length >= 999) {
@@ -42,7 +42,7 @@ const Search = () => {
           "searchResults.length=" +
             searchResults.length +
             " numResults=" +
-            numResults
+            numResults,
         );
         setNumResults(false);
       }

@@ -9,23 +9,27 @@ import "../css/styles.css";
 const Header = () => {
   const { user, logoutUser } = useAuth();
   const firestoreListener = new FirestoreListener();
-  const userCartPath = `Users/${user.uid}/Cart`;
   //opening/closing the cart modal and keeping track of cart item count
   const [modalOpen, setModalOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    const unsubscribeFromCart = firestoreListener.subscribeToCollection(
-      userCartPath,
-      (docs) => {
-        const recipes = docs.map((doc) => doc);
-        setCartItems(recipes);
-      }
-    );
+    //using user.uid breaks the application if the user is not logged in
+    if (user) {
+      const userCartPath = `Users/${user.uid}/Cart`;
 
-    //cleanup function
-    return unsubscribeFromCart;
-  }, [user.uid]);
+      const unsubscribeFromCart = firestoreListener.subscribeToCollection(
+        userCartPath,
+        (docs) => {
+          const recipes = docs.map((doc) => doc);
+          setCartItems(recipes);
+        },
+      );
+
+      //cleanup function
+      return unsubscribeFromCart;
+    }
+  }, [user]);
 
   return (
     <div id="header" className="header">
