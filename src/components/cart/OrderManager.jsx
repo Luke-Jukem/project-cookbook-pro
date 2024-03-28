@@ -90,10 +90,13 @@ const OrderManager = ({ cartItems, setModalOpen, removeFromCart }) => {
         orderData,
         "order"
       );
-      console.log("Order created successfully", orderData);
       setOrderData(orderData);
       setSelectedDate(null);
       setModalOpen(false);
+      // Remove each item from the cart after order is saved
+      cartItems.forEach((item) => {
+        removeFromCart(item.id);
+      });
     } catch (error) {
       console.error("Error creating document:", error);
     }

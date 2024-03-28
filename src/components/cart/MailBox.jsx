@@ -23,7 +23,6 @@ const MailBox = ({ orderData }) => {
     try {
       const result = await sendMailFunction(emailData);
       emailSent.current = true; // Mark email as sent
-      console.log("Email sent successfully");
     } catch (err) {
       console.error("Error sending email:", err);
     }
