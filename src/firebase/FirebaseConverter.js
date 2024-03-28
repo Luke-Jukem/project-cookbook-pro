@@ -35,7 +35,7 @@ class FirebaseConverter {
 
         const convertedIngredients = this.convertArray(
           recipe.ingredients,
-          this.objectConverter
+          this.objectConverter,
         );
 
         return {
@@ -55,7 +55,7 @@ class FirebaseConverter {
         const data = snapshot.data(options);
         const convertedIngredients = this.convertArray(
           data.ingredients,
-          this.objectConverter
+          this.objectConverter,
         );
 
         return new Recipe(
@@ -68,7 +68,7 @@ class FirebaseConverter {
           data.name,
           data.servings,
           data.summary,
-          data.isSaved
+          data.isSaved,
         );
       },
     };
@@ -82,7 +82,7 @@ class FirebaseConverter {
 
         const convertedIngredients = this.convertArray(
           order.ingredients,
-          this.objectConverter
+          this.objectConverter,
         );
 
         return {

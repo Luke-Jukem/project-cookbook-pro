@@ -55,7 +55,7 @@ const formatOrderDataToMarkdown = (orderData) => {
   const formattedIngredients = ingredients
     .map(
       (ingredient) =>
-        `| ${ingredient.name} | ${ingredient.amount} ${ingredient.unit} |`
+        `| ${ingredient.name} | ${ingredient.amount} ${ingredient.unit} |`,
     )
     .join("\n");
 
