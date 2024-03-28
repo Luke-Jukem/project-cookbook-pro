@@ -1,15 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Search from "./pages/Search";
+import SearchPage from "./pages/search/SearchPage";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Header from "./components/Header";
-import Health from "./pages/Health";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { AuthProvider } from "./utils/AuthContext";
 import "./css/styles.css";
 import "bootstrap/dist/css/bootstrap.css";
+import RecommendationsPage from "./pages/recommendations/RecommendationsPage";
+import CreateRecipesPage from "./pages/create-recipe/CreateRecipesPage";
+import HealthPage from "./pages/health/HealthPage";
 
 function App() {
   return (
@@ -21,8 +23,10 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route element={<PrivateRoutes />}>
             <Route path="/" element={<Home />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/health" element={<Health />} />
+            <Route path="/search" element={<SearchPage />} />
+            <Route path="/recommendations" element={<RecommendationsPage />} />
+            <Route path="/health" element={<HealthPage />} />
+            <Route path="/create-recipe" element={<CreateRecipesPage />} />
           </Route>
         </Routes>
       </AuthProvider>

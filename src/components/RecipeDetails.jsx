@@ -13,18 +13,19 @@ import {
  * @param {Recipe} meal
  * @returns
  */
-function RecipeDetails({ meal, showDetails, toggle, buttonOptions }) {
-  if (!buttonOptions) {
-    buttonOptions = (
-      <Button color="secondary" onClick={toggle}>
-        Close
-      </Button>
-    );
-  }
+const RecipeDetails = ({ meal, buttonOptions, isOpen }) => {
+  //not sure if this code is needed - buttonOptions should always be passed. I've commented it out for now but was too scared to remove it completely.
+  // if (!buttonOptions) {
+  //   buttonOptions = (
+  //     <Button color="secondary" onClick={() => {}}>
+  //       Close
+  //     </Button>
+  //   );
+  // }
 
   return (
-    <Modal isOpen={showDetails} toggle={toggle}>
-      <ModalHeader toggle={toggle}>{meal.name}</ModalHeader>
+    <Modal isOpen={isOpen}>
+      <ModalHeader>{meal.name}</ModalHeader>
       <Container className="d-flex justify-content-center">
         <img src={meal.image} />
       </Container>
@@ -33,6 +34,6 @@ function RecipeDetails({ meal, showDetails, toggle, buttonOptions }) {
       <ModalFooter>{buttonOptions}</ModalFooter>
     </Modal>
   );
-}
+};
 
 export default RecipeDetails;

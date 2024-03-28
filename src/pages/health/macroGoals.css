@@ -1,0 +1,30 @@
+.health-page {
+  border-radius: 20px;
+  align-items: center;
+}
+
+
+#health-header{
+  display: flex;
+  align-items: center;
+  margin-left: 500px;
+  width: 2500px;
+}
+
+.macro-form-container {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  margin-left: 10px;
+}
+
+.input-form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+
+
