@@ -3,8 +3,7 @@
   align-items: center;
 }
 
-
-#health-header{
+#health-header {
   display: flex;
   align-items: center;
   margin-left: 500px;
@@ -22,9 +21,3 @@
   display: flex;
   flex-direction: column;
 }
-
-
-
-
-
-

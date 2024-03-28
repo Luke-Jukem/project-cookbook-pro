@@ -39,7 +39,7 @@ const Cart = ({ modalOpen, setModalOpen, cartItems }) => {
 
     if (!cartItems.every((item) => item.name && item.ingredients)) {
       console.log(
-        "One or more items in cartItems does not have a name or ingredients"
+        "One or more items in cartItems does not have a name or ingredients",
       );
       return;
     }
@@ -73,7 +73,7 @@ const Cart = ({ modalOpen, setModalOpen, cartItems }) => {
         `Users/${user.uid}/Orders`,
         selectedDate,
         { recipes: orderData },
-        "order"
+        "order",
       );
       console.log("Order created successfully");
       //removing all items from cart after an order is placed
