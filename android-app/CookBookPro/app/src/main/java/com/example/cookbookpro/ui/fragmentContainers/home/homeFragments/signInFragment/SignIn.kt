@@ -1,19 +1,22 @@
 package com.example.cookbookpro.ui.fragmentContainers.home.homeFragments.signInFragment
 
 import android.graphics.Color
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.cookbookpro.MainActivity
 import com.example.cookbookpro.R
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.identity.SignInClient
 
-    class SignIn : Fragment() {
+
+class SignIn : Fragment() {
 
         companion object {
             fun newInstance() = SignIn()
