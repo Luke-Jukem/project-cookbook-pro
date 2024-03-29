@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Row, Col, Container, Spinner } from "reactstrap";
 import MealCard from "../../../components/MealCard.jsx";
-import QuickOrder from "../../../components/QuickOrder.jsx";
 import SearchBox from "./SearchBox.jsx";
 import MealDataManager from "../../../utils/MealDataManager.js";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -30,11 +29,11 @@ const Search = () => {
       const spoonacularQueryResults =
         await mealDataManager.queryRecipeFromSpoonacular(
           query,
-          searchResults.length,
+          searchResults.length
         );
 
       setSearchResults(
-        searchResults.concat(spoonacularQueryResults.resultsList),
+        searchResults.concat(spoonacularQueryResults.resultsList)
       );
       //spoonacular caps results to 1000
       if (searchResults.length >= numResults || searchResults.length >= 999) {
@@ -42,7 +41,7 @@ const Search = () => {
           "searchResults.length=" +
             searchResults.length +
             " numResults=" +
-            numResults,
+            numResults
         );
         setNumResults(false);
       }
@@ -95,7 +94,6 @@ const Search = () => {
       <h1 className="d-flex justify-content-center">Search for recipes</h1>
       <Row>
         <Container className="d-flex justify-content-center">
-          <br></br>
           <SearchBox
             onSearch={handleSearchResults}
             query={query}
@@ -105,10 +103,6 @@ const Search = () => {
       </Row>
       <Row>
         <Container className="col-8">{results}</Container>
-
-        <Col className="col-2">
-          <QuickOrder />
-        </Col>
       </Row>
     </Container>
   );
