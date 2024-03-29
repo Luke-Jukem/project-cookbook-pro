@@ -7,12 +7,17 @@ const MacroGoalForm = () => {
     proteinGoal: "",
     carbGoal: "",
     fatGoal: "",
+    sugarGoal: "",
   });
 
   const [isVisible, setIsVisible] = useState(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (value < 0) {
+      return;
+    }
+
     setFormData({
       ...formData,
       [name]: value,
@@ -92,6 +97,17 @@ const MacroGoalForm = () => {
             type="number"
             name="fatGoal"
             value={formData.fatGoal}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+        <label>
+          Sugar Goal (g):
+          <input
+            style={inputStyle}
+            type="number"
+            name="sugarGoal"
+            value={formData.sugarGoal}
             onChange={handleChange}
           />
         </label>
