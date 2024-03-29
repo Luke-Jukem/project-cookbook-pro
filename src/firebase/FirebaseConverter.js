@@ -91,6 +91,26 @@ class FirebaseConverter {
         };
       },
     };
+    this.gptResponseConverter = {
+      toFirestore: (gptResponse) => {
+        if (!gptResponse) {
+          console.error("GPT response is undefined or null");
+          return null;
+        }
+
+        return {
+          userMessage: gptResponse.userMessage,
+          assistantResponse: gptResponse.assistantResponse,
+        };
+      },
+      fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        return {
+          userMessage: data.userMessage,
+          assistantResponse: data.assistantResponse,
+        };
+      },
+    };
   }
 }
 

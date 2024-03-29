@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import OpenAI from "openai";
-
+import FirestoreService from "../../../firebase/FirebaseService";
+import { useAuth } from "../../../utils/AuthContext.js";
 const GPT = () => {
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
   const [error, setError] = useState("");
-
+  const { user } = useAuth();
   const handleChange = (e) => {
     setMessage(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setError(""); // Clear any previous errors
+    let assistantResponse = null;
 
     try {
       const openai = new OpenAI({
@@ -54,6 +55,24 @@ const GPT = () => {
     } catch (error) {
       setError("Error communicating with the server");
       console.error("Error:", error);
+    }
+    const collectionPath = `Users/${user.uid}/generatedRecipes`;
+    const documentId = `gpt-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    const gptResponse = {
+      userMessage: message,
+      assistantResponse: assistantResponse
+        ? assistantResponse.message.content
+        : null,
+    };
+    try {
+      await FirestoreService.createDocument(
+        collectionPath,
+        documentId,
+        gptResponse,
+        "gptResponse",
+      );
+    } catch (error) {
+      console.error("Error creating document:", error);
     }
   };
 
