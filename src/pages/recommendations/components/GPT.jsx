@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import OpenAI from "openai";
-
+import FirestoreService from "../../../firebase/FirebaseService";
+import { useAuth } from "../../../utils/AuthContext.js";
 const GPT = () => {
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
   const [error, setError] = useState("");
-
+  const { user } = useAuth();
   const handleChange = (e) => {
     setMessage(e.target.value);
   };
@@ -20,7 +21,7 @@ const GPT = () => {
         apiKey: process.env.REACT_APP_OPENAI_API_KEY,
         dangerouslyAllowBrowser: true,
       });
-      //Model setting
+      // Model setting
       const gptModel = "gpt-4-0125-preview";
 
       const userMessage = [
@@ -29,7 +30,7 @@ const GPT = () => {
           content:
             "You are a recipe recommendation system that uses user preferences, recent website activity, and preferences to generate recipes that match the user's tastes without recommending food they've recently viewed or preferred. Do not ask clarifying questions, you must give the user a recipe.",
         },
-        { role: "user", content: message }, // Message with user inputed message
+        { role: "user", content: message }, // Message with user inputted message
       ];
 
       const completion = await openai.chat.completions.create({
@@ -42,12 +43,28 @@ const GPT = () => {
       }
 
       const assistantResponse = completion.choices.find(
-        (choice) => choice.message.role === "assistant",
+        (choice) => choice.message.role === "assistant"
       );
 
       // Check for ChatGPT error
       if (assistantResponse) {
         setResponse(assistantResponse.message.content);
+
+        // Firebase document creation
+        const collectionPath = `Users/${user.uid}/generatedRecipes`;
+        const documentId = `gpt-${Date.now()}-${Math.floor(
+          Math.random() * 1000
+        )}`;
+        const gptResponse = {
+          userMessage: message,
+          assistantResponse: assistantResponse.message.content,
+        };
+        await FirestoreService.createDocument(
+          collectionPath,
+          documentId,
+          gptResponse,
+          "gptResponse"
+        );
       } else {
         setError("Assistant response not found");
       }

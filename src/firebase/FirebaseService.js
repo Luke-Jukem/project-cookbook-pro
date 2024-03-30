@@ -108,6 +108,11 @@ const getConverter = (dataType, firebaseConverter) => {
       return {
         objectConverter: firebaseConverter.orderConverter,
       };
+    case "gptResponse":
+      return {
+        objectConverter: firebaseConverter.gptResponseConverter,
+      };
+
     default:
       return null;
   }
