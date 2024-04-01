@@ -18,16 +18,10 @@ const MacroGoalForm = () => {
       return;
     }
 
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value,
-    });
-  };
-
-  const inputStyle = {
-    textAlign: "center",
-    width: "100%",
-    boxSizing: "border-box",
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -49,6 +43,12 @@ const MacroGoalForm = () => {
       </div>
     );
   }
+
+  const inputStyle = {
+    textAlign: "center",
+    width: "100%",
+    boxSizing: "border-box",
+  };
 
   return (
     <div className="macro-form-container">
