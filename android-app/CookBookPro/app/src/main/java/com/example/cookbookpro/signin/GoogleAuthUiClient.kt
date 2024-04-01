@@ -64,6 +64,14 @@ class GoogleAuthUiClient (private val context: Context, private val oneTapClient
             if(e is CancellationException) throw e
         }
     }
+
+    fun getSignedInUser() : UserData? = auth.currentUser?.run {
+        UserData(
+            userId = uid,
+            userName = displayName,
+            profilePictureURL = photoUrl?.toString()
+        )
+    }
     private fun buildSignInRequest() : BeginSignInRequest {
         return BeginSignInRequest.Builder()
             .setGoogleIdTokenRequestOptions(
