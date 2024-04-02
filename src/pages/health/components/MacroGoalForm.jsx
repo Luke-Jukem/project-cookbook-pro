@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useAuth } from "../../../utils/AuthContext.js";
+import FirestoreService from "../../../firebase/FirebaseService.js";
+import MappedInputFieldsForm from "./MappedInputFieldsForm.jsx";
 import "../macroGoals.css";
 
 const MacroGoalForm = () => {
