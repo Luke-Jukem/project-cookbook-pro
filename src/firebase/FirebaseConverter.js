@@ -1,3 +1,5 @@
+import { GoalForm } from "../customObjects/GoalForm";
+
 class FirebaseConverter {
   constructor() {
     this.objectConverter = {
@@ -35,7 +37,7 @@ class FirebaseConverter {
 
         const convertedIngredients = this.convertArray(
           recipe.ingredients,
-          this.objectConverter,
+          this.objectConverter
         );
 
         return {
@@ -55,7 +57,7 @@ class FirebaseConverter {
         const data = snapshot.data(options);
         const convertedIngredients = this.convertArray(
           data.ingredients,
-          this.objectConverter,
+          this.objectConverter
         );
 
         return new Recipe(
@@ -68,7 +70,7 @@ class FirebaseConverter {
           data.name,
           data.servings,
           data.summary,
-          data.isSaved,
+          data.isSaved
         );
       },
     };
@@ -82,7 +84,7 @@ class FirebaseConverter {
 
         const convertedIngredients = this.convertArray(
           order.ingredients,
-          this.objectConverter,
+          this.objectConverter
         );
 
         return {
@@ -109,6 +111,32 @@ class FirebaseConverter {
           userMessage: data.userMessage,
           assistantResponse: data.assistantResponse,
         };
+      },
+    };
+    this.goalsResponseConverter = {
+      toFirestore: (goalsResponse) => {
+        if (!goalsResponse) {
+          console.error("Goal response is undefined or null");
+          return null;
+        }
+
+        return {
+          calories: goalsResponse.calories,
+          protein: goalsResponse.protein,
+          carbs: goalsResponse.carbs,
+          fat: goalsResponse.fat,
+          sugar: goalsResponse.sugar,
+        };
+      },
+      fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        return new GoalForm(
+          data.calories,
+          data.protein,
+          data.carbs,
+          data.fat,
+          data.sugar,
+        );
       },
     };
   }
