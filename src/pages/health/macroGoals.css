@@ -18,9 +18,11 @@
 }
 
 .input-form-container {
+  border: solid;
+  margin: 3px;;
   display: flex;
   flex-direction: column;
-  width: 200px;
-  box-sizing: border-box;
+  width: 350px;
+  box-sizing: content-box;
   text-align: left;
 }
