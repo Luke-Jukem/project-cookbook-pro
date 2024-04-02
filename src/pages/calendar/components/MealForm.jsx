@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import "../css/mealFormStyle.css";
-import FirestoreListener from "../firebase/FirestoreListener.js";
-import { useAuth } from "../utils/AuthContext";
+import "../../../css/calendarStyle.css";
+import FirestoreListener from "../../../firebase/FirestoreListener.js";
+import { useAuth } from "../../../utils/AuthContext.js";
 
 //form for inputting/selecting meals in calendar
 //opens as modal on calendar page
@@ -33,18 +33,17 @@ const MealForm = ({ selectedDay, addPlan, closeModal }) => {
   }, [user.uid]);
 
   const onSubmit = (data) => {
-    addPlan(
-      data.mealType,
-      data.title,
-      data.calories,
-      data.mealId,
-      data.autoAddToCart,
-      data.addToCartTime,
-    );
+    addPlan(data.name, data.id, data.autoAddToCart, data.addToCartTime);
+    closeModal();
+  };
+
+  const handleAddPlan = (recipe) => {
+    addPlan(recipe.name, recipe.id, "false", "1");
     closeModal();
   };
 
   return (
+    //planning to change most of this to a drag-and-drop interface
     <form onSubmit={handleSubmit(onSubmit)} className="meal-form-container">
       <button type="button" onClick={closeModal} className="exit-button">
         X
@@ -84,12 +83,10 @@ const MealForm = ({ selectedDay, addPlan, closeModal }) => {
       {option === "Saved" && (
         <div>
           {savedRecipes.map((recipe, index) => (
-            //planning on making each entry some sort of card
-            //basic info shown will be name, photo, calories
-            //when clicked, a modal will open with further information
             <div key={index} className="meal-entry">
               <img src={recipe.image} alt={recipe.name} />
               <p>{recipe.name}</p>
+              <button onClick={() => handleAddPlan(recipe)}>Add</button>
             </div>
           ))}
         </div>
@@ -97,14 +94,9 @@ const MealForm = ({ selectedDay, addPlan, closeModal }) => {
       {option === "Recommended" && <p>Recommended Meals</p>}
       {option === "Custom" && (
         <>
-          <input type="hidden" value="Custom" {...register("mealType")} />
           <label>
-            Title:
-            <input type="text" {...register("title")} />
-          </label>
-          <label>
-            Calories:
-            <input type="text" {...register("calories")} />
+            Name:
+            <input type="text" {...register("name")} />
           </label>
           <input type="hidden" value="N/A" {...register("mealId")} />
           <label>

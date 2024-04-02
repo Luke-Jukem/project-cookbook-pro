@@ -1,3 +1,11 @@
+:root {
+  --space-cadet: #1b264f;
+  --burgundy: #8b2731;
+  --salmon: #fb7d6f;
+  --moonstone: #52b9cb;
+  --straw: #d2dd6e;
+}
+
 .content-container {
   max-width: 1320px;
   margin-left: 40px;

@@ -40,7 +40,7 @@ const MacroGoalForm = () => {
     return (
       <div className="macro-form-container">
         <p>Goals saved to profile!</p>
-          <button onClick={handleEdit}>Edit</button>
+        <button onClick={handleEdit}>Edit</button>
       </div>
     );
   }

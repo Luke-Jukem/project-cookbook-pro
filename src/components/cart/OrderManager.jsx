@@ -39,7 +39,7 @@ const OrderManager = ({ cartItems, setModalOpen, removeFromCart }) => {
 
     if (!cartItems.every((item) => item.name && item.ingredients)) {
       console.log(
-        "One or more items in cartItems does not have a name or ingredients"
+        "One or more items in cartItems does not have a name or ingredients",
       );
       return;
     }
@@ -88,7 +88,7 @@ const OrderManager = ({ cartItems, setModalOpen, removeFromCart }) => {
         userOrdersPath,
         orderId,
         orderData,
-        "order"
+        "order",
       );
       setOrderData(orderData);
       setSelectedDate(null);

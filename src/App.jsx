@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import SearchPage from "./pages/search/SearchPage";
-import Calendar from "./pages/Calendar";
+import Calendar from "./pages/calendar/Calendar";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Header from "./components/Header";

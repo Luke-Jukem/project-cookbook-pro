@@ -1,44 +1,44 @@
 .calendar-container {
-  display: flex;
-  justify-content: center;
-  padding-top: 2%;
+  display: flex !important;
+  justify-content: center !important;
+  padding-top: 2% !important;
 }
 
 .selected-day {
-  background-color: #ffa6a6;
-  text-align: center;
-  color: #fff;
-  padding-left: 5%;
-  padding-right: 5%;
-  width: 30%;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  background-color: #ffa6a6 !important;
+  text-align: center !important;
+  color: #fff !important;
+  padding-left: 5% !important;
+  padding-right: 5% !important;
+  width: 30% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 .add-meal-btn {
-  background-color: #ff7f7f;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 12px;
-  transition-duration: 0.4s;
+  background-color: #ff7f7f !important;
+  color: white !important;
+  border: none !important;
+  padding: 10px 20px !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  font-size: 16px !important;
+  margin: 4px 2px !important;
+  cursor: pointer !important;
+  border-radius: 12px !important;
+  transition-duration: 0.4s !important;
 }
 
 .add-meal-btn:hover {
-  background-color: #8b0000;
-  color: white;
+  background-color: #8b0000 !important;
+  color: white !important;
 }
 
 .date-display {
-  font-size: 1.2em;
-  font-weight: bold;
-  color: #8b0000;
+  font-size: 1.2em !important;
+  font-weight: bold !important;
+  color: #8b0000 !important;
 }
 
 .past-date {
@@ -46,62 +46,145 @@
 }
 
 .meal-tile {
-  background-color: #ff8c8c;
+  background-color: #ff8c8c !important;
 }
 
 .react-calendar {
-  width: 70%;
-  background: #f0f0f0;
-  border: none;
-  font-family: "Roboto", sans-serif;
-  line-height: 1.5em;
+  width: 70% !important;
+  background: #f0f0f0 !important;
+  border: none !important;
+  font-family: "Roboto", sans-serif !important;
+  line-height: 1.5em !important;
 }
 
 .react-calendar__month-view__weekdays {
-  background: #ffffff;
-  text-align: center;
+  background: #ffffff !important;
+  text-align: center !important;
 }
 
 .react-calendar__month-view__weekdays__weekday {
-  padding: 10px;
-  color: #999999;
+  padding: 10px !important;
+  color: #999999 !important;
 }
 
 .react-calendar__month-view__days__day {
-  padding: 25px;
-  text-align: center;
-  font-size: 1em;
+  padding: 25px !important;
+  text-align: center !important;
+  font-size: 1em !important;
 }
 
 .react-calendar__month-view__days__day--weekend {
-  color: inherit;
+  color: inherit !important;
 }
 
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
-  /* font-size: 1.2em; */
+  /* font-size: 1.2em !important; */
 }
 
 .react-calendar__tile--active {
-  background: #ffa6a6;
+  background: #ffa6a6 !important;
   color: white !important;
 }
 
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: #ff7f7f;
+  background: #ff7f7f !important;
 }
 
 .react-calendar__tile--now {
-  background: #ffc2c2;
+  background: #ffc2c2 !important;
   color: #570000 !important;
 }
+
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
-  background: #ff8c8c;
+  background: #ff8c8c !important;
 }
 
 .react-calendar__navigation__label {
-  font-family: "Arial", sans-serif;
-  font-size: 2em;
+  font-family: "Arial", sans-serif !important;
+  font-size: 2em !important;
+}
+
+.meal-form-container {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 90% !important;
+  max-width: 300px !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+
+.meal-form-container label {
+  margin-bottom: 1em !important;
+  color: #570000 !important;
+  font-size: 1em !important;
+}
+
+.meal-form-container input[type="text"],
+.meal-form-container input[type="checkbox"] {
+  width: 100% !important;
+  padding: 1em !important;
+  margin-bottom: 1em !important;
+  border: 1px solid #ccc !important;
+  border-radius: 0.25em !important;
+  background: #f0f0f0 !important;
+}
+
+.meal-form-container input[type="submit"],
+.meal-form-container button {
+  padding: 1em !important;
+  border: none !important;
+  border-radius: 0.75em !important;
+  background-color: #ff7f7f !important;
+  color: white !important;
+  cursor: pointer !important;
+  transition-duration: 0.4s !important;
+  font-size: 1em !important;
+  text-align: center !important;
+}
+
+.option-button {
+  margin-left: 2% !important;
+  margin-right: 2% !important;
+  margin-top: 15% !important;
+  margin-bottom: 5% !important;
+}
+
+.exit-button {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  font-size: 0.8em !important;
+  cursor: pointer !important;
+}
+
+@media (min-width: 600px) {
+  .meal-form-container {
+    width: 80% !important;
+  }
+}
+
+@media (min-width: 900px) {
+  .meal-form-container {
+    width: 60% !important;
+    max-width: none !important;
+  }
+}
+
+.meal-entry {
+  display: flex !important;
+  align-items: center !important;
+  background-color: pink !important;
+  border-radius: 2% !important;
+  margin-bottom: 1% !important;
+}
+
+.meal-entry img {
+  width: 100px !important;
+}
+
+.meal-entry p {
+  padding-left: 3% !important;
 }

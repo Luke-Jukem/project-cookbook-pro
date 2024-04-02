@@ -1,4 +1,4 @@
-import React, { useState, useEffect }, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../utils/AuthContext";
 import { FaShoppingCart } from "react-icons/fa";
@@ -20,7 +20,7 @@ const Header = () => {
       (docs) => {
         const recipes = docs.map((doc) => doc);
         setCartItems(recipes);
-      }
+      },
     );
 
     //cleanup function
@@ -52,6 +52,9 @@ const Header = () => {
             <Link to="/create-recipe" className="header--link">
               Create Recipe
             </Link>
+            <Link to="/calendar" className="header--link">
+              Calendar
+            </Link>
             <button className="cart-button" onClick={() => setModalOpen(true)}>
               <FaShoppingCart /> Cart ({cartItems.length})
             </button>
@@ -60,27 +63,9 @@ const Header = () => {
               setModalOpen={setModalOpen}
               cartItems={cartItems}
             />
-            <Link to="/calendar" className="header--link">
-              Calendar
-            </Link>
-            <div className="dropdown">
-              <button onClick={toggleDropdown} className="btn" id="user-bubble">
-                {user.displayName}
-              </button>
-              {dropdownOpen && (
-                <div className="dropdown-content">
-                  <button onClick={logoutClick} className="dropdown-item">
-                    Profile
-                  </button>
-                  <button onClick={logoutClick} className="dropdown-item">
-                    Settings
-                  </button>
-                  <button onClick={logoutClick} className="dropdown-item">
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
+            <button onClick={logoutUser} className="btn">
+              Logout {user.displayName ? `(${user.displayName})` : ""}
+            </button>
           </>
         ) : (
           <Link className="btn" to="/login">

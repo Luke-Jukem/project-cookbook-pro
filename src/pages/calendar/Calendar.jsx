@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import Modal from "react-modal";
-import MealForm from "../components/MealForm";
+import MealForm from "./components/MealForm.jsx";
+import "../../css/calendarStyle.css";
 import "react-calendar/dist/Calendar.css";
-import "../css/calendarStyle.css";
-import FirestoreService from "../firebase/FirebaseService.js";
-import { useAuth } from "../utils/AuthContext";
+import FirestoreService from "../../firebase/FirebaseService.js";
+import FirestoreListener from "../../firebase/FirestoreListener.js";
+import { useAuth } from "../../utils/AuthContext.js";
 
-//rough calendar implementation
 const MyCalendar = () => {
   //firebase auth
   const { user } = useAuth();
@@ -18,16 +18,22 @@ const MyCalendar = () => {
   const [plans, setPlans] = useState([]);
   //modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
+  //for displaying saved plans from firebase
+  const firestoreListener = new FirestoreListener();
 
-  //placeholder variables for later use
-  const [formState, setFormState] = useState({
-    mealType: "",
-    title: "",
-    calories: "",
-    mealId: "",
-    autoAddToCart: false,
-    addToCartTime: "",
-  });
+  useEffect(() => {
+    const userPlansPath = `Users/${user.uid}/Plans`;
+
+    const unsubscribeFromPlans = firestoreListener.subscribeToCollection(
+      userPlansPath,
+      (docs) => {
+        const plans = docs;
+        setPlans(plans);
+      },
+    );
+
+    return unsubscribeFromPlans;
+  }, [user.uid]);
 
   //onChange and onClickDay update date and selectedDay
   const onChange = (date) => {
@@ -38,32 +44,25 @@ const MyCalendar = () => {
   };
 
   //adding a plan
-  const addPlan = (
-    mealType,
-    title,
-    calories,
-    mealId,
-    autoAddToCart,
-    addToCartTime,
-  ) => {
+  const addPlan = (name, id, autoAddToCart, addToCartTime) => {
     const newPlan = {
       date: selectedDay.toISOString().split("T")[0],
       meals: [
         {
-          type: mealType,
-          title: title,
-          calories: calories,
-          mealId: mealId,
+          name: name,
+          id: id,
           autoAddToCart: autoAddToCart,
           addToCartTime: addToCartTime,
         },
       ],
     };
     setPlans([...plans, newPlan]);
-  
-    //saving plan to firestore
-    //not working currently, have to mess with firebaseconverter
-    // console.log(FirestoreService.createDocument(`Users/${user.uid}/MealPlans/`, String(selectedDay.toISOString().split("T")[0]), newPlan));
+
+    const planId = selectedDay.toISOString().split("T")[0];
+    const userPlansPath = `Users/${user.uid}/Plans/`;
+    FirestoreService.createDocument(userPlansPath, planId, newPlan, "plan")
+      .then(() => console.log("Plan saved successfully"))
+      .catch((error) => console.error("Error saving plan: ", error));
   };
 
   //opening/closing modal (meal form)
@@ -73,48 +72,6 @@ const MyCalendar = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
-  };
-
-  //for later
-  // const handleInputChange = (event) => {
-  //   const target = event.target;
-  //   const value = target.type === "checkbox" ? target.checked : target.value;
-  //   const name = target.name;
-
-  //   setFormState({
-  //     ...formState,
-  //     [name]: value,
-  //   });
-  // };
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   addPlan(
-  //     formState.mealType,
-  //     formState.title,
-  //     formState.calories,
-  //     formState.mealId,
-  //     formState.autoAddToCart,
-  //     formState.addToCartTime,
-  //   );
-  // };
-
-  //adds a placeholder dummy meal until I create the form
-  const handleAddMeal = () => {
-    const dummyPlan = {
-      date: selectedDay.toISOString().split("T")[0],
-      meals: [
-        {
-          type: "Dummy Meal",
-          title: "Dummy Title",
-          calories: "Dummy Calories",
-          mealId: "Dummy Meal ID",
-          autoAddToCart: false,
-          addToCartTime: "Dummy Time",
-        },
-      ],
-    };
-    setPlans([...plans, dummyPlan]);
   };
 
   return (
@@ -132,9 +89,6 @@ const MyCalendar = () => {
               <p>
                 {dayPlans.length} {dayPlans.length === 1 ? "plan" : "plans"}
               </p>
-              {dayPlans.map((plan) => (
-                <div>{plan.title}</div>
-              ))}
             </div>
           );
         }}
@@ -174,8 +128,7 @@ const MyCalendar = () => {
           .map((plan, index) =>
             plan.meals.map((meal, mealIndex) => (
               <div key={mealIndex} className="meal-tile">
-                <h6>{meal.title}</h6>
-                <p>{meal.calories} calories</p>
+                <h6>{meal.name}</h6>
               </div>
             )),
           )}

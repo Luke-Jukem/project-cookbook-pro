@@ -35,7 +35,7 @@ class FirebaseConverter {
 
         const convertedIngredients = this.convertArray(
           recipe.ingredients,
-          this.objectConverter
+          this.objectConverter,
         );
 
         return {
@@ -55,7 +55,7 @@ class FirebaseConverter {
         const data = snapshot.data(options);
         const convertedIngredients = this.convertArray(
           data.ingredients,
-          this.objectConverter
+          this.objectConverter,
         );
 
         return new Recipe(
@@ -68,7 +68,7 @@ class FirebaseConverter {
           data.name,
           data.servings,
           data.summary,
-          data.isSaved
+          data.isSaved,
         );
       },
     };
@@ -82,13 +82,63 @@ class FirebaseConverter {
 
         const convertedIngredients = this.convertArray(
           order.ingredients,
-          this.objectConverter
+          this.objectConverter,
         );
 
         return {
           recipeNames: order.recipeNames,
           ingredients: convertedIngredients,
         };
+      },
+    };
+
+    this.planConverter = {
+      toFirestore: (plan) => {
+        console.log("toFirestore is being called");
+
+        if (!plan) {
+          console.error("Plan is undefined or null");
+          return null;
+        }
+
+        console.log("Plan date:", plan.date);
+        console.log("Plan meals:", plan.meals);
+
+        if (plan.meals) {
+          plan.meals.forEach((meal, index) => {
+            console.log(`Meal ${index + 1} name:`, meal.name);
+            console.log(`Meal ${index + 1} id:`, meal.id);
+            console.log(`Meal ${index + 1} autoAddToCart:`, meal.autoAddToCart);
+            console.log(`Meal ${index + 1} addToCartTime:`, meal.addToCartTime);
+          });
+        }
+
+        const convertedMeals = plan.meals.map((meal, index) => ({
+          name: meal.name,
+          id: meal.id,
+          autoAddToCart: meal.autoAddToCart,
+          addToCartTime: meal.addToCartTime,
+          mealNumber: index + 1,
+        }));
+
+        return {
+          date: plan.date,
+          meals: convertedMeals,
+        };
+      },
+      fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        const convertedMeals = data.meals
+          ? data.meals.map((meal) => ({
+              name: meal.name,
+              id: meal.id,
+              autoAddToCart: meal.autoAddToCart,
+              addToCartTime: meal.addToCartTime,
+              mealNumber: meal.mealNumber,
+            }))
+          : [];
+
+        return new Plan(data.date, convertedMeals);
       },
     };
   }
