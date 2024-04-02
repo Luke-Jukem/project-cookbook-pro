@@ -55,9 +55,9 @@ class GoogleAuthUiClient (private val context: Context, private val oneTapClient
         }
     }
 
-    suspend fun signOut(){
+    fun signOut(){
         try {
-            oneTapClient.signOut().await()
+            oneTapClient.signOut()
             auth.signOut()
         } catch (e: Exception){
             e.printStackTrace()

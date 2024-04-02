@@ -124,12 +124,30 @@ class MainActivity : AppCompatActivity() {
         Firebase.initialize(this)
         // Initialize Firebase Auth
         auth = Firebase.auth
+/*
         val viewModel = ViewModelProvider(this)[SignInViewModel::class.java]
+*/
 
         // Create your GoogleAuthUiClient instance
+/*
         val googleAuthUiClient = GoogleAuthUiClient(this, oneTapClient)
-
-
+*/
+        val authStateListener = FirebaseAuth.AuthStateListener { auth ->
+            val user = auth.currentUser
+            if (user != null) {
+                // User is signed in
+                // Navigate to the appropriate destination or update UI
+                println("USER IS SIGNED IN ALREADY")
+                navController.navigate(R.id.navigation_sign_in)
+            } else {
+                // User is signed out
+                // Navigate to the sign-in screen or update UI
+                /*val navController = findNavController(R.id.nav_host_fragment_activity_main)*/
+                navController.navigate(R.id.navigation_sign_in)
+            }
+        }
+    // Add the AuthStateListener
+    auth.addAuthStateListener(authStateListener)
     }
 
     fun navigateToList(){
