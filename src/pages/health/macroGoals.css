@@ -20,4 +20,7 @@
 .input-form-container {
   display: flex;
   flex-direction: column;
+  width: 200px;
+  box-sizing: border-box;
+  text-align: left;
 }

@@ -1,39 +1,91 @@
 import React, { useState } from "react";
 import { useAuth } from "../../../utils/AuthContext.js";
 import FirestoreService from "../../../firebase/FirebaseService.js";
-import MappedInputFieldsForm from "./MappedInputFieldsForm.jsx";
+import MappedInputFieldsForm from "../../../pages/create-recipe/components/MappedInputFieldsForm.jsx";
 import "../macroGoals.css";
 
 const MacroGoalForm = () => {
-  const [formData, setFormData] = useState({
-    caloriesGoal: "",
-    proteinGoal: "",
-    carbGoal: "",
-    fatGoal: "",
-    sugarGoal: "",
-  });
+  const { user } = useAuth();
+
+  const [goalFormData, setGoalFormData] = useState({});
+  const goalsFields = [
+    { name: "id", label: "ID", type: "text", placeholder: "Enter Form ID" },
+    {
+      name: "caloriesGoal",
+      label: "Calorie Goal (cal)",
+      type: "number",
+      placeholder: "Enter Calorie Goal",
+    },
+    {
+      name: "proteinGoal",
+      label: "Protein Goal (g)",
+      type: "number",
+      placeholder: "Enter Protein Goal",
+    },
+    {
+      name: "carbGoal",
+      label: "Carbohydrate Goal (g)",
+      type: "number",
+      placeholder: "Enter Carbohydrate Goal",
+    },
+    {
+      name: "fatGoal",
+      label: "Fat Goal (g)",
+      type: "number",
+      placeholder: "Enter Fat Goal",
+    },
+    {
+      name: "sugarGoal",
+      label: "Sugar Goal (g)",
+      type: "number",
+      placeholder: "Enter Sugar Goal",
+    },
+  ];
 
   const [isVisible, setIsVisible] = useState(true);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (value < 0) {
+  async function handleSubmit() {
+    if (!user) {
+      alert("Please log in to submit Health Information");
       return;
     }
 
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
+    const goalsObject = new goalsFields(
+      goalFormData.caloriesGoal,
+      goalFormData.fat,
+      recipeFormData.id,
+      "", // image is an empty string for now
+      ingredientObjects,
+      [], // instructions is an empty array for now
+      recipeFormData.name,
+      recipeFormData.servings,
+      recipeFormData.summary
+    );
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
+    // Write the new Recipe to the User's CustomRecipes collection
+    console.log("Recipe Object:", goalsObject);
+
+    // const collectionPath = `Users/${user.uid}/CustomRecipes`;
+    // const documentId = recipeObject.id;
+    // const dataType = "recipe";
+    // try {
+    //   await FirestoreService.createDocument(
+    //     collectionPath,
+    //     documentId,
+    //     recipeObject,
+    //     dataType,
+    //   );
+    // } catch (error) {
+    //   console.error("Error creating document:", error);
+    // }
+
+    console.log(goalFormData);
     // Object is returned in console
     setIsVisible(false);
-  };
+  }
 
+
+  
   const handleEdit = () => {
     setIsVisible(true);
   };
@@ -47,11 +99,6 @@ const MacroGoalForm = () => {
     );
   }
 
-  const inputStyle = {
-    textAlign: "center",
-    width: "100%",
-    boxSizing: "border-box",
-  };
 
   return (
     <div className="macro-form-container">
@@ -59,65 +106,20 @@ const MacroGoalForm = () => {
       <h3>Enter your desired macronutrients below:</h3>
       <p>(You'll be able to go back and edit them later!)</p>
       <br />
-      <form onSubmit={handleSubmit} className="input-form-container">
-        <label>
-          Calorie Goal (cal):
-          <input
-            style={inputStyle}
-            type="number"
-            name="caloriesGoal"
-            value={formData.caloriesGoal}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Protein Goal (g):
-          <input
-            style={inputStyle}
-            type="number"
-            name="proteinGoal"
-            value={formData.proteinGoal}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Carbohydrate Goal (g):
-          <input
-            style={inputStyle}
-            type="number"
-            name="carbGoal"
-            value={formData.carbGoal}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Fat Goal (g):
-          <input
-            style={inputStyle}
-            type="number"
-            name="fatGoal"
-            value={formData.fatGoal}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Sugar Goal (g):
-          <input
-            style={inputStyle}
-            type="number"
-            name="sugarGoal"
-            value={formData.sugarGoal}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <br />
+      <form className="input-form-container">
+        <MappedInputFieldsForm
+          fields={goalsFields}
+          formData={goalFormData}
+          onChange={(e) =>
+            setGoalFormData({
+              ...goalFormData,
+              [e.target.name]: e.target.value,
+            })
+          }
+        />
         <button
-          type="submit"
+          type="button"
+          onClick={handleSubmit}
           style={{ marginLeft: "auto", marginRight: "auto", display: "block" }}
         >
           Submit
