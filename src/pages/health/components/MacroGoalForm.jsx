@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../../../utils/AuthContext.js";
 import { GoalForm } from "../../../customObjects/GoalForm.js";
 import FirestoreService from "../../../firebase/FirebaseService.js";
+import FirestoreListener from "../../../firebase/FirestoreListener.js";
 import MappedInputFieldsForm from "../../../pages/create-recipe/components/MappedInputFieldsForm.jsx";
 import "../macroGoals.css";
 
 const MacroGoalForm = () => {
   const { user } = useAuth();
+  const firestoreListener = new FirestoreListener();
 
+  const [isVisible, setIsVisible] = useState(true);
   const [goalFormData, setGoalFormData] = useState({});
+
   const goalsFields = [
     {
       name: "caloriesGoal",
@@ -16,7 +20,7 @@ const MacroGoalForm = () => {
       type: "number",
       placeholder: "Enter Calorie Goal",
       min: 0,
-      max: 12000
+      max: 12000,
     },
     {
       name: "proteinGoal",
@@ -24,7 +28,7 @@ const MacroGoalForm = () => {
       type: "number",
       placeholder: "Enter Protein Goal",
       min: 0,
-      max: 1000
+      max: 1000,
     },
     {
       name: "carbGoal",
@@ -32,7 +36,7 @@ const MacroGoalForm = () => {
       type: "number",
       placeholder: "Enter Carbohydrate Goal",
       min: 0,
-      max: 1000
+      max: 1000,
     },
     {
       name: "fatGoal",
@@ -40,7 +44,7 @@ const MacroGoalForm = () => {
       type: "number",
       placeholder: "Enter Fat Goal",
       min: 0,
-      max: 1000
+      max: 1000,
     },
     {
       name: "sugarGoal",
@@ -48,12 +52,31 @@ const MacroGoalForm = () => {
       type: "number",
       placeholder: "Enter Sugar Goal",
       min: 0,
-      max: 1000
+      max: 1000,
     },
   ];
 
-  const [isVisible, setIsVisible] = useState(true);
+  // Check if user has goals saved or not
+  useEffect(() => {
+    if (user) {
+      const path = `Users/${user.uid}/Health/${user.uid}.HealthGoals`;
+      const callback = (snapshot) => {
+        if (snapshot.exists()) {
+          setIsVisible(false);
+        } else {
+          setIsVisible(true);
+        }
+      };
 
+      firestoreListener.subscribeToDocument(path, callback);
+
+      return () => {
+        firestoreListener.unsubscribe();
+      };
+    }
+  }, []);
+
+  // Function to create goal form document in Firestore
   async function handleSubmit() {
     if (!user) {
       alert("Please log in to submit Health Information");
@@ -65,7 +88,7 @@ const MacroGoalForm = () => {
       goalFormData.proteinGoal,
       goalFormData.carbGoal,
       goalFormData.fatGoal,
-      goalFormData.sugarGoal,
+      goalFormData.sugarGoal
     );
 
     console.log("goals Object:", goalsObject);
@@ -89,6 +112,7 @@ const MacroGoalForm = () => {
     setIsVisible(false);
   }
 
+  // Used to handle the visibility of the goals submitted section
   const handleEdit = () => {
     setIsVisible(true);
   };

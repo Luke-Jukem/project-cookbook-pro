@@ -5,7 +5,6 @@ import MacroGoalForm from "./components/MacroGoalForm.jsx";
 
 const HealthPage = () => {
 
-
   return (
     <div>
       <div className="main-container">
@@ -14,8 +13,8 @@ const HealthPage = () => {
         </div>
         <div className="content-container">
           {/* This is where you put the 'Page" file you made previously */}
-          <MacroGoalForm/>
-          <DisplayGoals/>
+          <MacroGoalForm />
+          <DisplayGoals />
         </div>
       </div>
     </div>

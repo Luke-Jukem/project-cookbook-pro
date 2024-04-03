@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../../utils/AuthContext.js";
-import FirestoreService from "../../../firebase/FirebaseService.js";
 import FirestoreListener from "../../../firebase/FirestoreListener.js";
 
 function DisplayGoals() {
@@ -10,8 +9,8 @@ function DisplayGoals() {
   const firestoreListener = new FirestoreListener();
 
   useEffect(() => {
-    if (user){
-      const path = `Users/${user.uid}/Health/${user.uid}.HealthGoals`; // Create the document path here
+    if (user) {
+      const path = `Users/${user.uid}/Health/${user.uid}.HealthGoals`; 
       const callback = (snapshot) => {
         if (snapshot.exists()) {
           setGoals(snapshot.data());
