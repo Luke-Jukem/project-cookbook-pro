@@ -10,21 +10,21 @@ function DisplayGoals() {
   const firestoreListener = new FirestoreListener();
 
   useEffect(() => {
-    if (user) {
-      const userSavedGoalsPath = `Users/${user.uid}/Health/${user.uid}.HealthGoals`;
-      console.log(userSavedGoalsPath);
+    if (user){
+      const path = `Users/${user.uid}/Health/${user.uid}.HealthGoals`; // Create the document path here
+      const callback = (snapshot) => {
+        if (snapshot.exists()) {
+          setGoals(snapshot.data());
+        } else {
+          setGoals(null);
+        }
+      };
 
-      const fetchGoals = firestoreListener.subscribeToDocument(
-        userSavedGoalsPath,
-        (doc) => {
-          if (doc.exists) {
-            const userData = doc.data();
-            setGoals(userData.goals);
-          }
-        },
-      );
+      firestoreListener.subscribeToDocument(path, callback);
 
-      return fetchGoals;
+      return () => {
+        firestoreListener.unsubscribe();
+      };
     }
   }, [user]);
 
@@ -32,11 +32,11 @@ function DisplayGoals() {
     <div>
       <h2>Goals</h2>
       <ul>
-        <li>Calories Goal: {goals?.calories}</li>
-        <li>Protein Goal: {goals?.protein}</li>
-        <li>Carbohydrate Goal: {goals?.carbs}</li>
-        <li>Fat Goal: {goals?.fat}</li>
-        <li>Sugar Goal: {goals?.sugar}</li>
+        <li>Calorie Goal (cal): {goals?.calories}</li>
+        <li>Protein Goal (g): {goals?.protein}</li>
+        <li>Carbohydrate Goal (g): {goals?.carbs}</li>
+        <li>Fat Goal (g): {goals?.fat}</li>
+        <li>Sugar Goal (g): {goals?.sugar}</li>
       </ul>
     </div>
   );
