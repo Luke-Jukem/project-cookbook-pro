@@ -32,11 +32,11 @@ function DisplayGoals() {
     <div>
       <h2>Goals</h2>
       <ul>
-        <li>Calories Goal: {goals?.calories || "N/A"}</li>
-        <li>Protein Goal: {goals?.protein || "N/A"}</li>
-        <li>Carbohydrate Goal: {goals?.carbs || "N/A"}</li>
-        <li>Fat Goal: {goals?.fat || "N/A"}</li>
-        <li>Sugar Goal: {goals?.sugar || "N/A"}</li>
+        <li>Calories Goal: {goals?.calories}</li>
+        <li>Protein Goal: {goals?.protein}</li>
+        <li>Carbohydrate Goal: {goals?.carbs}</li>
+        <li>Fat Goal: {goals?.fat}</li>
+        <li>Sugar Goal: {goals?.sugar}</li>
       </ul>
     </div>
   );
