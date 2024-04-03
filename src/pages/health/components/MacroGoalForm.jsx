@@ -3,7 +3,6 @@ import { useAuth } from "../../../utils/AuthContext.js";
 import { GoalForm } from "../../../customObjects/GoalForm.js";
 import FirestoreService from "../../../firebase/FirebaseService.js";
 import MappedInputFieldsForm from "../../../pages/create-recipe/components/MappedInputFieldsForm.jsx";
-import DisplayGoals from "./DisplayGoals.jsx";
 import "../macroGoals.css";
 
 const MacroGoalForm = () => {
@@ -98,7 +97,6 @@ const MacroGoalForm = () => {
     return (
       <div className="macro-form-container">
         <p>Goals saved to profile!</p>
-        <DisplayGoals/>
         <button onClick={handleEdit}>Edit</button>
       </div>
     );

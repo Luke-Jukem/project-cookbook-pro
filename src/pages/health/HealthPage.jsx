@@ -1,8 +1,11 @@
 import React from "react";
-import Health from "./components/Health";
 import UserRecipesViewer from "../../components/UserRecipesViewer";
+import DisplayGoals from "./components/DisplayGoals.jsx";
+import MacroGoalForm from "./components/MacroGoalForm.jsx";
 
 const HealthPage = () => {
+
+
   return (
     <div>
       <div className="main-container">
@@ -11,7 +14,8 @@ const HealthPage = () => {
         </div>
         <div className="content-container">
           {/* This is where you put the 'Page" file you made previously */}
-          <Health />
+          <MacroGoalForm/>
+          <DisplayGoals/>
         </div>
       </div>
     </div>

@@ -30,13 +30,13 @@ function DisplayGoals() {
 
   return (
     <div>
-      <h2>Goals</h2>
+      <h2>Current Daily Goals</h2>
       <ul>
-        <li>Calorie Goal (cal): {goals?.calories}</li>
-        <li>Protein Goal (g): {goals?.protein}</li>
-        <li>Carbohydrate Goal (g): {goals?.carbs}</li>
-        <li>Fat Goal (g): {goals?.fat}</li>
-        <li>Sugar Goal (g): {goals?.sugar}</li>
+        <li>Calorie Goal (cal): {goals?.calories || "N/A"}</li>
+        <li>Protein Goal (g): {goals?.protein || "N/A"}</li>
+        <li>Carbohydrate Goal (g): {goals?.carbs || "N/A"}</li>
+        <li>Fat Goal (g): {goals?.fat || "N/A"}</li>
+        <li>Sugar Goal (g): {goals?.sugar || "N/A"}</li>
       </ul>
     </div>
   );
