@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../../utils/AuthContext.js";
 import FirestoreListener from "../../../firebase/FirestoreListener.js";
+import "../macroGoals.css"
 
 function DisplayGoals() {
   const [goals, setGoals] = useState({});
@@ -28,7 +29,7 @@ function DisplayGoals() {
   }, [user]);
 
   return (
-    <div>
+    <div className="macro-goals-display-container">
       <h2>Current Daily Goals</h2>
       <ul>
         <li>Calorie Goal (cal): {goals?.calories || "N/A"}</li>

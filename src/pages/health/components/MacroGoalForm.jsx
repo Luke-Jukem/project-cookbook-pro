@@ -78,11 +78,26 @@ const MacroGoalForm = () => {
 
   // Function to create goal form document in Firestore
   async function handleSubmit() {
+    // If user is not signed in, prompt them to log in
     if (!user) {
       alert("Please log in to submit Health Information");
       return;
     }
 
+    // Check for negative and zeroed input
+    const isValid = goalsFields.every(
+      (field) =>
+        goalFormData[field.name].trim() !== "" &&
+        parseFloat(goalFormData[field.name]) > 0
+    );
+
+    // If input is zero or negative, issue an alert
+    if (!isValid) {
+      alert("Please fill out all fields with positive numbers.");
+      return;
+    }
+
+    // Goals object
     const goalsObject = new GoalForm(
       goalFormData.caloriesGoal,
       goalFormData.proteinGoal,
@@ -91,8 +106,10 @@ const MacroGoalForm = () => {
       goalFormData.sugarGoal
     );
 
+    // Log to console for verification
     console.log("goals Object:", goalsObject);
 
+    // Firestore stuff
     const collectionPath = `Users/${user.uid}/Health`;
     const documentId = `${user.uid}.HealthGoals`;
     const dataType = "goalsResponse";
@@ -107,8 +124,10 @@ const MacroGoalForm = () => {
       console.error("Error creating document:", error);
     }
 
+    // Log new form data
     console.log(goalFormData);
-    // Object is returned in console
+
+    // Turn off input form visibility
     setIsVisible(false);
   }
 
