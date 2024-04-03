@@ -112,10 +112,10 @@ const getConverter = (dataType, firebaseConverter) => {
       return {
         objectConverter: firebaseConverter.gptResponseConverter,
       };
-      case "goalsResponse":
-        return {
-          objectConverter: firebaseConverter.goalsResponseConverter,
-        };
+    case "goalsResponse":
+      return {
+        objectConverter: firebaseConverter.goalsResponseConverter,
+      };
 
     default:
       return null;
