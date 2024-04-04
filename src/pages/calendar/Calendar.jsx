@@ -105,10 +105,15 @@ const MyCalendar = () => {
           const dayPlans = plans.filter(
             (plan) => plan.date === date.toISOString().split("T")[0],
           );
+          //finding out how many meals are planned for that day
+          const totalMeals = dayPlans.reduce(
+            (sum, plan) => sum + plan.meals.length,
+            0,
+          );
           return (
             <div>
               <p>
-                {dayPlans.length} {dayPlans.length === 1 ? "plan" : "plans"}
+                {totalMeals} {totalMeals === 1 ? "meal" : "meals"}
               </p>
             </div>
           );
