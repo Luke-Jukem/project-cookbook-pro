@@ -16,7 +16,7 @@ const MacroGoalForm = () => {
       type: "number",
       placeholder: "Enter Calorie Goal",
       min: 0,
-      max: 12000
+      max: 12000,
     },
     {
       name: "proteinGoal",
@@ -24,7 +24,7 @@ const MacroGoalForm = () => {
       type: "number",
       placeholder: "Enter Protein Goal",
       min: 0,
-      max: 1000
+      max: 1000,
     },
     {
       name: "carbGoal",
@@ -32,7 +32,7 @@ const MacroGoalForm = () => {
       type: "number",
       placeholder: "Enter Carbohydrate Goal",
       min: 0,
-      max: 1000
+      max: 1000,
     },
     {
       name: "fatGoal",
@@ -40,7 +40,7 @@ const MacroGoalForm = () => {
       type: "number",
       placeholder: "Enter Fat Goal",
       min: 0,
-      max: 1000
+      max: 1000,
     },
     {
       name: "sugarGoal",
@@ -48,7 +48,7 @@ const MacroGoalForm = () => {
       type: "number",
       placeholder: "Enter Sugar Goal",
       min: 0,
-      max: 1000
+      max: 1000,
     },
   ];
 
@@ -78,7 +78,7 @@ const MacroGoalForm = () => {
         collectionPath,
         documentId,
         goalsObject,
-        dataType
+        dataType,
       );
     } catch (error) {
       console.error("Error creating document:", error);

@@ -1,10 +1,10 @@
 class GoalForm {
-  constructor( calories, protein, carbs, fat, sugar) {
+  constructor(calories, protein, carbs, fat, sugar) {
     (this.calories = calories),
-    (this.protein = protein),
-    (this.carbs = carbs),
-    (this.fat = fat),
-    (this.sugar = sugar);
+      (this.protein = protein),
+      (this.carbs = carbs),
+      (this.fat = fat),
+      (this.sugar = sugar);
   }
   toString() {
     return (

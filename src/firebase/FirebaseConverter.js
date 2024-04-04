@@ -142,24 +142,21 @@ class FirebaseConverter {
 
     this.planConverter = {
       toFirestore: (plan) => {
-        console.log("toFirestore is being called");
-
         if (!plan) {
           console.error("Plan is undefined or null");
           return null;
         }
-
-        console.log("Plan date:", plan.date);
-        console.log("Plan meals:", plan.meals);
-
-        if (plan.meals) {
-          plan.meals.forEach((meal, index) => {
-            console.log(`Meal ${index + 1} name:`, meal.name);
-            console.log(`Meal ${index + 1} id:`, meal.id);
-            console.log(`Meal ${index + 1} autoAddToCart:`, meal.autoAddToCart);
-            console.log(`Meal ${index + 1} addToCartTime:`, meal.addToCartTime);
-          });
-        }
+        //logging stuff for debugging, remove later
+        // console.log("Plan date:", plan.date);
+        // console.log("Plan meals:", plan.meals);
+        // if (plan.meals) {
+        //   plan.meals.forEach((meal, index) => {
+        //     console.log(`Meal ${index + 1} name:`, meal.name);
+        //     console.log(`Meal ${index + 1} id:`, meal.id);
+        //     console.log(`Meal ${index + 1} autoAddToCart:`, meal.autoAddToCart);
+        //     console.log(`Meal ${index + 1} addToCartTime:`, meal.addToCartTime);
+        //   });
+        // }
 
         const convertedMeals = plan.meals.map((meal, index) => ({
           name: meal.name,

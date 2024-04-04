@@ -45,24 +45,45 @@ const MyCalendar = () => {
 
   //adding a plan
   const addPlan = (name, id, autoAddToCart, addToCartTime) => {
-    const newPlan = {
-      date: selectedDay.toISOString().split("T")[0],
-      meals: [
-        {
-          name: name,
-          id: id,
-          autoAddToCart: autoAddToCart,
-          addToCartTime: addToCartTime,
-        },
-      ],
-    };
-    setPlans([...plans, newPlan]);
+    const planDate = selectedDay.toISOString().split("T")[0];
+    //checking for existing plans to avoid overwrites
+    const existingPlan = plans.find((plan) => plan.date === planDate);
+    //if the plan exists, add the meal to the existing plan
+    if (existingPlan) {
+      existingPlan.meals.push({
+        name: name,
+        id: id,
+        autoAddToCart: autoAddToCart,
+        addToCartTime: addToCartTime,
+      });
 
-    const planId = selectedDay.toISOString().split("T")[0];
-    const userPlansPath = `Users/${user.uid}/Plans/`;
-    FirestoreService.createDocument(userPlansPath, planId, newPlan, "plan")
-      .then(() => console.log("Plan saved successfully"))
-      .catch((error) => console.error("Error saving plan: ", error));
+      FirestoreService.updateDocument(
+        `Users/${user.uid}/Plans/`,
+        planDate,
+        existingPlan,
+      ).catch((error) => console.error("Error updating plan: ", error));
+    }
+    //if there's no existing plan, create a new plan
+    else {
+      const newPlan = {
+        date: planDate,
+        meals: [
+          {
+            name: name,
+            id: id,
+            autoAddToCart: autoAddToCart,
+            addToCartTime: addToCartTime,
+          },
+        ],
+      };
+      setPlans([...plans, newPlan]);
+
+      FirestoreService.createDocument(
+        `Users/${user.uid}/Plans/`,
+        planDate,
+        newPlan,
+      ).catch((error) => console.error("Error creating plan: ", error));
+    }
   };
 
   //opening/closing modal (meal form)
@@ -122,11 +143,13 @@ const MyCalendar = () => {
         <br />
         <br />
         {plans
+          //filtering plans by selected day to display them
           .filter(
             (plan) => plan.date === selectedDay.toISOString().split("T")[0],
           )
           .map((plan, index) =>
             plan.meals.map((meal, mealIndex) => (
+              //for each entry, create a div displaying the meal's name
               <div key={mealIndex} className="meal-tile">
                 <h6>{meal.name}</h6>
               </div>
