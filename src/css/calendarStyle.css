@@ -1,53 +1,62 @@
+:root {
+  --space-cadet: #1b264f;
+  --burgundy: #8b2731;
+  --salmon: #fb7d6f;
+  --moonstone: #52b9cb;
+  --straw: #d2dd6e;
+}
+
 .calendar-container {
-  display: flex !important;
-  justify-content: center !important;
-  padding-top: 2% !important;
+  display: flex;
+  justify-content: center;
 }
 
 .selected-day {
-  background-color: #ffa6a6 !important;
-  text-align: center !important;
-  color: #fff !important;
-  padding-left: 5% !important;
-  padding-right: 5% !important;
-  width: 30% !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
+  background-color: #ffa6a6;
+  text-align: center;
+  color: white;
+  padding-left: 5%;
+  padding-right: 5%;
+  width: 30%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .add-meal-btn {
-  background-color: #ff7f7f !important;
-  color: white !important;
-  border: none !important;
-  padding: 10px 20px !important;
-  text-align: center !important;
-  text-decoration: none !important;
-  display: inline-block !important;
-  font-size: 16px !important;
-  margin: 4px 2px !important;
-  cursor: pointer !important;
-  border-radius: 12px !important;
-  transition-duration: 0.4s !important;
+  background-color: #ff7f7f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition-duration: 0.4s;
 }
 
 .add-meal-btn:hover {
-  background-color: #8b0000 !important;
-  color: white !important;
+  background-color: #8b0000;
+  color: white;
 }
 
 .date-display {
-  font-size: 1.2em !important;
-  font-weight: bold !important;
-  color: #8b0000 !important;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #8b0000;
 }
 
 .past-date {
-  color: #999 !important;
+  color: #999;
 }
 
 .meal-tile {
-  background-color: #ff8c8c !important;
+  background-color: #ff8c8c;
 }
+
+/* react classes have to be overridden with !important */
 
 .react-calendar {
   width: 70% !important;
@@ -77,11 +86,6 @@
   color: inherit !important;
 }
 
-.react-calendar__tile:enabled:hover,
-.react-calendar__tile:enabled:focus {
-  /* font-size: 1.2em !important; */
-}
-
 .react-calendar__tile--active {
   background: #ffa6a6 !important;
   color: white !important;
@@ -108,83 +112,83 @@
 }
 
 .meal-form-container {
-  display: flex !important;
-  flex-direction: column !important;
-  width: 90% !important;
-  max-width: 300px !important;
-  margin: 0 auto !important;
-  text-align: center !important;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 300px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .meal-form-container label {
-  margin-bottom: 1em !important;
-  color: #570000 !important;
-  font-size: 1em !important;
+  margin-bottom: 1em;
+  color: #570000;
+  font-size: 1em;
 }
 
 .meal-form-container input[type="text"],
 .meal-form-container input[type="checkbox"] {
-  width: 100% !important;
-  padding: 1em !important;
-  margin-bottom: 1em !important;
-  border: 1px solid #ccc !important;
-  border-radius: 0.25em !important;
-  background: #f0f0f0 !important;
+  width: 100%;
+  padding: 1em;
+  margin-bottom: 1em;
+  border: 1px solid #ccc;
+  border-radius: 0.25em;
+  background: #f0f0f0;
 }
 
 .meal-form-container input[type="submit"],
 .meal-form-container button {
-  padding: 1em !important;
-  border: none !important;
-  border-radius: 0.75em !important;
-  background-color: #ff7f7f !important;
-  color: white !important;
-  cursor: pointer !important;
-  transition-duration: 0.4s !important;
-  font-size: 1em !important;
-  text-align: center !important;
+  padding: 1em;
+  border: none;
+  border-radius: 0.75em;
+  background-color: #ff7f7f;
+  color: white;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  font-size: 1em;
+  text-align: center;
 }
 
 .option-button {
-  margin-left: 2% !important;
-  margin-right: 2% !important;
-  margin-top: 15% !important;
-  margin-bottom: 5% !important;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 15%;
+  margin-bottom: 5%;
 }
 
 .exit-button {
-  position: absolute !important;
-  top: 10px !important;
-  right: 10px !important;
-  font-size: 0.8em !important;
-  cursor: pointer !important;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.8em;
+  cursor: pointer;
 }
 
 @media (min-width: 600px) {
   .meal-form-container {
-    width: 80% !important;
+    width: 80%;
   }
 }
 
 @media (min-width: 900px) {
   .meal-form-container {
-    width: 60% !important;
-    max-width: none !important;
+    width: 60%;
+    max-width: none;
   }
 }
 
 .meal-entry {
-  display: flex !important;
-  align-items: center !important;
-  background-color: pink !important;
-  border-radius: 2% !important;
-  margin-bottom: 1% !important;
+  display: flex;
+  align-items: center;
+  background-color: pink;
+  border-radius: 2%;
+  margin-bottom: 1%;
 }
 
 .meal-entry img {
-  width: 100px !important;
+  width: 100px;
 }
 
 .meal-entry p {
-  padding-left: 3% !important;
+  padding-left: 3%;
 }

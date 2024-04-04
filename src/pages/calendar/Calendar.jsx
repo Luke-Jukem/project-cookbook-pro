@@ -155,7 +155,7 @@ const MyCalendar = () => {
           .map((plan, index) =>
             plan.meals.map((meal, mealIndex) => (
               //for each entry, create a div displaying the meal's name
-              <div key={mealIndex} className="meal-tile">
+              <div key={mealIndex} className="meal-tile rounded">
                 <h6>{meal.name}</h6>
               </div>
             )),
