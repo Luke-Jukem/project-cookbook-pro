@@ -94,6 +94,11 @@ const RecipeCreationForm = () => {
   };
 
   async function handleSubmitRecipe() {
+    //prevents user from submitted recipe if they're not logged in
+    if (!user) {
+      alert("Please log in to submit a recipe.");
+      return;
+    }
     const ingredientObjects = ingredients.map(
       (ingredient) =>
         new Ingredient(

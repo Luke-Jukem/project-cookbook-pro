@@ -12,6 +12,8 @@ const FlexibleForm = ({ fields, formData, onChange }) => {
             name={field.name}
             placeholder={field.name}
             value={formData[field.name] || ""}
+            min={field.min}
+            max={field.max}
             onChange={onChange}
           />
         </div>

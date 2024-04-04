@@ -1,3 +1,5 @@
+import { GoalForm } from "../customObjects/GoalForm";
+
 class FirebaseConverter {
   constructor() {
     this.objectConverter = {
@@ -89,6 +91,52 @@ class FirebaseConverter {
           recipeNames: order.recipeNames,
           ingredients: convertedIngredients,
         };
+      },
+    };
+    this.gptResponseConverter = {
+      toFirestore: (gptResponse) => {
+        if (!gptResponse) {
+          console.error("GPT response is undefined or null");
+          return null;
+        }
+
+        return {
+          userMessage: gptResponse.userMessage,
+          assistantResponse: gptResponse.assistantResponse,
+        };
+      },
+      fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        return {
+          userMessage: data.userMessage,
+          assistantResponse: data.assistantResponse,
+        };
+      },
+    };
+    this.goalsResponseConverter = {
+      toFirestore: (goalsResponse) => {
+        if (!goalsResponse) {
+          console.error("Goal response is undefined or null");
+          return null;
+        }
+
+        return {
+          calories: goalsResponse.calories,
+          protein: goalsResponse.protein,
+          carbs: goalsResponse.carbs,
+          fat: goalsResponse.fat,
+          sugar: goalsResponse.sugar,
+        };
+      },
+      fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        return new GoalForm(
+          data.calories,
+          data.protein,
+          data.carbs,
+          data.fat,
+          data.sugar,
+        );
       },
     };
 

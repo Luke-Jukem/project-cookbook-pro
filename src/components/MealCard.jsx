@@ -46,25 +46,25 @@ const MealCard = ({ meal }) => {
   //button options for RecipeDetails
   const buttonOptions = (
     <>
-      <Button
-        color="primary"
-        onClick={() => {
-          saveData(
-            `Users/${user.uid}/SavedRecipes/`,
-            String(meal.id),
-            meal,
-            "recipe",
-          );
-          setSelectedMeal(null); //setting selected meal = null closes the RecipeDetails component
-        }}
-      >
-        Save Recipe
-      </Button>
+      {user && (
+        <Button
+          color="primary"
+          onClick={() => {
+            saveData(
+              `Users/${user.uid}/SavedRecipes/`,
+              String(meal.id),
+              meal,
+              "recipe",
+            );
+            setSelectedMeal(null); //setting selected meal = null closes the RecipeDetails component
+          }}
+        >
+          Save Recipe
+        </Button>
+      )}
       <Button
         color="secondary"
-        onClick={
-          () => setSelectedMeal(null) //setting selected meal = null closes the RecipeDetails component
-        }
+        onClick={() => setSelectedMeal(null)} //setting selected meal = null closes the RecipeDetails component
       >
         Close
       </Button>
@@ -106,32 +106,36 @@ const MealCard = ({ meal }) => {
             />
           ) /* if selectedMeal is not null, render the RecipeDetails component */
         }
-        <Button
-          className="card-button"
-          onClick={() => {
-            saveData(
-              `Users/${user.uid}/SavedRecipes/`,
-              String(meal.id),
-              meal,
-              "recipe",
-            );
-          }}
-        >
-          Save
-        </Button>
-        <Button
-          className="card-button"
-          onClick={() => {
-            saveData(
-              `Users/${user.uid}/Cart/`,
-              String(meal.id),
-              meal,
-              "recipe",
-            );
-          }}
-        >
-          Add to Cart
-        </Button>
+        {user && (
+          <>
+            <Button
+              className="card-button"
+              onClick={() => {
+                saveData(
+                  `Users/${user.uid}/SavedRecipes/`,
+                  String(meal.id),
+                  meal,
+                  "recipe",
+                );
+              }}
+            >
+              Save
+            </Button>
+            <Button
+              className="card-button"
+              onClick={() => {
+                saveData(
+                  `Users/${user.uid}/Cart/`,
+                  String(meal.id),
+                  meal,
+                  "recipe",
+                );
+              }}
+            >
+              Add to Cart
+            </Button>
+          </>
+        )}
       </CardBody>
     </Card>
   );
