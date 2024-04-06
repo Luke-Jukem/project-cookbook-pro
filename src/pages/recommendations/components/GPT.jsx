@@ -23,7 +23,6 @@ const GPT = () => {
       );
 
       const names = allDocuments.map((doc) => doc.data.name);
-      console.log(names);
       setRecipeNames(names); // Update the state with the extracted names
     } catch (error) {
       console.error("Error: No saved recipes fetched.", error);
