@@ -25,19 +25,14 @@ const OrderHistory = () => {
     fetchOrderHistory();
   }, []);
 
-  // Once data is fetched, sort orders by their ID
-  const sortedOrders = orderHistoryDocuments
-    ? orderHistoryDocuments.sort((a, b) => a.id - b.id)
-    : [];
-
   return (
     <div>
       <h1>Order History</h1>
-      {sortedOrders.map((order, index) => (
+      {orderHistoryDocuments.map((order, index) => (
         <Order
           key={index}
-          recipeNames={order.recipeNames}
-          ingredients={order.ingredients}
+          recipeNames={order.data.recipeNames}
+          ingredients={order.data.ingredients}
           orderId={order.id}
         />
       ))}

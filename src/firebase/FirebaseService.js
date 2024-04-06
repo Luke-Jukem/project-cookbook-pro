@@ -117,7 +117,11 @@ class FirestoreService {
 
       const documents = [];
       querySnapshot.forEach((doc) => {
-        documents.push(doc.data());
+        // Include document ID along with data
+        documents.push({
+          id: doc.id,
+          data: doc.data(),
+        });
       });
 
       return documents;
