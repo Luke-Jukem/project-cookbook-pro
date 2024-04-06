@@ -9,7 +9,7 @@ function UserDropdown() {
   return (
     <Dropdown>
       <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Dropdown Button
+        {user.displayName}
       </Dropdown.Toggle>
 
       <Dropdown.Menu>

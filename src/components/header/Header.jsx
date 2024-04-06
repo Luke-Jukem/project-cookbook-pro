@@ -8,7 +8,7 @@ import "../../css/styles.css";
 import UserDropdown from "./UserDropdown.jsx";
 
 const Header = () => {
-  const { user, logoutUser } = useAuth();
+  const { user } = useAuth();
   const firestoreListener = new FirestoreListener();
   //opening/closing the cart modal and keeping track of cart item count
   const [modalOpen, setModalOpen] = useState(false);
@@ -65,16 +65,9 @@ const Header = () => {
               setModalOpen={setModalOpen}
               cartItems={cartItems}
             />
-            <UserDropdown
-              logoutUser={logoutUser}
-              displayName={user.displayName}
-            />
+            <UserDropdown />
           </>
-        ) : (
-          <Link className="btn" to="/login">
-            Login
-          </Link>
-        )}
+        ) : null}
       </div>
     </div>
   );
