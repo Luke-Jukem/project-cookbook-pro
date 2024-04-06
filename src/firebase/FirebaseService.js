@@ -5,6 +5,8 @@ import {
   setDoc,
   updateDoc,
   deleteDoc,
+  query,
+  getDocs,
 } from "firebase/firestore";
 import { firestoreDb } from "./firebaseConfig";
 import FirebaseConverter from "./FirebaseConverter";
@@ -35,13 +37,13 @@ class FirestoreService {
         typeof collectionPath !== "string"
       ) {
         console.error(
-          "Invalid collection path. Collection path must be a string or an array of strings.",
+          "Invalid collection path. Collection path must be a string or an array of strings."
         );
         return null;
       }
 
       const docRef = doc(collectionRef, documentId).withConverter(
-        converter.objectConverter, // Use the objectConverter for generic objects
+        converter.objectConverter // Use the objectConverter for generic objects
       );
 
       // Convert the data using the objectConverter
@@ -58,7 +60,7 @@ class FirestoreService {
   static async updateDocument(collectionPath, documentId, data, dataType) {
     const firebaseConverter = new FirebaseConverter();
     const docRef = doc(firestoreDb, collectionPath, documentId).withConverter(
-      getConverter(dataType, firebaseConverter),
+      getConverter(dataType, firebaseConverter)
     );
     try {
       await updateDoc(docRef, data);
@@ -78,18 +80,50 @@ class FirestoreService {
         typeof collectionPath !== "string"
       ) {
         console.error(
-          "Invalid collection path. Collection path must be a string or an array of strings.",
+          "Invalid collection path. Collection path must be a string or an array of strings."
         );
         return null;
       }
 
       const docRef = doc(collectionRef, String(documentId)).withConverter(
-        converter.objectConverter, // Use the objectConverter for generic objects
+        converter.objectConverter // Use the objectConverter for generic objects
       );
 
       await deleteDoc(docRef);
     } catch (error) {
       console.error("Error deleting document: ", error);
+    }
+  }
+
+  static async getAllDocuments(collectionPath, dataType) {
+    try {
+      const firebaseConverter = new FirebaseConverter();
+      const converter = getConverter(dataType, firebaseConverter);
+      const collectionRef = collection(firestoreDb, collectionPath);
+
+      if (
+        !Array.isArray(collectionPath) &&
+        typeof collectionPath !== "string"
+      ) {
+        console.error(
+          "Invalid collection path. Collection path must be a string or an array of strings."
+        );
+        return null;
+      }
+
+      const querySnapshot = await getDocs(
+        query(collectionRef.withConverter(converter))
+      );
+
+      const documents = [];
+      querySnapshot.forEach((doc) => {
+        documents.push(doc.data());
+      });
+
+      return documents;
+    } catch (error) {
+      console.error("Error getting documents: ", error);
+      return null;
     }
   }
 }

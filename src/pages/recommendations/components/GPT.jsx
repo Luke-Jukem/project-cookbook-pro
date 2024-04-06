@@ -24,22 +24,26 @@ const GPT = () => {
       // Model setting
       const gptModel = "gpt-4-0125-preview";
       const json_object = [
-        {"name": "cuisine", "label": "Cuisine", "type": "text"},
-        {"name": "dishType", "label": "Dish Type", "type": "text"},
-        {"name": "id", "label": "ID", "type": "text", "placeholder": "Enter recipe ID"},
-        {"name": "dishType", "label": "Dish Type", "type": "text"},
-        {"name": "servings", "label": "Servings", "type": "number"},
-        {"name": "summary", "label": "Summary", "type": "textarea"}
-    ],
-    
-
-    json_string = JSON.stringify(json_object, null, 2)
+          { name: "cuisine", label: "Cuisine", type: "text" },
+          { name: "dishType", label: "Dish Type", type: "text" },
+          {
+            name: "id",
+            label: "ID",
+            type: "text",
+            placeholder: "Enter recipe ID",
+          },
+          { name: "dishType", label: "Dish Type", type: "text" },
+          { name: "servings", label: "Servings", type: "number" },
+          { name: "summary", label: "Summary", type: "textarea" },
+        ],
+        json_string = JSON.stringify(json_object, null, 2);
 
       const userMessage = [
         {
           role: "system",
           content:
-            "You are a recipe recommendation system that uses user preferences, recent website activity, and preferences to generate recipes that match the user's tastes without recommending food they've recently viewed or preferred. Do not ask clarifying questions, you must give the user a recipe. Your response should be a JSON object that fits this format:"+json_string,
+            "You are a recipe recommendation system that uses user preferences, recent website activity, and preferences to generate recipes that match the user's tastes without recommending food they've recently viewed or preferred. Do not ask clarifying questions, you must give the user a recipe. Your response should be a JSON object that fits this format:" +
+            json_string,
         },
         { role: "user", content: message }, // Message with user inputted message
       ];
@@ -85,6 +89,22 @@ const GPT = () => {
     }
   };
 
+  const handleTestFirestore = async () => {
+    try {
+      const collectionPath = `Users/${user.uid}/SavedRecipes`;
+      const dataType = "recipes";
+
+      const allDocuments = await FirestoreService.getAllDocuments(
+        collectionPath,
+        dataType
+      );
+
+      console.log("All Documents:", allDocuments);
+    } catch (error) {
+      console.error("Error testing FirestoreService:", error);
+    }
+  };
+
   return (
     <div>
       <h1>ChatGPT</h1>
@@ -99,6 +119,11 @@ const GPT = () => {
       <div>
         <h2>Response:</h2>
         <pre>{response}</pre>
+      </div>
+      <div>
+        <button onClick={handleTestFirestore}>
+          Test FirestoreService.getAllDocuments()
+        </button>
       </div>
     </div>
   );
