@@ -7,24 +7,23 @@ const OrderHistory = () => {
   const { user } = useAuth();
   const [orderHistoryDocuments, setOrderHistoryDocuments] = useState([]);
 
-  useEffect(() => {
+  const fetchOrderHistory = async () => {
     const collectionPath = `Users/${user.uid}/Orders`;
     const dataType = "orderHistory";
+    try {
+      const documents = await FirestoreService.getAllDocuments(
+        collectionPath,
+        dataType
+      );
+      setOrderHistoryDocuments(documents);
+    } catch (error) {
+      console.error("Error fetching order history:", error);
+    }
+  };
 
-    const fetchOrderHistory = async () => {
-      try {
-        const documents = await FirestoreService.getAllDocuments(
-          collectionPath,
-          dataType
-        );
-        setOrderHistoryDocuments(documents);
-      } catch (error) {
-        console.error("Error fetching order history:", error);
-      }
-    };
-
+  useEffect(() => {
     fetchOrderHistory();
-  }, [user.uid]);
+  }, []);
 
   // Once data is fetched, sort orders by their ID
   const sortedOrders = orderHistoryDocuments
