@@ -14,8 +14,6 @@ function UserDropdown() {
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Action 1</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Action 2</Dropdown.Item>
         <Dropdown.Item as={Link} to="/order-history">
           Order History
         </Dropdown.Item>
