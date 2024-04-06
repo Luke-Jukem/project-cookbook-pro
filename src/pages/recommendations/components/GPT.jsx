@@ -1,15 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import OpenAI from "openai";
 import FirestoreService from "../../../firebase/FirebaseService";
 import { useAuth } from "../../../utils/AuthContext.js";
 const GPT = () => {
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
+  const [recipeNames, setRecipeNames] = useState([]);
   const [error, setError] = useState("");
   const { user } = useAuth();
   const handleChange = (e) => {
     setMessage(e.target.value);
   };
+
+  const getSavedRecipes = async () => {
+    try {
+      const collectionPath = `Users/${user.uid}/SavedRecipes`;
+      const dataType = "recipes";
+
+      const allDocuments = await FirestoreService.getAllDocuments(
+        collectionPath,
+        dataType,
+      );
+
+      const names = allDocuments.map((doc) => doc.name);
+      setRecipeNames(names); // Update the state with the extracted names
+
+    } catch (error) {
+      console.error("Error: No saved recipes fetched.", error);
+    }
+  };
+
+  useEffect(() => {
+    if (user && user.uid) {
+      // Ensure user is loaded before calling
+      getSavedRecipes();
+    }
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,8 +47,11 @@ const GPT = () => {
         apiKey: process.env.REACT_APP_OPENAI_API_KEY,
         dangerouslyAllowBrowser: true,
       });
-      // Model setting
+
+      // Model settings
       const gptModel = "gpt-4-0125-preview";
+
+      //Build SystemMessage
       const json_object = [
           { name: "cuisine", label: "Cuisine", type: "text" },
           { name: "dishType", label: "Dish Type", type: "text" },
@@ -38,12 +67,15 @@ const GPT = () => {
         ],
         json_string = JSON.stringify(json_object, null, 2);
 
+      const recipeListString = recipeNames.join(", "); // Convert array of names to a string
+      const systemMessageContent = `You are a recipe recommendation system that uses user preferences to generate recipes that match the user's tastes without recommending food they've recently viewed or already saved. Previously saved recipes include: ${recipeListString}. Do not ask clarifying questions, you must give the user a recipe. Your response should be a JSON object that fits this format: ${json_string}`;
+
+      console.log(systemMessageContent);
+
       const userMessage = [
         {
           role: "system",
-          content:
-            "You are a recipe recommendation system that uses user preferences, recent website activity, and preferences to generate recipes that match the user's tastes without recommending food they've recently viewed or preferred. Do not ask clarifying questions, you must give the user a recipe. Your response should be a JSON object that fits this format:" +
-            json_string,
+          content: systemMessageContent,
         },
         { role: "user", content: message }, // Message with user inputted message
       ];
@@ -58,7 +90,7 @@ const GPT = () => {
       }
 
       const assistantResponse = completion.choices.find(
-        (choice) => choice.message.role === "assistant"
+        (choice) => choice.message.role === "assistant",
       );
 
       // Check for ChatGPT error
@@ -68,7 +100,7 @@ const GPT = () => {
         // Firebase document creation
         const collectionPath = `Users/${user.uid}/generatedRecipes`;
         const documentId = `gpt-${Date.now()}-${Math.floor(
-          Math.random() * 1000
+          Math.random() * 1000,
         )}`;
         const gptResponse = {
           userMessage: message,
@@ -78,7 +110,7 @@ const GPT = () => {
           collectionPath,
           documentId,
           gptResponse,
-          "gptResponse"
+          "gptResponse",
         );
       } else {
         setError("Assistant response not found");
@@ -86,22 +118,6 @@ const GPT = () => {
     } catch (error) {
       setError("Error communicating with the server");
       console.error("Error:", error);
-    }
-  };
-
-  const handleTestFirestore = async () => {
-    try {
-      const collectionPath = `Users/${user.uid}/SavedRecipes`;
-      const dataType = "recipes";
-
-      const allDocuments = await FirestoreService.getAllDocuments(
-        collectionPath,
-        dataType
-      );
-
-      console.log("All Documents:", allDocuments);
-    } catch (error) {
-      console.error("Error testing FirestoreService:", error);
     }
   };
 
@@ -119,11 +135,6 @@ const GPT = () => {
       <div>
         <h2>Response:</h2>
         <pre>{response}</pre>
-      </div>
-      <div>
-        <button onClick={handleTestFirestore}>
-          Test FirestoreService.getAllDocuments()
-        </button>
       </div>
     </div>
   );
