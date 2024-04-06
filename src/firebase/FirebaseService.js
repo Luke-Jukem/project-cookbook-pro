@@ -139,6 +139,10 @@ const getConverter = (dataType, firebaseConverter) => {
         objectConverter: firebaseConverter.ingredientsConverter,
       };
     case "order":
+      return {
+        objectConverter: firebaseConverter.orderConverter,
+      };
+    case "orderHistory":
       return firebaseConverter.orderConverter;
     case "gptResponse":
       return {

@@ -9,7 +9,7 @@ const OrderHistory = () => {
 
   useEffect(() => {
     const collectionPath = `Users/${user.uid}/Orders`;
-    const dataType = "order";
+    const dataType = "orderHistory";
 
     const fetchOrderHistory = async () => {
       try {
