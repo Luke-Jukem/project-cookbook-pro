@@ -1,8 +1,11 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Dropdown } from "react-bootstrap";
+import { useAuth } from "../../utils/AuthContext";
 
-function UserDropdown({ logoutUser, displayName }) {
+function UserDropdown() {
+  const { user, logoutUser } = useAuth();
+
   return (
     <Dropdown>
       <Dropdown.Toggle variant="success" id="dropdown-basic">
