@@ -92,7 +92,20 @@ class FirebaseConverter {
           ingredients: convertedIngredients,
         };
       },
+      fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        const convertedIngredients = this.convertArray(
+          data.ingredients,
+          this.objectConverter
+        );
+
+        return {
+          recipeNames: data.recipeNames,
+          ingredients: convertedIngredients,
+        };
+      },
     };
+
     this.gptResponseConverter = {
       toFirestore: (gptResponse) => {
         if (!gptResponse) {
@@ -113,6 +126,7 @@ class FirebaseConverter {
         };
       },
     };
+
     this.goalsResponseConverter = {
       toFirestore: (goalsResponse) => {
         if (!goalsResponse) {
@@ -135,7 +149,7 @@ class FirebaseConverter {
           data.protein,
           data.carbs,
           data.fat,
-          data.sugar,
+          data.sugar
         );
       },
     };
