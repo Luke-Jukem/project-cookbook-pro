@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../utils/AuthContext";
+import { useAuth } from "../../utils/AuthContext.js";
 import { FaShoppingCart } from "react-icons/fa";
-import Cart from "./cart/Cart";
-import FirestoreListener from "../firebase/FirestoreListener.js";
-import "../css/styles.css";
+import Cart from "../cart/Cart.jsx";
+import FirestoreListener from "../../firebase/FirestoreListener.js";
+import "../../css/styles.css";
+import UserDropdown from "./UserDropdown.jsx";
 
 const Header = () => {
   const { user, logoutUser } = useAuth();
@@ -23,7 +24,7 @@ const Header = () => {
         (docs) => {
           const recipes = docs.map((doc) => doc);
           setCartItems(recipes);
-        },
+        }
       );
 
       //cleanup function
@@ -64,9 +65,10 @@ const Header = () => {
               setModalOpen={setModalOpen}
               cartItems={cartItems}
             />
-            <button onClick={logoutUser} className="btn">
-              Logout {user.displayName ? `(${user.displayName})` : ""}
-            </button>
+            <UserDropdown
+              logoutUser={logoutUser}
+              displayName={user.displayName}
+            />
           </>
         ) : (
           <Link className="btn" to="/login">
