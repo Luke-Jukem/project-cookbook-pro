@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import SearchPage from "./pages/search/SearchPage";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import Header from "./components/Header";
+import Header from "./components/header/Header";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { AuthProvider } from "./utils/AuthContext";
 import "./css/styles.css";
