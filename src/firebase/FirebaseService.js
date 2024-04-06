@@ -5,6 +5,8 @@ import {
   setDoc,
   updateDoc,
   deleteDoc,
+  query,
+  getDocs,
 } from "firebase/firestore";
 import { firestoreDb } from "./firebaseConfig";
 import FirebaseConverter from "./FirebaseConverter";
@@ -90,6 +92,38 @@ class FirestoreService {
       await deleteDoc(docRef);
     } catch (error) {
       console.error("Error deleting document: ", error);
+    }
+  }
+
+  static async getAllDocuments(collectionPath, dataType) {
+    try {
+      const firebaseConverter = new FirebaseConverter();
+      const converter = getConverter(dataType, firebaseConverter);
+      const collectionRef = collection(firestoreDb, collectionPath);
+
+      if (
+        !Array.isArray(collectionPath) &&
+        typeof collectionPath !== "string"
+      ) {
+        console.error(
+          "Invalid collection path. Collection path must be a string or an array of strings.",
+        );
+        return null;
+      }
+
+      const querySnapshot = await getDocs(
+        query(collectionRef.withConverter(converter)),
+      );
+
+      const documents = [];
+      querySnapshot.forEach((doc) => {
+        documents.push(doc.data());
+      });
+
+      return documents;
+    } catch (error) {
+      console.error("Error getting documents: ", error);
+      return null;
     }
   }
 }
