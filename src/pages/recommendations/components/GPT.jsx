@@ -70,8 +70,6 @@ const GPT = () => {
       const recipeListString = recipeNames.join(", "); // Convert array of names to a string
       const systemMessageContent = `You are a recipe recommendation system that uses user preferences to generate recipes that match the user's tastes without recommending food they've recently viewed or already saved. Previously saved recipes include: ${recipeListString}. Do not ask clarifying questions, you must give the user a recipe. Your response should be a JSON object that fits this format: ${json_string}`;
 
-      console.log(systemMessageContent);
-
       const userMessage = [
         {
           role: "system",
