@@ -53,10 +53,10 @@ class MealDataManager {
               ingredient.amount,
               ingredient.id,
               ingredient.nameClean ? ingredient.nameClean : ingredient.name,
-              ingredient.unit,
+              ingredient.unit
             );
             return ing;
-          },
+          }
         );
 
         const mappedResult = new Recipe(
@@ -68,7 +68,7 @@ class MealDataManager {
           recipe.analyzedInstructions,
           recipe.title,
           recipe.servings,
-          recipe.summary,
+          recipe.summary
         );
         return mappedResult;
       });
@@ -80,6 +80,33 @@ class MealDataManager {
       };
     } catch (error) {
       console.error("Error fetching Recipe data:", error);
+      throw error;
+    }
+  }
+
+  async searchIngredients(query, number = 25) {
+    const searchParams = new URLSearchParams({
+      apiKey: this.spoonacularApi,
+      query,
+      number: number.toString(),
+    });
+
+    const url = `https://api.spoonacular.com/food/ingredients/search?${searchParams.toString()}`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      const searchResults = data.results.map((result) => {
+        return new Ingredient(null, result.id, result.name, null, result.image);
+      });
+
+      return {
+        results: searchResults,
+        totalResults: data.totalResults,
+      };
+    } catch (error) {
+      console.error("Error searching for ingredients:", error);
       throw error;
     }
   }

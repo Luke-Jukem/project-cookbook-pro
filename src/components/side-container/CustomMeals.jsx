@@ -3,6 +3,7 @@ import { ListGroup, ListGroupItem, Button } from "reactstrap";
 import RecipeDetails from "../RecipeDetails.jsx";
 import { useAuth } from "../../utils/AuthContext.js";
 import FirestoreService from "../../firebase/FirebaseService.js";
+import EmptyCollectionMessage from "./EmptyCollectionMessage.jsx";
 import FirestoreListener from "../../firebase/FirestoreListener.js";
 
 const CustomMeals = () => {
@@ -77,17 +78,24 @@ const CustomMeals = () => {
           buttonOptions={buttonOptions}
         />
       )}
-      {savedRecipes.map((recipe, key) => {
-        return (
-          <ListGroupItem
-            action
-            onClick={() => setSelectedMeal(recipe)}
-            key={key}
-          >
-            {recipe.name}
-          </ListGroupItem>
-        );
-      })}
+      {savedRecipes.length === 0 ? (
+        <EmptyCollectionMessage
+          collectionName="Custom Recipes"
+          href="/create-recipe"
+        />
+      ) : (
+        savedRecipes.map((recipe, key) => {
+          return (
+            <ListGroupItem
+              action
+              onClick={() => setSelectedMeal(recipe)}
+              key={key}
+            >
+              {recipe.name}
+            </ListGroupItem>
+          );
+        })
+      )}
     </ListGroup>
   );
 };
