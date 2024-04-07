@@ -1,18 +1,19 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import SearchPage from "./pages/search/SearchPage";
+import Search from "./pages/search/Search";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Header from "./components/header/Header";
+import Recomendations from "./pages/recommendations/Recommendations";
+import CreateRecipes from "./pages/create-recipe/CreateRecipes";
+import Health from "./pages/health/Health";
+import OrderHistory from "./pages/order-history/OrderHistory";
+import MainLayout from "./pages/MainLayout";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { AuthProvider } from "./utils/AuthContext";
 import "./css/styles.css";
 import "bootstrap/dist/css/bootstrap.css";
-import RecommendationsPage from "./pages/recommendations/RecommendationsPage";
-import CreateRecipesPage from "./pages/create-recipe/CreateRecipesPage";
-import HealthPage from "./pages/health/HealthPage";
-import OrderHistoryPage from "./pages/order-history/OrderHistoryPage";
 
 function App() {
   return (
@@ -24,11 +25,46 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route element={<PrivateRoutes />}>
             <Route path="/" element={<Home />} />
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="/recommendations" element={<RecommendationsPage />} />
-            <Route path="/health" element={<HealthPage />} />
-            <Route path="/create-recipe" element={<CreateRecipesPage />} />
-            <Route path="/order-history" element={<OrderHistoryPage />} />
+            <Route
+              path="/search"
+              element={
+                <MainLayout>
+                  <Search />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/recommendations"
+              element={
+                <MainLayout>
+                  <Recomendations />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/health"
+              element={
+                <MainLayout>
+                  <Health />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/create-recipe"
+              element={
+                <MainLayout>
+                  <CreateRecipes />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/order-history"
+              element={
+                <MainLayout>
+                  <OrderHistory />
+                </MainLayout>
+              }
+            />
           </Route>
         </Routes>
       </AuthProvider>

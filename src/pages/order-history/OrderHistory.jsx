@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Order from "./Order";
+import Order from "./components/Order";
 import { useAuth } from "../../utils/AuthContext";
 import FirestoreService from "../../firebase/FirebaseService";
 
