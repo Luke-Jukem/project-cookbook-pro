@@ -66,11 +66,22 @@
   background-color: #0056b3;
 }
 
+.recipe-creation-page {
+  display: flex;
+  flex-direction: row;
+}
+
+.ingredient-search-container {
+  background-color: #f0f0f0;
+  flex: 1;
+}
+
 .recipe-creation-container {
   display: flex;
   justify-content: space-between;
   padding: 20px;
   background-color: #0056b3;
+  flex: 1;
 }
 
 #recipe-container {
@@ -91,17 +102,9 @@
   margin-top: 20px;
 }
 
-.recipe-creation-page {
-  display: flex;
-}
-
 .saved-meals-container {
-  flex: 0 0 200px; /* Adjust the width as needed */
-  margin-right: 20px; /* Add some spacing between the containers */
-}
-
-.recipe-creation-container {
-  flex: 1;
+  flex: 0 0 200px;
+  margin-right: 20px;
 }
 
 .card-button {
