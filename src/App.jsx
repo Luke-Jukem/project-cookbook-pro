@@ -4,22 +4,24 @@ import Home from "./pages/Home";
 import Search from "./pages/search/Search";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import MobileHeader from "./components/header/MobileHeader";
 import Header from "./components/header/Header";
 import Recomendations from "./pages/recommendations/Recommendations";
 import CreateRecipes from "./pages/create-recipe/CreateRecipes";
 import Health from "./pages/health/Health";
 import OrderHistory from "./pages/order-history/OrderHistory";
 import MainLayout from "./pages/MainLayout";
-import MobileLayout from "./pages/MobileLayout"; // Import your MobileLayout component
+import MobileLayout from "./pages/MobileLayout";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { AuthProvider } from "./utils/AuthContext";
-import { isMobile } from "react-device-detect"; // Import isMobile from react-device-detect
+import { isMobile } from "react-device-detect";
 import "./css/styles.css";
 import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
   // Determine which layout to use based on whether the device is mobile or not
   const Layout = isMobile ? MobileLayout : MainLayout;
+  const HeaderLayout = isMobile ? MobileHeader : Header;
 
   if (isMobile) {
     console.log("MobileLayout is being rendered.");
@@ -28,7 +30,7 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <Header />
+        <HeaderLayout />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
@@ -84,6 +86,16 @@ function App() {
                   }
                 />
               </>
+            )}
+            {isMobile && (
+              <Route
+                path="/order-history"
+                element={
+                  <Layout>
+                    <OrderHistory />
+                  </Layout>
+                }
+              />
             )}
           </Route>
         </Routes>
