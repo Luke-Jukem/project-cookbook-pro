@@ -276,3 +276,19 @@
   display: block;
   margin-bottom: 3px;
 }
+
+.mobile-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.mobile-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #f8f8f8;
+  padding: 10px;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
