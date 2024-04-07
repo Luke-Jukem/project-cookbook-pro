@@ -22,6 +22,10 @@
   flex-direction: column;
 }
 
+#search-results-container {
+  width: 100%;
+}
+
 .header {
   background-color: #ffa6a6;
   color: #fff;
