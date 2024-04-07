@@ -14,23 +14,42 @@ import {
  * @returns
  */
 const RecipeDetails = ({ meal, buttonOptions, isOpen }) => {
-  //not sure if this code is needed - buttonOptions should always be passed. I've commented it out for now but was too scared to remove it completely.
-  // if (!buttonOptions) {
-  //   buttonOptions = (
-  //     <Button color="secondary" onClick={() => {}}>
-  //       Close
-  //     </Button>
-  //   );
-  // }
+  const filteredMeal = { ...meal };
+  delete filteredMeal.summary;
+  delete filteredMeal.isSaved;
+  delete filteredMeal.image;
+  delete filteredMeal.instructions;
 
   return (
-    <Modal isOpen={isOpen}>
+    <Modal isOpen={isOpen} style={{ maxWidth: "18rem" }}>
       <ModalHeader>{meal.name}</ModalHeader>
-      <Container className="d-flex justify-content-center">
-        <img src={meal.image} />
-      </Container>
-
-      <ModalBody>{String(meal.summary).replace(/<[^>]*>/g, "")}</ModalBody>
+      <ModalBody>
+        <Container className="d-flex justify-content-center mb-3">
+          <img
+            src={meal.image}
+            alt={`${meal.name} image`}
+            style={{ maxWidth: "100%", maxHeight: "200px" }}
+          />
+        </Container>
+        {Object.entries(filteredMeal).map(([key, value]) =>
+          key === "ingredients" ? (
+            <div key={key}>
+              <strong>{key}:</strong>
+              <ul>
+                {value.map((ingredient, index) => (
+                  <li key={index}>
+                    {ingredient.amount} {ingredient.unit} {ingredient.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <div key={key} style={{ wordBreak: "break-word" }}>
+              <strong>{key}:</strong> {JSON.stringify(value)}
+            </div>
+          )
+        )}
+      </ModalBody>
       <ModalFooter>{buttonOptions}</ModalFooter>
     </Modal>
   );
