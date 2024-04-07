@@ -1,7 +1,6 @@
 import React from "react";
 import RecipeCreationForm from "./components/RecipeCreationForm";
-import UserRecipesViewer from "../../components/UserRecipesViewer";
-
+import UserRecipesViewer from "../../components/side-container/UserRecipesViewer";
 const CreateRecipesPage = () => {
   return (
     <div>

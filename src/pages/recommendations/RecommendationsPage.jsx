@@ -1,7 +1,6 @@
 import React from "react";
 import Recommendations from "./components/Recommendations";
-import UserRecipesViewer from "../../components/UserRecipesViewer";
-
+import UserRecipesViewer from "../../components/side-container/UserRecipesViewer";
 const RecommendationsPage = () => {
   return (
     <div>

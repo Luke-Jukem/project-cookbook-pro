@@ -1,10 +1,9 @@
 import React from "react";
-import UserRecipesViewer from "../../components/UserRecipesViewer";
+import UserRecipesViewer from "../../components/side-container/UserRecipesViewer";
 import DisplayGoals from "./components/DisplayGoals.jsx";
 import MacroGoalForm from "./components/MacroGoalForm.jsx";
 
 const HealthPage = () => {
-
   return (
     <div>
       <div className="main-container">

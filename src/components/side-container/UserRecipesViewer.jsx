@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SavedMeals from "./SavedMeals";
 import CustomMeals from "./CustomMeals";
-import { useAuth } from "../utils/AuthContext";
+import { useAuth } from "../../utils/AuthContext";
 import styled from "styled-components";
 
 const ToggleContainer = styled.div`

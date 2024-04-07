@@ -1,6 +1,6 @@
 import React from "react";
 import Search from "./components/Search";
-import UserRecipesViewer from "../../components/UserRecipesViewer";
+import UserRecipesViewer from "../../components/side-container/UserRecipesViewer";
 const SearchPage = () => {
   return (
     <div>

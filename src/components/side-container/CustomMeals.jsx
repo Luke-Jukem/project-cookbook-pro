@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { ListGroup, ListGroupItem, Button } from "reactstrap";
-import RecipeDetails from "./RecipeDetails.jsx";
-import { useAuth } from "../utils/AuthContext.js";
-import FirestoreService from "../firebase/FirebaseService.js";
-import FirestoreListener from "../firebase/FirestoreListener.js";
+import RecipeDetails from "../RecipeDetails.jsx";
+import { useAuth } from "../../utils/AuthContext.js";
+import FirestoreService from "../../firebase/FirebaseService.js";
+import FirestoreListener from "../../firebase/FirestoreListener.js";
 
 const CustomMeals = () => {
   const [savedRecipes, setSavedRecipes] = useState([""]);
@@ -21,7 +21,7 @@ const CustomMeals = () => {
         (docs) => {
           const recipes = docs.map((doc) => doc);
           setSavedRecipes(recipes);
-        },
+        }
       );
 
       // Cleanup function
@@ -32,14 +32,14 @@ const CustomMeals = () => {
   async function unsaveRecipeFromCurrentUser(
     collectionPath,
     documentId,
-    dataType,
+    dataType
   ) {
     selectedMeal.isSaved = false;
     try {
       await FirestoreService.deleteDocument(
         collectionPath,
         documentId,
-        dataType,
+        dataType
       );
     } catch (error) {
       console.error("Error deleting the document:", error);
@@ -54,7 +54,7 @@ const CustomMeals = () => {
           unsaveRecipeFromCurrentUser(
             `Users/${user.uid}/CustomRecipes/`,
             String(selectedMeal.id),
-            "recipe",
+            "recipe"
           );
           setSelectedMeal(null);
         }}
@@ -68,7 +68,7 @@ const CustomMeals = () => {
   );
 
   return (
-    <ListGroup>
+    <ListGroup className="user-recipe-viewer-list-group">
       {selectedMeal && (
         <RecipeDetails
           meal={selectedMeal}

@@ -1,7 +1,6 @@
 import React from "react";
 import OrderHistory from "./OrderHistory";
-import UserRecipesViewer from "../../components/UserRecipesViewer";
-
+import UserRecipesViewer from "../../components/side-container/UserRecipesViewer";
 const OrderHistoryPage = () => {
   return (
     <div>
