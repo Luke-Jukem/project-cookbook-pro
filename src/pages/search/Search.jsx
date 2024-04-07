@@ -102,7 +102,9 @@ const Search = () => {
         </Container>
       </Row>
       <Row>
-        <Container className="col-8">{results}</Container>
+        <Container id="search-results-container" className="col-8">
+          {results}
+        </Container>
       </Row>
     </Container>
   );
