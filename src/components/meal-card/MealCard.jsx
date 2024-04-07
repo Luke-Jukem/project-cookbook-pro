@@ -7,9 +7,9 @@ import {
   CardText,
   CardTitle,
 } from "reactstrap";
-import RecipeDetails from "./RecipeDetails";
-import FirestoreService from "../firebase/FirebaseService.js";
-import { useAuth } from "../utils/AuthContext";
+import RecipeDetails from "../RecipeDetails.jsx";
+import FirestoreService from "../../firebase/FirebaseService.js";
+import { useAuth } from "../../utils/AuthContext.js";
 
 const MealCard = ({ meal }) => {
   //selected meal is initally set to null
@@ -30,7 +30,7 @@ const MealCard = ({ meal }) => {
         collectionPath,
         documentId,
         data,
-        dataType,
+        dataType
       );
     } catch (error) {
       console.error("Error creating document:", error);
@@ -54,7 +54,7 @@ const MealCard = ({ meal }) => {
               `Users/${user.uid}/SavedRecipes/`,
               String(meal.id),
               meal,
-              "recipe",
+              "recipe"
             );
             setSelectedMeal(null); //setting selected meal = null closes the RecipeDetails component
           }}
@@ -85,9 +85,6 @@ const MealCard = ({ meal }) => {
         alt={`${meal.name} image`}
       />
       <CardBody>
-        <CardText className="text-truncate m-2 p-0">
-          {String(meal.summary).replace(/<[^>]*>/g, "")}
-        </CardText>
         <Button
           className="card-button"
           color="primary"
@@ -115,7 +112,7 @@ const MealCard = ({ meal }) => {
                   `Users/${user.uid}/SavedRecipes/`,
                   String(meal.id),
                   meal,
-                  "recipe",
+                  "recipe"
                 );
               }}
             >
@@ -128,7 +125,7 @@ const MealCard = ({ meal }) => {
                   `Users/${user.uid}/Cart/`,
                   String(meal.id),
                   meal,
-                  "recipe",
+                  "recipe"
                 );
               }}
             >
