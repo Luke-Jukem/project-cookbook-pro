@@ -1,10 +1,12 @@
 import React from "react";
 import RecipeCreationForm from "./components/RecipeCreationForm";
+import IngredientSearch from "./components/IngredientSearch";
 
 const CreateRecipes = () => {
   return (
-    <div>
+    <div id="recipe-creation-page">
       <RecipeCreationForm />
+      <IngredientSearch />
     </div>
   );
 };
