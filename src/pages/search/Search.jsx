@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Row, Col, Container, Spinner } from "reactstrap";
-import MealCard from "../../components/MealCard.jsx";
+import MealCard from "../../components/meal-card/MealCard.jsx";
 import SearchBox from "./components/SearchBox.jsx";
 import MealDataManager from "../../utils/MealDataManager.js";
 import InfiniteScroll from "react-infinite-scroll-component";
