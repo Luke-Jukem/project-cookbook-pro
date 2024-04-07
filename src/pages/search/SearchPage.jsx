@@ -1,12 +1,12 @@
 import React from "react";
 import Search from "./components/Search";
-import UserRecipesViewer from "../../components/side-container/UserRecipesViewer";
+import UserDataViewer from "../../components/side-container/UserDataViewer";
 const SearchPage = () => {
   return (
     <div>
       <div className="main-container">
         <div className="sidebar-container">
-          <UserRecipesViewer />
+          <UserDataViewer />
         </div>
         <div className="content-container">
           {/* This is where you put the 'Page" file you made previously */}

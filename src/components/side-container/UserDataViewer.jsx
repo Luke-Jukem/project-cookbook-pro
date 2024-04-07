@@ -18,7 +18,7 @@ const ToggleButton = styled.button`
   outline: none;
 `;
 
-const UserRecipesViewer = () => {
+const UserDataViewer = () => {
   const [currentCollection, setCurrentCollection] = useState("saved");
 
   const toggleCollection = (collection) => {
@@ -53,4 +53,4 @@ const UserRecipesViewer = () => {
   );
 };
 
-export default UserRecipesViewer;
+export default UserDataViewer;
