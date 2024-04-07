@@ -8,6 +8,7 @@ import {
 import RecipeDetails from "../RecipeDetails.jsx";
 import { useAuth } from "../../utils/AuthContext.js";
 import FirestoreService from "../../firebase/FirebaseService.js";
+import EmptyCollectionMessage from "./EmptyCollectionMessage.jsx";
 import FirestoreListener from "../../firebase/FirestoreListener.js";
 
 const SavedMeals = () => {
@@ -84,17 +85,21 @@ const SavedMeals = () => {
           buttonOptions={buttonOptions}
         />
       )}
-      {savedRecipes.map((recipe, key) => {
-        return (
-          <ListGroupItem
-            action
-            onClick={() => setSelectedMeal(recipe)}
-            key={key}
-          >
-            {recipe.name}
-          </ListGroupItem>
-        );
-      })}
+      {savedRecipes.length === 0 ? (
+        <EmptyCollectionMessage collectionName="Saved Recipes" href="/search" />
+      ) : (
+        savedRecipes.map((recipe, key) => {
+          return (
+            <ListGroupItem
+              action
+              onClick={() => setSelectedMeal(recipe)}
+              key={key}
+            >
+              {recipe.name}
+            </ListGroupItem>
+          );
+        })
+      )}
     </ListGroup>
   );
 };
