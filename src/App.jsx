@@ -12,6 +12,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import RecommendationsPage from "./pages/recommendations/RecommendationsPage";
 import CreateRecipesPage from "./pages/create-recipe/CreateRecipesPage";
 import HealthPage from "./pages/health/HealthPage";
+import OrderHistoryPage from "./pages/order-history/OrderHistoryPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/recommendations" element={<RecommendationsPage />} />
             <Route path="/health" element={<HealthPage />} />
             <Route path="/create-recipe" element={<CreateRecipesPage />} />
+            <Route path="/order-history" element={<OrderHistoryPage />} />
           </Route>
         </Routes>
       </AuthProvider>

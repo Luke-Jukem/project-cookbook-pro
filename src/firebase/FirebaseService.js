@@ -106,18 +106,22 @@ class FirestoreService {
         typeof collectionPath !== "string"
       ) {
         console.error(
-          "Invalid collection path. Collection path must be a string or an array of strings.",
+          "Invalid collection path. Collection path must be a string or an array of strings."
         );
         return null;
       }
 
       const querySnapshot = await getDocs(
-        query(collectionRef.withConverter(converter)),
+        query(collectionRef.withConverter(converter))
       );
 
       const documents = [];
       querySnapshot.forEach((doc) => {
-        documents.push(doc.data());
+        // Include document ID along with data
+        documents.push({
+          id: doc.id,
+          data: doc.data(),
+        });
       });
 
       return documents;
@@ -142,6 +146,8 @@ const getConverter = (dataType, firebaseConverter) => {
       return {
         objectConverter: firebaseConverter.orderConverter,
       };
+    case "orderHistory":
+      return firebaseConverter.orderConverter;
     case "gptResponse":
       return {
         objectConverter: firebaseConverter.gptResponseConverter,

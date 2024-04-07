@@ -19,12 +19,11 @@ const GPT = () => {
 
       const allDocuments = await FirestoreService.getAllDocuments(
         collectionPath,
-        dataType,
+        dataType
       );
 
-      const names = allDocuments.map((doc) => doc.name);
+      const names = allDocuments.map((doc) => doc.data.name);
       setRecipeNames(names); // Update the state with the extracted names
-
     } catch (error) {
       console.error("Error: No saved recipes fetched.", error);
     }
@@ -88,7 +87,7 @@ const GPT = () => {
       }
 
       const assistantResponse = completion.choices.find(
-        (choice) => choice.message.role === "assistant",
+        (choice) => choice.message.role === "assistant"
       );
 
       // Check for ChatGPT error
@@ -98,7 +97,7 @@ const GPT = () => {
         // Firebase document creation
         const collectionPath = `Users/${user.uid}/generatedRecipes`;
         const documentId = `gpt-${Date.now()}-${Math.floor(
-          Math.random() * 1000,
+          Math.random() * 1000
         )}`;
         const gptResponse = {
           userMessage: message,
@@ -108,7 +107,7 @@ const GPT = () => {
           collectionPath,
           documentId,
           gptResponse,
-          "gptResponse",
+          "gptResponse"
         );
       } else {
         setError("Assistant response not found");
