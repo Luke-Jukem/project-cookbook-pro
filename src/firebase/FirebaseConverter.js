@@ -37,7 +37,7 @@ class FirebaseConverter {
 
         const convertedIngredients = this.convertArray(
           recipe.ingredients,
-          this.objectConverter
+          this.objectConverter,
         );
 
         return {
@@ -57,7 +57,7 @@ class FirebaseConverter {
         const data = snapshot.data(options);
         const convertedIngredients = this.convertArray(
           data.ingredients,
-          this.objectConverter
+          this.objectConverter,
         );
 
         return new Recipe(
@@ -70,7 +70,7 @@ class FirebaseConverter {
           data.name,
           data.servings,
           data.summary,
-          data.isSaved
+          data.isSaved,
         );
       },
     };
@@ -84,7 +84,7 @@ class FirebaseConverter {
 
         const convertedIngredients = this.convertArray(
           order.ingredients,
-          this.objectConverter
+          this.objectConverter,
         );
 
         return {
@@ -151,6 +151,42 @@ class FirebaseConverter {
           data.fat,
           data.sugar
         );
+      },
+    };
+
+    this.planConverter = {
+      toFirestore: (plan) => {
+        if (!plan) {
+          console.error("Plan is undefined or null");
+          return null;
+        }
+
+        const convertedMeals = plan.meals.map((meal, index) => ({
+          name: meal.name,
+          id: meal.id,
+          autoAddToCart: meal.autoAddToCart,
+          addToCartTime: meal.addToCartTime,
+          mealNumber: index + 1,
+        }));
+
+        return {
+          date: plan.date,
+          meals: convertedMeals,
+        };
+      },
+      fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        const convertedMeals = data.meals
+          ? data.meals.map((meal) => ({
+              name: meal.name,
+              id: meal.id,
+              autoAddToCart: meal.autoAddToCart,
+              addToCartTime: meal.addToCartTime,
+              mealNumber: meal.mealNumber,
+            }))
+          : [];
+
+        return new Plan(data.date, convertedMeals);
       },
     };
   }
