@@ -37,7 +37,9 @@ const MealForm = ({ selectedDay, addPlan, closeModal }) => {
     closeModal();
   };
 
-  const handleAddPlan = (recipe) => {
+  const handleAddPlan = (event, recipe) => {
+    //prevents form from submitting by default before addPlan is used
+    event.preventDefault();
     addPlan(recipe.name, recipe.id, "false", "1");
     closeModal();
   };
@@ -86,7 +88,7 @@ const MealForm = ({ selectedDay, addPlan, closeModal }) => {
             <div key={index} className="meal-entry">
               <img src={recipe.image} alt={recipe.name} />
               <p>{recipe.name}</p>
-              <button onClick={() => handleAddPlan(recipe)}>Add</button>
+              <button onClick={(event) => handleAddPlan(event, recipe)}>Add</button>
             </div>
           ))}
         </div>

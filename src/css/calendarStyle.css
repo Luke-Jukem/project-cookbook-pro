@@ -43,9 +43,10 @@
 }
 
 .date-display {
-  font-size: 1.2em;
+  font-size: 1.1em;
   font-weight: bold;
-  color: #8b0000;
+  /* color: #8b0000; */
+  color: black;
 }
 
 .past-date {
@@ -59,7 +60,7 @@
 /* react classes have to be overridden with !important */
 
 .react-calendar {
-  width: 70% !important;
+  width: 100% !important;
   background: #f0f0f0 !important;
   border: none !important;
   font-family: "Roboto", sans-serif !important;
@@ -72,18 +73,22 @@
 }
 
 .react-calendar__month-view__weekdays__weekday {
-  padding: 10px !important;
+  padding: 1.3em !important;
   color: #999999 !important;
 }
 
 .react-calendar__month-view__days__day {
-  padding: 25px !important;
+  padding: 1.5em !important;
   text-align: center !important;
   font-size: 1em !important;
 }
 
 .react-calendar__month-view__days__day--weekend {
   color: inherit !important;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth.react-calendar__month-view__days__day--weekend {
+  color: grey !important;
 }
 
 .react-calendar__tile--active {

@@ -61,6 +61,7 @@ const MyCalendar = () => {
         `Users/${user.uid}/Plans/`,
         planDate,
         existingPlan,
+        "plan"
       ).catch((error) => console.error("Error updating plan: ", error));
     }
     //if there's no existing plan, create a new plan
@@ -82,6 +83,7 @@ const MyCalendar = () => {
         `Users/${user.uid}/Plans/`,
         planDate,
         newPlan,
+        "plan",
       ).catch((error) => console.error("Error creating plan: ", error));
     }
   };
@@ -133,19 +135,14 @@ const MyCalendar = () => {
         <span className="date-display">
           {selectedDay.toLocaleString("en-US", {
             weekday: "long",
-            year: "numeric",
-            month: "long",
+            month: "short",
             day: "numeric",
           })}
         </span>{" "}
         <br />
-        <button className="add-meal-btn" onClick={openModal}>
-          Add Meal
-        </button>
-        <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
+        <Modal ariaHideApp={false} isOpen={isModalOpen} onRequestClose={closeModal}>
           <MealForm closeModal={closeModal} addPlan={addPlan} />
         </Modal>
-        <br />
         <br />
         {plans
           //filtering plans by selected day to display them
@@ -160,6 +157,9 @@ const MyCalendar = () => {
               </div>
             )),
           )}
+        <button className="add-meal-btn" onClick={openModal}>
+          Add Meal
+        </button>
       </div>
     </div>
   );

@@ -66,7 +66,14 @@ function App() {
                 </MainLayout>
               }
             />
-            <Route path="/calendar" element={<Calendar />} />
+            <Route
+              path="/calendar"
+              element={
+                <MainLayout>
+                  <Calendar />
+                </MainLayout>
+              }
+            />
           </Route>
         </Routes>
       </AuthProvider>
