@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SavedMeals from "./SavedMeals";
 import CustomMeals from "./CustomMeals";
-import { useAuth } from "../utils/AuthContext";
+import { useAuth } from "../../utils/AuthContext";
 import styled from "styled-components";
 
 const ToggleContainer = styled.div`
@@ -18,7 +18,7 @@ const ToggleButton = styled.button`
   outline: none;
 `;
 
-const UserRecipesViewer = () => {
+const UserDataViewer = () => {
   const [currentCollection, setCurrentCollection] = useState("saved");
 
   const toggleCollection = (collection) => {
@@ -53,4 +53,4 @@ const UserRecipesViewer = () => {
   );
 };
 
-export default UserRecipesViewer;
+export default UserDataViewer;

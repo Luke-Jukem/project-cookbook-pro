@@ -26,3 +26,13 @@
   box-sizing: content-box;
   text-align: left;
 }
+
+.macro-goals-display-container {
+  display: block;
+  border: solid;
+  margin-left: 10px;
+  width: 290px;
+  height: 180px;
+  box-sizing: content-box;
+  text-align: left;
+}
