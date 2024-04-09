@@ -37,6 +37,20 @@
   transition-duration: 0.4s;
 }
 
+.rm-meal-btn {
+  background-color: #ff7f7f;
+  color: white;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition-duration: 0.4s;
+}
+
 .add-meal-btn:hover {
   background-color: #8b0000;
   color: white;
@@ -55,6 +69,7 @@
 
 .meal-tile {
   background-color: #ff8c8c;
+  margin-bottom: 3%;
 }
 
 /* react classes have to be overridden with !important */

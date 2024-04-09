@@ -88,7 +88,9 @@ const MealForm = ({ selectedDay, addPlan, closeModal }) => {
             <div key={index} className="meal-entry">
               <img src={recipe.image} alt={recipe.name} />
               <p>{recipe.name}</p>
-              <button onClick={(event) => handleAddPlan(event, recipe)}>Add</button>
+              <button onClick={(event) => handleAddPlan(event, recipe)}>
+                Add
+              </button>
             </div>
           ))}
         </div>

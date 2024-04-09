@@ -61,7 +61,7 @@ const MyCalendar = () => {
         `Users/${user.uid}/Plans/`,
         planDate,
         existingPlan,
-        "plan"
+        "plan",
       ).catch((error) => console.error("Error updating plan: ", error));
     }
     //if there's no existing plan, create a new plan
@@ -85,6 +85,29 @@ const MyCalendar = () => {
         newPlan,
         "plan",
       ).catch((error) => console.error("Error creating plan: ", error));
+    }
+  };
+
+  const removePlan = (planDate, mealIndex) => {
+    //find plan according to date
+    const planToUpdate = plans.find((plan) => plan.date === planDate);
+    //if the plan exists, remove the selected meal
+    if (planToUpdate) {
+      const updatedMeals = planToUpdate.meals.filter(
+        (meal, index) => index !== mealIndex,
+      );
+      //updating plan with new meal list
+      const updatedPlan = { ...planToUpdate, meals: updatedMeals };
+      //updating plan in the local state
+      setPlans(
+        plans.map((plan) => (plan.date === planDate ? updatedPlan : plan)),
+      );
+      //updating firestore
+      FirestoreService.updateDocument(
+        `Users/${user.uid}/Plans/`,
+        planDate,
+        updatedPlan,
+      ).catch((error) => console.error("Error removing meal: ", error));
     }
   };
 
@@ -140,7 +163,11 @@ const MyCalendar = () => {
           })}
         </span>{" "}
         <br />
-        <Modal ariaHideApp={false} isOpen={isModalOpen} onRequestClose={closeModal}>
+        <Modal
+          ariaHideApp={false}
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+        >
           <MealForm closeModal={closeModal} addPlan={addPlan} />
         </Modal>
         <br />
@@ -154,6 +181,13 @@ const MyCalendar = () => {
               //for each entry, create a div displaying the meal's name
               <div key={mealIndex} className="meal-tile rounded">
                 <h6>{meal.name}</h6>
+                <button
+                  type="button"
+                  className="rm-meal-btn"
+                  onClick={() => removePlan(plan.date, mealIndex)}
+                >
+                  Remove
+                </button>
               </div>
             )),
           )}
