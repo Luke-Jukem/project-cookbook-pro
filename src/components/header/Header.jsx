@@ -36,7 +36,7 @@ const Header = () => {
     <div id="header" className="header">
       <div>
         <Link id="header-logo" to="/">
-          INSERT LOGO
+          CookBook-Pro
         </Link>
       </div>
       <div className="links--wrapper">
@@ -56,6 +56,9 @@ const Header = () => {
             </Link>
             <Link to="/create-recipe" className="header--link">
               Create Recipe
+            </Link>
+            <Link to="/calendar" className="header--link">
+              Calendar
             </Link>
             <button className="cart-button" onClick={() => setModalOpen(true)}>
               <FaShoppingCart /> Cart ({cartItems.length})

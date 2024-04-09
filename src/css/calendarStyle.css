@@ -1,0 +1,214 @@
+:root {
+  --space-cadet: #1b264f;
+  --burgundy: #8b2731;
+  --salmon: #fb7d6f;
+  --moonstone: #52b9cb;
+  --straw: #d2dd6e;
+}
+
+.calendar-container {
+  display: flex;
+  justify-content: center;
+}
+
+.selected-day {
+  background-color: #ffa6a6;
+  text-align: center;
+  color: white;
+  padding-left: 5%;
+  padding-right: 5%;
+  width: 30%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.add-meal-btn {
+  background-color: #ff7f7f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition-duration: 0.4s;
+}
+
+.rm-meal-btn {
+  background-color: #ff7f7f;
+  color: white;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition-duration: 0.4s;
+}
+
+.add-meal-btn:hover {
+  background-color: #8b0000;
+  color: white;
+}
+
+.date-display {
+  font-size: 1.1em;
+  font-weight: bold;
+  /* color: #8b0000; */
+  color: black;
+}
+
+.past-date {
+  color: #999;
+}
+
+.meal-tile {
+  background-color: #ff8c8c;
+  margin-bottom: 3%;
+}
+
+/* react classes have to be overridden with !important */
+
+.react-calendar {
+  width: 100% !important;
+  background: #f0f0f0 !important;
+  border: none !important;
+  font-family: "Roboto", sans-serif !important;
+  line-height: 1.5em !important;
+}
+
+.react-calendar__month-view__weekdays {
+  background: #ffffff !important;
+  text-align: center !important;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  padding: 1.3em !important;
+  color: #999999 !important;
+}
+
+.react-calendar__month-view__days__day {
+  padding: 1.5em !important;
+  text-align: center !important;
+  font-size: 1em !important;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: inherit !important;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth.react-calendar__month-view__days__day--weekend {
+  color: grey !important;
+}
+
+.react-calendar__tile--active {
+  background: #ffa6a6 !important;
+  color: white !important;
+}
+
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: #ff7f7f !important;
+}
+
+.react-calendar__tile--now {
+  background: #ffc2c2 !important;
+  color: #570000 !important;
+}
+
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  background: #ff8c8c !important;
+}
+
+.react-calendar__navigation__label {
+  font-family: "Arial", sans-serif !important;
+  font-size: 2em !important;
+}
+
+.meal-form-container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 300px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.meal-form-container label {
+  margin-bottom: 1em;
+  color: #570000;
+  font-size: 1em;
+}
+
+.meal-form-container input[type="text"],
+.meal-form-container input[type="checkbox"] {
+  width: 100%;
+  padding: 1em;
+  margin-bottom: 1em;
+  border: 1px solid #ccc;
+  border-radius: 0.25em;
+  background: #f0f0f0;
+}
+
+.meal-form-container input[type="submit"],
+.meal-form-container button {
+  padding: 1em;
+  border: none;
+  border-radius: 0.75em;
+  background-color: #ff7f7f;
+  color: white;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  font-size: 1em;
+  text-align: center;
+}
+
+.option-button {
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 15%;
+  margin-bottom: 5%;
+}
+
+.exit-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.8em;
+  cursor: pointer;
+}
+
+@media (min-width: 600px) {
+  .meal-form-container {
+    width: 80%;
+  }
+}
+
+@media (min-width: 900px) {
+  .meal-form-container {
+    width: 60%;
+    max-width: none;
+  }
+}
+
+.meal-entry {
+  display: flex;
+  align-items: center;
+  background-color: pink;
+  border-radius: 2%;
+  margin-bottom: 1%;
+}
+
+.meal-entry img {
+  width: 100px;
+}
+
+.meal-entry p {
+  padding-left: 3%;
+}

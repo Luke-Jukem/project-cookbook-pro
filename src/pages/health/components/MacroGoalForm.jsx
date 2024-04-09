@@ -118,7 +118,7 @@ const MacroGoalForm = () => {
         collectionPath,
         documentId,
         goalsObject,
-        dataType
+        dataType,
       );
     } catch (error) {
       console.error("Error creating document:", error);

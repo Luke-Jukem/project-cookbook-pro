@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Search from "./pages/search/Search";
+import Calendar from "./pages/calendar/Calendar";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Header from "./components/header/Header";
@@ -62,6 +63,14 @@ function App() {
               element={
                 <MainLayout>
                   <OrderHistory />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/calendar"
+              element={
+                <MainLayout>
+                  <Calendar />
                 </MainLayout>
               }
             />

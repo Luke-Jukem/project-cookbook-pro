@@ -1,3 +1,11 @@
+:root {
+  --space-cadet: #1b264f;
+  --burgundy: #8b2731;
+  --salmon: #fb7d6f;
+  --moonstone: #52b9cb;
+  --straw: #d2dd6e;
+}
+
 .content-container {
   background-color: aliceblue;
 }
@@ -27,9 +35,9 @@
 }
 
 .header {
-  background-color: #ffa6a6;
-  color: #fff;
-  padding: 10px;
+  background-color: var(--moonstone);
+  color: var(--space-cadet);
+  padding: 1.5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,6 +52,7 @@
 .links--wrapper {
   display: flex;
   gap: 20px;
+  align-items: center;
 }
 
 .header--link {
