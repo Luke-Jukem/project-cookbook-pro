@@ -24,7 +24,7 @@ const MealForm = ({ selectedDay, addPlan, closeModal }) => {
       (docs) => {
         const recipes = docs.map((doc) => doc);
         setSavedRecipes(recipes);
-      },
+      }
     );
 
     return () => {
@@ -86,7 +86,7 @@ const MealForm = ({ selectedDay, addPlan, closeModal }) => {
         <div>
           {savedRecipes.map((recipe, index) => (
             <div key={index} className="meal-entry">
-              <img src={recipe.image} alt={recipe.name} />
+              <img src={recipe.image} alt={""} />
               <p>{recipe.name}</p>
               <button onClick={(event) => handleAddPlan(event, recipe)}>
                 Add
