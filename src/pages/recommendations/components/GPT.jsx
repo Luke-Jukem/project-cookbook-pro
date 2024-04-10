@@ -119,7 +119,7 @@ const GPT = () => {
       wordWrap: "break-word",
       overflowWrap: "break-word",
     },
-    preStyle: { // Correctly named for clarity and proper React style object format
+    preStyle: {
       wordWrap: "break-word", // Ensures long words can break and wrap onto the next line
       overflowWrap: "break-word", // Allows unbreakable words to be broken at the boundary of the container
       whiteSpace: "pre-wrap", // Maintains whitespace formatting but wraps text
