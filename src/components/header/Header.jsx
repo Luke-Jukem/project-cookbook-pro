@@ -42,9 +42,6 @@ const Header = () => {
       <div className="links--wrapper">
         {user ? (
           <>
-            <Link to="/" className="header--link">
-              Home
-            </Link>
             <Link to="/search" className="header--link">
               Search
             </Link>

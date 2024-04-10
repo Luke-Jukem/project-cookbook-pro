@@ -8,7 +8,7 @@ import {
 import "../index";
 import "../css/LoginSignUp.css";
 import "../firebase/firebaseConfig.js";
-import "./Home";
+import "./search/Search.jsx";
 import "./SignUp";
 
 var Login = () => {

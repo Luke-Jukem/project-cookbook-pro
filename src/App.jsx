@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
 import Search from "./pages/search/Search";
 import Calendar from "./pages/calendar/Calendar";
 import Login from "./pages/Login";
@@ -25,7 +24,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route element={<PrivateRoutes />}>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Search />} />
             <Route
               path="/search"
               element={
