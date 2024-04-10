@@ -48,9 +48,6 @@ const Header = () => {
             <Link to="/recommendations" className="header--link">
               Recommendations
             </Link>
-            <Link to="/health" className="header--link">
-              Health
-            </Link>
             <Link to="/create-recipe" className="header--link">
               Create Recipe
             </Link>

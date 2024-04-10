@@ -7,7 +7,6 @@ import SignUp from "./pages/SignUp";
 import Header from "./components/header/Header";
 import Recomendations from "./pages/recommendations/Recommendations";
 import CreateRecipes from "./pages/create-recipe/CreateRecipes";
-import Health from "./pages/health/Health";
 import OrderHistory from "./pages/order-history/OrderHistory";
 import MainLayout from "./pages/MainLayout";
 import PrivateRoutes from "./utils/PrivateRoutes";
@@ -38,14 +37,6 @@ function App() {
               element={
                 <MainLayout>
                   <Recomendations />
-                </MainLayout>
-              }
-            />
-            <Route
-              path="/health"
-              element={
-                <MainLayout>
-                  <Health />
                 </MainLayout>
               }
             />
