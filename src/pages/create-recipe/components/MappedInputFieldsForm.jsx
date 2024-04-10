@@ -2,9 +2,9 @@ import React from "react";
 
 const MappedInputFieldsForm = ({ fields, formData, onChange }) => {
   return (
-    <div>
+    <div className="label-row-container">
       {fields.map((field) => (
-        <div key={field.name}>
+        <div className="field-row" key={field.name}>
           <label htmlFor={field.name}>{field.label}</label>
           <input
             type={field.type}

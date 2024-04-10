@@ -98,14 +98,17 @@
   flex: 1;
   max-width: fit-content;
   min-width: 70%;
+  /* min-height: 100%;; */
 }
 
 #recipe-container {
   flex: 1;
   background-color: #aae7e0;
-  padding: 20px;
-  margin-right: 20px;
+  padding:8px;
+  /* margin-right: 20px; */
   max-width: fit-content;
+  min-width: 47%;
+  max-height: calc(80vh - 40px);
 }
 
 #ingredient-container {
@@ -116,7 +119,8 @@
   overflow-y: auto;
   max-height: calc(80vh - 40px);
   max-width: fit-content;
-  min-width: 60%;
+  min-width: 49%;
+  padding:8px;
 }
 
 #ingredient-container > * {
@@ -153,6 +157,27 @@
 .saved-meals-container {
   flex: 0 0 200px;
   margin-right: 20px;
+}
+
+.label-row-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.field-row label {
+  margin-right: 10px;
+  flex: 1;
+}
+
+.field-row input {
+  flex: 3;
 }
 
 .card-button {
