@@ -9,12 +9,14 @@ const GPT = () => {
   const [responseHistory, setResponseHistory] = useState([]);
   const [error, setError] = useState("");
   const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
     setMessage(e.target.value);
   };
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true);
 
     // Clear any previous errors and responses
     setError("");
@@ -50,7 +52,7 @@ const GPT = () => {
       });
       const gptModel = "gpt-4-0125-preview";
       const recipeListString = recipeNames.join(", ");
-      const systemMessageContent = `You are a recipe recommendation system... Previously saved recipes include: ${recipeListString}.`;
+      const systemMessageContent = `You are a recipe recommendation system. You must respond with a recipe to the user, you cannot ask clarifying questions, and you cannot refuse to generate a recipe. Your response for the recipe should include Cuisine type, dishType (example: Main course, dinner), name, servings, a summary including instructions, ingredients and their amounts. The text will be displayed on a webpage for the user to view, so it should be easy to read,presentable, and organized in a way that resembles a cookbook. Your response should take in to account both the user prompt and saved recipes. Your generated recipe should be reflective of the users taste based on saved recipes, but you should ensure that the recipe isn't overly similar to their saved recipess. The user's previously saved recipes include: ${recipeListString}.`;
       console.log(systemMessageContent); // Optional: logging for debug
 
       const userMessage = [
@@ -67,12 +69,27 @@ const GPT = () => {
       const assistantResponse = completion.choices?.find(choice => choice.message.role === "assistant");
       if (assistantResponse) {
         setResponse(assistantResponse.message.content);
-        setResponseHistory((prevHistory) => [...prevHistory, assistantResponse.message.content]);
-        // Other Firestore operations can go here if needed
+        setResponseHistory(prevHistory => [assistantResponse.message.content, ...prevHistory]);
+        setLoading(false);
+        const collectionPath = `Users/${user.uid}/generatedRecipes`;
+        const documentId = `gpt-${Date.now()}-${Math.floor(
+          Math.random() * 1000
+        )}`;
+        const gptResponse = { 
+          userMessage: message,
+          assistantResponse: assistantResponse.message.content,
+        };
+        await FirestoreService.createDocument(
+          collectionPath,
+          documentId,
+          gptResponse,
+          "gptResponse"
+        );
       } else {
         throw new Error("Assistant response not found");
       }
     } catch (error) {
+      setLoading(false);
       setError("Error: " + error.message);
       console.error("Error:", error);
     }
@@ -80,13 +97,15 @@ const GPT = () => {
   const styles = {
     responseContainer: {
       maxHeight: "700px",
-      overflowY: "auto",
+      overflowY: "auto",  // Enables scrolling within the container
       textAlign: "center",
       backgroundColor: "#fff",
       padding: "20px",
       borderRadius: "8px",
       boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-      maxWidth: "800px", // Set a maximum width for the container
+      maxWidth: "100rem", // Set a maximum width for the container
+      wordWrap: "break-word", 
+      overflowWrap: "break-word",
     },
     responseItem: {
       backgroundColor: "#f5f5f5",
@@ -97,34 +116,43 @@ const GPT = () => {
       textAlign: "left",
       fontSize: "16px",
       lineHeight: "1.5",
-      wordWrap: "break-word", // Add this line
-      overflowWrap: "break-word", // Add this line as well
+      wordWrap: "break-word",
+      overflowWrap: "break-word",
     },
+    preStyle: { // Correctly named for clarity and proper React style object format
+      wordWrap: "break-word", // Ensures long words can break and wrap onto the next line
+      overflowWrap: "break-word", // Allows unbreakable words to be broken at the boundary of the container
+      whiteSpace: "pre-wrap", // Maintains whitespace formatting but wraps text
+      maxWidth: "100%", // Prevents the <pre> element from overflowing its container
+      maxheight:"100%",
+  },
   };
   
   return (
     <div>
-      <h1>ChatGPT</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Message:
-          <input type="text" value={message} onChange={handleChange} />
-        </label>
-        <button type="submit">Send</button>
-      </form>
-      {error && <div>Error: {error}</div>}
-      <div>
-        <h2>Response History:</h2>
+        <h1>ChatGPT</h1>
+        <form onSubmit={handleSubmit}>
+            <label>
+                Message:
+                <input type="text" value={message} onChange={handleChange} />
+            </label>
+            <button type="submit">Send</button>
+        </form>
+        {error && <div>Error: {error}</div>}
         <div style={styles.responseContainer}>
-          {responseHistory.map((response, index) => (
-            <div key={index} style={styles.responseItem}>
-              <pre>{response}</pre>
-            </div>
-          ))}
+            <h2>Response History:</h2>
+            {loading && (
+                <pre style={styles.preStyle}>Generating your Recipe Powered by ChatGPT...</pre>
+            )}
+            {responseHistory.map((response, index) => (
+                <div key={index} style={styles.responseItem}>
+                    <pre style={styles.preStyle}>{response}</pre>
+                </div>
+            ))}
         </div>
-      </div>
     </div>
-  );
+);
+
 };
 
 export default GPT;
