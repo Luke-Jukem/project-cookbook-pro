@@ -178,17 +178,23 @@ const RecipeCreationForm = ({ selectedIngredient }) => {
     <div id="recipe-creation-container">
       <div id="recipe-container">
         <div className="creation-title">Recipe Information:</div>
-        <MappedInputFieldsForm
-          fields={recipeFields}
-          formData={recipeFormData}
-          onChange={(e) =>
-            setRecipeFormData({
-              ...recipeFormData,
-              [e.target.name]: e.target.value,
-            })
-          }
-        />
-        <button type="button" onClick={handleSubmitRecipe}>
+        <div>
+          <MappedInputFieldsForm
+            fields={recipeFields}
+            formData={recipeFormData}
+            onChange={(e) =>
+              setRecipeFormData({
+                ...recipeFormData,
+                [e.target.name]: e.target.value,
+              })
+            }
+          />
+        </div>
+        <button
+          class="create-recipe-button"
+          type="button"
+          onClick={handleSubmitRecipe}
+        >
           Submit Recipe
         </button>
       </div>
@@ -219,6 +225,7 @@ const RecipeCreationForm = ({ selectedIngredient }) => {
             {(ingredients.length > 1 ||
               ingredient.id !== ingredients[0].id) && (
               <button
+                class="create-recipe-button"
                 type="button"
                 onClick={() => removeIngredient(ingredient.id)}
               >
@@ -254,7 +261,11 @@ const RecipeCreationForm = ({ selectedIngredient }) => {
             />
           </div>
         )}
-        <button type="button" onClick={addIngredient}>
+        <button
+          class="create-recipe-button"
+          type="button"
+          onClick={addIngredient}
+        >
           Add New Ingredient
         </button>
       </div>

@@ -4,7 +4,6 @@
   --salmon: #fb7d6f;
   --moonstone: #52b9cb;
   --straw: #d2dd6e;
-  min-height: 100vh;
 }
 
 #root {
@@ -270,4 +269,8 @@
 .ingredients li span {
   display: block;
   margin-bottom: 3px;
+}
+
+#user-data-viewer-label {
+  text-align: center;
 }

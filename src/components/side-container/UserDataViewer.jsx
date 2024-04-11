@@ -29,7 +29,7 @@ const UserDataViewer = () => {
 
   return (
     <div>
-      <h4>
+      <h4 id="user-data-viewer-label">
         {user.displayName
           ? `${user.displayName.split(" ")[0]}'s Recipes`
           : "Your Saved Recipes"}
