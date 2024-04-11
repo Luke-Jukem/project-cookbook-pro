@@ -42,7 +42,7 @@ const Header = () => {
       <div className="links--wrapper">
         {user ? (
           <>
-            <Link to="/search" className="header--link">
+            <Link to="/" className="header--link">
               Search
             </Link>
             <Link to="/recommendations" className="header--link">

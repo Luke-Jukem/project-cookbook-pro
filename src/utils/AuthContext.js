@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await firebaseAuth.signInWithEmailAndPassword(
         userInfo.email,
-        userInfo.password,
+        userInfo.password
       );
     } catch (error) {
       console.error(error);
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await firebaseAuth.createUserWithEmailAndPassword(
         userInfo.email,
-        userInfo.password1,
+        userInfo.password1
       );
       await firebaseAuth.currentUser.updateProfile({
         displayName: userInfo.name,
@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }) => {
       const userCredential = await signInWithPopup(firebaseAuth, provider);
       const user = userCredential.user;
       // Additional logic if needed
-      navigate("/search");
+      navigate("/");
     } catch (error) {
       console.error("Google Sign-in Error:", error);
       // Handle error or display a message to the user

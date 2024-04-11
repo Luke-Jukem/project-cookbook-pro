@@ -24,7 +24,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route element={<PrivateRoutes />}>
             <Route
-              path="/search"
+              path="/"
               element={
                 <MainLayout>
                   <Search />

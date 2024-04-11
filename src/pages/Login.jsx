@@ -29,7 +29,7 @@ var Login = () => {
       const userCredential = await signInWithEmailAndPassword(
         auth,
         userEmail,
-        userPassword,
+        userPassword
       );
       const user = userCredential.user;
       document.location.href = "/";
@@ -47,7 +47,7 @@ var Login = () => {
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
       isUserEmail(user.email);
-      document.location.href = "/search";
+      document.location.href = "/";
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;

@@ -29,11 +29,11 @@ const Search = () => {
       const spoonacularQueryResults =
         await mealDataManager.queryRecipeFromSpoonacular(
           query,
-          searchResults.length,
+          searchResults.length
         );
 
       setSearchResults(
-        searchResults.concat(spoonacularQueryResults.resultsList),
+        searchResults.concat(spoonacularQueryResults.resultsList)
       );
       //spoonacular caps results to 1000
       if (searchResults.length >= numResults || searchResults.length >= 999) {
@@ -41,7 +41,7 @@ const Search = () => {
           "searchResults.length=" +
             searchResults.length +
             " numResults=" +
-            numResults,
+            numResults
         );
         setNumResults(false);
       }
@@ -57,7 +57,7 @@ const Search = () => {
   if (searchResults == "initial page load") {
     results = (
       <Col className="d-flex m-5 p-0 justify-content-center">
-        <p className="text-secondary">search something</p>
+        <p className="text-secondary"></p>
       </Col>
     );
     // if there are results then put it into results varible to render
