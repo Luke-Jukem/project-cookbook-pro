@@ -4,10 +4,18 @@
   --salmon: #fb7d6f;
   --moonstone: #52b9cb;
   --straw: #d2dd6e;
+  min-height: 100vh;
+}
+
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
 .content-container {
   background-color: aliceblue;
+  min-height: 90vh;
 }
 
 .signin-container {
@@ -41,6 +49,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 10vh;
+  max-height: 10vh;
 }
 
 #header-logo {
@@ -104,7 +114,7 @@
 #recipe-container {
   flex: 1;
   background-color: #aae7e0;
-  padding:8px;
+  padding: 8px;
   /* margin-right: 20px; */
   max-width: fit-content;
   min-width: 47%;
@@ -120,7 +130,7 @@
   max-height: calc(80vh - 40px);
   max-width: fit-content;
   min-width: 49%;
-  padding:8px;
+  padding: 8px;
 }
 
 #ingredient-container > * {
@@ -138,7 +148,7 @@
   display: flex;
   max-height: 32px;
   order: 1;
-  max-width: fit-content;
+  width: 100%;
 }
 
 #cheeser-list {
@@ -265,7 +275,7 @@
 .main-container {
   display: flex;
   flex-direction: row;
-  height: calc(100 - 2.5)vh; /* Assuming the header height is 64px */
+  height: calc(100 - 2.5) vh; /* Assuming the header height is 64px */
   overflow-x: auto; /* Apply horizontal scroll bar if needed */
 }
 
@@ -281,6 +291,8 @@
   overflow-y: auto;
   max-height: calc(80vh - 40px);
   margin-top: 20px;
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 .content-container {
