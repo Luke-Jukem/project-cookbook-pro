@@ -22,6 +22,7 @@ const CheeserSearchComponent = ({ onIngredientSelect }) => {
     <div id="cheeser-search" className="d-flex">
       <div id="cheeser-search-box" className="mr-3">
         <Input
+          id="cheeser-input"
           type="text"
           placeholder="Search for ingredients..."
           value={searchTerm}

@@ -131,3 +131,7 @@
   transition-duration: 0.4s;
   font-weight: 600;
 }
+
+#cheeser-input {
+  text-align: center;
+}
