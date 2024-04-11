@@ -176,7 +176,7 @@ const RecipeCreationForm = ({ selectedIngredient }) => {
   return (
     <div id="recipe-creation-container">
       <div id="recipe-container">
-        Recipe Container
+        <div className="creation-title">Recipe Information:</div>
         <MappedInputFieldsForm
           fields={recipeFields}
           formData={recipeFormData}
@@ -192,7 +192,7 @@ const RecipeCreationForm = ({ selectedIngredient }) => {
         </button>
       </div>
       <div id="ingredient-container">
-        Ingredients Container
+        <div className="creation-title">Ingredient Information:</div>
         {ingredients.map((ingredient, index) => (
           <div key={index}>
             <MappedInputFieldsForm
