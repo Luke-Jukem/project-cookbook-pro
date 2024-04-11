@@ -4,6 +4,7 @@ import { Recipe } from "../../../customObjects/Recipe.js";
 import { Ingredient } from "../../../customObjects/Ingredient.js";
 import FirestoreService from "../../../firebase/FirebaseService.js";
 import MappedInputFieldsForm from "./MappedInputFieldsForm.jsx";
+import ".././create-recipe.css";
 
 const RecipeCreationForm = ({ selectedIngredient }) => {
   const [recipeFormData, setRecipeFormData] = useState({});

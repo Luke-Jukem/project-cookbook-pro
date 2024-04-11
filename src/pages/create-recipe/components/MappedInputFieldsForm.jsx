@@ -1,4 +1,5 @@
 import React from "react";
+import ".././create-recipe.css";
 
 const MappedInputFieldsForm = ({ fields, formData, onChange }) => {
   return (

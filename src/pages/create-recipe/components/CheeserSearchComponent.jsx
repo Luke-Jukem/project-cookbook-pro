@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "reactstrap";
 import ingredientsMap from "../../../customObjects/IngredientMap";
+import ".././create-recipe.css";
 
 const CheeserSearchComponent = ({ onIngredientSelect }) => {
   const [searchTerm, setSearchTerm] = useState("");

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import RecipeCreationForm from "./components/RecipeCreationForm";
 import CheeserSearchComponent from "./components/CheeserSearchComponent";
+import "./create-recipe.css";
 
 const CreateRecipes = () => {
   const [selectedIngredient, setSelectedIngredient] = useState(null);

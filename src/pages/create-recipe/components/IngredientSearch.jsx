@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MealDataManager from "../../../utils/MealDataManager";
+import ".././create-recipe.css";
 
 const IngredientSearch = () => {
   const [ingredients, setIngredients] = useState([]);
