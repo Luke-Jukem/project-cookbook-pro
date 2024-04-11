@@ -86,7 +86,7 @@ const SavedMeals = () => {
         />
       )}
       {savedRecipes.length === 0 ? (
-        <EmptyCollectionMessage collectionName="Saved Recipes" href="/search" />
+        <EmptyCollectionMessage collectionName="Saved Recipes" href="/" />
       ) : (
         savedRecipes.map((recipe, key) => {
           return (
