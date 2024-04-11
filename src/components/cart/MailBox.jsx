@@ -15,7 +15,7 @@ const MailBox = ({ orderData }) => {
     const emailData = {
       to: userEmail,
       from: "cookbookpro.cis3296@gmail.com",
-      subject: "Testing Cloud Functions Email",
+      subject: "Your Shopping List from Cookbook-Pro",
       text: formattedEmailBody,
     };
 
@@ -55,7 +55,7 @@ const formatOrderDataToMarkdown = (orderData) => {
   const formattedIngredients = ingredients
     .map(
       (ingredient) =>
-        `| ${ingredient.name} | ${ingredient.amount} ${ingredient.unit} |`,
+        `| ${ingredient.name} | ${ingredient.amount} ${ingredient.unit} |`
     )
     .join("\n");
 
