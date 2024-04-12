@@ -1,10 +1,11 @@
 import React from "react";
+import ".././create-recipe.css";
 
-const FlexibleForm = ({ fields, formData, onChange }) => {
+const MappedInputFieldsForm = ({ fields, formData, onChange }) => {
   return (
-    <div>
+    <div className="label-row-container">
       {fields.map((field) => (
-        <div key={field.name}>
+        <div className="field-row" key={field.name}>
           <label htmlFor={field.name}>{field.label}</label>
           <input
             type={field.type}
@@ -22,4 +23,4 @@ const FlexibleForm = ({ fields, formData, onChange }) => {
   );
 };
 
-export default FlexibleForm;
+export default MappedInputFieldsForm;

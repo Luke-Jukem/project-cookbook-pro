@@ -27,7 +27,7 @@ const RecipeDetails = ({ meal, buttonOptions, isOpen }) => {
         <Container className="d-flex justify-content-center mb-3">
           <img
             src={meal.image}
-            alt={`${meal.name} image`}
+            alt={""}
             style={{ maxWidth: "100%", maxHeight: "200px" }}
           />
         </Container>

@@ -95,37 +95,6 @@ const SearchBox = ({ onSearch, query, setQuery }) => {
 
   return (
     <InputGroup className="w-50 min-width: 300px; shadow-lg" id="search-box">
-      <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-        <DropdownToggle caret>Filter </DropdownToggle>
-        <DropdownMenu>
-          <Container className="m-2">
-            <Row>
-              <Col>
-                <h6>Diets</h6>
-                <SearchBoxFilter
-                  setfilterOptions={setDietFilterOptions}
-                  filterOptions={dietFilterOptions}
-                />
-              </Col>
-              <Col>
-                <h6>Allergys</h6>
-                <SearchBoxFilter
-                  setfilterOptions={setIntoleranceFilterOptions}
-                  filterOptions={intoleranceFilterOptions}
-                />
-              </Col>
-              <Col>
-                <h6>Type</h6>
-                <SearchBoxFilter
-                  setfilterOptions={setMealTypes}
-                  filterOptions={mealTypes}
-                />
-              </Col>
-            </Row>
-          </Container>
-        </DropdownMenu>
-      </Dropdown>
-
       <Input
         type="text"
         placeholder="Enter your search"

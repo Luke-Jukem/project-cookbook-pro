@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MealDataManager from "../../../utils/MealDataManager";
+import ".././create-recipe.css";
 
 const IngredientSearch = () => {
   const [ingredients, setIngredients] = useState([]);
@@ -20,7 +21,7 @@ const IngredientSearch = () => {
   };
 
   return (
-    <div className="ingredient-search-container">
+    <div id="ingredient-search-container">
       <input
         type="text"
         value={searchQuery}

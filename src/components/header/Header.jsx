@@ -43,16 +43,10 @@ const Header = () => {
         {user ? (
           <>
             <Link to="/" className="header--link">
-              Home
-            </Link>
-            <Link to="/search" className="header--link">
               Search
             </Link>
             <Link to="/recommendations" className="header--link">
               Recommendations
-            </Link>
-            <Link to="/health" className="header--link">
-              Health
             </Link>
             <Link to="/create-recipe" className="header--link">
               Create Recipe
