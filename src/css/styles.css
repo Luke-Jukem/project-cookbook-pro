@@ -4,6 +4,7 @@
   --salmon: #fb7d6f;
   --moonstone: #52b9cb;
   --straw: #d2dd6e;
+  overflow-y: hidden;
 }
 
 #root {
