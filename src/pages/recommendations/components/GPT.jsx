@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import OpenAI from "openai";
 import FirestoreService from "../../../firebase/FirebaseService";
 import { useAuth } from "../../../utils/AuthContext.js";
