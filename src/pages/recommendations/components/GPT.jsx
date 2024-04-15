@@ -43,6 +43,27 @@ const GPT = () => {
       const recipeNames = await getSavedRecipes(); // Ensure this completes before moving on
       setRecipeNames(recipeNames); // Update the state with the names
 
+      const json_example = {
+        cuisine: "PLEASE REPLACE WITH CUISINE TYPE HERE",
+        dishType: "PLEASE REPLACE WITH BREAKFAST LUNCH OR DINNER",
+        id: "0",
+        image: "TO BE ADDED",
+        ingredients: [
+          "PLEASE INSERT INGREDIENTS AND THEIR QUANTITY",
+        ],
+        instructions: [
+          "PLEASE INSERT LIST OF INSTRUCTIONS"
+        ],
+        name: "PLEASE INSERT NAME OF GENERATED DISH",
+        servings: "PLEASE INSERT INTEGER OF SERVINGS",
+        summary: "PLEASE INSERT A SUMMARY FOR GENERATED RECIPE.",
+        savedRecipeInspiration: "PLEASE INSERT SAVED RECIPE THAT INSPIRED RESPONSE",
+        inspirationReasoning: "PLEASE INSERT REASONING FOR GENERATED RECIPE BASED ON SAVED RECIPE"
+      };
+
+      const exampleString=JSON.stringify(json_example,null,2);
+      console.log
+
       // Prepare for OpenAI request
       const openai = new OpenAI({
         apiKey: process.env.REACT_APP_OPENAI_API_KEY,
@@ -50,8 +71,8 @@ const GPT = () => {
       });
       const gptModel = "gpt-4-0125-preview";
       const recipeListString = recipeNames.join(", ");
-      const systemMessageContent = `You are a recipe recommendation system. You must respond with a recipe for ${recipeType} to the user, you cannot ask clarifying questions, and you cannot refuse to generate a recipe. Your response for the recipe should include Cuisine type, dishType (example: Main course, dinner), name, servings, a summary including instructions, ingredients and their amounts. The text will be displayed on a webpage for the user to view, so it should be easy to read,presentable, and organized in a way that resembles a cookbook. Your response should take in to account both the recipe type and saved recipes. Your generated recipe should be reflective of the users taste based on saved recipes, but you should ensure that the recipe isn't overly similar to their saved recipess. The user's previously saved recipes include: ${recipeListString}.`;
-
+      const systemMessageContent = `You are a recipe recommendation system. You must respond with a recipe for ${recipeType} to the user, you cannot ask clarifying questions, and you cannot refuse to generate a recipe. name, servings, a summary including instructions, ingredients and their amounts. The text will be displayed on a webpage for the user to view, so it should be easy to read,presentable, and organized in a way that resembles a cookbook. Your response should take in to account both the recipe type and saved recipes. Your generated recipe should be reflective of the users taste based on saved recipes, but you should ensure that the recipe and the saved recipe for inspiration is unique. Please ensure that you generate a recipe that shares a key ingredient with the inspiration recipe from the users saved recipes. The user's previously saved recipes include: ${recipeListString}. Your response should be a json in this format ${exampleString}. Do not use backticks in your response.`;
+      console.log(systemMessageContent)
       const userMessage = [
         { role: "system", content: systemMessageContent },
         {
