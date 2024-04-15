@@ -10,11 +10,15 @@ import {
 import RecipeDetails from "../RecipeDetails.jsx";
 import FirestoreService from "../../firebase/FirebaseService.js";
 import { useAuth } from "../../utils/AuthContext.js";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBox, faCartShopping} from "@fortawesome/free-solid-svg-icons";
+
 
 const MealCard = ({ meal }) => {
   //selected meal is initally set to null
   const [selectedMeal, setSelectedMeal] = useState(null);
   const { user } = useAuth();
+  const [isClicked, setIsClicked] = useState(false);
 
   async function saveData(collectionPath, documentId, data, dataType) {
     const savedMeal = meal;
@@ -35,6 +39,10 @@ const MealCard = ({ meal }) => {
     } catch (error) {
       console.error("Error creating document:", error);
     }
+  }
+
+  const cartClick = () => {
+    setIsClicked(true);
   }
 
   const width = { width: "18rem" };
@@ -119,8 +127,9 @@ const MealCard = ({ meal }) => {
               Save
             </Button>
             <Button
-              className="card-button"
+              className={`card-button ${isClicked ? 'clicked' : ''}`}
               onClick={() => {
+                cartClick();
                 saveData(
                   `Users/${user.uid}/Cart/`,
                   String(meal.id),
@@ -128,8 +137,14 @@ const MealCard = ({ meal }) => {
                   "recipe"
                 );
               }}
+              style={{width: "7rem"}}
             >
-              Add to Cart
+              <div>
+                <span class="add-to-cart">Add to Cart</span>
+                <span class="added">Added</span>
+                <FontAwesomeIcon icon={faCartShopping}/>
+                <FontAwesomeIcon icon={faBox}/>
+              </div>
             </Button>
           </>
         )}
