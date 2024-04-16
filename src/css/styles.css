@@ -1,8 +1,12 @@
 :root {
-  --maize: #ffe75dff;
-  --light-yellow: #fdf3bc;
+  --maize: #ffb35d;
+  --light-yellow: #fddabc;
+  --yellow: #ffe75dff;
+  --yello-lighter: #fdf3bc;
   --atomic-tangerine: #ff934fff;
   --atomic-tangerine-darker: #cb6728;
+  --atomic-tangerine-2: #b9622b;
+  --atomic-tangerine-2-darker: #914d23;
   --cerise: #d24970ff;
   --light-pink: #e387a1;
   --light-pink-darker: #d26483;
@@ -16,6 +20,7 @@
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .content-container {
@@ -443,4 +448,14 @@
 .secondary-color {
   background-color: var(--orange-grey) !important;
   border-color: var(--orange-grey) !important;
+}
+
+.thirdary-color {
+  background-color: var(--atomic-tangerine-2) !important;
+  border-color: var(--atomic-tangerine-2) !important;
+}
+
+.thirdary-color:hover {
+  background-color: var(--atomic-tangerine-2-darker) !important;
+  border-color: var(--atomic-tangerine-2-darker) !important;
 }

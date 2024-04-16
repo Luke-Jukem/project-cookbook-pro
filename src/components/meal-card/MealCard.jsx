@@ -123,7 +123,7 @@ const MealCard = ({ meal }) => {
         {user && (
           <>
             <Button
-              className={`card-button ${isSavedClicked ? "clicked" : ""}`}
+              className={`thirdary-color card-button ${isSavedClicked ? "clicked" : ""}`}
               onClick={() => {
                 savedClick();
                 saveData(
@@ -143,7 +143,7 @@ const MealCard = ({ meal }) => {
             </Button>
 
             <Button
-              className={`card-button ${isClicked ? "clicked" : ""}`}
+              className={`primary-color card-button ${isClicked ? "clicked" : ""}`}
               onClick={() => {
                 cartClick();
                 saveData(
