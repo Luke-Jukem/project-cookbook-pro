@@ -81,7 +81,7 @@ const MealCard = ({ meal }) => {
 
   return (
     <Card
-      className={"m-2 p-3 flex-fill shadow-sm"}
+      className={"m-2 p-3 flex-fill shadow-sm fixed-width"}
       style={Object.assign(width, cardStyle)}
     >
       <CardTitle>
