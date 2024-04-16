@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "../src/pages/Home.jsx"
 import Search from "./pages/search/Search";
 import Calendar from "./pages/calendar/Calendar";
 import Login from "./pages/Login";
@@ -28,6 +29,14 @@ function App() {
               element={
                 <MainLayout>
                   <Search />
+                </MainLayout>
+              }
+            />
+              <Route
+              path="/home"
+              element={
+                <MainLayout>
+                  <Home />
                 </MainLayout>
               }
             />
