@@ -42,10 +42,10 @@ const Header = () => {
       <div className="links--wrapper">
         {user ? (
           <>
-            <Link to="/home" className="header--link">
+            <Link to="/" className="header--link">
               Home
             </Link>
-            <Link to="/" className="header--link">
+            <Link to="/search" className="header--link">
               Search
             </Link>
             <Link to="/recommendations" className="header--link">
