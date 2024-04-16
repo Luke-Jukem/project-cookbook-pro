@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "../src/pages/Home.jsx";
 import Search from "./pages/search/Search";
 import Calendar from "./pages/calendar/Calendar";
 import Login from "./pages/Login";
@@ -25,6 +26,14 @@ function App() {
           <Route element={<PrivateRoutes />}>
             <Route
               path="/"
+              element={
+                <MainLayout>
+                  <Home />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/search"
               element={
                 <MainLayout>
                   <Search />

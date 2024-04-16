@@ -59,6 +59,8 @@ const MealCard = ({ meal }) => {
     border: "2px outset #FFA6A6",
   };
 
+  const minWidth = { minWidth: "20rem"};
+
   //button options for RecipeDetails
   const buttonOptions = (
     <>
@@ -90,7 +92,7 @@ const MealCard = ({ meal }) => {
   return (
     <Card
       className={"m-2 p-3 flex-fill shadow-sm"}
-      style={Object.assign(width, cardStyle)}
+      style={Object.assign(width, cardStyle, minWidth)}
     >
       <CardTitle>
         <h5 className="text-truncate m-2 p-0">{meal.name}</h5>
