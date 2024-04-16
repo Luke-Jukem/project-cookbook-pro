@@ -10,15 +10,19 @@ import {
 import RecipeDetails from "../RecipeDetails.jsx";
 import FirestoreService from "../../firebase/FirebaseService.js";
 import { useAuth } from "../../utils/AuthContext.js";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBox, faCartShopping} from "@fortawesome/free-solid-svg-icons";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBox,
+  faCartShopping,
+  faCheck,
+} from "@fortawesome/free-solid-svg-icons";
 
 const MealCard = ({ meal }) => {
   //selected meal is initally set to null
   const [selectedMeal, setSelectedMeal] = useState(null);
   const { user } = useAuth();
   const [isClicked, setIsClicked] = useState(false);
+  const [isSavedClicked, setIsSavedClicked] = useState(false);
 
   async function saveData(collectionPath, documentId, data, dataType) {
     const savedMeal = meal;
@@ -43,13 +47,19 @@ const MealCard = ({ meal }) => {
 
   const cartClick = () => {
     setIsClicked(true);
-  }
+  };
+
+  const savedClick = () => {
+    setIsSavedClicked(true);
+  };
 
   const width = { width: "18rem" };
 
   const cardStyle = {
     border: "2px outset #FFA6A6",
   };
+
+  const minWidth = { minWidth: "20rem"};
 
   //button options for RecipeDetails
   const buttonOptions = (
@@ -82,7 +92,7 @@ const MealCard = ({ meal }) => {
   return (
     <Card
       className={"card-color m-2 p-3 flex-fill shadow-sm"}
-      style={Object.assign(width, cardStyle)}
+      style={Object.assign(width, cardStyle, minWidth)}
     >
       <CardTitle>
         <h5 className="text-truncate m-2 p-0">{meal.name}</h5>
@@ -113,8 +123,9 @@ const MealCard = ({ meal }) => {
         {user && (
           <>
             <Button
-              className="card-button"
+              className={`card-button ${isSavedClicked ? "clicked" : ""}`}
               onClick={() => {
+                savedClick();
                 saveData(
                   `Users/${user.uid}/SavedRecipes/`,
                   String(meal.id),
@@ -122,11 +133,17 @@ const MealCard = ({ meal }) => {
                   "recipe"
                 );
               }}
+              style={{ width: "3.6rem" }}
             >
-              Save
+              <div>
+                <span class="add-to-saved">Save</span>
+                <span class="saved">Saved</span>
+                <FontAwesomeIcon icon={faCheck} />
+              </div>
             </Button>
+
             <Button
-              className={`card-button ${isClicked ? 'clicked' : ''}`}
+              className={`card-button ${isClicked ? "clicked" : ""}`}
               onClick={() => {
                 cartClick();
                 saveData(
@@ -136,13 +153,13 @@ const MealCard = ({ meal }) => {
                   "recipe"
                 );
               }}
-              style={{width: "7rem"}}
+              style={{ width: "7rem" }}
             >
               <div>
                 <span class="add-to-cart">Add to Cart</span>
                 <span class="added">Added</span>
-                <FontAwesomeIcon icon={faCartShopping}/>
-                <FontAwesomeIcon icon={faBox}/>
+                <FontAwesomeIcon icon={faCartShopping} />
+                <FontAwesomeIcon icon={faBox} />
               </div>
             </Button>
           </>
