@@ -1,16 +1,14 @@
 :root {
-  /* --space-cadet: #1b264f;
-  --burgundy: #8b2731;
-  --salmon: #fb7d6f;
-  --moonstone: #52b9cb;
-  --straw: #d2dd6e; */
-
   --maize: #ffe75dff;
+  --light-yellow: #fdf3bc;
   --atomic-tangerine: #ff934fff;
   --atomic-tangerine-darker: #cb6728;
   --cerise: #d24970ff;
+  --light-pink: #e387a1;
+  --light-pink-darker: #d26483;
   --paynes-gray: #32657cff;
   --air-superiority-blue: #669bb7ff;
+  --orange-grey: #80726a;
   overflow-y: hidden;
 }
 
@@ -380,4 +378,32 @@
 
 #user-data-viewer-label {
   text-align: center;
+}
+
+.primary-color {
+  background-color: var(--atomic-tangerine) !important;
+  border-color: var(--atomic-tangerine) !important;
+}
+
+.primary-color:hover {
+  background-color: var(--atomic-tangerine-darker) !important;
+  border-color: var(--atomic-tangerine-darker) !important;
+}
+
+.card-color {
+  background-color: var(--light-yellow) !important;
+  border-color: var(--maize) !important;
+  border-width: medium !important;
+}
+
+.imageBorder {
+  border: 0.15rem solid var(--maize) !important;
+  border-image-outset: 2rem;
+  /* border-color: var(--cerise) !important;
+  border-width: thin medium !important; */
+}
+
+.secondary-color {
+  background-color: var(--orange-grey) !important;
+  border-color: var(--orange-grey) !important;
 }

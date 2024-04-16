@@ -81,21 +81,20 @@ const MealCard = ({ meal }) => {
 
   return (
     <Card
-      className={"m-2 p-3 flex-fill shadow-sm"}
+      className={"card-color m-2 p-3 flex-fill shadow-sm"}
       style={Object.assign(width, cardStyle)}
     >
       <CardTitle>
         <h5 className="text-truncate m-2 p-0">{meal.name}</h5>
       </CardTitle>
       <CardImg
-        className="m-0 border"
+        className="m-0 imageBorder"
         src={meal.image}
         alt={`${meal.name} image`}
       />
       <CardBody>
         <Button
-          className="card-button"
-          color="primary"
+          className="secondary-color card-button"
           onClick={() => {
             setSelectedMeal({ ...meal });
           }}
