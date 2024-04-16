@@ -5,7 +5,7 @@ import "./recommendations.css";
 
 const Recommendations = () => {
   const [recipeType, setRecipeType] = useState("");
-  const { response, responseHistory, error, loading, handleSubmit } = GPT();
+  const { response, error, loading, handleSubmit } = GPT();
 
   const isButtonActive = (type) => recipeType === type;
 
@@ -52,11 +52,7 @@ const Recommendations = () => {
       </div>
       <div id="center-content">
         {error && <div>Error: {error}</div>}
-        <GptResponseRenderer
-          response={response}
-          loading={loading}
-          responseHistory={responseHistory}
-        />
+        <GptResponseRenderer response={response} loading={loading} />
       </div>
     </div>
   );
