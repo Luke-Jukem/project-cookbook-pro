@@ -1,9 +1,16 @@
 :root {
-  --space-cadet: #1b264f;
+  /* --space-cadet: #1b264f;
   --burgundy: #8b2731;
   --salmon: #fb7d6f;
   --moonstone: #52b9cb;
-  --straw: #d2dd6e;
+  --straw: #d2dd6e; */
+
+  --maize: #ffe75dff;
+  --atomic-tangerine: #ff934fff;
+  --atomic-tangerine-darker: #cb6728;
+  --cerise: #d24970ff;
+  --paynes-gray: #32657cff;
+  --air-superiority-blue: #669bb7ff;
   overflow-y: hidden;
 }
 
@@ -43,8 +50,8 @@
 }
 
 .header {
-  background-color: var(--moonstone);
-  color: var(--space-cadet);
+  background-color: var(--air-superiority-blue);
+  color: var(--paynes-gray);
   padding: 1%;
   display: flex;
   justify-content: space-between;
@@ -72,7 +79,7 @@
 }
 
 .btn {
-  background-color: #007bff;
+  background-color: var(--atomic-tangerine);
   color: #fff;
   padding: 8px 16px;
   border: none;
@@ -82,7 +89,7 @@
 }
 
 .btn:hover {
-  background-color: #0056b3;
+  background-color: var(--atomic-tangerine-darker);
 }
 
 #ingredient-search-container {
@@ -104,7 +111,7 @@
 }
 
 .cart-button {
-  background-color: black;
+  background-color: var(--paynes-gray);
   color: #fff;
   padding: 8px 16px;
   border: none;
@@ -231,7 +238,7 @@
 }
 
 .cart-date button {
-  background-color: blue;
+  background-color: var(--atomic-tangerine);
   color: #fff;
   padding: 8px 16px;
   border: none;
@@ -242,7 +249,7 @@
 }
 
 .cart-date button:hover {
-  background-color: darkblue;
+  background-color: var(--atomic-tangerine-darker);
 }
 
 .cart-date input {
@@ -266,7 +273,7 @@
 }
 
 .details-button {
-  background-color: blue;
+  background-color: var(--atomic-tangerine);
   color: #fff;
   padding: 8px 16px;
   border: none;
@@ -277,7 +284,7 @@
 }
 
 .details-button:hover {
-  background-color: darkblue;
+  background-color: var(--atomic-tangerine-darker);
 }
 
 .main-container {
