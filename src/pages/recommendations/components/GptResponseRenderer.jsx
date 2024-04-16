@@ -1,6 +1,7 @@
 import React from "react";
+import GeneratedRecipeItem from "./GeneratedRecipeItem";
 
-const GptResponseRenderer = ({ response, loading, responseHistory }) => {
+const GptResponseRenderer = ({ response, loading }) => {
   return (
     <div id="gpt-response-container">
       <div id="response-container-label">
@@ -12,11 +13,10 @@ const GptResponseRenderer = ({ response, loading, responseHistory }) => {
             Generating your Recipe Powered by ChatGPT...
           </pre>
         )}
-        {responseHistory.map((response, index) => (
-          <div key={index} className="response-item">
-            <pre className="pre-style">{response}</pre>
-          </div>
-        ))}
+        {Array.isArray(response?.recipes) &&
+          response.recipes.map((recipe, index) => (
+            <GeneratedRecipeItem key={index} recipe={recipe} />
+          ))}
       </div>
     </div>
   );

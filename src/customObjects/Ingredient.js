@@ -4,7 +4,7 @@ class Ingredient {
       (this.id = id),
       (this.name = name),
       (this.unit = unit),
-      (this.isSaved = false);
+      (this.isSaved = false); // Why do we have this?
   }
   toString() {
     return this.amount + ", " + this.id + ", " + this.name + ", " + this.unit;
