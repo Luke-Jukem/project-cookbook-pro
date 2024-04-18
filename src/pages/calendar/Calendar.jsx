@@ -131,6 +131,26 @@ const MyCalendar = () => {
     }
   };
 
+  const renderPlan = (date, plan, mealIndex) => (
+    //for each plan entry, create a div displaying the meal's name
+    <div key={`${date.toISOString()}-${mealIndex}`} className="meal-tile rounded">
+      <h6>{plan.meals[mealIndex].name}</h6>
+      <button
+        type="button"
+        className="rm-meal-btn"
+        onClick={() => removePlan(plan.date, mealIndex)}
+      >
+        Remove
+      </button>
+    </div>
+  );
+
+  const formatDate = (date) => date.toLocaleString("en-US", {
+    weekday: "long",
+    month: "short",
+    day: "numeric",
+  });
+
   //opening/closing modal (meal form)
   const openModal = () => {
     setIsModalOpen(true);
@@ -183,11 +203,11 @@ const MyCalendar = () => {
       />
       <div className="selected-day">
         <span className="date-display">
-          {selectedDay.toLocaleString("en-US", {
-            weekday: "long",
-            month: "short",
-            day: "numeric",
-          })}
+        {selectedDates.length > 0 ? 
+          `${formatDate(selectedDates[0])} - ${formatDate(selectedDates[selectedDates.length - 1])}` 
+          : 
+          formatDate(selectedDay)
+        }
         </span>{" "}
         <br />
         <Modal
@@ -198,26 +218,17 @@ const MyCalendar = () => {
           <MealForm closeModal={closeModal} addPlan={addPlan} />
         </Modal>
         <br />
-        {plans
-          //filtering plans by selected day to display them
-          .filter(
-            (plan) => plan.date === selectedDay.toISOString().split("T")[0],
+        {
+          //if there are selected dates in array, display the meals of all of them
+          //otherwise, display the meals of the selected day
+          (selectedDates.length > 0 ? selectedDates : [selectedDay]).map(date =>
+            plans
+              .filter(plan => plan.date === date.toISOString().split("T")[0])
+              .map((plan, index) =>
+                plan.meals.map((meal, mealIndex) => renderPlan(date, plan, mealIndex))
+              )
           )
-          .map((plan, index) =>
-            plan.meals.map((meal, mealIndex) => (
-              //for each entry, create a div displaying the meal's name
-              <div key={mealIndex} className="meal-tile rounded">
-                <h6>{meal.name}</h6>
-                <button
-                  type="button"
-                  className="rm-meal-btn"
-                  onClick={() => removePlan(plan.date, mealIndex)}
-                >
-                  Remove
-                </button>
-              </div>
-            )),
-          )}
+        }
         <button className="add-meal-btn" onClick={openModal}>
           Add Meal
         </button>
