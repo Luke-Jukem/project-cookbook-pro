@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import Modal from "react-modal";
+import { eachDayOfInterval, startOfDay, isSameDay } from "date-fns";
 import MealForm from "./components/MealForm.jsx";
 import "../../css/calendarStyle.css";
 import "react-calendar/dist/Calendar.css";
@@ -14,6 +15,8 @@ const MyCalendar = () => {
   //state variables, initial value of date and selectedDay are both current date
   const [date, setDate] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(new Date());
+  //for selecting a date range
+  const [selectedDates, setSelectedDates] = useState([]);
   //empty array of plans
   const [plans, setPlans] = useState([]);
   //modal state
@@ -39,8 +42,25 @@ const MyCalendar = () => {
   const onChange = (date) => {
     setDate(date);
   };
-  const onClickDay = (date) => {
-    setSelectedDay(date);
+
+  //selecting days/date range
+  const onClickDay = (value, event) => {
+    //if shift is held down and a date is clicked
+    if (event.shiftKey && selectedDay) {
+      //take the range from the selected day to the shift-clicked day
+      const range = eachDayOfInterval({
+        start: startOfDay(selectedDay),
+        end: startOfDay(value),
+      });
+      setSelectedDates(range);
+      //log the date range (remove later)
+      console.log(range.map((date) => date.toISOString()));
+    } else {
+      //otherwise just update selected with the clicked day
+      setSelectedDay(value);
+      //and then reset the selected dates so the highlights go away
+      setSelectedDates([]);
+    }
   };
 
   //adding a plan
@@ -145,6 +165,13 @@ const MyCalendar = () => {
         }}
         //greying out past dates
         tileClassName={({ date, view }) => {
+          //if the date is part of the selected date range, add a class to highlight it
+          if (
+            view === "month" &&
+            selectedDates.some((selectedDate) => isSameDay(selectedDate, date))
+          ) {
+            return "selected-dates";
+          }
           //splits the strings and compares only the dates (so that current day isn't greyed)
           if (
             date.toISOString().split("T")[0] <
