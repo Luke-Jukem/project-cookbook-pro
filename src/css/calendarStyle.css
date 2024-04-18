@@ -131,6 +131,10 @@
   font-size: 2em !important;
 }
 
+.selected-dates {
+  background-color: #fdb2b2 !important;
+}
+
 .meal-form-container {
   display: flex;
   flex-direction: column;
