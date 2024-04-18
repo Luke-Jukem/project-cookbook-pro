@@ -8,6 +8,7 @@ import "react-calendar/dist/Calendar.css";
 import FirestoreService from "../../firebase/FirebaseService.js";
 import FirestoreListener from "../../firebase/FirestoreListener.js";
 import { useAuth } from "../../utils/AuthContext.js";
+import NutritionModal from "./components/NutritionModal.jsx";
 
 const MyCalendar = () => {
   //firebase auth
@@ -22,6 +23,13 @@ const MyCalendar = () => {
   //modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
   //for displaying saved plans from firebase
+  const [isNutritionModalOpen, setIsNutritionModalOpen] = useState(false);
+  const openNutritionModal = () => {
+    setIsNutritionModalOpen(true);
+  };
+  const closeNutritionModal = () => {
+    setIsNutritionModalOpen(false);
+  };
   const firestoreListener = new FirestoreListener();
 
   useEffect(() => {
@@ -183,7 +191,9 @@ const MyCalendar = () => {
       />
       <div id="calendar-sidebar">
         <div id="nutrition-launcher">
-          <button id="nutrition-button">Generate Nutrition Report</button>
+          <button id="nutrition-button" onClick={openNutritionModal}>
+            Generate Nutrition Report
+          </button>
         </div>
         <div className="selected-day">
           <span className="date-display">
@@ -227,6 +237,10 @@ const MyCalendar = () => {
           </button>
         </div>
       </div>
+      <NutritionModal
+        isOpen={isNutritionModalOpen}
+        closeModal={closeNutritionModal}
+      />
     </div>
   );
 };
