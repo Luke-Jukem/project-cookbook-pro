@@ -1,19 +1,17 @@
 import React, { useState } from "react";
-import { Button, Card, CardBody, CardTitle, CardImg } from "reactstrap";
+import { Button, Card, CardBody, CardTitle, CardImg, Tooltip, Modal, ModalBody } from "reactstrap";
 import RecipeDetails from "../../../components/RecipeDetails.jsx";
 import OpenAI from "openai";
 
 const GeneratedMealCard = ({ recipe }) => {
   const [selectedMeal, setSelectedMeal] = useState(null);
   const [imageURL, setImageURL] = useState(null);
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const buttonOptions = (
-    <Button color="secondary" onClick={() => setSelectedMeal(null)}>
-      Close
-    </Button>
-  );
+  const toggleTooltip = () => setTooltipOpen(!tooltipOpen);
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-  // Function to generate an image using DALL-E
   const generateDalleImage = async () => {
     try {
       const openai = new OpenAI({
@@ -26,7 +24,7 @@ const GeneratedMealCard = ({ recipe }) => {
         n: 1,
         size: "1024x1024",
       });
-      setImageURL(response.data[0].url); // Set the URL in the local state
+      setImageURL(response.data[0].url);
       console.log('Image generated successfully:', response.data[0].url);
     } catch (error) {
       console.error('Error generating image:', error);
@@ -39,12 +37,30 @@ const GeneratedMealCard = ({ recipe }) => {
         <CardTitle>
           <h5 className="meal-card-title text-truncate">{recipe.name}</h5>
         </CardTitle>
-        <div className="meal-card-summary">{recipe.summary}</div>
-        <div className="meal-card-inspiration">
-          Inspired by: {recipe.savedRecipeInspiration}
+        <div className="meal-card-inspiration" id={`tooltip-${recipe.id}`}>
+          Inspired by: 
+          <span onMouseOver={toggleTooltip} onMouseOut={toggleTooltip}>
+            {recipe.savedRecipeInspiration}
+          </span>
         </div>
-        <div className="meal-card-reasoning">{recipe.inspirationReasoning}</div>
-        {imageURL && <CardImg top width="100%" src={imageURL} alt="Generated Recipe Image" />}
+        <Tooltip
+          placement="top"
+          isOpen={tooltipOpen}
+          target={`tooltip-${recipe.id}`}
+          toggle={toggleTooltip}
+        >
+          {recipe.inspirationReasoning}
+        </Tooltip>
+        <div className="meal-card-summary">{recipe.summary}</div>
+        {imageURL && (
+          <CardImg
+            top
+            width="100%"
+            src={imageURL}
+            alt="Generated Recipe Image"
+            onClick={toggleModal}
+          />
+        )}
       </div>
       <CardBody>
         <Button className="meal-card-button" color="primary" onClick={() => setSelectedMeal({ ...recipe })}>
@@ -64,6 +80,12 @@ const GeneratedMealCard = ({ recipe }) => {
           />
         )}
       </CardBody>
+      <Modal isOpen={isModalOpen} toggle={toggleModal} className="modal-lg">
+        <ModalBody>
+          <img src={imageURL} style={{ width: '100%', height: 'auto' }} alt="Enlarged Recipe Image" />
+          <Button color="secondary" onClick={toggleModal}>Close</Button>
+        </ModalBody>
+      </Modal>
     </div>
   );
 };
