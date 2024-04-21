@@ -30,7 +30,13 @@ const GPT = () => {
       const processedRecipes = responseObject.recipes.map((recipe) => {
         const processedIngredients = recipe.ingredients.map(
           (ingredientString) => {
-            const [amount, , name, unit] = ingredientString.split(", ");
+            const splitIngredient = ingredientString.split(", ");
+            if (splitIngredient.length < 4) {
+              // Handle the case where the ingredient string doesn't have the expected format
+              return null;
+            }
+
+            const [amount, , name, unit] = splitIngredient;
             const amountValue = parseFloat(
               amount.replace("amount(", "").replace(")", "")
             );
