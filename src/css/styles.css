@@ -6,6 +6,7 @@
   --yellow: #ffe75dff;
   --yello-lighter: #fdf3bc;
   --atomic-tangerine: #ff934fff;
+  --atomic-tangerine-very-light: #F2E3D5;
   --atomic-tangerine-darker: #cb6728;
   --atomic-tangerine-2: #b9622b;
   --atomic-tangerine-2-darker: #914d23;
@@ -14,10 +15,13 @@
   --light-pink-darker: #d26483;
   --paynes-gray: #32657cff;
   --air-superiority-blue: #669bb7ff;
+  --air-superiority-blue-lighter: #a9c6d6;
+  --air-superiority-blue-lighter-lighter: #9bcae3;
   --air-superiority-blue-darker: #375463;
   --orange-grey: #80726a;
   --orange-grey-darker: #65574f;
   --white: #F0F9F9;
+  --white-darker: #898989;
   overflow-y: hidden;
 }
 
@@ -502,15 +506,26 @@
   border-color: var(--atomic-tangerine-darker) !important;
 }
 
+.meal-title {
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
 .card-color {
-  background-color: var(--light-yellow) !important;
-  border-color: var(--maize) !important;
-  border-width: medium !important;
+  background-color: var(--air-superiority-blue-lighter) !important;
+  /* border: 0rem transparent solid !important; */
+  /* var(--air-superiority-blue-lighter) !important; */
+  border-color: var(--white) !important;
+  border-style: groove;
+  border-width: 0.4rem !important;;
+  /* background-image: linear-gradient(to top, transparent, var(--air-superiority-blue)); */
+  border-radius: 1rem !important;
 }
 
 .imageBorder {
-  border: 0.15rem solid var(--maize) !important;
-  border-image-outset: 2rem;
+  border: 0.3rem solid var(--white) !important;
+  border-radius: 0.4rem !important;
   /* border-color: var(--cerise) !important;
   border-width: thin medium !important; */
 }

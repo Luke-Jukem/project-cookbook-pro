@@ -95,7 +95,7 @@ const MealCard = ({ meal }) => {
       style={Object.assign(width, cardStyle, minWidth)}
     >
       <CardTitle>
-        <h5 className="text-truncate m-2 p-0">{meal.name}</h5>
+        <h5 className="meal-title text-truncate m-2 p-0">{meal.name}</h5>
       </CardTitle>
       <CardImg
         className="m-0 imageBorder"
