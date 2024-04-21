@@ -54,6 +54,8 @@ const MealCard = ({ meal }) => {
   };
 
   const width = { width: "18rem" };
+  const height = { wh: "18rem" };
+
 
   const cardStyle = {
     border: "2px outset #FFA6A6",
