@@ -111,7 +111,7 @@ const GPT = () => {
         { role: "system", content: systemMessageContent },
         {
           role: "user",
-          content: `Generate five ${recipeType} recipes inspired by the following: ${recipeListString} give your response in a nested JSON containing the five generated recipes`,
+          content: `Generate four ${recipeType} recipes inspired by the following: ${recipeListString} give your response in a nested JSON containing the four generated recipes`,
         },
       ];
 
