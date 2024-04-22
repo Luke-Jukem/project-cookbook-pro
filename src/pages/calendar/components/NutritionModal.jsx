@@ -15,8 +15,8 @@ const NutritionModal = ({ isOpen, closeModal }) => {
       <div className="nutrition-modal-content">
         <h2>Nutrition Report</h2>
         {/* Add your nutrition report content here */}
-        <Health/>
-      
+        <Health />
+        <br />
         <button onClick={closeModal}>Close</button>
       </div>
     </Modal>
