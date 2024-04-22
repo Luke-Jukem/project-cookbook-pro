@@ -21,22 +21,19 @@ const MealForm = ({ selectedDay, addPlan, closeModal }) => {
     const userSavedRecipesPath = `Users/${user.uid}/SavedRecipes`;
     const userCustomRecipesPath = `Users/${user.uid}/CustomRecipes`;
 
-
     const unsubscribeFromSavedRecipes = firestoreListener.subscribeToCollection(
       userSavedRecipesPath,
       (docs) => {
         const recipes = docs.map((doc) => doc);
         setSavedRecipes(recipes);
-      }
+      },
     );
 
-    const unsubscribeFromCustomRecipes = firestoreListener.subscribeToCollection(
-      userCustomRecipesPath,
-      (docs) => {
+    const unsubscribeFromCustomRecipes =
+      firestoreListener.subscribeToCollection(userCustomRecipesPath, (docs) => {
         const recipes = docs.map((doc) => doc);
         setCustomRecipes(recipes); // You'll need to create this state variable
-      }
-    );
+      });
 
     return () => {
       firestoreListener.stopListening();

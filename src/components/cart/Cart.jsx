@@ -9,7 +9,10 @@ const Cart = ({ modalOpen, setModalOpen, cartItems, type }) => {
   const [selectedMeal, setSelectedMeal] = useState(null);
   const { user } = useAuth();
   //if the cart is being used from the calendar, change the path so the real cart isn't affected
-  const userCartPath = type === 'calendar' ? `Users/${user.uid}/CalendarCart` : `Users/${user.uid}/Cart`;
+  const userCartPath =
+    type === "calendar"
+      ? `Users/${user.uid}/CalendarCart`
+      : `Users/${user.uid}/Cart`;
 
   const buttonOptions = (
     <Button color="secondary" onClick={() => setSelectedMeal(null)}>
@@ -38,7 +41,7 @@ const Cart = ({ modalOpen, setModalOpen, cartItems, type }) => {
             >
               Details
             </button>
-            {type !== 'calendar' && ( //if the cart is being used from the calendar, don't show the remove button
+            {type !== "calendar" && ( //if the cart is being used from the calendar, don't show the remove button
               <button
                 className="remove-button"
                 onClick={() => removeFromCart(recipe.id)}

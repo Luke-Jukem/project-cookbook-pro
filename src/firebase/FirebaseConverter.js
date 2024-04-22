@@ -96,7 +96,7 @@ class FirebaseConverter {
         const data = snapshot.data(options);
         const convertedIngredients = this.convertArray(
           data.ingredients,
-          this.objectConverter
+          this.objectConverter,
         );
 
         return {
@@ -149,7 +149,7 @@ class FirebaseConverter {
           data.protein,
           data.carbs,
           data.fat,
-          data.sugar
+          data.sugar,
         );
       },
     };
