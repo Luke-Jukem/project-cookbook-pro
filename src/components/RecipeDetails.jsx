@@ -36,11 +36,14 @@ const RecipeDetails = ({ meal, buttonOptions, isOpen }) => {
             <div key={key}>
               <strong>{key}:</strong>
               <ul>
-                {value.map((ingredient, index) => (
-                  <li key={index}>
-                    {ingredient.amount} {ingredient.unit} {ingredient.name}
-                  </li>
-                ))}
+                {value.map((ingredient, index) =>
+                  // In case we get a bad ingredient from GPT, we perform a null check
+                  ingredient ? (
+                    <li key={index}>
+                      {ingredient.amount} {ingredient.unit} {ingredient.name}
+                    </li>
+                  ) : null
+                )}
               </ul>
             </div>
           ) : (
