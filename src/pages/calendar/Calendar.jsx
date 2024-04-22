@@ -11,6 +11,7 @@ import FirestoreListener from "../../firebase/FirestoreListener.js";
 import { useAuth } from "../../utils/AuthContext.js";
 import NutritionModal from "./components/NutritionModal.jsx";
 import RecipeDetails from "../../components/RecipeDetails.jsx";
+import Cart from "../../components/cart/Cart.jsx";
 
 const MyCalendar = () => {
   //firebase auth
@@ -22,15 +23,15 @@ const MyCalendar = () => {
   const [selectedDates, setSelectedDates] = useState([]);
   //for selecting a specific meal and seeing details
   const [selectedMeal, setSelectedMeal] = useState(null);
-  //for selecting a date for meals to be ordered
-  const [selectedDate, setSelectedDate] = useState(null);
+  //storing cart items to be ordered
+  const [cartItems, setCartItems] = useState([]);
   //empty array of plans
   const [plans, setPlans] = useState([]);
   //modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
-  //datepicker state
-  const [isDatePickerOpen, setDatePickerOpen] = useState(false);
-  //for displaying saved plans from firebase
+  //order modal state
+  const [isOrderModalOpen, setOrderModalOpen] = useState(false);
+  //nutritional modal state
   const [isNutritionModalOpen, setIsNutritionModalOpen] = useState(false);
   const openNutritionModal = () => {
     setIsNutritionModalOpen(true);
@@ -183,6 +184,21 @@ const MyCalendar = () => {
     </>
   );
 
+  const orderMeals = () => {
+    setOrderModalOpen(true);
+    //get all the recipes for the selected date or date range
+    const recipes = (selectedDates.length > 0 ? selectedDates : [selectedDay])
+      .flatMap(date =>
+        plans
+          .filter(plan => plan.date === date.toISOString().split("T")[0])
+          .flatMap(plan => plan.meals)
+          .map(meal => meal.recipe) //get the recipe of each meal
+      );
+      console.log(recipes);
+    //set cartItems to the recipes
+    setCartItems(recipes);
+  };
+
   const formatDate = (date) => date.toLocaleString("en-US", {
     weekday: "long",
     month: "short",
@@ -284,21 +300,18 @@ const MyCalendar = () => {
         <button className="add-meal-btn" onClick={openModal}>
           Add Meal
         </button>
-        <button className="add-meal-btn" onClick={() => setDatePickerOpen(true)}>
+        <button className="add-meal-btn" onClick={orderMeals}>
           Order Meals
         </button>
-        {isDatePickerOpen && (
-          <>
-          <p>Set Order Date:</p>
-          <input
-            type="date"
-            min={new Date().toISOString().split('T')[0]}
-            value={selectedDate}
-            onChange={event => setSelectedDate(event.target.value)}
-            />
-          <button onClick={() => setDatePickerOpen(false)}>Close</button>
-          </>
-          )}
+      {cartItems.length > 0 && (
+        <Cart
+          modalOpen={isOrderModalOpen}
+          setModalOpen={setOrderModalOpen}
+          cartItems={cartItems}
+          type="calendar"
+          removeFromCart={meal => setCartItems(cartItems.filter(item => item !== meal))}
+        />
+      )}
       </div>
       </div>
       <NutritionModal
