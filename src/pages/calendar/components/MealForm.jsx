@@ -11,6 +11,7 @@ const MealForm = ({ selectedDay, addPlan, closeModal }) => {
   const [option, setOption] = useState(null);
   const [showText, setShowText] = useState("");
   const [savedRecipes, setSavedRecipes] = useState([]);
+  const [customRecipes, setCustomRecipes] = useState([]);
   const { user } = useAuth();
   const firestoreListener = new FirestoreListener();
 
@@ -18,12 +19,22 @@ const MealForm = ({ selectedDay, addPlan, closeModal }) => {
 
   useEffect(() => {
     const userSavedRecipesPath = `Users/${user.uid}/SavedRecipes`;
+    const userCustomRecipesPath = `Users/${user.uid}/CustomRecipes`;
+
 
     const unsubscribeFromSavedRecipes = firestoreListener.subscribeToCollection(
       userSavedRecipesPath,
       (docs) => {
         const recipes = docs.map((doc) => doc);
         setSavedRecipes(recipes);
+      }
+    );
+
+    const unsubscribeFromCustomRecipes = firestoreListener.subscribeToCollection(
+      userCustomRecipesPath,
+      (docs) => {
+        const recipes = docs.map((doc) => doc);
+        setCustomRecipes(recipes); // You'll need to create this state variable
       }
     );
 
@@ -40,7 +51,7 @@ const MealForm = ({ selectedDay, addPlan, closeModal }) => {
   const handleAddPlan = (event, recipe) => {
     //prevents form from submitting by default before addPlan is used
     event.preventDefault();
-    addPlan(recipe.name, recipe.id, "false", "1");
+    addPlan(recipe, "false", "1");
     closeModal();
   };
 
@@ -60,15 +71,6 @@ const MealForm = ({ selectedDay, addPlan, closeModal }) => {
             onMouseLeave={() => setShowText("")}
           >
             Saved
-          </button>
-          <button
-            type="button"
-            className="option-button"
-            onClick={() => setOption("Recommended")}
-            onMouseEnter={() => setShowText("Choose from recommended recipes.")}
-            onMouseLeave={() => setShowText("")}
-          >
-            Recommended
           </button>
           <button
             type="button"
@@ -95,30 +97,18 @@ const MealForm = ({ selectedDay, addPlan, closeModal }) => {
           ))}
         </div>
       )}
-      {option === "Recommended" && <p>Recommended Meals</p>}
       {option === "Custom" && (
-        <>
-          <label>
-            Name:
-            <input type="text" {...register("name")} />
-          </label>
-          <input type="hidden" value="N/A" {...register("mealId")} />
-          <label>
-            Add this to my cart!
-            <input type="checkbox" {...register("autoAddToCart")} />
-          </label>
-          {watchAddToCart && (
-            <label>
-              Add To Cart Time:
-              <input type="text" {...register("addToCartTime")} />
-            </label>
-          )}
-          <input type="submit" value="Submit" />
-          <br></br>
-          <button type="button" onClick={closeModal}>
-            Cancel
-          </button>
-        </>
+        <div>
+          {customRecipes.map((recipe, index) => (
+            <div key={index} className="meal-entry">
+              <img src={recipe.image} alt={""} />
+              <p>{recipe.name}</p>
+              <button onClick={(event) => handleAddPlan(event, recipe)}>
+                Add
+              </button>
+            </div>
+          ))}
+        </div>
       )}
     </form>
   );
