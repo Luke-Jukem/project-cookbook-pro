@@ -1,0 +1,11 @@
+#modal-goals-column{
+    width: 40%;
+    text-align: left;
+    display: inline-block; 
+}
+
+#modal-visual-column {
+    width: 55%;
+    text-align: right;
+    display: inline-block; 
+}

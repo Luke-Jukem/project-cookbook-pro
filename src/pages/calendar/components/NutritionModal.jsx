@@ -1,6 +1,8 @@
 import React from "react";
 import Modal from "react-modal";
 import Health from "../../health/Health";
+import { Col } from "react-bootstrap";
+import "../nutritionModalStyle.css"
 
 const NutritionModal = ({ isOpen, closeModal }) => {
   return (
@@ -15,7 +17,16 @@ const NutritionModal = ({ isOpen, closeModal }) => {
       <div className="nutrition-modal-content">
         <h2>Nutrition Report</h2>
         {/* Add your nutrition report content here */}
-        <Health />
+        <Col id="modal-goals-column">
+          <Health />
+          <br />
+        </Col>
+
+        <Col id="modal-visual-column">
+          Visuals
+          <br />
+        </Col>
+
         <br />
         <button onClick={closeModal}>Close</button>
       </div>
