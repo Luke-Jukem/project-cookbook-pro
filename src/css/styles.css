@@ -514,20 +514,15 @@
 
 .card-color {
   background-color: var(--air-superiority-blue-lighter) !important;
-  /* border: 0rem transparent solid !important; */
-  /* var(--air-superiority-blue-lighter) !important; */
   border-color: var(--white) !important;
   border-style: groove;
-  border-width: 0.4rem !important;;
-  /* background-image: linear-gradient(to top, transparent, var(--air-superiority-blue)); */
+  border-width: 0.4rem !important;
   border-radius: 1rem !important;
 }
 
 .imageBorder {
   border: 0.3rem solid var(--white) !important;
   border-radius: 0.4rem !important;
-  /* border-color: var(--cerise) !important;
-  border-width: thin medium !important; */
 }
 
 .secondary-color {

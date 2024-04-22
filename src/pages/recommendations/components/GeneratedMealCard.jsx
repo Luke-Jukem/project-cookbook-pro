@@ -59,11 +59,11 @@ const GeneratedMealCard = ({ recipe }) => {
         )}
       </div>
       <CardBody>
-        <Button className="meal-card-button" color="primary" onClick={() => setSelectedMeal({ ...recipe })}>
+        <Button className="meal-card-button details"  onClick={() => setSelectedMeal({ ...recipe })}>
           Details
         </Button>
-        <Button className="meal-card-button" color="success">Save</Button>
-        <Button className="meal-card-button" color="info" onClick={generateDalleImage}>
+        <Button className="meal-card-button save" >Save</Button>
+        <Button className="meal-card-button dalle"  onClick={generateDalleImage}>
           Generate DALL-E Image
         </Button>
         <div className="meal-card-reasoning">{recipe.inspirationReasoning}</div>
