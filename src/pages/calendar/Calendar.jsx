@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import Modal from "react-modal";
 import { eachDayOfInterval, startOfDay, isSameDay } from "date-fns";
+import { Button } from "reactstrap";
 import MealForm from "./components/MealForm.jsx";
 import "./calendarStyle.css";
 import "react-calendar/dist/Calendar.css";
@@ -9,6 +10,7 @@ import FirestoreService from "../../firebase/FirebaseService.js";
 import FirestoreListener from "../../firebase/FirestoreListener.js";
 import { useAuth } from "../../utils/AuthContext.js";
 import NutritionModal from "./components/NutritionModal.jsx";
+import RecipeDetails from "../../components/RecipeDetails.jsx";
 
 const MyCalendar = () => {
   //firebase auth
@@ -18,6 +20,8 @@ const MyCalendar = () => {
   const [selectedDay, setSelectedDay] = useState(new Date());
   //for selecting a date range
   const [selectedDates, setSelectedDates] = useState([]);
+  //for selecting a specific meal and seeing details
+  const [selectedMeal, setSelectedMeal] = useState(null);
   //empty array of plans
   const [plans, setPlans] = useState([]);
   //modal state
@@ -135,7 +139,14 @@ const MyCalendar = () => {
   const renderPlan = (date, plan, mealIndex) => (
     //for each plan entry, create a div displaying the meal's name
     <div key={`${date.toISOString()}-${mealIndex}`} className="meal-tile rounded">
-      <h6>{plan.meals[mealIndex].recipe.name}</h6>
+    <h6>{plan.meals[mealIndex].recipe.name}</h6>
+    <button
+      type="button"
+      className="rm-meal-btn"
+      onClick={() => setSelectedMeal(plan.meals[mealIndex])}
+    >
+      Details
+    </button>
       <button
         type="button"
         className="rm-meal-btn"
@@ -144,6 +155,28 @@ const MyCalendar = () => {
         Remove
       </button>
     </div>
+  );
+
+  const buttonOptions = (
+    <>
+      <Button
+        color="primary"
+        onClick={() => {
+          unsaveRecipeFromCurrentUser(
+            `Users/${user.uid}/SavedRecipes/`,
+            String(selectedMeal.id),
+            "recipe"
+          );
+          //close the modal and remove the recipe
+          setSelectedMeal(null);
+        }}
+      >
+        Unsave recipe
+      </Button>
+      <Button color="secondary" onClick={() => setSelectedMeal(null)}>
+        Cancel
+      </Button>
+    </>
   );
 
   const formatDate = (date) => date.toLocaleString("en-US", {
@@ -236,6 +269,14 @@ const MyCalendar = () => {
               )
           )
         }
+        {selectedMeal && (
+          <RecipeDetails
+            meal={selectedMeal.recipe}
+            isOpen={selectedMeal !== null}
+            toggle={() => setSelectedMeal(null)}
+            buttonOptions={buttonOptions}
+          />
+        )}
         <button className="add-meal-btn" onClick={openModal}>
           Add Meal
         </button>
