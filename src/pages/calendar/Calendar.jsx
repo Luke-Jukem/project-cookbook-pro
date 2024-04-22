@@ -22,10 +22,14 @@ const MyCalendar = () => {
   const [selectedDates, setSelectedDates] = useState([]);
   //for selecting a specific meal and seeing details
   const [selectedMeal, setSelectedMeal] = useState(null);
+  //for selecting a date for meals to be ordered
+  const [selectedDate, setSelectedDate] = useState(null);
   //empty array of plans
   const [plans, setPlans] = useState([]);
   //modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
+  //datepicker state
+  const [isDatePickerOpen, setDatePickerOpen] = useState(false);
   //for displaying saved plans from firebase
   const [isNutritionModalOpen, setIsNutritionModalOpen] = useState(false);
   const openNutritionModal = () => {
@@ -280,6 +284,21 @@ const MyCalendar = () => {
         <button className="add-meal-btn" onClick={openModal}>
           Add Meal
         </button>
+        <button className="add-meal-btn" onClick={() => setDatePickerOpen(true)}>
+          Order Meals
+        </button>
+        {isDatePickerOpen && (
+          <>
+          <p>Set Order Date:</p>
+          <input
+            type="date"
+            min={new Date().toISOString().split('T')[0]}
+            value={selectedDate}
+            onChange={event => setSelectedDate(event.target.value)}
+            />
+          <button onClick={() => setDatePickerOpen(false)}>Close</button>
+          </>
+          )}
       </div>
       </div>
       <NutritionModal
