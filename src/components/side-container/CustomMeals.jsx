@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { ListGroup, ListGroupItem, Button } from "reactstrap";
-import RecipeDetails from "./RecipeDetails.jsx";
-import { useAuth } from "../utils/AuthContext.js";
-import FirestoreService from "../firebase/FirebaseService.js";
-import FirestoreListener from "../firebase/FirestoreListener.js";
+import RecipeDetails from "../RecipeDetails.jsx";
+import { useAuth } from "../../utils/AuthContext.js";
+import FirestoreService from "../../firebase/FirebaseService.js";
+import EmptyCollectionMessage from "./EmptyCollectionMessage.jsx";
+import FirestoreListener from "../../firebase/FirestoreListener.js";
 
 const CustomMeals = () => {
   const [savedRecipes, setSavedRecipes] = useState([""]);
@@ -13,31 +14,33 @@ const CustomMeals = () => {
   const firestoreListener = new FirestoreListener();
 
   useEffect(() => {
-    const userSavedRecipesPath = `Users/${user.uid}/CustomRecipes`;
+    if (user) {
+      const userSavedRecipesPath = `Users/${user.uid}/CustomRecipes`;
 
-    const unsubscribeCustomRecipes = firestoreListener.subscribeToCollection(
-      userSavedRecipesPath,
-      (docs) => {
-        const recipes = docs.map((doc) => doc);
-        setSavedRecipes(recipes);
-      },
-    );
+      const unsubscribeCustomRecipes = firestoreListener.subscribeToCollection(
+        userSavedRecipesPath,
+        (docs) => {
+          const recipes = docs.map((doc) => doc);
+          setSavedRecipes(recipes);
+        }
+      );
 
-    // Cleanup function
-    return unsubscribeCustomRecipes;
+      // Cleanup function
+      return unsubscribeCustomRecipes;
+    }
   }, [user.uid]);
 
   async function unsaveRecipeFromCurrentUser(
     collectionPath,
     documentId,
-    dataType,
+    dataType
   ) {
     selectedMeal.isSaved = false;
     try {
       await FirestoreService.deleteDocument(
         collectionPath,
         documentId,
-        dataType,
+        dataType
       );
     } catch (error) {
       console.error("Error deleting the document:", error);
@@ -52,7 +55,7 @@ const CustomMeals = () => {
           unsaveRecipeFromCurrentUser(
             `Users/${user.uid}/CustomRecipes/`,
             String(selectedMeal.id),
-            "recipe",
+            "recipe"
           );
           setSelectedMeal(null);
         }}
@@ -66,7 +69,7 @@ const CustomMeals = () => {
   );
 
   return (
-    <ListGroup>
+    <ListGroup className="user-recipe-viewer-list-group">
       {selectedMeal && (
         <RecipeDetails
           meal={selectedMeal}
@@ -75,17 +78,24 @@ const CustomMeals = () => {
           buttonOptions={buttonOptions}
         />
       )}
-      {savedRecipes.map((recipe, key) => {
-        return (
-          <ListGroupItem
-            action
-            onClick={() => setSelectedMeal(recipe)}
-            key={key}
-          >
-            {recipe.name}
-          </ListGroupItem>
-        );
-      })}
+      {savedRecipes.length === 0 ? (
+        <EmptyCollectionMessage
+          collectionName="Custom Recipes"
+          href="/create-recipe"
+        />
+      ) : (
+        savedRecipes.map((recipe, key) => {
+          return (
+            <ListGroupItem
+              action
+              onClick={() => setSelectedMeal(recipe)}
+              key={key}
+            >
+              {recipe.name}
+            </ListGroupItem>
+          );
+        })
+      )}
     </ListGroup>
   );
 };

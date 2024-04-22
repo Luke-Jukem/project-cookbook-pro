@@ -1,37 +1,42 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../utils/AuthContext";
+import { useAuth } from "../../utils/AuthContext.js";
 import { FaShoppingCart } from "react-icons/fa";
-import Cart from "./Cart";
-import FirestoreListener from "../firebase/FirestoreListener.js";
-import "../css/styles.css";
+import Cart from "../cart/Cart.jsx";
+import FirestoreListener from "../../firebase/FirestoreListener.js";
+import "../../css/styles.css";
+import UserDropdown from "./UserDropdown.jsx";
 
 const Header = () => {
-  const { user, logoutUser } = useAuth();
+  const { user } = useAuth();
   const firestoreListener = new FirestoreListener();
-  const userCartPath = `Users/${user.uid}/Cart`;
   //opening/closing the cart modal and keeping track of cart item count
   const [modalOpen, setModalOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    const unsubscribeFromCart = firestoreListener.subscribeToCollection(
-      userCartPath,
-      (docs) => {
-        const recipes = docs.map((doc) => doc);
-        setCartItems(recipes);
-      },
-    );
+    //using user.uid breaks the application if the user is not logged in
+    if (user) {
+      const userCartPath = `Users/${user.uid}/Cart`;
 
-    //cleanup function
-    return unsubscribeFromCart;
-  }, [user.uid]);
+      const unsubscribeFromCart = firestoreListener.subscribeToCollection(
+        userCartPath,
+        (docs) => {
+          const recipes = docs.map((doc) => doc);
+          setCartItems(recipes);
+        }
+      );
+
+      //cleanup function
+      return unsubscribeFromCart;
+    }
+  }, [user]);
 
   return (
     <div id="header" className="header">
       <div>
         <Link id="header-logo" to="/">
-          INSERT LOGO
+          CookBook-Pro
         </Link>
       </div>
       <div className="links--wrapper">
@@ -46,11 +51,11 @@ const Header = () => {
             <Link to="/recommendations" className="header--link">
               Recommendations
             </Link>
-            <Link to="/health" className="header--link">
-              Health
-            </Link>
             <Link to="/create-recipe" className="header--link">
               Create Recipe
+            </Link>
+            <Link to="/calendar" className="header--link">
+              Calendar
             </Link>
             <button className="cart-button" onClick={() => setModalOpen(true)}>
               <FaShoppingCart /> Cart ({cartItems.length})
@@ -60,15 +65,9 @@ const Header = () => {
               setModalOpen={setModalOpen}
               cartItems={cartItems}
             />
-            <button onClick={logoutUser} className="btn">
-              Logout {user.displayName ? `(${user.displayName})` : ""}
-            </button>
+            <UserDropdown />
           </>
-        ) : (
-          <Link className="btn" to="/login">
-            Login
-          </Link>
-        )}
+        ) : null}
       </div>
     </div>
   );

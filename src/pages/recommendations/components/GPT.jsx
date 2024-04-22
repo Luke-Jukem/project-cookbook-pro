@@ -1,79 +1,159 @@
 import React, { useState } from "react";
 import OpenAI from "openai";
+import FirestoreService from "../../../firebase/FirebaseService";
+import { useAuth } from "../../../utils/AuthContext.js";
 
 const GPT = () => {
-  const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
+  const [recipeNames, setRecipeNames] = useState([]);
   const [error, setError] = useState("");
+  const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    setMessage(e.target.value);
-  };
+  const handleSubmit = async (recipeType) => {
+    setLoading(true);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    // Clear any previous errors and responses
+    setError("");
+    setResponse("");
 
-    setError(""); // Clear any previous errors
+    if (!user || !user.uid) {
+      setError("User not authenticated.");
+      return;
+    }
+
+    const processResponseObject = (responseObject) => {
+      if (!responseObject || !Array.isArray(responseObject.recipes)) {
+        return null;
+      }
+
+      const processedRecipes = responseObject.recipes.map((recipe) => {
+        const processedIngredients = recipe.ingredients.map(
+          (ingredientString) => {
+            const splitIngredient = ingredientString.split(", ");
+            if (splitIngredient.length < 4) {
+              // Handle the case where the ingredient string doesn't have the expected format
+              return null;
+            }
+
+            const [amount, , name, unit] = splitIngredient;
+            const amountValue = parseFloat(
+              amount.replace("amount(", "").replace(")", "")
+            );
+            const ingredientName = name.replace("name(", "").replace(")", "");
+            const ingredientUnit = unit.replace("unit(", "").replace(")", "");
+
+            return {
+              name: ingredientName,
+              amount: amountValue,
+              unit: ingredientUnit,
+            };
+          }
+        );
+
+        return {
+          name: recipe.name,
+          summary: recipe.summary,
+          servings: recipe.servings,
+          ingredients: processedIngredients,
+          cuisine: recipe.cuisine,
+          dishType: recipe.dishType,
+          id: recipe.id,
+          savedRecipeInspiration: recipe.savedRecipeInspiration,
+          inspirationReasoning: recipe.inspirationReasoning,
+        };
+      });
+
+      return { recipes: processedRecipes };
+    };
+
+    // Fetch saved recipes
+    const getSavedRecipes = async () => {
+      const collectionPath = `Users/${user.uid}/SavedRecipes`;
+      try {
+        const allDocuments = await FirestoreService.getAllDocuments(
+          collectionPath,
+          "recipes"
+        );
+        const names = allDocuments.map((doc) => doc.data.name);
+        return names; // Return the names for use below
+      } catch (error) {
+        console.error("Error fetching saved recipes:", error);
+        throw new Error("Failed to fetch saved recipes.");
+      }
+    };
 
     try {
+      const recipeNames = await getSavedRecipes(); // Ensure this completes before moving on
+      setRecipeNames(recipeNames); // Update the state with the names
+
+      const json_example = {
+        cuisine: "PLEASE REPLACE WITH CUISINE TYPE HERE",
+        dishType: "PLEASE REPLACE WITH BREAKFAST LUNCH OR DINNER",
+        id: "INSERT TIMESTAP HERE",
+        ingredients: [
+          "amount(INSERT INTEGER AMOUNT OF INGREDIENT), id, name(INSERT JUST THE INGREDIENT NAME), unit(INSERT UNIT OF MEASUREMENT FOR AMOUNT)",
+        ],
+        name: "PLEASE INSERT NAME OF GENERATED DISH",
+        servings: "PLEASE INSERT INTEGER OF SERVINGS",
+        summary: "PLEASE INSERT A SUMMARY FOR GENERATED RECIPE.",
+        savedRecipeInspiration:
+          "PLEASE INSERT SAVED RECIPE THAT INSPIRED RESPONSE",
+        inspirationReasoning:
+          "PLEASE INSERT REASONING FOR GENERATED RECIPE BASED ON SAVED RECIPE",
+      };
+
+      var exampleString = JSON.stringify(json_example, null, 2);
+
+      // Prepare for OpenAI request
       const openai = new OpenAI({
         apiKey: process.env.REACT_APP_OPENAI_API_KEY,
         dangerouslyAllowBrowser: true,
       });
-      //Model setting
       const gptModel = "gpt-4-0125-preview";
-
+      const recipeListString = recipeNames.join(", ");
+      const systemMessageContent = `You are a recipe recommendation system. You must respond with a recipe for ${recipeType} to the user, you cannot ask clarifying questions, and you cannot refuse to generate a recipe. Recipes contain name, servings, breif summary, ingredients and their amounts. Your response should sound like it came from a cookbook. Your response should take in to account both the recipe type and saved recipes. Your generated recipe should be reflective of the users taste based on saved recipes, but you should ensure that the recipe and the saved recipe for inspiration is unique. Please ensure that you generate a recipe that shares a key ingredient with the inspiration recipe from the users saved recipes. The user's previously saved recipes include: ${recipeListString}. Your response should be a json in this format ${exampleString}. Seperate each recipe with a ',' Do not use backticks or "\\n" in your response, do not make new lines.`;
       const userMessage = [
+        { role: "system", content: systemMessageContent },
         {
-          role: "system",
-          content:
-            "You are a recipe recommendation system that uses user preferences, recent website activity, and preferences to generate recipes that match the user's tastes without recommending food they've recently viewed or preferred. Do not ask clarifying questions, you must give the user a recipe.",
+          role: "user",
+          content: `Generate four ${recipeType} recipes inspired by the following: ${recipeListString} give your response in a nested JSON containing the four generated recipes`,
         },
-        { role: "user", content: message }, // Message with user inputed message
       ];
 
       const completion = await openai.chat.completions.create({
         model: gptModel,
-        messages: userMessage, // Fill User input
+        response_format: { type: "json_object" },
+        messages: userMessage,
       });
 
-      if (!completion || !completion.choices || !completion.choices.length) {
-        throw new Error("Invalid response from server");
-      }
-
-      const assistantResponse = completion.choices.find(
-        (choice) => choice.message.role === "assistant",
+      // Process and handle OpenAI response
+      const assistantResponse = completion.choices?.find(
+        (choice) => choice.message.role === "assistant"
       );
 
-      // Check for ChatGPT error
       if (assistantResponse) {
-        setResponse(assistantResponse.message.content);
+        const responseObject = JSON.parse(assistantResponse.message.content);
+        const processedResponse = processResponseObject(responseObject);
+        setResponse(processedResponse);
+
+        setLoading(false);
       } else {
-        setError("Assistant response not found");
+        throw new Error("Assistant response not found");
       }
     } catch (error) {
-      setError("Error communicating with the server");
+      setLoading(false);
+      setError("Error: " + error.message);
       console.error("Error:", error);
     }
   };
 
-  return (
-    <div>
-      <h1>ChatGPT</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Message:
-          <input type="text" value={message} onChange={handleChange} />
-        </label>
-        <button type="submit">Send</button>
-      </form>
-      {error && <div>Error: {error}</div>}
-      <div>
-        <h2>Response:</h2>
-        <pre>{response}</pre>
-      </div>
-    </div>
-  );
+  return {
+    response,
+    error,
+    loading,
+    handleSubmit,
+  };
 };
 
 export default GPT;

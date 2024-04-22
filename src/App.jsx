@@ -1,17 +1,19 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import SearchPage from "./pages/search/SearchPage";
+import Home from "../src/pages/Home.jsx";
+import Search from "./pages/search/Search";
+import Calendar from "./pages/calendar/Calendar";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import Header from "./components/Header";
+import Header from "./components/header/Header";
+import Recomendations from "./pages/recommendations/Recommendations";
+import CreateRecipes from "./pages/create-recipe/CreateRecipes";
+import OrderHistory from "./pages/order-history/OrderHistory";
+import MainLayout from "./pages/MainLayout";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { AuthProvider } from "./utils/AuthContext";
 import "./css/styles.css";
 import "bootstrap/dist/css/bootstrap.css";
-import RecommendationsPage from "./pages/recommendations/RecommendationsPage";
-import CreateRecipesPage from "./pages/create-recipe/CreateRecipesPage";
-import HealthPage from "./pages/health/HealthPage";
 
 function App() {
   return (
@@ -22,11 +24,54 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route element={<PrivateRoutes />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="/recommendations" element={<RecommendationsPage />} />
-            <Route path="/health" element={<HealthPage />} />
-            <Route path="/create-recipe" element={<CreateRecipesPage />} />
+            <Route
+              path="/"
+              element={
+                <MainLayout>
+                  <Home />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/search"
+              element={
+                <MainLayout>
+                  <Search />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/recommendations"
+              element={
+                <MainLayout>
+                  <Recomendations />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/create-recipe"
+              element={
+                <MainLayout>
+                  <CreateRecipes />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/order-history"
+              element={
+                <MainLayout>
+                  <OrderHistory />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/calendar"
+              element={
+                <MainLayout>
+                  <Calendar />
+                </MainLayout>
+              }
+            />
           </Route>
         </Routes>
       </AuthProvider>

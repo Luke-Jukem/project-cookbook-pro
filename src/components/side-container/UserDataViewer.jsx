@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SavedMeals from "./SavedMeals";
 import CustomMeals from "./CustomMeals";
-import { useAuth } from "../utils/AuthContext";
+import { useAuth } from "../../utils/AuthContext";
 import styled from "styled-components";
 
 const ToggleContainer = styled.div`
@@ -18,7 +18,7 @@ const ToggleButton = styled.button`
   outline: none;
 `;
 
-const UserRecipesViewer = () => {
+const UserDataViewer = () => {
   const [currentCollection, setCurrentCollection] = useState("saved");
 
   const toggleCollection = (collection) => {
@@ -29,19 +29,19 @@ const UserRecipesViewer = () => {
 
   return (
     <div>
-      <h4>
+      <h4 id="user-data-viewer-label">
         {user.displayName
           ? `${user.displayName.split(" ")[0]}'s Recipes`
           : "Your Saved Recipes"}
       </h4>
-      <ToggleContainer>
-        <ToggleButton
+      <ToggleContainer >
+        <ToggleButton id="toggle-button-custom"
           active={currentCollection === "custom" ? "true" : undefined}
           onClick={() => toggleCollection("custom")}
         >
           Custom
         </ToggleButton>
-        <ToggleButton
+        <ToggleButton id="toggle-button-saved"
           active={currentCollection === "saved" ? "true" : undefined}
           onClick={() => toggleCollection("saved")}
         >
@@ -53,4 +53,4 @@ const UserRecipesViewer = () => {
   );
 };
 
-export default UserRecipesViewer;
+export default UserDataViewer;

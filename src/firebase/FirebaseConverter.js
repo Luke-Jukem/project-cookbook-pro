@@ -1,3 +1,5 @@
+import { GoalForm } from "../customObjects/GoalForm";
+
 class FirebaseConverter {
   constructor() {
     this.objectConverter = {
@@ -75,19 +77,116 @@ class FirebaseConverter {
 
     this.orderConverter = {
       toFirestore: (order) => {
-        const convertedRecipes = order.recipes.map((recipe) => {
-          return {
-            name: recipe.name,
-            ingredients: this.convertArray(
-              recipe.ingredients,
-              this.objectConverter,
-            ),
-          };
-        });
+        if (!order) {
+          console.error("Order is undefined or null");
+          return null;
+        }
+
+        const convertedIngredients = this.convertArray(
+          order.ingredients,
+          this.objectConverter,
+        );
 
         return {
-          recipes: convertedRecipes,
+          recipeNames: order.recipeNames,
+          ingredients: convertedIngredients,
         };
+      },
+      fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        const convertedIngredients = this.convertArray(
+          data.ingredients,
+          this.objectConverter
+        );
+
+        return {
+          recipeNames: data.recipeNames,
+          ingredients: convertedIngredients,
+        };
+      },
+    };
+
+    this.gptResponseConverter = {
+      toFirestore: (gptResponse) => {
+        if (!gptResponse) {
+          console.error("GPT response is undefined or null");
+          return null;
+        }
+
+        return {
+          userMessage: gptResponse.userMessage,
+          assistantResponse: gptResponse.assistantResponse,
+        };
+      },
+      fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        return {
+          userMessage: data.userMessage,
+          assistantResponse: data.assistantResponse,
+        };
+      },
+    };
+
+    this.goalsResponseConverter = {
+      toFirestore: (goalsResponse) => {
+        if (!goalsResponse) {
+          console.error("Goal response is undefined or null");
+          return null;
+        }
+
+        return {
+          calories: goalsResponse.calories,
+          protein: goalsResponse.protein,
+          carbs: goalsResponse.carbs,
+          fat: goalsResponse.fat,
+          sugar: goalsResponse.sugar,
+        };
+      },
+      fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        return new GoalForm(
+          data.calories,
+          data.protein,
+          data.carbs,
+          data.fat,
+          data.sugar
+        );
+      },
+    };
+
+    this.planConverter = {
+      toFirestore: (plan) => {
+        if (!plan) {
+          console.error("Plan is undefined or null");
+          return null;
+        }
+
+        const convertedMeals = plan.meals.map((meal, index) => ({
+          name: meal.name,
+          id: meal.id,
+          autoAddToCart: meal.autoAddToCart,
+          addToCartTime: meal.addToCartTime,
+          mealNumber: index + 1,
+        }));
+
+        return {
+          date: plan.date,
+          meals: convertedMeals,
+        };
+      },
+      fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        const convertedMeals = data.meals
+          ? data.meals.map((meal) => ({
+              name: meal.name,
+              id: meal.id,
+              autoAddToCart: meal.autoAddToCart,
+              addToCartTime: meal.addToCartTime,
+              mealNumber: meal.mealNumber,
+            }))
+          : [];
+
+        return new Plan(data.date, convertedMeals);
       },
     };
   }

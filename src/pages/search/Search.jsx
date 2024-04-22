@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Row, Col, Container, Spinner } from "reactstrap";
-import MealCard from "../../../components/MealCard.jsx";
-import QuickOrder from "../../../components/QuickOrder.jsx";
-import SearchBox from "./SearchBox.jsx";
-import MealDataManager from "../../../utils/MealDataManager.js";
+import MealCard from "../../components/meal-card/MealCard.jsx";
+import SearchBox from "./components/SearchBox.jsx";
+import MealDataManager from "../../utils/MealDataManager.js";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const Search = () => {
@@ -58,7 +57,7 @@ const Search = () => {
   if (searchResults == "initial page load") {
     results = (
       <Col className="d-flex m-5 p-0 justify-content-center">
-        <p className="text-secondary">search something</p>
+        <p className="text-secondary"></p>
       </Col>
     );
     // if there are results then put it into results varible to render
@@ -95,7 +94,6 @@ const Search = () => {
       <h1 className="d-flex justify-content-center">Search for recipes</h1>
       <Row>
         <Container className="d-flex justify-content-center">
-          <br></br>
           <SearchBox
             onSearch={handleSearchResults}
             query={query}
@@ -104,11 +102,9 @@ const Search = () => {
         </Container>
       </Row>
       <Row>
-        <Container className="col-8">{results}</Container>
-
-        <Col className="col-2">
-          <QuickOrder />
-        </Col>
+        <Container id="search-results-container" className="col-8">
+          {results}
+        </Container>
       </Row>
     </Container>
   );
