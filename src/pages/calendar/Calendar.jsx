@@ -72,19 +72,19 @@ const MyCalendar = () => {
   };
 
   //adding a plan
-  const addPlan = (name, id, autoAddToCart, addToCartTime) => {
+  const addPlan = (recipe, autoAddToCart, addToCartTime) => {
     const planDate = selectedDay.toISOString().split("T")[0];
     //checking for existing plans to avoid overwrites
     const existingPlan = plans.find((plan) => plan.date === planDate);
+    //meal object
+    const meal = {
+      recipe: recipe,
+      autoAddToCart: autoAddToCart,
+      addToCartTime: addToCartTime,
+    };
     //if the plan exists, add the meal to the existing plan
     if (existingPlan) {
-      existingPlan.meals.push({
-        name: name,
-        id: id,
-        autoAddToCart: autoAddToCart,
-        addToCartTime: addToCartTime,
-      });
-
+      existingPlan.meals.push(meal);
       FirestoreService.updateDocument(
         `Users/${user.uid}/Plans/`,
         planDate,
@@ -96,14 +96,7 @@ const MyCalendar = () => {
     else {
       const newPlan = {
         date: planDate,
-        meals: [
-          {
-            name: name,
-            id: id,
-            autoAddToCart: autoAddToCart,
-            addToCartTime: addToCartTime,
-          },
-        ],
+        meals: [meal],
       };
       setPlans([...plans, newPlan]);
 
@@ -142,7 +135,7 @@ const MyCalendar = () => {
   const renderPlan = (date, plan, mealIndex) => (
     //for each plan entry, create a div displaying the meal's name
     <div key={`${date.toISOString()}-${mealIndex}`} className="meal-tile rounded">
-      <h6>{plan.meals[mealIndex].name}</h6>
+      <h6>{plan.meals[mealIndex].recipe.name}</h6>
       <button
         type="button"
         className="rm-meal-btn"
