@@ -45,7 +45,7 @@
   text-overflow: ellipsis;
 }
 
-.add-meal-btn {
+.lg-cal-btn {
   background-color: #ff7f7f;
   color: white;
   border: none;
@@ -60,7 +60,12 @@
   transition-duration: 0.4s;
 }
 
-.rm-meal-btn {
+.lg-cal-btn:hover {
+  background-color: #8b0000;
+  color: white;
+}
+
+.sm-cal-btn {
   background-color: #ff7f7f;
   color: white;
   border: none;
@@ -74,7 +79,7 @@
   transition-duration: 0.4s;
 }
 
-.add-meal-btn:hover {
+.sm-cal-btn:hover {
   background-color: #8b0000;
   color: white;
 }

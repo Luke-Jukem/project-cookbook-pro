@@ -145,14 +145,14 @@ const MyCalendar = () => {
     <h6>{plan.meals[mealIndex].recipe.name}</h6>
     <button
       type="button"
-      className="rm-meal-btn"
+      className="sm-cal-btn"
       onClick={() => setSelectedMeal(plan.meals[mealIndex])}
     >
       Details
     </button>
       <button
         type="button"
-        className="rm-meal-btn"
+        className="sm-cal-btn"
         onClick={() => removePlan(plan.date, mealIndex)}
       >
         Remove
@@ -273,7 +273,7 @@ const MyCalendar = () => {
         >
           <MealForm closeModal={closeModal} addPlan={addPlan} />
         </Modal>
-        <button className="add-meal-btn" onClick={openModal}>
+        <button className="lg-cal-btn" onClick={openModal}>
           Add Meal
         </button>
         {
@@ -281,7 +281,7 @@ const MyCalendar = () => {
           (selectedDates.length > 0 ? selectedDates : [selectedDay]).some(date =>
             plans.some(plan => plan.date === date.toISOString().split("T")[0] && plan.meals.length > 0)
           ) && (
-            <button className="add-meal-btn" onClick={orderMeals}>
+            <button className="lg-cal-btn" onClick={orderMeals}>
               Order Meals
             </button>
           )
