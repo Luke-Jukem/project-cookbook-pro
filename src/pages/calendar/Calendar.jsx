@@ -210,19 +210,19 @@ const MyCalendar = () => {
         }}
       />
       <div id="calendar-sidebar">
+      <span className="date-display">
+        {selectedDates.length > 0 ? //if there's a date range, display the first and last dates
+          `${formatDate(selectedDates[0])} - ${formatDate(selectedDates[selectedDates.length - 1])}` 
+          : 
+          formatDate(selectedDay)
+        }
+        </span>{" "}
         <div id="nutrition-launcher">
           <button id="nutrition-button" onClick={openNutritionModal}>
             Generate Nutrition Report
           </button>
         </div>
       <div className="selected-day">
-        <span className="date-display">
-        {selectedDates.length > 0 ? 
-          `${formatDate(selectedDates[0])} - ${formatDate(selectedDates[selectedDates.length - 1])}` 
-          : 
-          formatDate(selectedDay)
-        }
-        </span>{" "}
         <br />
         <Modal
           ariaHideApp={false}
