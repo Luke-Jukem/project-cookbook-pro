@@ -70,8 +70,6 @@ const MyCalendar = () => {
         end: startOfDay(value),
       });
       setSelectedDates(range);
-      //log the date range (remove later)
-      console.log(range.map((date) => date.toISOString()));
     } else {
       //otherwise just update selected with the clicked day
       setSelectedDay(value);
@@ -194,7 +192,6 @@ const MyCalendar = () => {
           .flatMap(plan => plan.meals)
           .map(meal => meal.recipe) //get the recipe of each meal
       );
-      console.log(recipes);
     //set cartItems to the recipes
     setCartItems(recipes);
   };
@@ -269,7 +266,6 @@ const MyCalendar = () => {
           </button>
         </div>
       <div className="selected-day">
-        <br />
         <Modal
           ariaHideApp={false}
           isOpen={isModalOpen}
@@ -277,6 +273,19 @@ const MyCalendar = () => {
         >
           <MealForm closeModal={closeModal} addPlan={addPlan} />
         </Modal>
+        <button className="add-meal-btn" onClick={openModal}>
+          Add Meal
+        </button>
+        {
+          //only renders the order meals button if there are meals to order
+          (selectedDates.length > 0 ? selectedDates : [selectedDay]).some(date =>
+            plans.some(plan => plan.date === date.toISOString().split("T")[0] && plan.meals.length > 0)
+          ) && (
+            <button className="add-meal-btn" onClick={orderMeals}>
+              Order Meals
+            </button>
+          )
+        }
         <br />
         {
           //if there are selected dates in array, display the meals of all of them
@@ -289,6 +298,7 @@ const MyCalendar = () => {
               )
           )
         }
+        
         {selectedMeal && (
           <RecipeDetails
             meal={selectedMeal.recipe}
@@ -297,12 +307,6 @@ const MyCalendar = () => {
             buttonOptions={buttonOptions}
           />
         )}
-        <button className="add-meal-btn" onClick={openModal}>
-          Add Meal
-        </button>
-        <button className="add-meal-btn" onClick={orderMeals}>
-          Order Meals
-        </button>
       {cartItems.length > 0 && (
         <Cart
           modalOpen={isOrderModalOpen}
