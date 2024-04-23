@@ -9,6 +9,7 @@
 .calendar-container {
   display: flex;
   justify-content: center;
+  height: 70vh;
   overflow: hidden;
 }
 
@@ -16,7 +17,6 @@
   display: flex;
   flex-direction: column;
   width: 25%;
-  /* max-width: 300px; */
 }
 
 #nutrition-launcher {
@@ -29,6 +29,11 @@
   height: 100%;
 }
 
+.date-display {
+  text-align: center;
+  font-size: 1.5em !important;
+}
+
 .selected-day {
   background-color: #ffa6a6;
   text-align: center;
@@ -36,12 +41,11 @@
   padding-left: 5%;
   padding-right: 5%;
   width: 100%;
-  height: 90%;
-  overflow: hidden;
+  overflow: scroll;
   text-overflow: ellipsis;
 }
 
-.add-meal-btn {
+.lg-cal-btn {
   background-color: #ff7f7f;
   color: white;
   border: none;
@@ -56,7 +60,12 @@
   transition-duration: 0.4s;
 }
 
-.rm-meal-btn {
+.lg-cal-btn:hover {
+  background-color: #8b0000;
+  color: white;
+}
+
+.sm-cal-btn {
   background-color: #ff7f7f;
   color: white;
   border: none;
@@ -70,7 +79,7 @@
   transition-duration: 0.4s;
 }
 
-.add-meal-btn:hover {
+.sm-cal-btn:hover {
   background-color: #8b0000;
   color: white;
 }
@@ -79,10 +88,6 @@
   font-size: 1em;
   font-weight: bold;
   color: black;
-}
-
-.past-date {
-  color: #999;
 }
 
 .meal-tile {
@@ -255,4 +260,8 @@
   min-height: 80vh;
   overflow-y: auto;
   outline: none;
+}
+
+.past-date {
+  color: #999 !important;
 }

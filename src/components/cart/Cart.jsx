@@ -5,10 +5,14 @@ import OrderManager from "./OrderManager.jsx";
 import { useAuth } from "../../utils/AuthContext";
 import FirestoreService from "../../firebase/FirebaseService.js";
 
-const Cart = ({ modalOpen, setModalOpen, cartItems }) => {
+const Cart = ({ modalOpen, setModalOpen, cartItems, type }) => {
   const [selectedMeal, setSelectedMeal] = useState(null);
   const { user } = useAuth();
-  const userCartPath = `Users/${user.uid}/Cart`;
+  //if the cart is being used from the calendar, change the path so the real cart isn't affected
+  const userCartPath =
+    type === "calendar"
+      ? `Users/${user.uid}/CalendarCart`
+      : `Users/${user.uid}/Cart`;
 
   const buttonOptions = (
     <Button color="secondary" onClick={() => setSelectedMeal(null)}>
@@ -37,12 +41,14 @@ const Cart = ({ modalOpen, setModalOpen, cartItems }) => {
             >
               Details
             </button>
-            <button
-              className="remove-button"
-              onClick={() => removeFromCart(recipe.id)} // Call removeFromCart function
-            >
-              Remove
-            </button>
+            {type !== "calendar" && ( //if the cart is being used from the calendar, don't show the remove button
+              <button
+                className="remove-button"
+                onClick={() => removeFromCart(recipe.id)}
+              >
+                Remove
+              </button>
+            )}
           </div>
         ))}
         <OrderManager

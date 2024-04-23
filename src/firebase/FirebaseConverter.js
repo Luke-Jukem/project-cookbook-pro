@@ -96,7 +96,7 @@ class FirebaseConverter {
         const data = snapshot.data(options);
         const convertedIngredients = this.convertArray(
           data.ingredients,
-          this.objectConverter
+          this.objectConverter,
         );
 
         return {
@@ -149,7 +149,7 @@ class FirebaseConverter {
           data.protein,
           data.carbs,
           data.fat,
-          data.sugar
+          data.sugar,
         );
       },
     };
@@ -162,8 +162,7 @@ class FirebaseConverter {
         }
 
         const convertedMeals = plan.meals.map((meal, index) => ({
-          name: meal.name,
-          id: meal.id,
+          recipe: meal.recipe,
           autoAddToCart: meal.autoAddToCart,
           addToCartTime: meal.addToCartTime,
           mealNumber: index + 1,
@@ -178,8 +177,7 @@ class FirebaseConverter {
         const data = snapshot.data(options);
         const convertedMeals = data.meals
           ? data.meals.map((meal) => ({
-              name: meal.name,
-              id: meal.id,
+              recipe: meal.recipe,
               autoAddToCart: meal.autoAddToCart,
               addToCartTime: meal.addToCartTime,
               mealNumber: meal.mealNumber,
