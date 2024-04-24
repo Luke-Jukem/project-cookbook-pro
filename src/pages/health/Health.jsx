@@ -47,9 +47,9 @@ const Health = ({ recipes }) => {
         <h3>Recipes:</h3>
         {recipes.map((recipe, index) => (
           <div key={index}>
+            <p>Recipe Name: {recipe.name}</p>
             <p>Recipe ID: {recipe.id}</p>
             {/* Display other recipe details */}
-            <pre>{JSON.stringify(recipes, null, 2)}</pre>
           </div>
         ))}
       </div>
