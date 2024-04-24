@@ -22,6 +22,11 @@ const NutritionModal = ({ isOpen, closeModal }) => {
           <br />
         </Col>
 
+        <Col id="modal-recipetotals-column">
+          Recipe Totals
+          <br />
+        </Col>
+
         <Col id="modal-visual-column">
           Visuals
           <br />
