@@ -588,3 +588,8 @@
 .modal-close-button:hover {
   background-color: var(--orange-grey-darker) !important;
 }
+
+#dropdown-basic {
+  color:var(--white) !important;
+  background-color: var(--atomic-tangerine) !important;
+}

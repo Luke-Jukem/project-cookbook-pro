@@ -27,6 +27,7 @@
 .calendar-container {
   display: flex;
   justify-content: center;
+  height: 70vh;
   overflow: hidden;
   color: red;
   border-top-left-radius: 1rem;
@@ -51,6 +52,11 @@
   height: 100%;
 }
 
+.date-display {
+  text-align: center;
+  font-size: 1.5em !important;
+}
+
 .selected-day {
   background-color: var(--air-superiority-blue);
   text-align: center;
@@ -58,8 +64,7 @@
   padding-left: 5%;
   padding-right: 5%;
   width: 100%;
-  height: 90%;
-  overflow: hidden;
+  overflow: scroll;
   text-overflow: ellipsis;
 }
 
@@ -78,7 +83,12 @@
   transition-duration: 0.4s;
 }
 
-.rm-meal-btn {
+.lg-cal-btn:hover {
+  background-color: #8b0000;
+  color: white;
+}
+
+.sm-cal-btn {
   background-color: var(--white);
   color: var(--air-superiority-blue-darker);
   border: none;
@@ -289,4 +299,8 @@
   min-height: 80vh;
   overflow-y: auto;
   outline: none;
+}
+
+.past-date {
+  color: #999 !important;
 }
