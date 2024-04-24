@@ -73,7 +73,7 @@ const MealForm = ({ selectedDay, addPlan, closeModal }) => {
             type="button"
             className="option-button"
             onClick={() => setOption("Custom")}
-            onMouseEnter={() => setShowText("Input a custom meal.")}
+            onMouseEnter={() => setShowText("Choose from your custom recipes.")}
             onMouseLeave={() => setShowText("")}
           >
             Custom

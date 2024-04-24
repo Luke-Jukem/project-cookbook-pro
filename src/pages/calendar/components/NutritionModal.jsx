@@ -2,7 +2,7 @@ import React from "react";
 import Modal from "react-modal";
 import Health from "../../health/Health";
 
-const NutritionModal = ({ isOpen, closeModal }) => {
+const NutritionModal = ({ isOpen, closeModal, recipes }) => {
   return (
     <Modal
       isOpen={isOpen}
@@ -15,7 +15,7 @@ const NutritionModal = ({ isOpen, closeModal }) => {
       <div className="nutrition-modal-content">
         <h2>Nutrition Report</h2>
         {/* Add your nutrition report content here */}
-        <Health />
+        <Health recipes={recipes} />
         <br />
         <button onClick={closeModal}>Close</button>
       </div>

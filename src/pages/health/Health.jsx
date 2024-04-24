@@ -4,11 +4,13 @@ import MacroGoalForm from "./components/MacroGoalForm.jsx";
 import { useAuth } from "../../utils/AuthContext.js";
 import FirestoreListener from "../../firebase/FirestoreListener.js";
 
-const Health = () => {
+const Health = ({ recipes }) => {
   const { user } = useAuth();
   const firestoreListener = new FirestoreListener();
 
   const [showGoals, setShowGoals] = useState(true);
+
+  console.log(recipes);
 
   useEffect(() => {
     if (user) {
@@ -29,24 +31,30 @@ const Health = () => {
     }
   }, []);
 
-
- 
-
   return (
     <div>
       {showGoals ? (
         <div>
-          <DisplayGoals onEdit={() => setShowGoals(false)}/>
+          <DisplayGoals onEdit={() => setShowGoals(false)} />
         </div>
       ) : (
         <div>
-          <MacroGoalForm onSubmit={() => setShowGoals(true)}/>
+          <MacroGoalForm onSubmit={() => setShowGoals(true)} />
         </div>
       )}
-      <br/>
-      <br/>
+      <br />
+      <div>
+        <h3>Recipes:</h3>
+        {recipes.map((recipe, index) => (
+          <div key={index}>
+            <p>Recipe Name: {recipe.name}</p>
+            <p>Recipe ID: {recipe.id}</p>
+            {/* Display other recipe details */}
+          </div>
+        ))}
+      </div>
+      <br />
     </div>
-    
   );
 };
 
