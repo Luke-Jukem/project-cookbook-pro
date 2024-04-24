@@ -2,7 +2,7 @@ import React from "react";
 import Modal from "react-modal";
 import Health from "../../health/Health";
 
-const NutritionModal = ({ isOpen, closeModal }) => {
+const NutritionModal = ({ isOpen, closeModal, recipes }) => {
   return (
     <Modal
       isOpen={isOpen}

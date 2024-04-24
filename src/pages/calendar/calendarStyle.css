@@ -232,11 +232,16 @@
 }
 
 .meal-entry img {
-  width: 100px;
+  width: 15%;
 }
 
 .meal-entry p {
   padding-left: 3%;
+  vertical-align: center;
+}
+
+.meal-entry button {
+  margin-left: 3%;
 }
 
 .nutrition-modal-overlay {
