@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 import Health from "../../health/Health";
+import DisplayRecipeMacros from "../../health/components/DisplayRecipeMacros";
 import { Col } from "react-bootstrap";
 import "../nutritionModalStyle.css"
 
@@ -23,7 +24,7 @@ const NutritionModal = ({ isOpen, closeModal }) => {
         </Col>
 
         <Col id="modal-recipetotals-column">
-          Recipe Totals
+          <DisplayRecipeMacros/>
           <br />
         </Col>
 

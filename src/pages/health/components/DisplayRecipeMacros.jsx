@@ -1,5 +1,6 @@
 import { useAuth } from "../../../utils/AuthContext";
 import FirestoreListener from "../../../firebase/FirestoreListener";
+import { faDraftingCompass } from "@fortawesome/free-solid-svg-icons";
 
 const DisplayRecipeMacros = () =>{
 
@@ -11,3 +12,5 @@ const DisplayRecipeMacros = () =>{
         </div>
     );
 }
+
+export default DisplayRecipeMacros;
