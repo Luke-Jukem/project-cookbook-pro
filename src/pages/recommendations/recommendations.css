@@ -126,9 +126,9 @@
   border-top-left-radius: .5rem;
   font-size: 1.7rem;
 }
-span {
+/* span {
   position: absolute;
-}
+} */
 #center-content {
   display: flex;
   flex-direction: column;
