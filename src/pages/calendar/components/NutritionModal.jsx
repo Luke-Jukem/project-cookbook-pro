@@ -19,7 +19,7 @@ const NutritionModal = ({ isOpen, closeModal, recipes }) => {
         <h2>Nutrition Report</h2>
         {/* Add your nutrition report content here */}
         <Col id="modal-goals-column">
-          <Health />
+          <Health recipes={recipes}/>
           <br />
         </Col>
 
