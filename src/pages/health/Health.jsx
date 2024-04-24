@@ -4,9 +4,12 @@ import MacroGoalForm from "./components/MacroGoalForm.jsx";
 import { useAuth } from "../../utils/AuthContext.js";
 import FirestoreListener from "../../firebase/FirestoreListener.js";
 
+
 const Health = ({ recipes }) => {
+  
   const { user } = useAuth();
   const firestoreListener = new FirestoreListener();
+  
 
   const [showGoals, setShowGoals] = useState(true);
 
