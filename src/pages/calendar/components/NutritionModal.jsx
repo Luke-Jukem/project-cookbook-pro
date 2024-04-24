@@ -5,7 +5,7 @@ import DisplayRecipeMacros from "../../health/components/DisplayRecipeMacros";
 import { Col } from "react-bootstrap";
 import "../nutritionModalStyle.css"
 
-const NutritionModal = ({ isOpen, closeModal }) => {
+const NutritionModal = ({ isOpen, closeModal, recipes }) => {
   return (
     <Modal
       isOpen={isOpen}
