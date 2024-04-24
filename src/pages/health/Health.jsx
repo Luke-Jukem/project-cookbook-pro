@@ -33,7 +33,7 @@ const Health = () => {
  
 
   return (
-    <div>
+    <div id="modal-nutrition-usergoals">
       {showGoals ? (
         <div>
           <DisplayGoals onEdit={() => setShowGoals(false)}/>
