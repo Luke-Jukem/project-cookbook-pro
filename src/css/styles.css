@@ -544,3 +544,45 @@
   background-color: var(--atomic-tangerine-2-darker) !important;
   border-color: var(--atomic-tangerine-2-darker) !important;
 }
+
+.modal-window{
+  top: 10%;
+}
+
+.modal-header {
+  background-color: var(--atomic-tangerine);
+  color: var(--white);
+}
+
+.modal-title {
+  font-size: 2rem !important;
+  font-weight: 600 !important;
+}
+
+.modal-body {
+  background-color: var(--white);
+}
+
+.modal-footer {
+  background-color: var(--white) !important;
+}
+
+.modal-save-button {
+  background-color: var(--atomic-tangerine-2) !important;
+  border-color: transparent !important;
+  transition: background-color 1s;
+}
+
+.modal-save-button:hover {
+  background-color: var(--atomic-tangerine-2-darker) !important;
+}
+
+.modal-close-button {
+  background-color: var(--orange-grey) !important;
+  border-color: transparent !important;
+  transition: background-color 1s;
+}
+
+.modal-close-button:hover {
+  background-color: var(--orange-grey-darker) !important;
+}

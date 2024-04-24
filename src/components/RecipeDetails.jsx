@@ -21,9 +21,9 @@ const RecipeDetails = ({ meal, buttonOptions, isOpen }) => {
   delete filteredMeal.instructions;
 
   return (
-    <Modal isOpen={isOpen} style={{ maxWidth: "18rem" }}>
-      <ModalHeader>{meal.name}</ModalHeader>
-      <ModalBody>
+    <Modal isOpen={isOpen} style={{ maxWidth: "40rem" }} className="modal-window">
+      <ModalHeader className="modal-header">{meal.name}</ModalHeader>
+      <ModalBody className="modal-body" style={{maxHeight: "25rem", overflowY: "auto"}}>
         <Container className="d-flex justify-content-center mb-3">
           <img
             src={meal.image}
@@ -53,7 +53,7 @@ const RecipeDetails = ({ meal, buttonOptions, isOpen }) => {
           )
         )}
       </ModalBody>
-      <ModalFooter>{buttonOptions}</ModalFooter>
+      <ModalFooter className="modal-footer">{buttonOptions}</ModalFooter>
     </Modal>
   );
 };

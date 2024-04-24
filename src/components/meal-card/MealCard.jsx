@@ -68,7 +68,7 @@ const MealCard = ({ meal }) => {
     <>
       {user && (
         <Button
-          color="primary"
+          className="modal-save-button"
           onClick={() => {
             saveData(
               `Users/${user.uid}/SavedRecipes/`,
@@ -83,7 +83,7 @@ const MealCard = ({ meal }) => {
         </Button>
       )}
       <Button
-        color="secondary"
+        className="modal-close-button"
         onClick={() => setSelectedMeal(null)} //setting selected meal = null closes the RecipeDetails component
       >
         Close
