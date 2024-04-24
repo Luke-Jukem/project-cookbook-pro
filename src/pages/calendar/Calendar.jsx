@@ -136,16 +136,14 @@ const MyCalendar = () => {
   };
 
   //getting recipes for ordering/nutrition modals
-  const getRecipes = () => (
-    (selectedDates.length > 0 ? selectedDates : [selectedDay])
-      .flatMap(
-        (date) =>
-          plans
-            .filter((plan) => plan.date === date.toISOString().split("T")[0])
-            .flatMap((plan) => plan.meals)
-            .map((meal) => meal.recipe), //get the recipe of each meal
-      )
-  );
+  const getRecipes = () =>
+    (selectedDates.length > 0 ? selectedDates : [selectedDay]).flatMap(
+      (date) =>
+        plans
+          .filter((plan) => plan.date === date.toISOString().split("T")[0])
+          .flatMap((plan) => plan.meals)
+          .map((meal) => meal.recipe), //get the recipe of each meal
+    );
 
   const renderPlan = (date, plan, mealIndex) => (
     //for each plan entry, create a div displaying the meal's name
