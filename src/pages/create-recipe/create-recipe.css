@@ -1,3 +1,30 @@
+:root {
+  --maize: #ffb35d;
+  --light-yellow: #fddabc;
+  --yellow: #ffe75dff;
+  --yello-lighter: #fdf3bc;
+  --atomic-tangerine: #ff934fff;
+  --atomic-tangerine-very-light: #F2E3D5;
+  --atomic-tangerine-darker: #cb6728;
+  --atomic-tangerine-2: #b9622b;
+  --atomic-tangerine-2-darker: #914d23;
+  --cerise: #d24970ff;
+  --light-pink: #e387a1;
+  --light-pink-darker: #d26483;
+  --pink: #7e3c4e;
+  --pink-lighter: #d35e7d;
+  --paynes-gray: #32657cff;
+  --air-superiority-blue: #669bb7ff;
+  --air-superiority-blue-lighter: #a9c6d6;
+  --air-superiority-blue-lighter-lighter: #9bcae3;
+  --air-superiority-blue-darker: #375463;
+  --orange-grey: #80726a;
+  --orange-grey-darker: #65574f;
+  --white: #F0F9F9;
+  --white-darker: #898989;
+  overflow-y: hidden;
+}
+
 #recipe-creation-page {
   display: flex;
   flex-direction: row;
@@ -51,7 +78,9 @@
   flex-direction: column;
   width: 30%;
   margin-left: 16px;
-  background-color: #ffa6a6;
+  background-color: var(--air-superiority-blue-darker);
+  border-radius: 1rem;
+  color: var(--white)
 }
 
 #cheeser-search-box {
@@ -61,8 +90,8 @@
   width: 100%;
   border-width: 4px;
   border-style: solid;
-  border-color: #ff7f7f;
-  border-radius: 8px;
+  border-color: var(--air-superiority-blue-darker);
+  border-radius: 0.5rem;
 }
 
 #cheeser-list {
@@ -76,7 +105,7 @@
 }
 
 .cheeser-list-item:hover {
-  background-color: #f0f0f0;
+  background-color: white;
 }
 
 .label-row-container {
@@ -84,9 +113,11 @@
   flex-direction: column;
   background-color: #f0f0f0;
   padding: 4%; */
-  background-color: #ffa6a6;
-  color: white;
-  border: none;
+  background-color: var(--air-superiority-blue);
+  color: var(--white);
+  border: 0.5rem groove var(--air-superiority-blue);
+  border-top: 0.5 outset var(--air-superiority-blue-darker);
+  border-bottom: 0.5 outset var(--air-superiority-blue-darker);
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
@@ -98,6 +129,12 @@
   transition-duration: 0.4s;
   font-weight: 600;
   min-width: 100%;
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  scrollbar-width: none !important;  /* Firefox */
+}
+
+#ingredient-container::-webkit-scrollbar {
+  display: none !important;
 }
 
 .field-row {
@@ -117,7 +154,7 @@
 }
 
 .create-recipe-button {
-  background-color: #ff7f7f;
+  background-color: var(--atomic-tangerine);
   color: white;
   border: none;
   padding: 10px 20px;
@@ -130,8 +167,12 @@
   border-radius: 12px;
   transition-duration: 0.4s;
   font-weight: 600;
+  transition: background-color 1s;
 }
 
+.create-recipe-button:hover {
+  background-color: var(--atomic-tangerine-darker);
+}
 #cheeser-input {
   text-align: center;
 }
