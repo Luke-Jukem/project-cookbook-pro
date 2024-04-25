@@ -81,6 +81,7 @@ const Health = ({ recipes }) => {
       <br />
       <br />
       <br />
+      <br />
       <div>
         <button onClick={fetchAllRecipeDetails} disabled={buttonClicked}>
           Get your Recipe's Macros
