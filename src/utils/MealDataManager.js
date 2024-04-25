@@ -115,7 +115,9 @@ class MealDataManager {
     const searchQuery = new URLSearchParams();
     searchQuery.append("apiKey", this.spoonacularApi);
 
-    const fullUrl = `${this.spoonacularURL}/${recipeId}/nutritionWidget.json?${searchQuery.toString()}`;
+    const fullUrl = `${
+      this.spoonacularURL
+    }/${recipeId}/nutritionWidget.json?${searchQuery.toString()}`;
 
     try {
       const response = await fetch(fullUrl);
@@ -143,8 +145,6 @@ class MealDataManager {
       throw error;
     }
   }
-
-
 }
 
 export default MealDataManager;

@@ -42,22 +42,24 @@ const Health = ({ recipes }) => {
     }
   }, []);
 
-
   const fetchAllRecipeDetails = async () => {
     const updateTotalMacros = (recipeDetails) => {
       setTotalMacros((prevTotalMacros) => ({
         calories: prevTotalMacros.calories + recipeDetails.calories,
-        carbohydrates: prevTotalMacros.carbohydrates + recipeDetails.carbohydrates,
+        carbohydrates:
+          prevTotalMacros.carbohydrates + recipeDetails.carbohydrates,
         protein: prevTotalMacros.protein + recipeDetails.protein,
         sugar: prevTotalMacros.sugar + recipeDetails.sugar,
         fat: prevTotalMacros.fat + recipeDetails.fat,
       }));
     };
-  
+
     try {
       setButtonClicked(true);
       for (const recipe of recipes) {
-        const recipeDetails = await mealDataManager.fetchRecipeDetails(recipe.id);
+        const recipeDetails = await mealDataManager.fetchRecipeDetails(
+          recipe.id
+        );
         updateTotalMacros(recipeDetails);
       }
     } catch (error) {
@@ -77,15 +79,9 @@ const Health = ({ recipes }) => {
         </div>
       )}
       <br />
+      <br />
+      <br />
       <div>
-        <h3>Recipes:</h3>
-        {recipes.map((recipe, index) => (
-          <div key={index}>
-            <p>Recipe Name: {recipe.name}</p>
-            <p>Recipe ID: {recipe.id}</p>
-            {/* Display other recipe details */}
-          </div>
-        ))}
         <button onClick={fetchAllRecipeDetails} disabled={buttonClicked}>
           Get your Recipe's Macros
         </button>
