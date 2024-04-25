@@ -17,25 +17,36 @@ const GeneratedMeals = () => {
     if (user) {
       const userGeneratedRecipesPath = `Users/${user.uid}/generatedRecipes`;
 
-      const unsubscribeFromGeneratedRecipes = firestoreListener.subscribeToCollection(
-        userGeneratedRecipesPath,
-        (docs) => {
-          const recipes = docs.map((doc) => doc);
-          setGeneratedRecipes(recipes);
-        }
-      );
+      const unsubscribeFromGeneratedRecipes =
+        firestoreListener.subscribeToCollection(
+          userGeneratedRecipesPath,
+          (docs) => {
+            const recipes = docs.map((doc) => doc);
+            setGeneratedRecipes(recipes);
+          }
+        );
 
       // Cleanup function
       return unsubscribeFromGeneratedRecipes;
     }
   }, [user]);
 
-  async function unsaveRecipeFromCurrentUser(collectionPath, documentId, dataType) {
-  selectedMeal.isSaved = false;
+  async function unsaveRecipeFromCurrentUser(
+    collectionPath,
+    documentId,
+    dataType
+  ) {
+    selectedMeal.isSaved = false;
     try {
-      await FirestoreService.deleteDocument(collectionPath, documentId, dataType);
-      setGeneratedRecipes(generatedRecipes.filter((recipe) => recipe.id !== documentId));
-      console.log("deleted: ", recipe.id);
+      await FirestoreService.deleteDocument(
+        collectionPath,
+        documentId,
+        dataType
+      );
+      setGeneratedRecipes(
+        generatedRecipes.filter((recipe) => recipe.id !== documentId)
+      );
+      console.log("deleted: ", documentId); // Change recipe.id to documentId
     } catch (error) {
       console.error("Error deleting the document:", error);
     }
@@ -46,7 +57,11 @@ const GeneratedMeals = () => {
       <Button
         color="primary"
         onClick={() => {
-          unsaveRecipeFromCurrentUser(`Users/${user.uid}/generatedRecipes/`, String(selectedMeal.id), "recipe");
+          unsaveRecipeFromCurrentUser(
+            `Users/${user.uid}/generatedRecipes/`,
+            String(selectedMeal.id),
+            "gptResponse"
+          );
           setSelectedMeal(null);
         }}
       >
@@ -73,7 +88,11 @@ const GeneratedMeals = () => {
       ) : (
         generatedRecipes.map((recipe, key) => {
           return (
-            <ListGroupItem action onClick={() => setSelectedMeal(recipe)} key={key}>
+            <ListGroupItem
+              action
+              onClick={() => setSelectedMeal(recipe)}
+              key={key}
+            >
               {recipe.name}
             </ListGroupItem>
           );
