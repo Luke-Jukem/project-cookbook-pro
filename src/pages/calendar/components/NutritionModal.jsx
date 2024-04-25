@@ -23,10 +23,10 @@ const NutritionModal = ({ isOpen, closeModal, recipes }) => {
           <br />
         </Col>
 
-        <Col id="modal-recipetotals-column">
+        {/* <Col id="modal-recipetotals-column">
           <DisplayRecipeMacros/>
           <br />
-        </Col>
+        </Col> */}
 
         <Col id="modal-visual-column">
           Visuals
