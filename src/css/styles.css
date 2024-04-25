@@ -417,7 +417,7 @@
 
 .user-recipe-viewer-list-group {
   overflow-y: auto;
-  max-height: calc(80vh - 40px);
+  max-height: calc(80vh - 8rem);
   margin-top: 20px;
   white-space: normal;
   word-wrap: break-word;
@@ -638,4 +638,13 @@
   color: var(--air-superiority-blue);
   font-size: 3.5rem;
   font-weight: 600;
+}
+
+.btn-primary {
+  background-color: var(--atomic-tangerine-2) !important;
+  border: none !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--atomic-tangerine-2-darker) !important;
 }
