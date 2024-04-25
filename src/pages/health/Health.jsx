@@ -3,10 +3,12 @@ import DisplayGoals from "./components/DisplayGoals.jsx";
 import MacroGoalForm from "./components/MacroGoalForm.jsx";
 import { useAuth } from "../../utils/AuthContext.js";
 import FirestoreListener from "../../firebase/FirestoreListener.js";
+import MealDataManager from "../../utils/MealDataManager.js";
 
 const Health = ({ recipes }) => {
   const { user } = useAuth();
   const firestoreListener = new FirestoreListener();
+  const mealDataManager = new MealDataManager();
 
   const [showGoals, setShowGoals] = useState(true);
   const [recipeDetails, setRecipeDetails] = useState({});
@@ -40,53 +42,27 @@ const Health = ({ recipes }) => {
     }
   }, []);
 
-  const fetchRecipeDetails = async (recipeId) => {
-    const apiKey = "c70a0f5d5e1f4e18bb55c4bfbc94ab1c";
-    const url = `https://api.spoonacular.com/recipes/${recipeId}/nutritionWidget.json?apiKey=${apiKey}`;
 
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-
-      let sugar = "N/A";
-      for (const item of data.bad) {
-        if (item.title === "Sugar") {
-          sugar = item.amount;
-          break;
-        }
-      }
-      const nutritionInfo = {
-        calories: parseFloat(data.calories),
-        carbohydrates: parseFloat(data.carbs),
-        protein: parseFloat(data.protein),
-        sugar: sugar !== "N/A" ? parseFloat(sugar) : "N/A",
-        fat: parseFloat(data.fat),
-      };
-
-      setRecipeDetails(nutritionInfo);
-
-      // Update total macros
+  const fetchAllRecipeDetails = async () => {
+    const updateTotalMacros = (recipeDetails) => {
       setTotalMacros((prevTotalMacros) => ({
-        calories: prevTotalMacros.calories + nutritionInfo.calories,
-        carbohydrates:
-          prevTotalMacros.carbohydrates + nutritionInfo.carbohydrates,
-        protein: prevTotalMacros.protein + nutritionInfo.protein,
-        sugar:
-          nutritionInfo.sugar !== "N/A"
-            ? prevTotalMacros.sugar + nutritionInfo.sugar
-            : prevTotalMacros.sugar,
-        fat: prevTotalMacros.fat + nutritionInfo.fat,
+        calories: prevTotalMacros.calories + recipeDetails.calories,
+        carbohydrates: prevTotalMacros.carbohydrates + recipeDetails.carbohydrates,
+        protein: prevTotalMacros.protein + recipeDetails.protein,
+        sugar: prevTotalMacros.sugar + recipeDetails.sugar,
+        fat: prevTotalMacros.fat + recipeDetails.fat,
       }));
+    };
+  
+    try {
+      setButtonClicked(true);
+      for (const recipe of recipes) {
+        const recipeDetails = await mealDataManager.fetchRecipeDetails(recipe.id);
+        updateTotalMacros(recipeDetails);
+      }
     } catch (error) {
       console.error("Error fetching recipe details:", error);
     }
-  };
-
-  const fetchAllRecipeDetails = () => {
-    recipes.forEach((recipe) => {
-      fetchRecipeDetails(recipe.id);
-    });
-    setButtonClicked(true);
   };
 
   return (
