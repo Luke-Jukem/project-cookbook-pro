@@ -25,7 +25,7 @@ const MealCard = ({ meal }) => {
   const [isSavedClicked, setIsSavedClicked] = useState(false);
 
   async function saveData(collectionPath, documentId, data, dataType) {
-    const savedMeal = meal;
+    const savedMeal = data;
     savedMeal.isSaved = true;
     //savedMeal.instructions kept showing up as null, preventing the recipes from being saved
     if (savedMeal.instructions === undefined) {
@@ -56,15 +56,14 @@ const MealCard = ({ meal }) => {
   const width = { width: "18rem" };
   const height = { wh: "18rem" };
 
-
   const cardStyle = {
     border: "2px outset #FFA6A6",
   };
 
-  const minWidth = { minWidth: "20rem"};
+  const minWidth = { minWidth: "20rem" };
 
-  //button options for RecipeDetails
-  const buttonOptions = (
+  // //button options for RecipeDetails
+  const buttonOptions = ({ isClicked, cartClick, saveData }) => (
     <>
       {user && (
         <Button
@@ -82,6 +81,26 @@ const MealCard = ({ meal }) => {
           Save Recipe
         </Button>
       )}
+      <Button
+        className={`primary-color card-button ${isClicked ? "clicked" : ""}`}
+        onClick={() => {
+          cartClick();
+          saveData(
+            `Users/${user.uid}/Cart/`,
+            String(selectedMeal.id),
+            selectedMeal,
+            "recipe"
+          );
+        }}
+        style={{ width: "7rem" }}
+      >
+        <div>
+          <span className="add-to-cart">Add to Cart</span>
+          <span className="added">Added</span>
+          <FontAwesomeIcon icon={faCartShopping} />
+          <FontAwesomeIcon icon={faBox} />
+        </div>
+      </Button>
       <Button
         color="secondary"
         onClick={() => setSelectedMeal(null)} //setting selected meal = null closes the RecipeDetails component
@@ -117,7 +136,9 @@ const MealCard = ({ meal }) => {
           selectedMeal && (
             <RecipeDetails
               meal={selectedMeal}
-              buttonOptions={buttonOptions}
+              buttonOptions={() =>
+                buttonOptions({ isClicked, cartClick, saveData })
+              }
               isOpen={selectedMeal !== null}
             />
           ) /* if selectedMeal is not null, render the RecipeDetails component */
@@ -125,7 +146,9 @@ const MealCard = ({ meal }) => {
         {user && (
           <>
             <Button
-              className={`thirdary-color card-button ${isSavedClicked ? "clicked" : ""}`}
+              className={`thirdary-color card-button ${
+                isSavedClicked ? "clicked" : ""
+              }`}
               onClick={() => {
                 savedClick();
                 saveData(
@@ -145,7 +168,9 @@ const MealCard = ({ meal }) => {
             </Button>
 
             <Button
-              className={`primary-color card-button ${isClicked ? "clicked" : ""}`}
+              className={`primary-color card-button ${
+                isClicked ? "clicked" : ""
+              }`}
               onClick={() => {
                 cartClick();
                 saveData(

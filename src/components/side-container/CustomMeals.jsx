@@ -15,7 +15,6 @@ import {
 const CustomMeals = () => {
   const [savedRecipes, setSavedRecipes] = useState([""]);
   const [selectedMeal, setSelectedMeal] = useState(null);
-  const [isClicked, setIsClicked] = useState(false);
 
   const { user } = useAuth();
   const firestoreListener = new FirestoreListener();
@@ -58,10 +57,6 @@ const CustomMeals = () => {
     }
   }
 
-  const cartClick = () => {
-    setIsClicked(true);
-  };
-
   async function unsaveRecipeFromCurrentUser(
     collectionPath,
     documentId,
@@ -79,7 +74,7 @@ const CustomMeals = () => {
     }
   }
 
-  const buttonOptions = (
+  const buttonOptions = ({ isClicked, cartClick, saveData }) => (
     <>
       <Button
         color="primary"
@@ -128,6 +123,7 @@ const CustomMeals = () => {
           isOpen={selectedMeal !== null}
           toggle={() => setSelectedMeal(null)}
           buttonOptions={buttonOptions}
+          saveData={saveData}
         />
       )}
       {savedRecipes.length === 0 ? (

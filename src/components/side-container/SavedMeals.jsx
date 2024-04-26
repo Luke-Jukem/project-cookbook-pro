@@ -15,7 +15,6 @@ import {
 const SavedMeals = () => {
   const [savedRecipes, setSavedRecipes] = useState([""]);
   const [selectedMeal, setSelectedMeal] = useState(null);
-  const [isClicked, setIsClicked] = useState(false);
 
   const { user } = useAuth();
   const firestoreListener = new FirestoreListener();
@@ -76,21 +75,16 @@ const SavedMeals = () => {
     }
   }
 
-  const cartClick = () => {
-    setIsClicked(true);
-  };
-
-  const buttonOptions = (
+  const buttonOptions = ({ isClicked, cartClick, saveData }) => (
     <>
       <Button
         color="primary"
         onClick={() => {
           unsaveRecipeFromCurrentUser(
-            `Users/${user.uid}/SavedRecipes/`,
+            `Users/${user.uid}/CustomRecipes/`,
             String(selectedMeal.id),
             "recipe"
           );
-          //close the modal and remove the recipe
           setSelectedMeal(null);
         }}
       >
@@ -117,7 +111,7 @@ const SavedMeals = () => {
         </div>
       </Button>
       <Button color="secondary" onClick={() => setSelectedMeal(null)}>
-        Cancel
+        Close
       </Button>
     </>
   );
@@ -130,6 +124,7 @@ const SavedMeals = () => {
           isOpen={selectedMeal !== null}
           toggle={() => setSelectedMeal(null)}
           buttonOptions={buttonOptions}
+          saveData={saveData}
         />
       )}
       {savedRecipes.length === 0 ? (
