@@ -18,7 +18,7 @@ import {
 } from "recharts";
 import "./health.css";
 
-const Health = ({ recipes }) => {
+const Health = ({ recipes, selectedDates }) => {
   // Firebase auth
   const { user } = useAuth();
   // Firestore listener
@@ -56,35 +56,37 @@ const Health = ({ recipes }) => {
     fat: 0,
   });
 
+  console.log(selectedDates);
+
   // Used for updating the bar graph
   const progressData = [
     {
       name: "Calories",
-      Goals: userGoals.calories,
+      Goals: userGoals.calories  * selectedDates,
       Planned: totalMacros.calories,
       amt: userGoals.calories,
     },
     {
       name: "Carbs",
-      Goals: userGoals.carbs,
+      Goals: userGoals.carbs  * selectedDates,
       Planned: totalMacros.carbohydrates,
       Completion: (totalMacros.carbohydrates / userGoals.carbs) * 100,
     },
     {
       name: "Protein",
-      Goals: userGoals.protein,
+      Goals: userGoals.protein  * selectedDates,
       Planned: totalMacros.protein,
       Completion: (totalMacros.protein / userGoals.protein) * 100,
     },
     {
       name: "Sugar",
-      Goals: userGoals.sugar,
+      Goals: userGoals.sugar  * selectedDates,
       Planned: totalMacros.sugar,
       Completion: (totalMacros.sugar / userGoals.sugar) * 100,
     },
     {
       name: "Fat",
-      Goals: userGoals.fat,
+      Goals: userGoals.fat  * selectedDates,
       Planned: totalMacros.fat,
       Completion: (totalMacros.fat / userGoals.fat) * 100,
     },

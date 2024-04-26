@@ -357,6 +357,7 @@ const MyCalendar = () => {
         isOpen={isNutritionModalOpen}
         closeModal={closeNutritionModal}
         recipes={nutritionRecipes}
+        selectedDates={selectedDates.length > 0 ? selectedDates.length : 1}
       />
     </div>
   );
