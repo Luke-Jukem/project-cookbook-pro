@@ -1,0 +1,19 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns of equal width */
+    grid-gap: 20px; /* Gap between grid items */
+  }
+  
+  #square-one {
+    grid-area: 1 / 1 / 2 / 2; /* Place div one in the first row, first column */
+  }
+  
+  #square-two {
+    grid-area: 1 / 2 / 2 / 3; /* Place div two in the first row, second column */
+  }
+  
+  #square-three {
+    grid-area: 2 / 1 / 3 / 3; /* Place div three in the second row, spanning both columns */
+  }
+  
+  

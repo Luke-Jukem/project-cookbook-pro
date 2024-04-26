@@ -4,6 +4,7 @@ import MacroGoalForm from "./components/MacroGoalForm.jsx";
 import { useAuth } from "../../utils/AuthContext.js";
 import FirestoreListener from "../../firebase/FirestoreListener.js";
 import MealDataManager from "../../utils/MealDataManager.js";
+import { Col, Row } from "reactstrap";
 import {
   BarChart,
   Bar,
@@ -16,6 +17,7 @@ import {
   Tooltip,
   Cell,
 } from "recharts";
+import "./health.css";
 
 const Health = ({ recipes }) => {
   const { user } = useAuth();
@@ -30,12 +32,14 @@ const Health = ({ recipes }) => {
     sugar: 0,
     fat: 0,
   });
+
   const [macroBreakdownData, setMacroBreakdownData] = useState([
     { name: "Carbohydrates", value: 0, fill: "#FFA500" },
     { name: "Protein", value: 0, fill: "#006400" },
     { name: "Sugar", value: 0, fill: "#FF0000" },
     { name: "Fat", value: 0, fill: "#00008B" },
   ]);
+
   const [userGoals, setUserGoals] = useState({
     calories: 0,
     carbohydrates: 0,
@@ -49,7 +53,7 @@ const Health = ({ recipes }) => {
       name: "Calories",
       Goals: userGoals.calories,
       Planned: totalMacros.calories,
-      Completion: (totalMacros.calories / userGoals.calories) * 100,
+      amt: userGoals.calories,
     },
     {
       name: "Carbs",
@@ -97,9 +101,6 @@ const Health = ({ recipes }) => {
     }
   }, []);
 
- 
-
-
   const fetchAllRecipeDetails = async () => {
     try {
       setButtonClicked(true);
@@ -140,88 +141,86 @@ const Health = ({ recipes }) => {
   };
 
   return (
-    <div>
-      {/* Either display goals or prompt user to enter them */}
-      {showGoals ? (
-        <div>
-          <DisplayGoals onEdit={() => setShowGoals(false)} />
-        </div>
-      ) : (
-        <div>
-          <MacroGoalForm onSubmit={() => setShowGoals(true)} />
-        </div>
-      )}
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      {/* Display total macros */}
-      <div>
-        <h3>Total Macros from selected days:</h3>
-        <p>Calories: {totalMacros.calories} cals</p>
-        <p>Carbohydrates: {totalMacros.carbohydrates} g</p>
-        <p>Protein: {totalMacros.protein} g</p>
-        <p>Sugar: {totalMacros.sugar} g</p>
-        <p>Fat: {totalMacros.fat} g</p>
+    <div className="grid-container">
+      <div id="square-one">
+        {/* Either display goals or prompt user to enter them */}
+        {showGoals ? (
+          <div>
+            <DisplayGoals onEdit={() => setShowGoals(false)} />
+          </div>
+        ) : (
+          <div>
+            <MacroGoalForm onSubmit={() => setShowGoals(true)} />
+          </div>
+        )}
       </div>
-      <div>
-        <button onClick={fetchAllRecipeDetails} disabled={buttonClicked}>
-          Show Results
-        </button>
+      <div id="square-two">
+        {/* Display total macros */}
+        <div>
+          <h3>Total Macros from selected days:</h3>
+          <p>Calories: {totalMacros.calories} cals</p>
+          <p>Carbohydrates: {totalMacros.carbohydrates} g</p>
+          <p>Protein: {totalMacros.protein} g</p>
+          <p>Sugar: {totalMacros.sugar} g</p>
+          <p>Fat: {totalMacros.fat} g</p>
+        </div>
+        <div>
+          <button onClick={fetchAllRecipeDetails} disabled={buttonClicked}>
+            Show Results
+          </button>
+        </div>
+        <p>
+          <strong>
+            *Note: If no results are displayed after the button is pressed, you
+            may have to wait a few seconds.
+          </strong>
+        </p>
       </div>
-      <p>
-        <strong>
-          *Note: If no results are displayed after the button is pressed, then
-          you have no recipes for the selected range of days in the calendar.
-        </strong>
-      </p>
-      <br />
-      <br />
-      <br />
       {/* Conditionally render Charts if user has selected a meal */}
-      {totalMacros.calories > 0 && (
-        <div>
-          <h1>Your macronutrient breakdown for the selected days (grams)</h1>
-          <PieChart width={1000} height={400}>
-            <Pie
-              dataKey="value"
-              isAnimationActive={false}
-              data={macroBreakdownData}
-              cx={200}
-              cy={200}
-              outerRadius={80}
-              label
-              stroke="black"
-              strokeWidth={2}
-            />
-            <Tooltip />
-          </PieChart>
-          <br />
-          <br />
-          <h1>Progress - How do my planned meals line up with my goals?</h1>
-          <br />
-          <BarChart
-            width={600}
-            height={400}
-            data={progressData}
-            margin={{
-              top: 20,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="Planned" stackId="a" fill="#82ca9d" />
-            <Bar dataKey="Goals" stackId="a" fill="#FF0000" />
-          </BarChart>
-        </div>
-      )}
+      <div id="square-three">
+        {totalMacros.calories > 0 && (
+          <div>
+            <h1>Your macronutrient breakdown for the selected days (grams)</h1>
+            <PieChart width={1000} height={400}>
+              <Pie
+                dataKey="value"
+                isAnimationActive={false}
+                data={macroBreakdownData}
+                cx={200}
+                cy={200}
+                outerRadius={80}
+                label
+                stroke="black"
+                strokeWidth={2}
+              />
+              <Tooltip />
+            </PieChart>
+            <br />
+            <br />
+            <h1>Progress - How do my planned meals line up with my goals?</h1>
+            <br />
+            <BarChart
+              width={500}
+              height={300}
+              data={progressData}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="Goals" fill="green" />
+              <Bar dataKey="Planned" fill="black" />
+            </BarChart>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
