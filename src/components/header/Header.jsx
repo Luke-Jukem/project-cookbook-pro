@@ -6,6 +6,8 @@ import Cart from "../cart/Cart.jsx";
 import FirestoreListener from "../../firebase/FirestoreListener.js";
 import "../../css/styles.css";
 import UserDropdown from "./UserDropdown.jsx";
+import chef from './chef.svg'; // Import the chef.svg file
+
 
 const Header = () => {
   const { user } = useAuth();
@@ -36,7 +38,7 @@ const Header = () => {
     <div id="header" className="header">
       <div>
         <Link id="header-logo" to="/">
-          CookBook-Pro
+          <img src={chef} id="chef" alt="CookBook-Pro Logo" /> CookBook-Pro
         </Link>
       </div>
       <div className="links--wrapper">

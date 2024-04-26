@@ -92,6 +92,11 @@
   transition: font-size 1s;
 }
 
+#chef {
+  height: 2.5em;
+  max-height: 10vh;
+}
+
 .links--wrapper {
   display: flex;
   gap: 20px;
