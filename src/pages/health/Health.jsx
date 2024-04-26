@@ -181,7 +181,8 @@ const Health = ({ recipes }) => {
         {totalMacros.calories > 0 && (
           <div>
             <h1>Your macronutrient breakdown for the selected days (grams)</h1>
-            <PieChart width={1000} height={400}>
+            <p>Hover over sections of the graph for more details.</p>
+            <PieChart width={3000} height={400}>
               <Pie
                 dataKey="value"
                 isAnimationActive={false}
@@ -198,6 +199,7 @@ const Health = ({ recipes }) => {
             <br />
             <br />
             <h1>Progress - How do my planned meals line up with my goals?</h1>
+            <p>Hover over sections of the graph for more details.</p>
             <br />
             <BarChart
               width={500}
