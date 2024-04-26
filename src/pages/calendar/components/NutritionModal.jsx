@@ -18,19 +18,7 @@ const NutritionModal = ({ isOpen, closeModal, recipes }) => {
       <div className="nutrition-modal-content">
         <h2>Nutrition Report</h2>
         {/* Add your nutrition report content here */}
-
         <Health recipes={recipes} />
-
-        {/* <Col id="modal-recipetotals-column">
-          <DisplayRecipeMacros/>
-          <br />
-        </Col> */}
-
-        {/* <Col id="modal-visual-column">
-          Visuals
-          <br />
-        </Col> */}
-
         <br />
         <button onClick={closeModal}>Close</button>
       </div>
