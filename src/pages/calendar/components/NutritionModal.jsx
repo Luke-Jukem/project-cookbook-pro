@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import Health from "../../health/Health";
 import DisplayRecipeMacros from "../../health/components/DisplayRecipeMacros";
 import { Col } from "react-bootstrap";
-import "../nutritionModalStyle.css"
+import "../nutritionModalStyle.css";
 
 const NutritionModal = ({ isOpen, closeModal, recipes }) => {
   return (
@@ -19,7 +19,7 @@ const NutritionModal = ({ isOpen, closeModal, recipes }) => {
         <h2>Nutrition Report</h2>
         {/* Add your nutrition report content here */}
         <Col id="modal-goals-column">
-          <Health recipes={recipes}/>
+          <Health recipes={recipes} />
           <br />
         </Col>
 
@@ -28,10 +28,10 @@ const NutritionModal = ({ isOpen, closeModal, recipes }) => {
           <br />
         </Col> */}
 
-        <Col id="modal-visual-column">
+        {/* <Col id="modal-visual-column">
           Visuals
           <br />
-        </Col>
+        </Col> */}
 
         <br />
         <button onClick={closeModal}>Close</button>

@@ -41,37 +41,51 @@ const Health = ({ recipes }) => {
     }
   }, []);
 
-  const fetchAllRecipeDetails = async () => {
-    const updateTotalMacros = (recipeDetails) => {
-      setTotalMacros((prevTotalMacros) => ({
-        calories: prevTotalMacros.calories + recipeDetails.calories,
-        carbohydrates:
-          prevTotalMacros.carbohydrates + recipeDetails.carbohydrates,
-        protein: prevTotalMacros.protein + recipeDetails.protein,
-        sugar: prevTotalMacros.sugar + recipeDetails.sugar,
-        fat: prevTotalMacros.fat + recipeDetails.fat,
-      }));
-    };
+  const [macroBreakdownData, setMacroBreakdownData] = useState([
+    { name: "Carbohydrates", value: 0, fill: "#FFA500" },
+    { name: "Protein", value: 0, fill: "#006400" },
+    { name: "Sugar", value: 0, fill: "#FF0000" },
+    { name: "Fat", value: 0, fill: "#00008B" },
+  ]);
 
+  const fetchAllRecipeDetails = async () => {
     try {
       setButtonClicked(true);
+
+      let newTotalMacros = {
+        calories: 0,
+        carbohydrates: 0,
+        protein: 0,
+        sugar: 0,
+        fat: 0,
+      };
+
       for (const recipe of recipes) {
         const recipeDetails = await mealDataManager.fetchRecipeDetails(
           recipe.id
         );
-        updateTotalMacros(recipeDetails);
+        newTotalMacros = {
+          calories: newTotalMacros.calories + recipeDetails.calories,
+          carbohydrates:
+            newTotalMacros.carbohydrates + recipeDetails.carbohydrates,
+          protein: newTotalMacros.protein + recipeDetails.protein,
+          sugar: newTotalMacros.sugar + recipeDetails.sugar,
+          fat: newTotalMacros.fat + recipeDetails.fat,
+        };
       }
+
+      // Update total macros and pie chart data after calculating total macros
+      setTotalMacros(newTotalMacros);
+      setMacroBreakdownData((prevData) =>
+        prevData.map((item) => ({
+          ...item,
+          value: newTotalMacros[item.name.toLowerCase()],
+        }))
+      );
     } catch (error) {
       console.error("Error fetching recipe details:", error);
     }
   };
-
-  const actualMacroBreakdownData = [
-    { name: "Carbohydrates", value: 15, fill: "#8884d8" },
-    { name: "Protein", value: 10, fill: "#00FF00" },
-    { name: "Sugar", value: 50, fill: "#FF0000" },
-    { name: "Fat", value: 50, fill: "#8B4513" },
-  ];
 
   return (
     <div>
@@ -105,21 +119,26 @@ const Health = ({ recipes }) => {
       </div>
       <br />
       <br />
-      <div>
-        <h1>Your macronutrient breakdown for the selected days</h1>
-        <PieChart width={1000} height={400}>
-          <Pie
-            dataKey="value"
-            isAnimationActive={false}
-            data={actualMacroBreakdownData}
-            cx={200}
-            cy={200}
-            outerRadius={80}
-            label
-          />
-          <Tooltip />
-        </PieChart>
-      </div>
+      {/* Conditionally render the h1 and PieChart */}
+      {totalMacros.calories > 0 && (
+        <div>
+          <h1>Your macronutrient breakdown for the selected days</h1>
+          <PieChart width={1000} height={400}>
+            <Pie
+              dataKey="value"
+              isAnimationActive={false}
+              data={macroBreakdownData}
+              cx={200}
+              cy={200}
+              outerRadius={80}
+              label
+              stroke="black" 
+              strokeWidth={2} 
+            />
+            <Tooltip />
+          </PieChart>
+        </div>
+      )}
     </div>
   );
 };
