@@ -32,6 +32,7 @@ const Health = ({ recipes }) => {
     sugar: 0,
     fat: 0,
   });
+  const [recipeNutritionData, setRecipeNutritionData] = useState([]);
 
   const [macroBreakdownData, setMacroBreakdownData] = useState([
     { name: "Carbohydrates", value: 0, fill: "#FFA500" },
@@ -113,6 +114,8 @@ const Health = ({ recipes }) => {
         fat: 0,
       };
 
+      let newRecipeNutritionData = [];
+
       for (const recipe of recipes) {
         const recipeDetails = await mealDataManager.fetchRecipeDetails(
           recipe.id
@@ -125,6 +128,10 @@ const Health = ({ recipes }) => {
           sugar: newTotalMacros.sugar + recipeDetails.sugar,
           fat: newTotalMacros.fat + recipeDetails.fat,
         };
+        newRecipeNutritionData.push({
+          name: recipe.name,
+          ...recipeDetails,
+        });
       }
 
       // Update total macros and pie chart data after calculating total macros
@@ -135,6 +142,7 @@ const Health = ({ recipes }) => {
           value: newTotalMacros[item.name.toLowerCase()],
         }))
       );
+      setRecipeNutritionData(newRecipeNutritionData);
     } catch (error) {
       console.error("Error fetching recipe details:", error);
     }
@@ -163,6 +171,18 @@ const Health = ({ recipes }) => {
           <p>Protein: {totalMacros.protein} g</p>
           <p>Sugar: {totalMacros.sugar} g</p>
           <p>Fat: {totalMacros.fat} g</p>
+        </div>
+        <div>
+          <h3>Recipes:</h3>
+          <ul>
+            {recipeNutritionData.map((recipe, index) => (
+              <li key={index}>
+                {recipe.name} - Calories:{recipe.calories}, Carbs:
+                {recipe.carbohydrates}, Protein:{recipe.protein}, Sugar:
+                {recipe.sugar}, Fat:{recipe.fat}
+              </li>
+            ))}
+          </ul>
         </div>
         <div>
           <button onClick={fetchAllRecipeDetails} disabled={buttonClicked}>
