@@ -5,10 +5,17 @@ import { useAuth } from "../../utils/AuthContext.js";
 import FirestoreService from "../../firebase/FirebaseService.js";
 import EmptyCollectionMessage from "./EmptyCollectionMessage.jsx";
 import FirestoreListener from "../../firebase/FirestoreListener.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBox,
+  faCartShopping,
+  faCheck,
+} from "@fortawesome/free-solid-svg-icons";
 
 const CustomMeals = () => {
   const [savedRecipes, setSavedRecipes] = useState([""]);
   const [selectedMeal, setSelectedMeal] = useState(null);
+  const [isClicked, setIsClicked] = useState(false);
 
   const { user } = useAuth();
   const firestoreListener = new FirestoreListener();
@@ -29,6 +36,31 @@ const CustomMeals = () => {
       return unsubscribeCustomRecipes;
     }
   }, [user.uid]);
+
+  async function saveData(collectionPath, documentId, data, dataType) {
+    const savedMeal = data;
+    savedMeal.isSaved = true;
+    //savedMeal.instructions kept showing up as null, preventing the recipes from being saved
+    if (savedMeal.instructions === undefined) {
+      savedMeal.instructions = "";
+    }
+
+    // Build the path here with the context provided by the current user
+    try {
+      await FirestoreService.createDocument(
+        collectionPath,
+        documentId,
+        savedMeal,
+        dataType
+      );
+    } catch (error) {
+      console.error("Error creating document:", error);
+    }
+  }
+
+  const cartClick = () => {
+    setIsClicked(true);
+  };
 
   async function unsaveRecipeFromCurrentUser(
     collectionPath,
@@ -62,8 +94,28 @@ const CustomMeals = () => {
       >
         Unsave recipe
       </Button>
+      <Button
+        className={`primary-color card-button ${isClicked ? "clicked" : ""}`}
+        onClick={() => {
+          cartClick();
+          saveData(
+            `Users/${user.uid}/Cart/`,
+            String(selectedMeal.id),
+            selectedMeal,
+            "recipe"
+          );
+        }}
+        style={{ width: "7rem" }}
+      >
+        <div>
+          <span class="add-to-cart">Add to Cart</span>
+          <span class="added">Added</span>
+          <FontAwesomeIcon icon={faCartShopping} />
+          <FontAwesomeIcon icon={faBox} />
+        </div>
+      </Button>
       <Button color="secondary" onClick={() => setSelectedMeal(null)}>
-        Cancel
+        Close
       </Button>
     </>
   );
