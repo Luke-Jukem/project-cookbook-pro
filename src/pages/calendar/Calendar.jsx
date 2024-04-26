@@ -27,18 +27,14 @@ const MyCalendar = () => {
   const [cartItems, setCartItems] = useState([]);
   //empty array of plans
   const [plans, setPlans] = useState([]);
-  //modal state
+  //meal form modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
   //order modal state
   const [isOrderModalOpen, setOrderModalOpen] = useState(false);
   //nutritional modal state
   const [isNutritionModalOpen, setIsNutritionModalOpen] = useState(false);
-  const openNutritionModal = () => {
-    setIsNutritionModalOpen(true);
-  };
-  const closeNutritionModal = () => {
-    setIsNutritionModalOpen(false);
-  };
+  //nutritional modal recipes state
+  const [nutritionRecipes, setnutritionRecipes] = useState([]);
   const firestoreListener = new FirestoreListener();
 
   useEffect(() => {
@@ -139,6 +135,16 @@ const MyCalendar = () => {
     }
   };
 
+  //getting recipes for ordering/nutrition modals
+  const getRecipes = () =>
+    (selectedDates.length > 0 ? selectedDates : [selectedDay]).flatMap(
+      (date) =>
+        plans
+          .filter((plan) => plan.date === date.toISOString().split("T")[0])
+          .flatMap((plan) => plan.meals)
+          .map((meal) => meal.recipe), //get the recipe of each meal
+    );
+
   const renderPlan = (date, plan, mealIndex) => (
     //for each plan entry, create a div displaying the meal's name
     <div
@@ -188,15 +194,7 @@ const MyCalendar = () => {
   const orderMeals = () => {
     setOrderModalOpen(true);
     //get all the recipes for the selected date or date range
-    const recipes = (
-      selectedDates.length > 0 ? selectedDates : [selectedDay]
-    ).flatMap(
-      (date) =>
-        plans
-          .filter((plan) => plan.date === date.toISOString().split("T")[0])
-          .flatMap((plan) => plan.meals)
-          .map((meal) => meal.recipe), //get the recipe of each meal
-    );
+    const recipes = getRecipes();
     //set cartItems to the recipes
     setCartItems(recipes);
   };
@@ -215,6 +213,19 @@ const MyCalendar = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  //opening the nutrition modal and passing in recipes
+  const generateNutrition = () => {
+    //get all the recipes for the selected date or date range
+    const recipes = getRecipes();
+    //set nutritionModalRecipes to the recipes
+    setnutritionRecipes(recipes);
+    setIsNutritionModalOpen(true);
+  };
+
+  const closeNutritionModal = () => {
+    setIsNutritionModalOpen(false);
   };
 
   return (
@@ -265,7 +276,7 @@ const MyCalendar = () => {
             : formatDate(selectedDay)}
         </span>{" "}
         <div id="nutrition-launcher">
-          <button id="nutrition-button" onClick={openNutritionModal}>
+          <button id="nutrition-button" onClick={generateNutrition}>
             Generate Nutrition Report
           </button>
         </div>
@@ -274,6 +285,12 @@ const MyCalendar = () => {
             ariaHideApp={false}
             isOpen={isModalOpen}
             onRequestClose={closeModal}
+            style={{
+              content: {
+                width: '50%',
+                margin: '0 auto',
+              }
+            }}
           >
             <MealForm closeModal={closeModal} addPlan={addPlan} />
           </Modal>
@@ -337,6 +354,7 @@ const MyCalendar = () => {
       <NutritionModal
         isOpen={isNutritionModalOpen}
         closeModal={closeNutritionModal}
+        recipes={nutritionRecipes}
       />
     </div>
   );
