@@ -4,7 +4,6 @@ import MacroGoalForm from "./components/MacroGoalForm.jsx";
 import { useAuth } from "../../utils/AuthContext.js";
 import FirestoreListener from "../../firebase/FirestoreListener.js";
 import MealDataManager from "../../utils/MealDataManager.js";
-import { Col, Row } from "reactstrap";
 import {
   BarChart,
   Bar,
@@ -20,11 +19,17 @@ import {
 import "./health.css";
 
 const Health = ({ recipes }) => {
+  // Firebase auth
   const { user } = useAuth();
+  // Firestore listener
   const firestoreListener = new FirestoreListener();
+  // Meal data manager for accessing Spoonacular
   const mealDataManager = new MealDataManager();
+  // Toggle for prompting user for goals or displaying them
   const [showGoals, setShowGoals] = useState(true);
+  // Controls visibility/clickability for button
   const [buttonClicked, setButtonClicked] = useState(false);
+  // Intially set total macros
   const [totalMacros, setTotalMacros] = useState({
     calories: 0,
     carbohydrates: 0,
@@ -32,8 +37,9 @@ const Health = ({ recipes }) => {
     sugar: 0,
     fat: 0,
   });
+  // Used for setting nutrition data
   const [recipeNutritionData, setRecipeNutritionData] = useState([]);
-
+  // Used for pie chart breakdown
   const [macroBreakdownData, setMacroBreakdownData] = useState([
     { name: "Carbohydrates", value: 0, fill: "#FFA500" },
     { name: "Protein", value: 0, fill: "#006400" },
@@ -41,6 +47,7 @@ const Health = ({ recipes }) => {
     { name: "Fat", value: 0, fill: "#00008B" },
   ]);
 
+  // Tracks users goal for bar graph
   const [userGoals, setUserGoals] = useState({
     calories: 0,
     carbohydrates: 0,
@@ -49,6 +56,7 @@ const Health = ({ recipes }) => {
     fat: 0,
   });
 
+  // Used for updating the bar graph
   const progressData = [
     {
       name: "Calories",
@@ -82,6 +90,7 @@ const Health = ({ recipes }) => {
     },
   ];
 
+  // Listener for tracking macro goals changes
   useEffect(() => {
     if (user) {
       const path = `Users/${user.uid}/Health/${user.uid}.HealthGoals`;
@@ -102,6 +111,7 @@ const Health = ({ recipes }) => {
     }
   }, []);
 
+  // Controls the functionality of the results button
   const fetchAllRecipeDetails = async () => {
     try {
       setButtonClicked(true);
