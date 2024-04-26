@@ -45,7 +45,7 @@ const MyCalendar = () => {
       (docs) => {
         const plans = docs;
         setPlans(plans);
-      },
+      }
     );
 
     return unsubscribeFromPlans;
@@ -92,7 +92,7 @@ const MyCalendar = () => {
         `Users/${user.uid}/Plans/`,
         planDate,
         existingPlan,
-        "plan",
+        "plan"
       ).catch((error) => console.error("Error updating plan: ", error));
     }
     //if there's no existing plan, create a new plan
@@ -107,7 +107,7 @@ const MyCalendar = () => {
         `Users/${user.uid}/Plans/`,
         planDate,
         newPlan,
-        "plan",
+        "plan"
       ).catch((error) => console.error("Error creating plan: ", error));
     }
   };
@@ -118,19 +118,19 @@ const MyCalendar = () => {
     //if the plan exists, remove the selected meal
     if (planToUpdate) {
       const updatedMeals = planToUpdate.meals.filter(
-        (meal, index) => index !== mealIndex,
+        (meal, index) => index !== mealIndex
       );
       //updating plan with new meal list
       const updatedPlan = { ...planToUpdate, meals: updatedMeals };
       //updating plan in the local state
       setPlans(
-        plans.map((plan) => (plan.date === planDate ? updatedPlan : plan)),
+        plans.map((plan) => (plan.date === planDate ? updatedPlan : plan))
       );
       //updating firestore
       FirestoreService.updateDocument(
         `Users/${user.uid}/Plans/`,
         planDate,
-        updatedPlan,
+        updatedPlan
       ).catch((error) => console.error("Error removing meal: ", error));
     }
   };
@@ -142,7 +142,7 @@ const MyCalendar = () => {
         plans
           .filter((plan) => plan.date === date.toISOString().split("T")[0])
           .flatMap((plan) => plan.meals)
-          .map((meal) => meal.recipe), //get the recipe of each meal
+          .map((meal) => meal.recipe) //get the recipe of each meal
     );
 
   const renderPlan = (date, plan, mealIndex) => (
@@ -169,7 +169,7 @@ const MyCalendar = () => {
     </div>
   );
 
-  const buttonOptions = (
+  const buttonOptions = () => (
     <>
       <Button
         color="primary"
@@ -177,7 +177,7 @@ const MyCalendar = () => {
           unsaveRecipeFromCurrentUser(
             `Users/${user.uid}/SavedRecipes/`,
             String(selectedMeal.id),
-            "recipe",
+            "recipe"
           );
           //close the modal and remove the recipe
           setSelectedMeal(null);
@@ -236,12 +236,12 @@ const MyCalendar = () => {
         onClickDay={onClickDay}
         tileContent={({ date, view }) => {
           const dayPlans = plans.filter(
-            (plan) => plan.date === date.toISOString().split("T")[0],
+            (plan) => plan.date === date.toISOString().split("T")[0]
           );
           //finding out how many meals are planned for that day
           const totalMeals = dayPlans.reduce(
             (sum, plan) => sum + plan.meals.length,
-            0,
+            0
           );
           return (
             <div>
@@ -272,7 +272,9 @@ const MyCalendar = () => {
       <div id="calendar-sidebar">
         <span className="date-display">
           {selectedDates.length > 0 //if there's a date range, display the first and last dates
-            ? `${formatDate(selectedDates[0])} - ${formatDate(selectedDates[selectedDates.length - 1])}`
+            ? `${formatDate(selectedDates[0])} - ${formatDate(
+                selectedDates[selectedDates.length - 1]
+              )}`
             : formatDate(selectedDay)}
         </span>{" "}
         <div id="nutrition-launcher">
@@ -287,9 +289,9 @@ const MyCalendar = () => {
             onRequestClose={closeModal}
             style={{
               content: {
-                width: '50%',
-                margin: '0 auto',
-              }
+                width: "50%",
+                margin: "0 auto",
+              },
             }}
           >
             <MealForm closeModal={closeModal} addPlan={addPlan} />
@@ -304,8 +306,8 @@ const MyCalendar = () => {
                 plans.some(
                   (plan) =>
                     plan.date === date.toISOString().split("T")[0] &&
-                    plan.meals.length > 0,
-                ),
+                    plan.meals.length > 0
+                )
             ) && (
               <button className="lg-cal-btn" onClick={orderMeals}>
                 Order Meals
@@ -320,13 +322,13 @@ const MyCalendar = () => {
               (date) =>
                 plans
                   .filter(
-                    (plan) => plan.date === date.toISOString().split("T")[0],
+                    (plan) => plan.date === date.toISOString().split("T")[0]
                   )
                   .map((plan, index) =>
                     plan.meals.map((meal, mealIndex) =>
-                      renderPlan(date, plan, mealIndex),
-                    ),
-                  ),
+                      renderPlan(date, plan, mealIndex)
+                    )
+                  )
             )
           }
 

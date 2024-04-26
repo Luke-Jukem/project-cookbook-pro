@@ -14,7 +14,7 @@ const Cart = ({ modalOpen, setModalOpen, cartItems, type }) => {
       ? `Users/${user.uid}/CalendarCart`
       : `Users/${user.uid}/Cart`;
 
-  const buttonOptions = (
+  const buttonOptions = ({ isClicked, cartClick, saveData }) => (
     <Button color="secondary" onClick={() => setSelectedMeal(null)}>
       Close
     </Button>
