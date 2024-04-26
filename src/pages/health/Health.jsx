@@ -4,6 +4,7 @@ import MacroGoalForm from "./components/MacroGoalForm.jsx";
 import { useAuth } from "../../utils/AuthContext.js";
 import FirestoreListener from "../../firebase/FirestoreListener.js";
 import MealDataManager from "../../utils/MealDataManager.js";
+import { PieChart, Pie, Tooltip, Cell } from "recharts";
 
 const Health = ({ recipes }) => {
   const { user } = useAuth();
@@ -20,8 +21,6 @@ const Health = ({ recipes }) => {
     sugar: 0,
     fat: 0,
   });
-
-  console.log(recipes);
 
   useEffect(() => {
     if (user) {
@@ -67,6 +66,13 @@ const Health = ({ recipes }) => {
     }
   };
 
+  const actualMacroBreakdownData = [
+    { name: "Carbohydrates", value: 15, fill: "#8884d8" },
+    { name: "Protein", value: 10, fill: "#00FF00" },
+    { name: "Sugar", value: 50, fill: "#FF0000" },
+    { name: "Fat", value: 50, fill: "#8B4513" },
+  ];
+
   return (
     <div>
       {showGoals ? (
@@ -82,20 +88,37 @@ const Health = ({ recipes }) => {
       <br />
       <br />
       <br />
-      <div>
-        <button onClick={fetchAllRecipeDetails} disabled={buttonClicked}>
-          Get your Recipe's Macros
-        </button>
-      </div>
       <br />
       {/* Display total macros */}
       <div>
-        <h3>Total Macros:</h3>
+        <h3>Total Macros from selected days:</h3>
         <p>Calories: {totalMacros.calories}</p>
         <p>Carbohydrates: {totalMacros.carbohydrates}</p>
         <p>Protein: {totalMacros.protein}</p>
         <p>Sugar: {totalMacros.sugar}</p>
         <p>Fat: {totalMacros.fat}</p>
+      </div>
+      <div>
+        <button onClick={fetchAllRecipeDetails} disabled={buttonClicked}>
+          Show Results
+        </button>
+      </div>
+      <br />
+      <br />
+      <div>
+        <h1>Your macronutrient breakdown for the selected days</h1>
+        <PieChart width={1000} height={400}>
+          <Pie
+            dataKey="value"
+            isAnimationActive={false}
+            data={actualMacroBreakdownData}
+            cx={200}
+            cy={200}
+            outerRadius={80}
+            label
+          />
+          <Tooltip />
+        </PieChart>
       </div>
     </div>
   );
