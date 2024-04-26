@@ -108,8 +108,8 @@ const CustomMeals = () => {
         style={{ width: "7rem" }}
       >
         <div>
-          <span class="add-to-cart">Add to Cart</span>
-          <span class="added">Added</span>
+          <span className="add-to-cart">Add to Cart</span>
+          <span className="added">Added</span>
           <FontAwesomeIcon icon={faCartShopping} />
           <FontAwesomeIcon icon={faBox} />
         </div>
