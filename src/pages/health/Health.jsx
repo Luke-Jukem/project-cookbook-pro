@@ -172,33 +172,33 @@ const Health = ({ recipes, selectedDates }) => {
           </div>
         )}
         <div>
-          <br/>
-          <br/>
-          <br/>
+          <br />
+          <br />
+          <br />
           <p>
-            Calories: To maintain weight, aim for your daily energy
-            expenditure. For weight loss, aim for a deficit of 500 calories per
-            day.
+            <strong>Calories:</strong> To maintain weight, aim for your daily
+            energy expenditure. For weight loss, aim for a deficit of 500
+            calories per day.
           </p>
 
           <p>
-            Protein: To build muscle, aim for 1 gram per pound of body
-            weight. For general health, aim for 0.36 grams per pound.
+            <strong>Protein:</strong> To build muscle, aim for 1 gram per pound
+            of body weight. For general health, aim for 0.36 grams per pound.
           </p>
           <p>
-            Carbohydrates: For an active lifestyle, aim for 3-5
+            <strong>Carbohydrates:</strong> For an active lifestyle, aim for 3-5
             grams per kilogram of body weight. For weight loss, aim for the
             lower end of this range.
           </p>
           <p>
-            Fat: For general health, aim for 20-35% of your total daily
-            calories. For a ketogenic diet, aim for 70-75% of your total daily
-            calories.
+            <strong>Fat:</strong> For general health, aim for 20-35% of your
+            total daily calories. For a ketogenic diet, aim for 70-75% of your
+            total daily calories.
           </p>
           <p>
-            Sugar: For a healthy diet, aim for less than 10% of your
-            total daily calories from added sugars. For optimal health, aim for
-            less than 5%.
+            <strong>Sugar:</strong> For a healthy diet, aim for less than 10% of
+            your total daily calories from added sugars. For optimal health, aim
+            for less than 5%.
           </p>
         </div>
       </div>
