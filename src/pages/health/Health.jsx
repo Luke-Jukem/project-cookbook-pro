@@ -36,12 +36,53 @@ const Health = ({ recipes }) => {
     { name: "Sugar", value: 0, fill: "#FF0000" },
     { name: "Fat", value: 0, fill: "#00008B" },
   ]);
+  const [userGoals, setUserGoals] = useState({
+    calories: 0,
+    carbohydrates: 0,
+    protein: 0,
+    sugar: 0,
+    fat: 0,
+  });
+
+  const progressData = [
+    {
+      name: "Calories",
+      Goals: userGoals.calories,
+      Planned: totalMacros.calories,
+      Completion: (totalMacros.calories / userGoals.calories) * 100,
+    },
+    {
+      name: "Carbs",
+      Goals: userGoals.carbs,
+      Planned: totalMacros.carbohydrates,
+      Completion: (totalMacros.carbohydrates / userGoals.carbs) * 100,
+    },
+    {
+      name: "Protein",
+      Goals: userGoals.protein,
+      Planned: totalMacros.protein,
+      Completion: (totalMacros.protein / userGoals.protein) * 100,
+    },
+    {
+      name: "Sugar",
+      Goals: userGoals.sugar,
+      Planned: totalMacros.sugar,
+      Completion: (totalMacros.sugar / userGoals.sugar) * 100,
+    },
+    {
+      name: "Fat",
+      Goals: userGoals.fat,
+      Planned: totalMacros.fat,
+      Completion: (totalMacros.fat / userGoals.fat) * 100,
+    },
+  ];
 
   useEffect(() => {
     if (user) {
       const path = `Users/${user.uid}/Health/${user.uid}.HealthGoals`;
       const callback = (snapshot) => {
         if (snapshot.exists()) {
+          setUserGoals(snapshot.data());
           setShowGoals(true);
         } else {
           setShowGoals(false);
@@ -58,38 +99,6 @@ const Health = ({ recipes }) => {
 
  
 
-  const progressData = [
-    {
-      name: "Calories",
-      Goals: 4000,
-      Planned: 2400,
-      amt: 10,
-    },
-    {
-      name: "Carbs",
-      Goals: 3000,
-      Planned: 1398,
-      amt: 10,
-    },
-    {
-      name: "Protein",
-      Goals: 2000,
-      Planned: 9800,
-      amt: 2290,
-    },
-    {
-      name: "Sugar",
-      Goals: 2780,
-      Planned: 3908,
-      amt: 2000,
-    },
-    {
-      name: "Fat",
-      Goals: 1890,
-      Planned: 4800,
-      amt: 2181,
-    },
-  ];
 
   const fetchAllRecipeDetails = async () => {
     try {
@@ -193,8 +202,8 @@ const Health = ({ recipes }) => {
           <h1>Progress - How do my planned meals line up with my goals?</h1>
           <br />
           <BarChart
-            width={500}
-            height={300}
+            width={600}
+            height={400}
             data={progressData}
             margin={{
               top: 20,
