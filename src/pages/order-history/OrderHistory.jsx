@@ -21,6 +21,11 @@ const OrderHistory = () => {
     }
   };
 
+  const sortedOrders = orderHistoryDocuments.sort((a, b) => {
+    // Assuming orderId is a string, use localeCompare for string comparison
+    return b.id.localeCompare(a.id);
+  });
+
   useEffect(() => {
     fetchOrderHistory();
   }, []);
@@ -28,7 +33,7 @@ const OrderHistory = () => {
   return (
     <div>
       <h1>Order History</h1>
-      {orderHistoryDocuments.map((order, index) => (
+      {sortedOrders.map((order, index) => (
         <Order
           key={index}
           recipeNames={order.data.recipeNames}
