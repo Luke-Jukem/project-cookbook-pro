@@ -42,10 +42,6 @@
   min-height: 100%;
 }
 
-#ingredient-container > * {
-  margin-top: 20px;
-}
-
 #cheeser-search {
   display: flex;
   flex-direction: column;
