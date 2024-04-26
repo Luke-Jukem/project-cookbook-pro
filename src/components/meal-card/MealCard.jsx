@@ -161,8 +161,8 @@ const MealCard = ({ meal }) => {
               style={{ width: "3.6rem" }}
             >
               <div>
-                <span class="add-to-saved">Save</span>
-                <span class="saved">Saved</span>
+                <span className="add-to-saved">Save</span>
+                <span className="saved">Saved</span>
                 <FontAwesomeIcon icon={faCheck} />
               </div>
             </Button>
