@@ -113,7 +113,7 @@ const MacroGoalForm = ({ onSubmit }) => {
   }
 
   return (
-    <div className="macro-form-container">
+    <div>
       <br />
       <h3>Enter your desired maximum daily macronutrients below:</h3>
       <p>(You can go back and edit them later!)</p>

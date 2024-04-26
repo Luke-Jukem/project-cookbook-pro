@@ -213,12 +213,12 @@ const Health = ({ recipes, selectedDates }) => {
           <p>Fat: {totalMacros.fat} g</p>
         </div>
         <div>
-          <br />
           <h3>Recipes for selected range: </h3>
+          <br/>
           <ul>
             {recipeNutritionData.map((recipe, index) => (
               <li key={index}>
-                {recipe.name} - Calories:{recipe.calories}, Carbs:
+                <b>{recipe.name}</b> - Calories:{recipe.calories}, Carbs:
                 {recipe.carbohydrates}, Protein:{recipe.protein}, Sugar:
                 {recipe.sugar}, Fat:{recipe.fat}
               </li>
