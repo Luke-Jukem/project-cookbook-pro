@@ -191,7 +191,7 @@ const RecipeCreationForm = ({ selectedIngredient }) => {
           />
         </div>
         <button
-          class="create-recipe-button"
+          className="create-recipe-button"
           type="button"
           onClick={handleSubmitRecipe}
         >
@@ -225,7 +225,7 @@ const RecipeCreationForm = ({ selectedIngredient }) => {
             {(ingredients.length > 1 ||
               ingredient.id !== ingredients[0].id) && (
               <button
-                class="create-recipe-button"
+                className="create-recipe-button"
                 type="button"
                 onClick={() => removeIngredient(ingredient.id)}
               >
@@ -262,7 +262,7 @@ const RecipeCreationForm = ({ selectedIngredient }) => {
           </div>
         )}
         <button
-          class="create-recipe-button"
+          className="create-recipe-button"
           type="button"
           onClick={addIngredient}
         >

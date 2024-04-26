@@ -23,6 +23,7 @@ const GPT = () => {
     }
 
     const processResponseObject = (responseObject) => {
+      console.log(responseObject);
       if (!responseObject || !Array.isArray(responseObject.recipes)) {
         return null;
       }
@@ -30,25 +31,28 @@ const GPT = () => {
       const processedRecipes = responseObject.recipes.map((recipe) => {
         const processedIngredients = recipe.ingredients.map(
           (ingredientString) => {
-            const splitIngredient = ingredientString.split(", ");
-            if (splitIngredient.length < 4) {
-              // Handle the case where the ingredient string doesn't have the expected format
+            const ingredientRegex =
+              /amount\((\d+(?:\.\d+)?)\),\s*id,\s*name\((.+?)\),\s*unit\((.+?)\)/;
+            const match = ingredientString.match(ingredientRegex);
+
+            if (match) {
+              const [_, amount, name, unit] = match;
+              const amountValue = parseFloat(amount);
+
+              return {
+                name: name.trim(),
+                amount: amountValue,
+                unit: unit.trim(),
+              };
+            } else {
+              console.warn("Unexpected ingredient format:", ingredientString);
               return null;
             }
-
-            const [amount, , name, unit] = splitIngredient;
-            const amountValue = parseFloat(
-              amount.replace("amount(", "").replace(")", "")
-            );
-            const ingredientName = name.replace("name(", "").replace(")", "");
-            const ingredientUnit = unit.replace("unit(", "").replace(")", "");
-
-            return {
-              name: ingredientName,
-              amount: amountValue,
-              unit: ingredientUnit,
-            };
           }
+        );
+
+        const nullFilteredIngredients = processedIngredients.filter(
+          (ingredient) => ingredient !== null
         );
 
         const newRecipeId = `gpt-${Date.now()}-${Math.floor(
@@ -59,9 +63,10 @@ const GPT = () => {
           name: recipe.name,
           summary: recipe.summary,
           servings: recipe.servings,
-          ingredients: processedIngredients,
+          ingredients: nullFilteredIngredients,
           cuisine: recipe.cuisine,
           dishType: recipe.dishType,
+          image: recipe.image || "",
           id: newRecipeId,
           savedRecipeInspiration: recipe.savedRecipeInspiration,
           inspirationReasoning: recipe.inspirationReasoning,
@@ -96,7 +101,11 @@ const GPT = () => {
         dishType: "PLEASE REPLACE WITH BREAKFAST LUNCH OR DINNER",
         id: "INSERT TIMESTAP HERE",
         ingredients: [
-          "amount(INSERT INTEGER AMOUNT OF INGREDIENT), id, name(INSERT JUST THE INGREDIENT NAME), unit(INSERT UNIT OF MEASUREMENT FOR AMOUNT)",
+          "amount(2), id, name(flour), unit(cups)",
+          "amount(1), id, name(sugar), unit(cup)",
+          "amount(3), id, name(eggs), unit(whole)",
+          "amount(1), id, name(milk), unit(cup)",
+          "amount(0.5), id, name(vanilla extract), unit(teaspoon)",
         ],
         name: "PLEASE INSERT NAME OF GENERATED DISH",
         servings: "PLEASE INSERT INTEGER OF SERVINGS",
@@ -116,7 +125,7 @@ const GPT = () => {
       });
       const gptModel = "gpt-4-0125-preview";
       const recipeListString = recipeNames.join(", ");
-      const systemMessageContent = `You are a recipe recommendation system. You must respond with a recipe for ${recipeType} to the user, you cannot ask clarifying questions, and you cannot refuse to generate a recipe. Recipes contain name, servings, breif summary, ingredients and their amounts. Your response should sound like it came from a cookbook. Your response should take in to account both the recipe type and saved recipes. Your generated recipe should be reflective of the users taste based on saved recipes, but you should ensure that the recipe and the saved recipe for inspiration is unique. Please ensure that you generate a recipe that shares a key ingredient with the inspiration recipe from the users saved recipes. The user's previously saved recipes include: ${recipeListString}. Your response should be a json in this format ${exampleString}. Seperate each recipe with a ',' Do not use backticks or "\\n" in your response, do not make new lines.`;
+      const systemMessageContent = `You are a recipe recommendation system. You must respond with a recipe for ${recipeType} to the user, you cannot ask clarifying questions, and you cannot refuse to generate a recipe. Recipes contain name, servings, brief summary, ingredients and their amounts. For each ingredient, please provide the amount, name, and unit in the following format: "amount(NUMERIC_VALUE), id, name(INGREDIENT_NAME), unit(UNIT_OF_MEASUREMENT)" Your response should sound like it came from a cookbook. Your response should take into account both the recipe type and saved recipes. Your generated recipe should be reflective of the user's taste based on saved recipes, but you should ensure that the recipe and the saved recipe for inspiration are unique. Please ensure that you generate a recipe that shares a key ingredient with the inspiration recipe from the user's saved recipes. The user's previously saved recipes include: ${recipeListString}. Your response should be a JSON in this format ${exampleString}. Separate each recipe with a ','. Do not use backticks or "\\n" in your response, do not make new lines.`;
       const userMessage = [
         { role: "system", content: systemMessageContent },
         {

@@ -37,7 +37,7 @@ class FirebaseConverter {
 
         const convertedIngredients = this.convertArray(
           recipe.ingredients,
-          this.objectConverter,
+          this.objectConverter
         );
 
         return {
@@ -57,7 +57,7 @@ class FirebaseConverter {
         const data = snapshot.data(options);
         const convertedIngredients = this.convertArray(
           data.ingredients,
-          this.objectConverter,
+          this.objectConverter
         );
 
         return new Recipe(
@@ -70,7 +70,7 @@ class FirebaseConverter {
           data.name,
           data.servings,
           data.summary,
-          data.isSaved,
+          data.isSaved
         );
       },
     };
@@ -84,7 +84,7 @@ class FirebaseConverter {
 
         const convertedIngredients = this.convertArray(
           order.ingredients,
-          this.objectConverter,
+          this.objectConverter
         );
 
         return {
@@ -96,7 +96,7 @@ class FirebaseConverter {
         const data = snapshot.data(options);
         const convertedIngredients = this.convertArray(
           data.ingredients,
-          this.objectConverter,
+          this.objectConverter
         );
 
         return {
@@ -112,12 +112,18 @@ class FirebaseConverter {
           console.error("GPT response is undefined or null");
           return null;
         }
-        //console.log(gptResponse)
+
+        const convertedIngredients = this.convertArray(
+          gptResponse.ingredients,
+          this.objectConverter
+        );
+
         return {
           name: gptResponse.name,
           cuisine: gptResponse.cuisine,
           dishType: gptResponse.dishType,
-          id:  gptResponse.id,
+          id: gptResponse.id,
+          ingredients: convertedIngredients,
           inspirationReasoning: gptResponse.inspirationReasoning,
           savedRecipeInspiration: gptResponse.savedRecipeInspiration,
           servings: gptResponse.servings,
@@ -126,11 +132,18 @@ class FirebaseConverter {
       },
       fromFirestore: (snapshot, options) => {
         const data = snapshot.data(options);
+        const convertedIngredients = this.convertArray(
+          data.ingredients,
+          this.objectConverter
+        );
+
         return {
           name: data.name,
           cuisine: data.cuisine,
           dishType: data.dishType,
           id: data.id,
+          image: data.image || "",
+          ingredients: convertedIngredients,
           inspirationReasoning: data.inspirationReasoning,
           savedRecipeInspiration: data.savedRecipeInspiration,
           servings: data.servings,
@@ -161,7 +174,7 @@ class FirebaseConverter {
           data.protein,
           data.carbs,
           data.fat,
-          data.sugar,
+          data.sugar
         );
       },
     };
