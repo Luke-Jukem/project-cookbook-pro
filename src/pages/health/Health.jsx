@@ -56,37 +56,35 @@ const Health = ({ recipes, selectedDates }) => {
     fat: 0,
   });
 
-  console.log(selectedDates);
-
   // Used for updating the bar graph
   const progressData = [
     {
       name: "Calories",
-      Goals: userGoals.calories  * selectedDates,
+      Goals: userGoals.calories * selectedDates,
       Planned: totalMacros.calories,
       amt: userGoals.calories,
     },
     {
       name: "Carbs",
-      Goals: userGoals.carbs  * selectedDates,
+      Goals: userGoals.carbs * selectedDates,
       Planned: totalMacros.carbohydrates,
       Completion: (totalMacros.carbohydrates / userGoals.carbs) * 100,
     },
     {
       name: "Protein",
-      Goals: userGoals.protein  * selectedDates,
+      Goals: userGoals.protein * selectedDates,
       Planned: totalMacros.protein,
       Completion: (totalMacros.protein / userGoals.protein) * 100,
     },
     {
       name: "Sugar",
-      Goals: userGoals.sugar  * selectedDates,
+      Goals: userGoals.sugar * selectedDates,
       Planned: totalMacros.sugar,
       Completion: (totalMacros.sugar / userGoals.sugar) * 100,
     },
     {
       name: "Fat",
-      Goals: userGoals.fat  * selectedDates,
+      Goals: userGoals.fat * selectedDates,
       Planned: totalMacros.fat,
       Completion: (totalMacros.fat / userGoals.fat) * 100,
     },
@@ -173,6 +171,36 @@ const Health = ({ recipes, selectedDates }) => {
             <MacroGoalForm onSubmit={() => setShowGoals(true)} />
           </div>
         )}
+        <div>
+          <br/>
+          <br/>
+          <br/>
+          <p>
+            Calories: To maintain weight, aim for your daily energy
+            expenditure. For weight loss, aim for a deficit of 500 calories per
+            day.
+          </p>
+
+          <p>
+            Protein: To build muscle, aim for 1 gram per pound of body
+            weight. For general health, aim for 0.36 grams per pound.
+          </p>
+          <p>
+            Carbohydrates: For an active lifestyle, aim for 3-5
+            grams per kilogram of body weight. For weight loss, aim for the
+            lower end of this range.
+          </p>
+          <p>
+            Fat: For general health, aim for 20-35% of your total daily
+            calories. For a ketogenic diet, aim for 70-75% of your total daily
+            calories.
+          </p>
+          <p>
+            Sugar: For a healthy diet, aim for less than 10% of your
+            total daily calories from added sugars. For optimal health, aim for
+            less than 5%.
+          </p>
+        </div>
       </div>
       <div id="square-two">
         {/* Display total macros */}
@@ -185,7 +213,8 @@ const Health = ({ recipes, selectedDates }) => {
           <p>Fat: {totalMacros.fat} g</p>
         </div>
         <div>
-          <h3>Recipes:</h3>
+          <br />
+          <h3>Recipes for selected range: </h3>
           <ul>
             {recipeNutritionData.map((recipe, index) => (
               <li key={index}>
