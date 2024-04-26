@@ -5,6 +5,12 @@ import { useAuth } from "../../utils/AuthContext.js";
 import FirestoreService from "../../firebase/FirebaseService.js";
 import EmptyCollectionMessage from "./EmptyCollectionMessage.jsx";
 import FirestoreListener from "../../firebase/FirestoreListener.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBox,
+  faCartShopping,
+  faCheck,
+} from "@fortawesome/free-solid-svg-icons";
 
 const GeneratedMeals = () => {
   const [generatedRecipes, setGeneratedRecipes] = useState([]);
@@ -46,13 +52,33 @@ const GeneratedMeals = () => {
       setGeneratedRecipes(
         generatedRecipes.filter((recipe) => recipe.id !== documentId)
       );
-      console.log("deleted: ", documentId); // Change recipe.id to documentId
     } catch (error) {
       console.error("Error deleting the document:", error);
     }
   }
 
-  const buttonOptions = (
+  async function saveData(collectionPath, documentId, data, dataType) {
+    const savedMeal = data;
+    savedMeal.isSaved = true;
+    //savedMeal.instructions kept showing up as null, preventing the recipes from being saved
+    if (savedMeal.instructions === undefined) {
+      savedMeal.instructions = "";
+    }
+
+    // Build the path here with the context provided by the current user
+    try {
+      await FirestoreService.createDocument(
+        collectionPath,
+        documentId,
+        savedMeal,
+        dataType
+      );
+    } catch (error) {
+      console.error("Error creating document:", error);
+    }
+  }
+
+  const buttonOptions = ({ isClicked, cartClick, saveData }) => (
     <>
       <Button
         color="primary"
@@ -67,8 +93,40 @@ const GeneratedMeals = () => {
       >
         Unsave recipe
       </Button>
+      <Button
+        className={`primary-color card-button ${isClicked ? "clicked" : ""}`}
+        onClick={() => {
+          cartClick();
+          const sanitizedMeal = {
+            cuisine: selectedMeal.cuisine,
+            dishType: selectedMeal.dishType,
+            id: selectedMeal.id,
+            image: selectedMeal.image || "",
+            ingredients: selectedMeal.ingredients,
+            instructions: selectedMeal.instructions,
+            name: selectedMeal.name,
+            servings: selectedMeal.servings,
+            summary: selectedMeal.summary,
+            isSaved: selectedMeal.isSaved,
+          };
+          saveData(
+            `Users/${user.uid}/Cart/`,
+            String(sanitizedMeal.id),
+            sanitizedMeal,
+            "recipe"
+          );
+        }}
+        style={{ width: "7rem" }}
+      >
+        <div>
+          <span className="add-to-cart">Add to Cart</span>
+          <span className="added">Added</span>
+          <FontAwesomeIcon icon={faCartShopping} />
+          <FontAwesomeIcon icon={faBox} />
+        </div>
+      </Button>
       <Button color="secondary" onClick={() => setSelectedMeal(null)}>
-        Cancel
+        Close
       </Button>
     </>
   );
@@ -81,10 +139,14 @@ const GeneratedMeals = () => {
           isOpen={selectedMeal !== null}
           toggle={() => setSelectedMeal(null)}
           buttonOptions={buttonOptions}
+          saveData={saveData}
         />
       )}
       {generatedRecipes.length === 0 ? (
-        <EmptyCollectionMessage collectionName="Generated Recipes" />
+        <EmptyCollectionMessage
+          collectionName="Generated Recipes"
+          href="/recommendations"
+        />
       ) : (
         generatedRecipes.map((recipe, key) => {
           return (
