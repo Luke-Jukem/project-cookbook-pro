@@ -81,7 +81,7 @@ const SavedMeals = () => {
         color="primary"
         onClick={() => {
           unsaveRecipeFromCurrentUser(
-            `Users/${user.uid}/CustomRecipes/`,
+            `Users/${user.uid}/SavedRecipes/`,
             String(selectedMeal.id),
             "recipe"
           );
