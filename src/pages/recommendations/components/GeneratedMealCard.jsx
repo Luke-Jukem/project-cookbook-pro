@@ -22,7 +22,7 @@ const GeneratedMealCard = ({ recipe }) => {
   const { user } = useAuth();
   const toggleModal = () => setIsModalOpen(!isModalOpen); // Toggle modal
 
-  const buttonOptions = (
+  const buttonOptions = ({ isClicked, cartClick, saveData }) => (
     <Button color="secondary" onClick={() => setSelectedMeal(null)}>
       Close
     </Button>

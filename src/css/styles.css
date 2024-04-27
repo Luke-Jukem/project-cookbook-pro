@@ -94,6 +94,11 @@
   transition: font-size 1s;
 }
 
+#chef {
+  height: 2.5em;
+  max-height: 9vh;
+}
+
 .links--wrapper {
   display: flex;
   gap: 20px;
@@ -130,6 +135,15 @@
 
 #toggle-button-saved {
   background-color: var(--air-superiority-blue-darker) !important;
+  border: 3px solid var(--air-superiority-blue-darker);
+  border-left: transparent;
+  border-right: transparent;
+  transition: background-color 0.5s;
+  color: var(--white)
+}
+
+#toggle-button-generated {
+  background-color: var(--air-superiority-blue-darker) !important;
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   border: 3px solid var(--air-superiority-blue-darker);
@@ -143,6 +157,10 @@
 }
 
 #toggle-button-custom:hover {
+  background-color: var(--air-superiority-blue) !important;
+}
+
+#toggle-button-generated:hover {
   background-color: var(--air-superiority-blue) !important;
 }
 
