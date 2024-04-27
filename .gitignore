@@ -14,3 +14,4 @@ node_modules
 build
 .firebase
 android-app
+android-app/ComposeGoogleSignInCleanArchitecture
