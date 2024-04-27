@@ -27,7 +27,7 @@
 .calendar-container {
   display: flex;
   justify-content: center;
-  height: 70vh;
+  height: 100%;
   overflow: hidden;
   color: red;
   border-top-left-radius: 1rem;
@@ -40,6 +40,7 @@
   display: flex;
   flex-direction: column;
   width: 30%;
+  height: 15rem !important;
 }
 
 #nutrition-launcher {
@@ -127,7 +128,7 @@
 }
 
 .react-calendar {
-  width: 70% !important;
+  width: 80% !important;
   /* max-width: 500px; */
   background: var(--white) !important;
   border: 0.3rem solid var(--air-superiority-blue) !important;

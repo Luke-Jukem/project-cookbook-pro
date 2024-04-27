@@ -102,26 +102,6 @@ const MealCard = ({ meal }) => {
         </div>
       </Button>
       <Button
-        className={`primary-color card-button ${isClicked ? "clicked" : ""}`}
-        onClick={() => {
-          cartClick();
-          saveData(
-            `Users/${user.uid}/Cart/`,
-            String(selectedMeal.id),
-            selectedMeal,
-            "recipe"
-          );
-        }}
-        style={{ width: "7rem" }}
-      >
-        <div>
-          <span className="add-to-cart">Add to Cart</span>
-          <span className="added">Added</span>
-          <FontAwesomeIcon icon={faCartShopping} />
-          <FontAwesomeIcon icon={faBox} />
-        </div>
-      </Button>
-      <Button
         className="modal-close-button"
         onClick={() => setSelectedMeal(null)} //setting selected meal = null closes the RecipeDetails component
       >

@@ -109,14 +109,14 @@ const GeneratedMealCard = ({ recipe }) => {
           Details
         </Button>
         <Button
-          className="meal-card-button"
+          className="meal-card-button save"
           color="success"
           onClick={saveGPTResponse}
         >
           {isSaved ? "Saved" : "Save"}
         </Button>
         <Button
-          className="meal-card-button"
+          className="meal-card-button dalle"
           color="info"
           onClick={generateDalleImage}
         >

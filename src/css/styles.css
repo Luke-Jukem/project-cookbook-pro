@@ -164,6 +164,10 @@
   background-color: var(--air-superiority-blue) !important;
 }
 
+#toggle-button-generated::checked {
+  font-weight: 600 !important;
+}
+
 .btn {
   background-color: var(--atomic-tangerine);
   color: var(--atomic-tangerine);
@@ -629,8 +633,8 @@
   font-size: 1rem;
   text-align: center;
   text-wrap: wrap;
-  min-width: 50%;
-  width: 50%;
+  min-width: 49%;
+  width: 49%;
   min-height: 15rem;
   border-radius: 1rem;
   border: .3rem outset var(--air-superiority-blue-lighter-lighter);
