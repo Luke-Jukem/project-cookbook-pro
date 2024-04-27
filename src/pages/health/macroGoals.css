@@ -10,12 +10,6 @@
   width: 2500px;
 }
 
-.macro-form-container {
-  display: flex;
-  flex-direction: column;
-  width: 200px;
-  margin-left: 10px;
-}
 
 .input-form-container {
   margin: 3px;

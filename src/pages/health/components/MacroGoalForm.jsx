@@ -113,10 +113,10 @@ const MacroGoalForm = ({ onSubmit }) => {
   }
 
   return (
-    <div className="macro-form-container">
+    <div>
       <br />
-      <h3>Enter your desired macronutrients below:</h3>
-      <p>(You'll be able to go back and edit them later!)</p>
+      <h3>Enter your desired maximum daily macronutrients below:</h3>
+      <p>(You can go back and edit them later!)</p>
       <br />
       <div className="input-form-container">
         <MappedInputFieldsForm
