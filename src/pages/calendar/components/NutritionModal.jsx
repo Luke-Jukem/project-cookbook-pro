@@ -3,9 +3,9 @@ import Modal from "react-modal";
 import Health from "../../health/Health";
 import DisplayRecipeMacros from "../../health/components/DisplayRecipeMacros";
 import { Col } from "react-bootstrap";
-import "../nutritionModalStyle.css"
+import "../nutritionModalStyle.css";
 
-const NutritionModal = ({ isOpen, closeModal, recipes }) => {
+const NutritionModal = ({ isOpen, closeModal, recipes, selectedDates }) => {
   return (
     <Modal
       isOpen={isOpen}
@@ -18,21 +18,7 @@ const NutritionModal = ({ isOpen, closeModal, recipes }) => {
       <div className="nutrition-modal-content">
         <h2>Nutrition Report</h2>
         {/* Add your nutrition report content here */}
-        <Col id="modal-goals-column">
-          <Health recipes={recipes}/>
-          <br />
-        </Col>
-
-        {/* <Col id="modal-recipetotals-column">
-          <DisplayRecipeMacros/>
-          <br />
-        </Col> */}
-
-        <Col id="modal-visual-column">
-          Visuals
-          <br />
-        </Col>
-
+        <Health recipes={recipes}  selectedDates={selectedDates}/>
         <br />
         <button onClick={closeModal}>Close</button>
       </div>
