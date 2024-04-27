@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Modal,
@@ -13,12 +13,17 @@ import {
  * @param {Recipe} meal
  * @returns
  */
-const RecipeDetails = ({ meal, buttonOptions, isOpen }) => {
+const RecipeDetails = ({ meal, buttonOptions, isOpen, saveData }) => {
   const filteredMeal = { ...meal };
   delete filteredMeal.summary;
   delete filteredMeal.isSaved;
   delete filteredMeal.image;
   delete filteredMeal.instructions;
+  const [isClicked, setIsClicked] = useState(false);
+
+  const cartClick = () => {
+    setIsClicked(true);
+  };
 
   return (
     <Modal isOpen={isOpen} style={{ maxWidth: "18rem" }}>
@@ -50,7 +55,9 @@ const RecipeDetails = ({ meal, buttonOptions, isOpen }) => {
           )
         )}
       </ModalBody>
-      <ModalFooter>{buttonOptions}</ModalFooter>
+      <ModalFooter>
+        {buttonOptions({ isClicked, cartClick, saveData })}
+      </ModalFooter>
     </Modal>
   );
 };

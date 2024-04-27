@@ -110,7 +110,11 @@ const OrderManager = ({ cartItems, setModalOpen, removeFromCart }) => {
     <>
       <div className="cart-date">
         <div>Set Date</div>
-        <input type="date" onChange={(e) => setSelectedDate(e.target.value)} />
+        <input
+          type="date"
+          min={new Date().toISOString().split("T")[0]}
+          onChange={(e) => setSelectedDate(e.target.value)}
+        />
       </div>
       <button onClick={handleSubmit}>Submit</button>
       {orderData && <MailBox orderData={orderData} />}

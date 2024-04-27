@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import Modal from "react-modal";
 import { eachDayOfInterval, startOfDay, isSameDay } from "date-fns";
+import { Button } from "reactstrap";
 import MealForm from "./components/MealForm.jsx";
 import "./calendarStyle.css";
 import "react-calendar/dist/Calendar.css";
@@ -9,6 +10,8 @@ import FirestoreService from "../../firebase/FirebaseService.js";
 import FirestoreListener from "../../firebase/FirestoreListener.js";
 import { useAuth } from "../../utils/AuthContext.js";
 import NutritionModal from "./components/NutritionModal.jsx";
+import RecipeDetails from "../../components/RecipeDetails.jsx";
+import Cart from "../../components/cart/Cart.jsx";
 
 const MyCalendar = () => {
   //firebase auth
@@ -18,18 +21,20 @@ const MyCalendar = () => {
   const [selectedDay, setSelectedDay] = useState(new Date());
   //for selecting a date range
   const [selectedDates, setSelectedDates] = useState([]);
+  //for selecting a specific meal and seeing details
+  const [selectedMeal, setSelectedMeal] = useState(null);
+  //storing cart items to be ordered
+  const [cartItems, setCartItems] = useState([]);
   //empty array of plans
   const [plans, setPlans] = useState([]);
-  //modal state
+  //meal form modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
-  //for displaying saved plans from firebase
+  //order modal state
+  const [isOrderModalOpen, setOrderModalOpen] = useState(false);
+  //nutritional modal state
   const [isNutritionModalOpen, setIsNutritionModalOpen] = useState(false);
-  const openNutritionModal = () => {
-    setIsNutritionModalOpen(true);
-  };
-  const closeNutritionModal = () => {
-    setIsNutritionModalOpen(false);
-  };
+  //nutritional modal recipes state
+  const [nutritionRecipes, setnutritionRecipes] = useState([]);
   const firestoreListener = new FirestoreListener();
 
   useEffect(() => {
@@ -61,8 +66,6 @@ const MyCalendar = () => {
         end: startOfDay(value),
       });
       setSelectedDates(range);
-      //log the date range (remove later)
-      console.log(range.map((date) => date.toISOString()));
     } else {
       //otherwise just update selected with the clicked day
       setSelectedDay(value);
@@ -72,19 +75,19 @@ const MyCalendar = () => {
   };
 
   //adding a plan
-  const addPlan = (name, id, autoAddToCart, addToCartTime) => {
+  const addPlan = (recipe, autoAddToCart, addToCartTime) => {
     const planDate = selectedDay.toISOString().split("T")[0];
     //checking for existing plans to avoid overwrites
     const existingPlan = plans.find((plan) => plan.date === planDate);
+    //meal object
+    const meal = {
+      recipe: recipe,
+      autoAddToCart: autoAddToCart,
+      addToCartTime: addToCartTime,
+    };
     //if the plan exists, add the meal to the existing plan
     if (existingPlan) {
-      existingPlan.meals.push({
-        name: name,
-        id: id,
-        autoAddToCart: autoAddToCart,
-        addToCartTime: addToCartTime,
-      });
-
+      existingPlan.meals.push(meal);
       FirestoreService.updateDocument(
         `Users/${user.uid}/Plans/`,
         planDate,
@@ -96,14 +99,7 @@ const MyCalendar = () => {
     else {
       const newPlan = {
         date: planDate,
-        meals: [
-          {
-            name: name,
-            id: id,
-            autoAddToCart: autoAddToCart,
-            addToCartTime: addToCartTime,
-          },
-        ],
+        meals: [meal],
       };
       setPlans([...plans, newPlan]);
 
@@ -139,6 +135,77 @@ const MyCalendar = () => {
     }
   };
 
+  //getting recipes for ordering/nutrition modals
+  const getRecipes = () =>
+    (selectedDates.length > 0 ? selectedDates : [selectedDay]).flatMap(
+      (date) =>
+        plans
+          .filter((plan) => plan.date === date.toISOString().split("T")[0])
+          .flatMap((plan) => plan.meals)
+          .map((meal) => meal.recipe) //get the recipe of each meal
+    );
+
+  const renderPlan = (date, plan, mealIndex) => (
+    //for each plan entry, create a div displaying the meal's name
+    <div
+      key={`${date.toISOString()}-${mealIndex}`}
+      className="meal-tile rounded"
+    >
+      <h6>{plan.meals[mealIndex].recipe.name}</h6>
+      <button
+        type="button"
+        className="sm-cal-btn"
+        onClick={() => setSelectedMeal(plan.meals[mealIndex])}
+      >
+        Details
+      </button>
+      <button
+        type="button"
+        className="sm-cal-btn"
+        onClick={() => removePlan(plan.date, mealIndex)}
+      >
+        Remove
+      </button>
+    </div>
+  );
+
+  const buttonOptions = () => (
+    <>
+      <Button
+        color="primary"
+        onClick={() => {
+          unsaveRecipeFromCurrentUser(
+            `Users/${user.uid}/SavedRecipes/`,
+            String(selectedMeal.id),
+            "recipe"
+          );
+          //close the modal and remove the recipe
+          setSelectedMeal(null);
+        }}
+      >
+        Unsave recipe
+      </Button>
+      <Button color="secondary" onClick={() => setSelectedMeal(null)}>
+        Cancel
+      </Button>
+    </>
+  );
+
+  const orderMeals = () => {
+    setOrderModalOpen(true);
+    //get all the recipes for the selected date or date range
+    const recipes = getRecipes();
+    //set cartItems to the recipes
+    setCartItems(recipes);
+  };
+
+  const formatDate = (date) =>
+    date.toLocaleString("en-US", {
+      weekday: "long",
+      month: "short",
+      day: "numeric",
+    });
+
   //opening/closing modal (meal form)
   const openModal = () => {
     setIsModalOpen(true);
@@ -146,6 +213,19 @@ const MyCalendar = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  //opening the nutrition modal and passing in recipes
+  const generateNutrition = () => {
+    //get all the recipes for the selected date or date range
+    const recipes = getRecipes();
+    //set nutritionModalRecipes to the recipes
+    setnutritionRecipes(recipes);
+    setIsNutritionModalOpen(true);
+  };
+
+  const closeNutritionModal = () => {
+    setIsNutritionModalOpen(false);
   };
 
   return (
@@ -190,56 +270,94 @@ const MyCalendar = () => {
         }}
       />
       <div id="calendar-sidebar">
+        <span className="date-display">
+          {selectedDates.length > 0 //if there's a date range, display the first and last dates
+            ? `${formatDate(selectedDates[0])} - ${formatDate(
+                selectedDates[selectedDates.length - 1]
+              )}`
+            : formatDate(selectedDay)}
+        </span>{" "}
         <div id="nutrition-launcher">
-          <button id="nutrition-button" onClick={openNutritionModal}>
+          <button id="nutrition-button" onClick={generateNutrition}>
             Generate Nutrition Report
           </button>
         </div>
         <div className="selected-day">
-          <span className="date-display">
-            {selectedDay.toLocaleString("en-US", {
-              weekday: "long",
-              month: "short",
-              day: "numeric",
-            })}
-          </span>{" "}
-          <br />
           <Modal
             ariaHideApp={false}
             isOpen={isModalOpen}
             onRequestClose={closeModal}
+            style={{
+              content: {
+                width: "50%",
+                margin: "0 auto",
+              },
+            }}
           >
             <MealForm closeModal={closeModal} addPlan={addPlan} />
           </Modal>
-          <br />
-          {plans
-            //filtering plans by selected day to display them
-            .filter(
-              (plan) => plan.date === selectedDay.toISOString().split("T")[0]
-            )
-            .map((plan, index) =>
-              plan.meals.map((meal, mealIndex) => (
-                //for each entry, create a div displaying the meal's name
-                <div key={mealIndex} className="meal-tile rounded">
-                  <h6>{meal.name}</h6>
-                  <button
-                    type="button"
-                    className="rm-meal-btn"
-                    onClick={() => removePlan(plan.date, mealIndex)}
-                  >
-                    Remove
-                  </button>
-                </div>
-              ))
-            )}
-          <button className="add-meal-btn" onClick={openModal}>
+          <button className="lg-cal-btn" onClick={openModal}>
             Add Meal
           </button>
+          {
+            //only renders the order meals button if there are meals to order
+            (selectedDates.length > 0 ? selectedDates : [selectedDay]).some(
+              (date) =>
+                plans.some(
+                  (plan) =>
+                    plan.date === date.toISOString().split("T")[0] &&
+                    plan.meals.length > 0
+                )
+            ) && (
+              <button className="lg-cal-btn" onClick={orderMeals}>
+                Order Meals
+              </button>
+            )
+          }
+          <br />
+          {
+            //if there are selected dates in array, display the meals of all of them
+            //otherwise, display the meals of the selected day
+            (selectedDates.length > 0 ? selectedDates : [selectedDay]).map(
+              (date) =>
+                plans
+                  .filter(
+                    (plan) => plan.date === date.toISOString().split("T")[0]
+                  )
+                  .map((plan, index) =>
+                    plan.meals.map((meal, mealIndex) =>
+                      renderPlan(date, plan, mealIndex)
+                    )
+                  )
+            )
+          }
+
+          {selectedMeal && (
+            <RecipeDetails
+              meal={selectedMeal.recipe}
+              isOpen={selectedMeal !== null}
+              toggle={() => setSelectedMeal(null)}
+              buttonOptions={buttonOptions}
+            />
+          )}
+          {cartItems.length > 0 && (
+            <Cart
+              modalOpen={isOrderModalOpen}
+              setModalOpen={setOrderModalOpen}
+              cartItems={cartItems}
+              type="calendar"
+              removeFromCart={(meal) =>
+                setCartItems(cartItems.filter((item) => item !== meal))
+              }
+            />
+          )}
         </div>
       </div>
       <NutritionModal
         isOpen={isNutritionModalOpen}
         closeModal={closeNutritionModal}
+        recipes={nutritionRecipes}
+        selectedDates={selectedDates.length > 0 ? selectedDates.length : 1}
       />
     </div>
   );

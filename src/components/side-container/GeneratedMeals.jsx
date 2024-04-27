@@ -12,8 +12,8 @@ import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
-const CustomMeals = () => {
-  const [savedRecipes, setSavedRecipes] = useState([""]);
+const GeneratedMeals = () => {
+  const [generatedRecipes, setGeneratedRecipes] = useState([]);
   const [selectedMeal, setSelectedMeal] = useState(null);
 
   const { user } = useAuth();
@@ -21,20 +21,41 @@ const CustomMeals = () => {
 
   useEffect(() => {
     if (user) {
-      const userSavedRecipesPath = `Users/${user.uid}/CustomRecipes`;
+      const userGeneratedRecipesPath = `Users/${user.uid}/generatedRecipes`;
 
-      const unsubscribeCustomRecipes = firestoreListener.subscribeToCollection(
-        userSavedRecipesPath,
-        (docs) => {
-          const recipes = docs.map((doc) => doc);
-          setSavedRecipes(recipes);
-        }
-      );
+      const unsubscribeFromGeneratedRecipes =
+        firestoreListener.subscribeToCollection(
+          userGeneratedRecipesPath,
+          (docs) => {
+            const recipes = docs.map((doc) => doc);
+            setGeneratedRecipes(recipes);
+          }
+        );
 
       // Cleanup function
-      return unsubscribeCustomRecipes;
+      return unsubscribeFromGeneratedRecipes;
     }
-  }, [user.uid]);
+  }, [user]);
+
+  async function unsaveRecipeFromCurrentUser(
+    collectionPath,
+    documentId,
+    dataType
+  ) {
+    selectedMeal.isSaved = false;
+    try {
+      await FirestoreService.deleteDocument(
+        collectionPath,
+        documentId,
+        dataType
+      );
+      setGeneratedRecipes(
+        generatedRecipes.filter((recipe) => recipe.id !== documentId)
+      );
+    } catch (error) {
+      console.error("Error deleting the document:", error);
+    }
+  }
 
   async function saveData(collectionPath, documentId, data, dataType) {
     const savedMeal = data;
@@ -57,32 +78,15 @@ const CustomMeals = () => {
     }
   }
 
-  async function unsaveRecipeFromCurrentUser(
-    collectionPath,
-    documentId,
-    dataType
-  ) {
-    selectedMeal.isSaved = false;
-    try {
-      await FirestoreService.deleteDocument(
-        collectionPath,
-        documentId,
-        dataType
-      );
-    } catch (error) {
-      console.error("Error deleting the document:", error);
-    }
-  }
-
   const buttonOptions = ({ isClicked, cartClick, saveData }) => (
     <>
       <Button
         color="primary"
         onClick={() => {
           unsaveRecipeFromCurrentUser(
-            `Users/${user.uid}/CustomRecipes/`,
+            `Users/${user.uid}/generatedRecipes/`,
             String(selectedMeal.id),
-            "recipe"
+            "gptResponse"
           );
           setSelectedMeal(null);
         }}
@@ -93,10 +97,22 @@ const CustomMeals = () => {
         className={`primary-color card-button ${isClicked ? "clicked" : ""}`}
         onClick={() => {
           cartClick();
+          const sanitizedMeal = {
+            cuisine: selectedMeal.cuisine,
+            dishType: selectedMeal.dishType,
+            id: selectedMeal.id,
+            image: selectedMeal.image || "",
+            ingredients: selectedMeal.ingredients,
+            instructions: selectedMeal.instructions,
+            name: selectedMeal.name,
+            servings: selectedMeal.servings,
+            summary: selectedMeal.summary,
+            isSaved: selectedMeal.isSaved,
+          };
           saveData(
             `Users/${user.uid}/Cart/`,
-            String(selectedMeal.id),
-            selectedMeal,
+            String(sanitizedMeal.id),
+            sanitizedMeal,
             "recipe"
           );
         }}
@@ -126,13 +142,13 @@ const CustomMeals = () => {
           saveData={saveData}
         />
       )}
-      {savedRecipes.length === 0 ? (
+      {generatedRecipes.length === 0 ? (
         <EmptyCollectionMessage
-          collectionName="Custom Recipes"
-          href="/create-recipe"
+          collectionName="Generated Recipes"
+          href="/recommendations"
         />
       ) : (
-        savedRecipes.map((recipe, key) => {
+        generatedRecipes.map((recipe, key) => {
           return (
             <ListGroupItem
               action
@@ -148,4 +164,4 @@ const CustomMeals = () => {
   );
 };
 
-export default CustomMeals;
+export default GeneratedMeals;

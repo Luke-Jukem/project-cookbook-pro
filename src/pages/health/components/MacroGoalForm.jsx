@@ -67,12 +67,17 @@ const MacroGoalForm = ({ onSubmit }) => {
     // Check for negative and zeroed input
     const isValid = goalsFields.every((field) => {
       const value = goalFormData[field.name];
-      return value && value.trim() !== "" && parseFloat(value) > 0;
+      return (
+        value &&
+        value.trim() !== "" &&
+        parseFloat(value) > 0 &&
+        parseFloat(value) <= 10000
+      );
     });
 
     // If input is zero or negative, issue an alert
     if (!isValid) {
-      alert("Please fill out all fields with positive numbers.");
+      alert("Goals not saved. Please fill out all fields with positive numbers less than or equal to 10,000.");
       return;
     }
 
@@ -108,10 +113,10 @@ const MacroGoalForm = ({ onSubmit }) => {
   }
 
   return (
-    <div className="macro-form-container">
+    <div>
       <br />
-      <h3>Enter your desired macronutrients below:</h3>
-      <p>(You'll be able to go back and edit them later!)</p>
+      <h3>Enter your desired maximum daily macronutrients below:</h3>
+      <p>(You can go back and edit them later!)</p>
       <br />
       <div className="input-form-container">
         <MappedInputFieldsForm

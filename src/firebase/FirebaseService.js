@@ -106,13 +106,13 @@ class FirestoreService {
         typeof collectionPath !== "string"
       ) {
         console.error(
-          "Invalid collection path. Collection path must be a string or an array of strings."
+          "Invalid collection path. Collection path must be a string or an array of strings.",
         );
         return null;
       }
 
       const querySnapshot = await getDocs(
-        query(collectionRef.withConverter(converter))
+        query(collectionRef.withConverter(converter)),
       );
 
       const documents = [];
