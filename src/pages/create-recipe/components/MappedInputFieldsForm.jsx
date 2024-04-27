@@ -1,11 +1,14 @@
 import React from "react";
 import ".././create-recipe.css";
 
-const MappedInputFieldsForm = ({ fields, formData, onChange }) => {
+const MappedInputFieldsForm = ({ fields, formData, onChange, className }) => {
+  const inputFormClass = `${className}label-row-container`;
+  const fieldRowClass = `${className}field-row`;
+
   return (
-    <div className="label-row-container">
+    <div className={inputFormClass}>
       {fields.map((field) => (
-        <div className="field-row" key={field.name}>
+        <div className={fieldRowClass} key={field.name}>
           <label htmlFor={field.name}>{field.label}</label>
           <input
             type={field.type}
