@@ -22,7 +22,7 @@ const Recommendations = () => {
       <div id="recommendations-header">
         <div id="recommendations-heading">Generate Recipes from ChatGPT</div>
         <div id="recipe-selection-container">
-          What should I make for ..?
+          <p id="text">What should I make for ..?</p>
           <button
             className={`recipe-type-button ${
               isButtonActive("Breakfast") ? "active" : ""
@@ -47,7 +47,7 @@ const Recommendations = () => {
           >
             Dinner
           </button>
-          <button onClick={handleGenerateRecipe}>Generate Recipe</button>
+          <button className={'generate-button'} onClick={handleGenerateRecipe}>Generate Recipe</button>
         </div>
       </div>
       <div id="center-content">

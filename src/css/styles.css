@@ -13,6 +13,8 @@
   --cerise: #d24970ff;
   --light-pink: #e387a1;
   --light-pink-darker: #d26483;
+  --pink: #7e3c4e;
+  --pink-lighter: #d35e7d;
   --paynes-gray: #32657cff;
   --air-superiority-blue: #669bb7ff;
   --air-superiority-blue-lighter: #a9c6d6;
@@ -160,6 +162,10 @@
 
 #toggle-button-generated:hover {
   background-color: var(--air-superiority-blue) !important;
+}
+
+#toggle-button-generated::checked {
+  font-weight: 600 !important;
 }
 
 .btn {
@@ -433,7 +439,7 @@
 
 .user-recipe-viewer-list-group {
   overflow-y: auto;
-  max-height: calc(80vh - 40px);
+  max-height: calc(80vh - 8rem);
   margin-top: 20px;
   white-space: normal;
   word-wrap: break-word;
@@ -532,20 +538,15 @@
 
 .card-color {
   background-color: var(--air-superiority-blue-lighter) !important;
-  /* border: 0rem transparent solid !important; */
-  /* var(--air-superiority-blue-lighter) !important; */
   border-color: var(--white) !important;
   border-style: groove;
-  border-width: 0.4rem !important;;
-  /* background-image: linear-gradient(to top, transparent, var(--air-superiority-blue)); */
+  border-width: 0.4rem !important;
   border-radius: 1rem !important;
 }
 
 .imageBorder {
   border: 0.3rem solid var(--white) !important;
   border-radius: 0.4rem !important;
-  /* border-color: var(--cerise) !important;
-  border-width: thin medium !important; */
 }
 
 .secondary-color {
@@ -566,4 +567,106 @@
 .thirdary-color:hover {
   background-color: var(--atomic-tangerine-2-darker) !important;
   border-color: var(--atomic-tangerine-2-darker) !important;
+}
+
+.modal-window{
+  top: 10%;
+}
+
+.modal-header {
+  background-color: var(--atomic-tangerine);
+  color: var(--white);
+}
+
+.modal-title {
+  font-size: 2rem !important;
+  font-weight: 600 !important;
+}
+
+.modal-body {
+  background-color: var(--white);
+}
+
+.modal-footer {
+  background-color: var(--white) !important;
+}
+
+.modal-save-button {
+  background-color: var(--atomic-tangerine-2) !important;
+  border-color: transparent !important;
+  transition: background-color 1s;
+}
+
+.modal-save-button:hover {
+  background-color: var(--atomic-tangerine-2-darker) !important;
+}
+
+.modal-close-button {
+  background-color: var(--orange-grey) !important;
+  border-color: transparent !important;
+  transition: background-color 1s;
+}
+
+.modal-close-button:hover {
+  background-color: var(--orange-grey-darker) !important;
+}
+
+#dropdown-basic {
+  color:var(--white) !important;
+  background-color: var(--atomic-tangerine) !important;
+  border: none
+}
+
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  grid-template-columns: auto auto;
+  padding: 10px;
+  align-self: center;
+}
+
+.grid-item {
+  background-color: var(--white);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 1rem;
+  text-align: center;
+  text-wrap: wrap;
+  min-width: 49%;
+  width: 49%;
+  min-height: 15rem;
+  border-radius: 1rem;
+  border: .3rem outset var(--air-superiority-blue-lighter-lighter);
+}
+
+.home-content{
+  text-align: left;
+  font-size: 1rem;
+  line-height: 2rem;
+}
+
+.h2Style {
+  color:var(--air-superiority-blue-darker);
+  font-size: 2.2rem;
+  text-decoration: none;
+}
+
+.h2Style:hover {
+  font-weight:800;
+}
+
+.home-heading {
+  color: var(--air-superiority-blue);
+  font-size: 3.5rem;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: var(--atomic-tangerine-2) !important;
+  border: none !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--atomic-tangerine-2-darker) !important;
 }

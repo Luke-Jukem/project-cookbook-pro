@@ -105,22 +105,18 @@ const GeneratedMealCard = ({ recipe }) => {
         )}
       </div>
       <CardBody>
-        <Button
-          className="meal-card-button"
-          color="primary"
-          onClick={() => setSelectedMeal({ ...recipe })}
-        >
+        <Button className="meal-card-button details"  onClick={() => setSelectedMeal({ ...recipe })}>
           Details
         </Button>
         <Button
-          className="meal-card-button"
+          className="meal-card-button save"
           color="success"
           onClick={saveGPTResponse}
         >
           {isSaved ? "Saved" : "Save"}
         </Button>
         <Button
-          className="meal-card-button"
+          className="meal-card-button dalle"
           color="info"
           onClick={generateDalleImage}
         >

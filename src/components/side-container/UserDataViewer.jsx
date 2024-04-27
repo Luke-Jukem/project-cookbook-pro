@@ -39,20 +39,23 @@ const UserDataViewer = () => {
         <ToggleButton id="toggle-button-custom"
           active={currentCollection === "custom" ? "true" : undefined}
           onClick={() => toggleCollection("custom")}
+          style={{ fontWeight: currentCollection === "custom" ? "bold" : "normal" }}
         >
           Custom
         </ToggleButton>
         <ToggleButton id="toggle-button-saved"
           active={currentCollection === "saved" ? "true" : undefined}
           onClick={() => toggleCollection("saved")}
+          style={{ fontWeight: currentCollection === "saved" ? "bold" : "normal" }}
         >
           Saved
         </ToggleButton>
         <ToggleButton id="toggle-button-generated"
           active={currentCollection === "generated" ? "true" : undefined}
           onClick={() => toggleCollection("generated")}
+          style={{ fontWeight: currentCollection === "generated" ? "bold" : "normal" }}
         >
-          Generated
+          GPT
         </ToggleButton>
         </ToggleContainer>
       {currentCollection === "saved" ? (

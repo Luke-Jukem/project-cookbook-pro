@@ -1,59 +1,69 @@
 const Home = () => {
-  const h2Style = {
-    fontFamily: 'Arial, sans-serif',
-    color: 'black',
-    fontSize: '30px',
-    fontWeight: 'bold',
-  };
-  
   return (
     <div>
-    
-      <h1 style={{ fontFamily: 'Arial, sans-serif', color: '#52B9CA', fontSize: '40px', fontWeight: 'bold', textShadow: '0 0 1px white' }}>Welcome to CookBook Pro</h1>
-      <br/>
-      <br/>
-      <h2 style={h2Style}>Search</h2>
-      <p>
-        Search for a new, exciting recipe from our collection of thousands of
-        savory dishes.
-        <br />
-        View recipe details, add recipes to your collection, or add a recipe to
-        your cart.
-        <br />
-        <br />
-        Type in anything that you are in the mood for and explore!
-        <br />
-      </p>
-      <h2 style={h2Style}>Recommendations</h2>
-      <p>
-        Want to try something new but don't know where to start?
-        <br />
-        Try out our awesome recommendation system, powered by AI!
-        <br />
-        <br />
-        Pick the kind of meal you desire and become inspired!
-        <br />
-      </p>
-      <h2 style={h2Style}>Create Recipe</h2>
-      <p>
-        Can't find the recipe you are looking for? Want to remember a secret family recipe?
-        <br />
-        Use our recipe creator with the ability to add your own ingredients!
-        <br />
-        <br />
-        Show off and track all of your favorite recipes in a 21st century cookbook.
-        <br />
-      </p>
-      <h2 style={h2Style}>Calendar</h2>
-      <p>
-        Want to actually remember what you ate for breakfast this morning?
-        <br />
-        Plan and track recipes days, weeks, months, or even years in advance!
-        <br />
-        <br />
-        Manage your meals and view your daily calorie counts!
-        <br />
-      </p>
+      <h1 className="home-heading">Welcome to CookBook Pro</h1>
+      <div className="grid-container">
+        <div className="grid-item">
+          <a className="h2Style" href="/search">
+            Search
+          </a>
+          <p className="home-content">
+            Discover new, mouthwatering recipes from our extensive collection of
+            thousands of savory dishes.
+            <br></br>
+            Explore recipe details, add favorites to your collection, or easily
+            add ingredients to your cart.
+            <br></br>
+            Simply type in your cravings and let the culinary adventure begin!
+          </p>
+        </div>
+        <div className="grid-item">
+          <a className="h2Style" href="/recommendations">
+            Recommendations
+          </a>
+          <p className="home-content">
+            Feeling adventurous?
+            <br></br>
+            Let our AI-powered recommendation system guide you!
+            <br></br>
+            Whether you're craving a specific type of cuisine or seeking
+            culinary inspiration, our recommendation engine will spark your
+            imagination and delight your taste buds.
+          </p>
+        </div>
+        <div className="grid-item">
+          <a className="h2Style" href="/create-recipe">
+            Create Recipe
+          </a>
+          <p className="home-content">
+            Can't find that special recipe?
+            <br></br>
+            Preserve your family favorites or unleash your creativity with our
+            recipe creator.
+            <br></br>
+            Add your own ingredients, instructions, and personal touches to
+            create your modern-day cookbook.
+            <br></br>
+            Keep track of and share your culinary masterpieces with ease.
+          </p>
+        </div>
+        <div className="grid-item">
+          <a className="h2Style" href="/calendar">
+            Calendar
+          </a>
+          <p className="home-content">
+            Never forget a meal again!
+            <br></br>
+            Plan your meals days, weeks, or even months in advance with our
+            intuitive calendar feature.
+            <br></br>
+            Keep track of your daily calorie intake and manage your meals
+            effortlessly.
+            <br></br>
+            From breakfast to dinner, your culinary journey starts here.
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

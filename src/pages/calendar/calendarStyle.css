@@ -1,22 +1,51 @@
 :root {
-  --space-cadet: #1b264f;
-  --burgundy: #8b2731;
-  --salmon: #fb7d6f;
-  --moonstone: #52b9cb;
-  --straw: #d2dd6e;
+  --maize: #ffb35d;
+  --light-yellow: #fddabc;
+  --yellow: #ffe75dff;
+  --yello-lighter: #fdf3bc;
+  --atomic-tangerine-darker: #cb6728;
+  --atomic-tangerine-2: #b9622b;
+  --atomic-tangerine-2-darker: #914d23;
+  --cerise: #d24970ff;
+  --light-pink: #e387a1;
+  --light-pink-darker: #d26483;
+  --pink: #7e3c4e;
+  --pink-lighter: #d35e7d;
+  --paynes-gray: #32657cff;
+  --air-superiority-blue: #669bb7ff;
+  --air-superiority-blue-lighter: #a9c6d6;
+  --air-superiority-blue-lighter-lighter: #9bcae3;
+  --air-superiority-blue-darker: #375463;
+  --air-superiority-blue-darker-darker: #2d4855;
+  --orange-grey: #80726a;
+  --orange-grey-darker: #65574f;
+  --white: #F0F9F9;
+  --white-darker: #898989;
+  --gray: #e1e1e1;
 }
 
 .calendar-container {
   display: flex;
   justify-content: center;
-  height: 70vh;
+  height: fit-content;
   overflow: hidden;
+  color: red;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  border-left: 0.3rem solid var(--air-superiority-blue-darker);
 }
 
 #calendar-sidebar {
   display: flex;
   flex-direction: column;
-  width: 25%;
+  width: 30%;
+  border-top: 0.3rem solid var(--air-superiority-blue-darker);
+  border-top-right-radius: 1rem;
+  border-right: 0.3rem groove var(--air-superiority-blue-darker);
+  border-bottom: 0.3rem solid var(--air-superiority-blue);
+  border-bottom-right-radius: 1rem;
+  /* height: 10rem !important; */
 }
 
 #nutrition-launcher {
@@ -32,12 +61,13 @@
 .date-display {
   text-align: center;
   font-size: 1.5em !important;
+  color: black !important;
 }
 
 .selected-day {
-  background-color: #ffa6a6;
+  background-color: var(--air-superiority-blue);
   text-align: center;
-  color: white;
+  color: var(--white);
   padding-left: 5%;
   padding-right: 5%;
   width: 100%;
@@ -45,9 +75,9 @@
   text-overflow: ellipsis;
 }
 
-.lg-cal-btn {
-  background-color: #ff7f7f;
-  color: white;
+.add-meal-btn {
+  background-color: var(--white);
+  color: var(--air-superiority-blue-darker);
   border: none;
   padding: 10px 20px;
   text-align: center;
@@ -66,8 +96,8 @@
 }
 
 .sm-cal-btn {
-  background-color: #ff7f7f;
-  color: white;
+  background-color: var(--white);
+  color: var(--air-superiority-blue-darker);
   border: none;
   text-align: center;
   text-decoration: none;
@@ -79,39 +109,55 @@
   transition-duration: 0.4s;
 }
 
-.sm-cal-btn:hover {
-  background-color: #8b0000;
-  color: white;
+.rm-meal-btn:hover {
+  background-color: var(--gray);
+}
+
+.add-meal-btn:hover {
+  background-color: var(--gray);
 }
 
 .date-display {
-  font-size: 1em;
-  font-weight: bold;
-  color: black;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--white);
+  /* position: relative !important; */
+}
+
+.past-date {
+  color: var(--air-superiority-blue-darker);
 }
 
 .meal-tile {
-  background-color: #ff8c8c;
+  background-color: var(--air-superiority-blue-darker);
   margin-bottom: 2%;
 }
 
 .react-calendar {
-  width: 70% !important;
+  width: 80% !important;
   /* max-width: 500px; */
-  background: #f0f0f0 !important;
-  border: none !important;
+  background: var(--white) !important;
+  border: 0.3rem solid var(--air-superiority-blue) !important;
+  border-left: none !important;
+  border-right-color: var(--air-superiority-blue-darker) !important;
   font-family: "Roboto", sans-serif !important;
-  line-height: 1.5em !important;
+  line-height: 1.6em !important;
+}
+
+.react-calendar__tile--hasActive {
+  background: var(--air-superiority-blue) !important;
+  color: var(--white);
 }
 
 .react-calendar__month-view__weekdays {
-  background: #ffffff !important;
+  background: var(--air-superiority-blue-lighter-lighter) !important;
   text-align: center !important;
 }
 
 .react-calendar__month-view__weekdays__weekday {
   padding: 0.8em !important;
-  color: #999999 !important;
+  color: var(--air-superiority-blue-darker-darker) !important;
+  font-weight: 800 !important;
 }
 
 .react-calendar__month-view__days__day {
@@ -121,7 +167,7 @@
 }
 
 .react-calendar__month-view__days__day--weekend {
-  color: inherit !important;
+  color: var(--air-superiority-blue-darker) !important;
 }
 
 .react-calendar__month-view__days__day--neighboringMonth.react-calendar__month-view__days__day--weekend {
@@ -129,23 +175,23 @@
 }
 
 .react-calendar__tile--active {
-  background: #ffa6a6 !important;
+  background: var(--air-superiority-blue) !important;
   color: white !important;
 }
 
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: #ff7f7f !important;
+  background: var(--air-superiority-blue) !important;
 }
 
 .react-calendar__tile--now {
-  background: #ffc2c2 !important;
-  color: #570000 !important;
+  background: var(--air-superiority-blue-lighter)!important;
+  color: var(--air-superiority-blue-darker-darker) !important;
 }
 
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
-  background: #ff8c8c !important;
+  background: var(--air-superiority-blue) !important;
 }
 
 .react-calendar__navigation__label {
@@ -154,7 +200,7 @@
 }
 
 .selected-dates {
-  background-color: #fdb2b2 !important;
+  background-color: var(--air-superiority-blue) !important;
 }
 
 .meal-form-container {
@@ -168,7 +214,7 @@
 
 .meal-form-container label {
   margin-bottom: 0.8em;
-  color: #570000;
+  color: red;
   font-size: 0.9em;
 }
 
@@ -187,8 +233,8 @@
   padding: 0.8em;
   border: none;
   border-radius: 0.75em;
-  background-color: #ff7f7f;
-  color: white;
+  background-color: var(--atomic-tangerine);
+  color: var(--white);
   cursor: pointer;
   transition-duration: 0.4s;
   font-size: 0.9em;
@@ -226,7 +272,7 @@
 .meal-entry {
   display: flex;
   align-items: center;
-  background-color: pink;
+  background-color: var(--white);
   border-radius: 2%;
   margin-bottom: 1%;
 }
@@ -260,7 +306,7 @@
 }
 
 #nutrition-modal {
-  background-color: white;
+  background-color: rgb(255, 0, 0);
   border-radius: 8px;
   padding: 20px;
   min-width: 80vw;
