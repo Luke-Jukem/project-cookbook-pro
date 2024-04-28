@@ -120,7 +120,6 @@ const CreateRecipes = () => {
     const dataType = "recipe";
 
     try {
-      console.log(recipeObject);
       await FirestoreService.createDocument(
         collectionPath,
         newRecipeId,
