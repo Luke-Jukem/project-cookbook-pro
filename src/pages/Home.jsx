@@ -2,8 +2,8 @@ const Home = () => {
   return (
     <div>
       <h1 className="home-heading">Welcome to CookBook Pro</h1>
-      <div className="grid-container">
-        <div className="grid-item">
+      <div className="grid-container-home">
+        <div className="grid-item-home">
           <a className="h2Style" href="/search">
             Search
           </a>
@@ -17,7 +17,7 @@ const Home = () => {
             Simply type in your cravings and let the culinary adventure begin!
           </p>
         </div>
-        <div className="grid-item">
+        <div className="grid-item-home">
           <a className="h2Style" href="/recommendations">
             Recommendations
           </a>
@@ -31,7 +31,7 @@ const Home = () => {
             imagination and delight your taste buds.
           </p>
         </div>
-        <div className="grid-item">
+        <div className="grid-item-home">
           <a className="h2Style" href="/create-recipe">
             Create Recipe
           </a>
@@ -47,7 +47,7 @@ const Home = () => {
             Keep track of and share your culinary masterpieces with ease.
           </p>
         </div>
-        <div className="grid-item">
+        <div className="grid-item-home">
           <a className="h2Style" href="/calendar">
             Calendar
           </a>

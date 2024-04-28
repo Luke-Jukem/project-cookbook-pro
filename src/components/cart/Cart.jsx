@@ -25,14 +25,15 @@ const Cart = ({ modalOpen, setModalOpen, cartItems, type }) => {
   };
 
   return (
-    <Modal isOpen={modalOpen} toggle={() => setModalOpen(!modalOpen)}>
-      <div>
-        <h2>Cart ({cartItems.length})</h2>
+    <Modal isOpen={modalOpen} toggle={() => setModalOpen(!modalOpen)} className="cart-modal">
+      <div className="cart">
+        <h2 className="cart-header">Cart ({cartItems.length})</h2>
+        <div className="items-in-cart">
         {cartItems.map((recipe, index) => (
           <div key={index} className="cart-display">
             <img src={recipe.image} alt={recipe.name} />
             <div>
-              <h4>{recipe.name}</h4>
+              <h4 className="recipe-name">{recipe.name}</h4>
               <p>{recipe.amount}</p>
             </div>
             <button
@@ -51,6 +52,7 @@ const Cart = ({ modalOpen, setModalOpen, cartItems, type }) => {
             )}
           </div>
         ))}
+        </div>
         <OrderManager
           cartItems={cartItems}
           setModalOpen={setModalOpen}

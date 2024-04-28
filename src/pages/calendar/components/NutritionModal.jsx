@@ -16,7 +16,7 @@ const NutritionModal = ({ isOpen, closeModal, recipes, selectedDates }) => {
       ariaHideApp={false}
     >
       <div className="nutrition-modal-content">
-        <h2>Nutrition Report</h2>
+        <h2 className="nutrition-title">Nutrition Report</h2>
         {/* Add your nutrition report content here */}
         <Health recipes={recipes}  selectedDates={selectedDates}/>
         <br />
