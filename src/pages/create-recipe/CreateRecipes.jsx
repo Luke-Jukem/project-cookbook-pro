@@ -142,7 +142,7 @@ const CreateRecipes = () => {
 
       setSelectedIngredient(null);
 
-      alert("Recipe successfully added to the collection!");
+      alert("Custom Recipe created successfully!");
     } catch (error) {
       console.error("Error creating document:", error);
     }
