@@ -72,7 +72,7 @@ const IngredientRow = ({
               onClick={() =>
                 setIngredients((prevIngredients) => [
                   ...prevIngredients,
-                  { id: Date.now() },
+                  { id: `i-${Date.now()}-${Math.floor(Math.random() * 1000)}` },
                 ])
               }
             >

@@ -126,6 +126,23 @@ const CreateRecipes = () => {
         recipeObject,
         dataType
       );
+
+      // Reset the recipe creation
+      setRecipeFormData({
+        servings: "1",
+      });
+
+      setIngredients([
+        {
+          amount: "1",
+          name: "",
+          unit: "",
+        },
+      ]);
+
+      setSelectedIngredient(null);
+
+      alert("Recipe successfully added to the collection!");
     } catch (error) {
       console.error("Error creating document:", error);
     }
@@ -133,7 +150,10 @@ const CreateRecipes = () => {
 
   return (
     <div id="recipe-creation-container">
-      <CheeserSearchComponent onIngredientSelect={handleIngredientSelect} />
+      <CheeserSearchComponent
+        onIngredientSelect={handleIngredientSelect}
+        onClear={selectedIngredient === null}
+      />
       <div id="form-containers">
         <RecipeBox
           recipeFormData={recipeFormData}

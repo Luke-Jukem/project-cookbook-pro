@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input } from "reactstrap";
 import ingredientsMap from "../../../customObjects/IngredientMap";
 import ".././create-recipe.css";
 
-const CheeserSearchComponent = ({ onIngredientSelect }) => {
+const CheeserSearchComponent = ({ onIngredientSelect, onClear }) => {
   const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    if (onClear) {
+      setSearchTerm("");
+    }
+  }, [onClear]);
 
   // Convert ingredientsMap object to an array
   const ingredientsArray = Object.entries(ingredientsMap);
