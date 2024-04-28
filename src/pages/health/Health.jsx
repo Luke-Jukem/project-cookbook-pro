@@ -171,7 +171,7 @@ const Health = ({ recipes, selectedDates }) => {
             <MacroGoalForm onSubmit={() => setShowGoals(true)} />
           </div>
         )}
-        <div>
+        <div className="explainations">
           <br />
           <br />
           <br />
@@ -240,10 +240,11 @@ const Health = ({ recipes, selectedDates }) => {
       {/* Conditionally render Charts if user has selected a meal */}
       <div id="square-three">
         {totalMacros.calories > 0 && (
-          <div>
+          <div id="inside-square-three">
+            <div>
             <h1>Your macronutrient breakdown for the selected days (grams)</h1>
             <p>Hover over sections of the graph for more details.</p>
-            <PieChart width={3000} height={400}>
+            <PieChart width={500} height={300}>
               <Pie
                 dataKey="value"
                 isAnimationActive={false}
@@ -259,6 +260,8 @@ const Health = ({ recipes, selectedDates }) => {
             </PieChart>
             <br />
             <br />
+            </div>
+            <div>
             <h1>Progress - How do my planned meals line up with my goals?</h1>
             <p>Hover over sections of the graph for more details.</p>
             <br />
@@ -281,6 +284,7 @@ const Health = ({ recipes, selectedDates }) => {
               <Bar dataKey="Goals" fill="green" />
               <Bar dataKey="Planned" fill="black" />
             </BarChart>
+          </div>
           </div>
         )}
       </div>

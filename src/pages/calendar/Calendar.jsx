@@ -309,12 +309,13 @@ const MyCalendar = () => {
                     plan.meals.length > 0
                 )
             ) && (
-              <button className="lg-cal-btn" onClick={orderMeals}>
+              <button className="lg-cal-btn order" onClick={orderMeals}>
                 Order Meals
               </button>
             )
           }
           <br />
+          <div className="selected-meals-container">
           {
             //if there are selected dates in array, display the meals of all of them
             //otherwise, display the meals of the selected day
@@ -331,6 +332,7 @@ const MyCalendar = () => {
                   )
             )
           }
+          </div>
 
           {selectedMeal && (
             <RecipeDetails
