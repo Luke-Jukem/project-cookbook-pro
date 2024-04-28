@@ -40,11 +40,10 @@
 #recipe-creation-container {
   display: flex;
   justify-content: space-between;
-  padding: 20px;
   flex: 1;
-  /* max-width: fit-content; */
   min-width: 70%;
-  /* flex-direction: column; */
+  overflow-y: hidden;
+  height: 100%;
 }
 
 #recipe-container {
@@ -60,25 +59,26 @@
   flex: 2;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  max-width: fit-content;
   padding: 8px;
-  max-width: 75%;
-  min-width: fit-content;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-bottom: 16px;
 }
 
-#recipe-creation-side-container {
-  width: 25%;
+#ingredient-container .recipe-creation-field-row {
+  flex-basis: 31%; /* Adjust this value to control the width of each ingredient field row */
 }
 
 #cheeser-search {
   display: flex;
   flex-direction: column;
-  min-width: 100%;
   background-color: var(--air-superiority-blue-darker);
   border-radius: 1rem;
   color: var(--white);
-  min-height: fit-content;
+  height: 100%;
+  max-height: 100%;
+  max-width: 30%;
+  min-width: 30%;
 }
 
 #cheeser-search-box {
@@ -101,13 +101,13 @@
   min-width: 100%;
   padding: 12px;
 }
+
 .list-unstyled {
   width: 100%;
 }
 
 .cheeser-list-item:hover {
   background-color: var(--atomic-tangerine-2-darker);
-  font-weight: 600;
 }
 
 .label-row-container {
@@ -132,21 +132,16 @@
   flex-wrap: wrap;
 }
 
+#form-containers {
+  flex-grow: 1; /* Allow the form-containers to take up remaining space */
+}
+
 .recipe-creation-label-row-container {
-  /* background-color: var(--air-superiority-blue); */
-  /* color: var(--white); */
-  /* border: 0.5rem groove var(--air-superiority-blue); */
-  /* border-top: 0.5 outset var(--air-superiority-blue-darker); */
-  /* border-bottom: 0.5 outset var(--air-superiority-blue-darker); */
-  padding: 10px 20px;
-  /* text-align: center; */
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 12px;
   transition-duration: 0.4s;
-  min-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 4px 2px;
   -ms-overflow-style: none !important; /* IE and Edge */
   scrollbar-width: none !important; /* Firefox */
 }
@@ -155,20 +150,60 @@
   display: none !important;
 }
 
+.recipe-creation-field-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-basis: calc(50% - 10px);
+  flex-grow: 1;
+  justify-content: flex-start;
+}
+
 .recipe-creation-field-row label {
-  margin-right: 10px;
-  flex: 1;
+  width: 80px;
+  margin-right: 8px;
+  margin-left: 8px;
+  text-align: left;
 }
 
 .recipe-creation-field-row input {
-  flex: 3;
+  flex: 1;
 }
 
-.recipe-creation-field-row {
+#ingredient-title {
+  margin-bottom: 4px;
+}
+
+#ingredient-list-container {
+  overflow: auto;
+}
+
+.ingredient-creation-field-row {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
+  margin-top: 4px;
+  flex-basis: calc(33.33% - 10px);
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.ingredient-creation-label-row-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.ingredient-creation-field-row label {
+  width: 40px;
+  margin-left: 8px;
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.ingredient-creation-field-row input {
+  flex: 1;
+  max-width: calc(100% - 96px);
 }
 
 .macro-goal-field-row {
@@ -218,6 +253,26 @@
   transition-duration: 0.4s;
   font-weight: 600;
   transition: background-color 1s;
+}
+
+.ingredient-creation-button {
+  background-color: var(--atomic-tangerine);
+  color: white;
+  border: none;
+  padding: 4px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  /* margin: 4px; */
+  cursor: pointer;
+  border-radius: 12px;
+  transition-duration: 0.4s;
+  font-weight: 1000;
+  transition: background-color 1s;
+}
+.ingredient-creation-button:hover {
+  background-color: var(--atomic-tangerine-darker);
 }
 
 .create-recipe-button:hover {

@@ -9,11 +9,12 @@ import FirestoreService from "../../firebase/FirebaseService.js";
 import "./create-recipe.css";
 
 const CreateRecipes = () => {
-  const [recipeFormData, setRecipeFormData] = useState({});
+  const [recipeFormData, setRecipeFormData] = useState({
+    servings: "1",
+  });
   const [ingredients, setIngredients] = useState([
     {
-      amount: "",
-      id: Date.now(),
+      amount: "1",
       name: "",
       unit: "",
     },
@@ -49,7 +50,11 @@ const CreateRecipes = () => {
   }, [selectedIngredient]);
 
   const handleIngredientSelect = (ingredient) => {
-    setSelectedIngredient(ingredient);
+    const updatedIngredient = {
+      ...ingredient,
+      amount: ingredient.amount || "1",
+    };
+    setSelectedIngredient(updatedIngredient);
   };
 
   const handleIngredientSubmit = (formData, id) => {
@@ -62,8 +67,7 @@ const CreateRecipes = () => {
 
   const addIngredient = () => {
     const newIngredient = {
-      amount: "",
-      id: Date.now(),
+      amount: "1",
       name: "",
       unit: "",
     };
@@ -87,20 +91,23 @@ const CreateRecipes = () => {
       return;
     }
 
-    const ingredientObjects = ingredients.map(
-      (ingredient) =>
-        new Ingredient(
-          ingredient.amount,
-          ingredient.id,
-          ingredient.name,
-          ingredient.unit
-        )
-    );
+    const newRecipeId = `c-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+
+    const ingredientObjects = ingredients.map((ingredient) => {
+      const ingredientId =
+        ingredient.id || `i-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+      return new Ingredient(
+        ingredient.amount,
+        ingredientId,
+        ingredient.name,
+        ingredient.unit
+      );
+    });
 
     const recipeObject = new Recipe(
       recipeFormData.cuisine,
       recipeFormData.dishType,
-      recipeFormData.id,
+      newRecipeId,
       "",
       ingredientObjects,
       [],
@@ -110,13 +117,13 @@ const CreateRecipes = () => {
     );
 
     const collectionPath = `Users/${user.uid}/CustomRecipes`;
-    const documentId = recipeObject.id;
     const dataType = "recipe";
 
     try {
+      console.log(recipeObject);
       await FirestoreService.createDocument(
         collectionPath,
-        documentId,
+        newRecipeId,
         recipeObject,
         dataType
       );
@@ -127,23 +134,23 @@ const CreateRecipes = () => {
 
   return (
     <div id="recipe-creation-container">
-      <div id="recipe-creation-side-container">
+      <CheeserSearchComponent onIngredientSelect={handleIngredientSelect} />
+      <div id="form-containers">
         <RecipeBox
           recipeFormData={recipeFormData}
           setRecipeFormData={setRecipeFormData}
           handleSubmitRecipe={handleSubmitRecipe}
         />
-        <CheeserSearchComponent onIngredientSelect={handleIngredientSelect} />
+        <IngredientBox
+          ingredients={ingredients}
+          setIngredients={setIngredients}
+          handleIngredientSubmit={handleIngredientSubmit}
+          addIngredient={addIngredient}
+          removeIngredient={removeIngredient}
+          selectedIngredientData={selectedIngredient}
+          setSelectedIngredientData={setSelectedIngredient}
+        />
       </div>
-      <IngredientBox
-        ingredients={ingredients}
-        setIngredients={setIngredients}
-        handleIngredientSubmit={handleIngredientSubmit}
-        addIngredient={addIngredient}
-        removeIngredient={removeIngredient}
-        selectedIngredientData={selectedIngredient}
-        setSelectedIngredientData={setSelectedIngredient}
-      />
     </div>
   );
 };

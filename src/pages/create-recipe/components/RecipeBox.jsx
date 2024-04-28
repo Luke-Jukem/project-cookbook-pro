@@ -17,10 +17,14 @@ const RecipeBox = ({
     {
       name: "dishType",
       label: "Dish Type",
-      type: "text",
-      placeholder: "Enter dish type",
+      type: "select",
+      placeholder: "Select unit",
+      options: [
+        { value: "Breakfast", label: "Breakfast" },
+        { value: "Lunch", label: "Lunch" },
+        { value: "Dinner", label: "Dinner" },
+      ],
     },
-    { name: "id", label: "ID", type: "text", placeholder: "Enter recipe ID" },
     {
       name: "name",
       label: "Name",
@@ -32,6 +36,8 @@ const RecipeBox = ({
       label: "Servings",
       type: "number",
       placeholder: "Enter number of servings",
+      defaultValue: "1",
+      min: "1",
     },
     {
       name: "summary",
@@ -48,6 +54,7 @@ const RecipeBox = ({
         className={"recipe-creation-"}
         fields={recipeFields}
         formData={recipeFormData}
+        defaultValues={{ servings: 1 }}
         onChange={(e) =>
           setRecipeFormData({
             ...recipeFormData,
