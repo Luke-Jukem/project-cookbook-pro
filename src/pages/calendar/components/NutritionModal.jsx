@@ -20,7 +20,7 @@ const NutritionModal = ({ isOpen, closeModal, recipes, selectedDates }) => {
         {/* Add your nutrition report content here */}
         <Health recipes={recipes}  selectedDates={selectedDates}/>
         <br />
-        <button onClick={closeModal}>Close</button>
+        <button onClick={closeModal} className="close-button-nutrition">Close</button>
       </div>
     </Modal>
   );
