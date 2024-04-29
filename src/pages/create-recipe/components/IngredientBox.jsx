@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import IngredientRow from "./IngredientRow.jsx";
 import "../create-recipe.css";
 
@@ -6,8 +6,10 @@ const IngredientBox = ({
   ingredients,
   setIngredients,
   handleIngredientSubmit,
-  selectedIngredient,
-  setSelectedIngredient,
+  addIngredient,
+  removeIngredient,
+  selectedIngredientData,
+  setSelectedIngredientData,
 }) => {
   const ingredientFields = [
     {
@@ -38,78 +40,33 @@ const IngredientBox = ({
     },
   ];
 
-  useEffect(() => {
-    if (selectedIngredient) {
-      // Check if the selectedIngredient already exists in the ingredients array
-      const existingIngredient = ingredients.find(
-        (ingredient) => ingredient.id === selectedIngredient.id
-      );
-
-      if (existingIngredient) {
-        // If the selectedIngredient already exists, update its properties
-        setIngredients((prevIngredients) =>
-          prevIngredients.map((ingredient) =>
-            ingredient.id === selectedIngredient.id
-              ? selectedIngredient
-              : ingredient
-          )
-        );
-      } else {
-        // If the selectedIngredient doesn't exist, add it to the ingredients array
-        setIngredients((prevIngredients) => [
-          ...prevIngredients,
-          selectedIngredient,
-        ]);
-      }
-    }
-  }, [selectedIngredient, ingredients, setIngredients]);
-
-  const removeIngredient = (id) => {
-    setIngredients((prevIngredients) =>
-      prevIngredients.filter((ingredient) => ingredient.id !== id)
-    );
-  };
-
   return (
     <div id="ingredient-container">
-      <div id="ingredient-title" className="creation-title">
-        Ingredient Information:
+      <div id="ingredient-title-container">
+        <div id="ingredient-title" className="creation-title">
+          Ingredient Information:
+        </div>
+        <button
+          className="ingredient-creation-button"
+          type="button"
+          onClick={addIngredient}
+        >
+          +
+        </button>
       </div>
       <div id="ingredient-list-container">
         {ingredients.map((ingredient, index) => (
           <IngredientRow
-            key={ingredient.id || index}
+            key={ingredient.id}
             ingredient={ingredient}
             index={index}
             ingredientFields={ingredientFields}
             setIngredients={setIngredients}
             handleIngredientSubmit={handleIngredientSubmit}
             removeIngredient={removeIngredient}
-            isFirstRow={index === 0}
+            showRemoveButton={ingredients.length > 1}
           />
         ))}
-        {ingredients.length === 0 && (
-          <IngredientRow
-            ingredient={{}}
-            index={0}
-            ingredientFields={ingredientFields}
-            setIngredients={setIngredients}
-            handleIngredientSubmit={handleIngredientSubmit}
-            removeIngredient={removeIngredient}
-            isFirstRow
-          />
-        )}
-        {ingredients.length > 0 && (
-          <IngredientRow
-            ingredient={{}}
-            index={ingredients.length}
-            ingredientFields={ingredientFields}
-            setIngredients={setIngredients}
-            handleIngredientSubmit={handleIngredientSubmit}
-            removeIngredient={removeIngredient}
-            isFirstRow={false}
-          />
-        )}
       </div>
     </div>
   );

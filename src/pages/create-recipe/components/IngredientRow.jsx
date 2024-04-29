@@ -1,6 +1,17 @@
 import React from "react";
 import MappedInputFieldsForm from "./MappedInputFieldsForm.jsx";
 
+const RemoveButton = ({ onClick, isVisible }) => (
+  <button
+    className="ingredient-creation-button"
+    type="button"
+    onClick={onClick}
+    style={{ visibility: isVisible ? "visible" : "hidden" }}
+  >
+    -
+  </button>
+);
+
 const IngredientRow = ({
   ingredient,
   index,
@@ -8,79 +19,30 @@ const IngredientRow = ({
   setIngredients,
   handleIngredientSubmit,
   removeIngredient,
-  isFirstRow,
+  showRemoveButton,
 }) => {
   return (
     <div className="ingredient-creation-label-row-container">
-      {ingredient.id ? (
-        <>
-          <button
-            className="ingredient-creation-button"
-            type="button"
-            onClick={() => removeIngredient(ingredient.id)}
-          >
-            -
-          </button>
-          <MappedInputFieldsForm
-            className={"ingredient-creation-"}
-            fields={ingredientFields}
-            formData={ingredient}
-            defaultValues={{ amount: ingredient.amount || 1 }} // Set default value for "amount" field
-            onChange={(e) =>
-              setIngredients((prevIngredients) =>
-                prevIngredients.map((prevIngredient, i) =>
-                  i === index
-                    ? { ...prevIngredient, [e.target.name]: e.target.value }
-                    : prevIngredient
-                )
-              )
-            }
-            onSubmit={handleIngredientSubmit}
-          />
-        </>
-      ) : (
-        <>
-          {isFirstRow ? (
-            <>
-              <button
-                className="ingredient-creation-button invisible"
-                type="button"
-              >
-                +
-              </button>
-              <MappedInputFieldsForm
-                className={"ingredient-creation-"}
-                fields={ingredientFields}
-                formData={ingredient}
-                defaultValues={{ amount: 1 }} // Set default value for "amount" field
-                onChange={(e) =>
-                  setIngredients((prevIngredients) =>
-                    prevIngredients.map((prevIngredient, i) =>
-                      i === index
-                        ? { ...prevIngredient, [e.target.name]: e.target.value }
-                        : prevIngredient
-                    )
-                  )
-                }
-                onSubmit={handleIngredientSubmit}
-              />
-            </>
-          ) : (
-            <button
-              className="ingredient-creation-button"
-              type="button"
-              onClick={() =>
-                setIngredients((prevIngredients) => [
-                  ...prevIngredients,
-                  { id: `i-${Date.now()}-${Math.floor(Math.random() * 1000)}` },
-                ])
-              }
-            >
-              +
-            </button>
-          )}
-        </>
-      )}
+      <RemoveButton
+        onClick={() => removeIngredient(ingredient.id)}
+        isVisible={showRemoveButton}
+      />
+      <MappedInputFieldsForm
+        className={"ingredient-creation-"}
+        fields={ingredientFields}
+        formData={ingredient}
+        defaultValues={{ amount: ingredient.amount || 1 }}
+        onChange={(e) =>
+          setIngredients((prevIngredients) =>
+            prevIngredients.map((prevIngredient, i) =>
+              i === index
+                ? { ...prevIngredient, [e.target.name]: e.target.value }
+                : prevIngredient
+            )
+          )
+        }
+        onSubmit={handleIngredientSubmit}
+      />
     </div>
   );
 };

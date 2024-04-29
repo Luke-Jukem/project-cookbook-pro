@@ -14,6 +14,7 @@ const CreateRecipes = () => {
   });
   const [ingredients, setIngredients] = useState([
     {
+      id: `i-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       amount: "1",
       name: "",
       unit: "",
@@ -67,6 +68,7 @@ const CreateRecipes = () => {
 
   const addIngredient = () => {
     const newIngredient = {
+      id: `i-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       amount: "1",
       name: "",
       unit: "",
@@ -75,11 +77,6 @@ const CreateRecipes = () => {
   };
 
   const removeIngredient = (id) => {
-    if (ingredients.length === 1) {
-      alert("You must have at least one ingredient for the recipe.");
-      return;
-    }
-
     setIngredients((prevIngredients) =>
       prevIngredients.filter((ingredient) => ingredient.id !== id)
     );
