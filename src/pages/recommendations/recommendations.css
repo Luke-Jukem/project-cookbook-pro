@@ -300,3 +300,8 @@
   max-width: 100%;
   max-height: 100%;
 }
+
+.circle {
+  display: block;
+  margin: 0 auto;
+}

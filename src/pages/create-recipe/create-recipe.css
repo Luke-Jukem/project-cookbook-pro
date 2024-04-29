@@ -17,7 +17,8 @@
   --air-superiority-blue: #669bb7ff;
   --air-superiority-blue-lighter: #a9c6d6;
   --air-superiority-blue-lighter-lighter: #9bcae3;
-  --air-superiority-blue-darker: #375463;
+  --air-superiority-blue-darker: #375463;  
+  --air-superiority-blue-darker-darker: #2d4855;
   --orange-grey: #80726a;
   --orange-grey-darker: #65574f;
   --white: #f0f9f9;
@@ -53,6 +54,23 @@
   padding: 8px;
   max-width: 100%;
   min-width: fit-content;
+  background-color: var(--air-superiority-blue);
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 0.3rem;
+  border-radius: 1rem;
+  color: var(--white);
+  border: 0.3rem outset var(--air-superiority-blue);
+}
+
+ #recipe-container input {
+  border-radius: 0.5rem;
+  border: none;
+ }
+
+#recipe-container select {
+  border-radius: 0.5rem;
+  border: none;
 }
 
 #ingredient-container {
@@ -60,9 +78,24 @@
   display: flex;
   flex-direction: column;
   padding: 8px;
-  max-height: 75%;
+  height: 24rem;
   overflow-y: auto;
   padding-bottom: 16px;
+  margin-left: 1rem;
+  background-color: var(--air-superiority-blue-lighter);
+  color: var(--air-superiority-blue-darker-darker);
+  border-radius: 1rem;
+  border: 0.3rem outset var(--air-superiority-blue-lighter);
+}
+
+#ingredient-container input {
+  border-radius: 0.5rem;
+  border: none;
+}
+
+#ingredient-container select {
+  border-radius: 0.5rem;
+  border: none;
 }
 
 #ingredient-container .recipe-creation-field-row {
@@ -79,6 +112,7 @@
   max-height: 100%;
   max-width: 30%;
   min-width: 30%;
+  border: 0.3rem outset var(--air-superiority-blue-darker);
 }
 
 #cheeser-search-box {
@@ -96,18 +130,32 @@
   display: flex;
   overflow-y: auto;
   max-height: 93%;
-  margin-top: 16px;
+  margin-top: 0.1rem;
   order: 2;
   min-width: 100%;
   padding: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  -ms-overflow-style: none !important; /* IE and Edge */
+  scrollbar-width: none !important; /* Firefox */
+}
+
+#cheeser-list::-webkit-scrollbar {
+  display: none !important;
 }
 
 .list-unstyled {
   width: 100%;
 }
 
+.cheeser-list-item {
+  transition: background-color 0.5s;
+  border-radius: 1rem;
+  padding-left: 0.3rem;
+}
+
 .cheeser-list-item:hover {
-  background-color: var(--atomic-tangerine-2-darker);
+  background-color: var(--air-superiority-blue-darker-darker);
 }
 
 .label-row-container {
@@ -191,7 +239,7 @@
 .ingredient-creation-label-row-container {
   display: flex;
   align-items: center;
-  margin-bottom: 4px;
+  margin-top: 7px;
 }
 
 .ingredient-creation-field-row label {
@@ -256,15 +304,15 @@
 }
 
 .ingredient-creation-button {
-  background-color: var(--atomic-tangerine);
-  color: white;
+  background-color: var(--air-superiority-blue-darker);
+  color: var(--white);
   border: none;
   padding: 4px 12px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  /* margin: 4px; */
+  margin-left: 4px;
   cursor: pointer;
   border-radius: 12px;
   transition-duration: 0.4s;
@@ -272,7 +320,7 @@
   transition: background-color 1s;
 }
 .ingredient-creation-button:hover {
-  background-color: var(--atomic-tangerine-darker);
+  background-color: var(--air-superiority-blue-darker-darker);
 }
 
 .create-recipe-button:hover {
