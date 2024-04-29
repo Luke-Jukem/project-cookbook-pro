@@ -49,5 +49,9 @@
   color: var(--air-superiority-blue-darker) !important;
   width: 30% !important;
   transform: translate(7rem, 2rem);
-  height: 43rem !important;
+  height: 41rem !important;
+}
+
+.close-button-nutrition {
+  margin-bottom: 1rem;
 }
