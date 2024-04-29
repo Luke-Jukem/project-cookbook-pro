@@ -77,7 +77,9 @@ const MacroGoalForm = ({ onSubmit }) => {
 
     // If input is zero or negative, issue an alert
     if (!isValid) {
-      alert("Goals not saved. Please fill out all fields with positive numbers less than or equal to 10,000.");
+      alert(
+        "Goals not saved. Please fill out all fields with positive numbers less than or equal to 10,000."
+      );
       return;
     }
 
@@ -128,6 +130,7 @@ const MacroGoalForm = ({ onSubmit }) => {
               [e.target.name]: e.target.value,
             })
           }
+          className={"macro-goal-"}
         />
         <br />
         <button
