@@ -20,7 +20,12 @@ const IngredientRow = ({
   handleIngredientSubmit,
   removeIngredient,
   showRemoveButton,
+  invalidFields,
 }) => {
+  const filteredInvalidFields = invalidFields
+    .filter((field) => field.startsWith(`ingredients[${index}]`))
+    .map((field) => field.split(".")[1]);
+
   return (
     <div className="ingredient-creation-label-row-container">
       <RemoveButton
@@ -42,6 +47,7 @@ const IngredientRow = ({
           )
         }
         onSubmit={handleIngredientSubmit}
+        invalidFields={filteredInvalidFields}
       />
     </div>
   );

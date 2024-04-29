@@ -7,6 +7,7 @@ const MappedInputFieldsForm = ({
   defaultValues = {},
   onChange,
   className,
+  invalidFields,
 }) => {
   const inputFormClass = `${className}label-row-container`;
   const fieldRowClass = `${className}field-row`;
@@ -22,6 +23,11 @@ const MappedInputFieldsForm = ({
               name={field.name}
               value={formData[field.name] || defaultValues[field.name] || ""}
               onChange={onChange}
+              className={
+                invalidFields && invalidFields.includes(field.name)
+                  ? "invalid-input"
+                  : ""
+              }
             >
               <option value="">{field.placeholder}</option>
               {field.options.map((option) => (
@@ -30,16 +36,34 @@ const MappedInputFieldsForm = ({
                 </option>
               ))}
             </select>
+          ) : field.type === "textarea" ? (
+            <textarea
+              id={field.name}
+              name={field.name}
+              placeholder={field.placeholder}
+              value={formData[field.name] || defaultValues[field.name] || ""}
+              onChange={onChange}
+              className={
+                invalidFields && invalidFields.includes(field.name)
+                  ? "invalid-input"
+                  : ""
+              }
+            />
           ) : (
             <input
               type={field.type}
               id={field.name}
               name={field.name}
-              placeholder={field.name}
+              placeholder={field.placeholder}
               value={formData[field.name] || defaultValues[field.name] || ""}
               min={field.min}
               max={field.max}
               onChange={onChange}
+              className={
+                invalidFields && invalidFields.includes(field.name)
+                  ? "invalid-input"
+                  : ""
+              }
             />
           )}
         </div>

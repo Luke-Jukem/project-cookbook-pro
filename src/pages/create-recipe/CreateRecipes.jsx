@@ -21,6 +21,8 @@ const CreateRecipes = () => {
     },
   ]);
   const [selectedIngredient, setSelectedIngredient] = useState(null);
+  const [invalidRecipeFields, setInvalidRecipeFields] = useState([]);
+  const [invalidIngredientFields, setInvalidIngredientFields] = useState([]);
 
   const { user } = useAuth();
 
@@ -88,60 +90,97 @@ const CreateRecipes = () => {
       return;
     }
 
-    const newRecipeId = `c-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    // Validate recipe form data
+    const missingRecipeFields = [];
+    if (!recipeFormData.cuisine) missingRecipeFields.push("cuisine");
+    if (!recipeFormData.dishType) missingRecipeFields.push("dishType");
+    if (!recipeFormData.name) missingRecipeFields.push("name");
+    if (
+      !recipeFormData.servings ||
+      isNaN(recipeFormData.servings) ||
+      parseInt(recipeFormData.servings) <= 0
+    )
+      missingRecipeFields.push("servings");
+    if (!recipeFormData.summary) missingRecipeFields.push("summary");
 
-    const ingredientObjects = ingredients.map((ingredient) => {
-      const ingredientId =
-        ingredient.id || `i-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-      return new Ingredient(
-        ingredient.amount,
-        ingredientId,
-        ingredient.name,
-        ingredient.unit
-      );
-    });
+    setInvalidRecipeFields(missingRecipeFields);
 
-    const recipeObject = new Recipe(
-      recipeFormData.cuisine,
-      recipeFormData.dishType,
-      newRecipeId,
-      "",
-      ingredientObjects,
-      [],
-      recipeFormData.name,
-      recipeFormData.servings,
-      recipeFormData.summary
+    // Validate ingredient data
+    const missingIngredientFields = ingredients.reduce(
+      (missing, ingredient, index) => {
+        const missingFields = [];
+        if (!ingredient.amount)
+          missingFields.push(`ingredients[${index}].amount`);
+        if (!ingredient.name) missingFields.push(`ingredients[${index}].name`);
+        if (!ingredient.unit) missingFields.push(`ingredients[${index}].unit`);
+
+        return [...missing, ...missingFields];
+      },
+      []
     );
 
-    const collectionPath = `Users/${user.uid}/CustomRecipes`;
-    const dataType = "recipe";
+    setInvalidIngredientFields(missingIngredientFields);
 
-    try {
-      await FirestoreService.createDocument(
-        collectionPath,
-        newRecipeId,
-        recipeObject,
-        dataType
-      );
+    if (
+      missingRecipeFields.length === 0 &&
+      missingIngredientFields.length === 0
+    ) {
+      const newRecipeId = `c-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
-      // Reset the recipe creation
-      setRecipeFormData({
-        servings: "1",
+      const ingredientObjects = ingredients.map((ingredient) => {
+        const ingredientId =
+          ingredient.id ||
+          `i-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+        return new Ingredient(
+          ingredient.amount,
+          ingredientId,
+          ingredient.name,
+          ingredient.unit
+        );
       });
 
-      setIngredients([
-        {
-          amount: "1",
-          name: "",
-          unit: "",
-        },
-      ]);
+      const recipeObject = new Recipe(
+        recipeFormData.cuisine,
+        recipeFormData.dishType,
+        newRecipeId,
+        "",
+        ingredientObjects,
+        [],
+        recipeFormData.name,
+        recipeFormData.servings,
+        recipeFormData.summary
+      );
 
-      setSelectedIngredient(null);
+      const collectionPath = `Users/${user.uid}/CustomRecipes`;
+      const dataType = "recipe";
 
-      alert("Custom Recipe created successfully!");
-    } catch (error) {
-      console.error("Error creating document:", error);
+      try {
+        await FirestoreService.createDocument(
+          collectionPath,
+          newRecipeId,
+          recipeObject,
+          dataType
+        );
+
+        // Reset the recipe creation
+        setRecipeFormData({
+          servings: "1",
+        });
+
+        setIngredients([
+          {
+            amount: "1",
+            name: "",
+            unit: "",
+          },
+        ]);
+
+        setSelectedIngredient(null);
+
+        alert("Custom Recipe created successfully!");
+      } catch (error) {
+        console.error("Error creating document:", error);
+      }
     }
   };
 
@@ -156,6 +195,7 @@ const CreateRecipes = () => {
           recipeFormData={recipeFormData}
           setRecipeFormData={setRecipeFormData}
           handleSubmitRecipe={handleSubmitRecipe}
+          invalidFields={invalidRecipeFields}
         />
         <IngredientBox
           ingredients={ingredients}
@@ -165,6 +205,7 @@ const CreateRecipes = () => {
           removeIngredient={removeIngredient}
           selectedIngredientData={selectedIngredient}
           setSelectedIngredientData={setSelectedIngredient}
+          invalidFields={invalidIngredientFields}
         />
       </div>
     </div>

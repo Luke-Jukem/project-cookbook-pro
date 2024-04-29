@@ -281,3 +281,7 @@
 #cheeser-input {
   text-align: center;
 }
+
+.invalid-input {
+  border: 2px solid red;
+}
