@@ -17,7 +17,7 @@
   --air-superiority-blue: #669bb7ff;
   --air-superiority-blue-lighter: #a9c6d6;
   --air-superiority-blue-lighter-lighter: #9bcae3;
-  --air-superiority-blue-darker: #375463;  
+  --air-superiority-blue-darker: #375463;
   --air-superiority-blue-darker-darker: #2d4855;
   --orange-grey: #80726a;
   --orange-grey-darker: #65574f;
@@ -63,10 +63,10 @@
   border: 0.3rem outset var(--air-superiority-blue);
 }
 
- #recipe-container input {
+#recipe-container input {
   border-radius: 0.5rem;
   border: none;
- }
+}
 
 #recipe-container select {
   border-radius: 0.5rem;
@@ -331,5 +331,5 @@
 }
 
 .invalid-input {
-  border: 2px solid red;
+  border: 2px solid red !important;
 }
