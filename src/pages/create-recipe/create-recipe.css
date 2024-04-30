@@ -61,16 +61,21 @@
   border-radius: 1rem;
   color: var(--white);
   border: 0.3rem outset var(--air-superiority-blue);
+  height: 40%;
 }
 
 #recipe-container input {
   border-radius: 0.5rem;
   border: none;
+  border: 2px solid transparent;
+  
 }
 
 #recipe-container select {
   border-radius: 0.5rem;
   border: none;
+  border: 2px solid transparent;
+
 }
 
 #recipe-container textarea {
@@ -78,6 +83,9 @@
   border: none;
   resize:none;
   width: 100%;
+  border: 2px solid transparent;
+  margin-left: 8px;
+
 }
 
 #ingredient-container {
@@ -92,12 +100,12 @@
   color: var(--air-superiority-blue-darker-darker);
   border-radius: 1rem;
   border: 0.3rem outset var(--air-superiority-blue-lighter);
-  height: 58vh;
+  height: 55%;
 }
 
 #ingredient-container input {
   border-radius: 0.5rem;
-  border: none;
+  border: 2px solid transparent;
 }
 
 #ingredient-container select {
@@ -216,13 +224,14 @@
 
 .recipe-creation-field-row label {
   width: 80px;
-  margin-right: 8px;
+  /* margin-right: 8px; */
   margin-left: 8px;
   text-align: left;
 }
 
 .recipe-creation-field-row input {
   flex: 1;
+  
 }
 
 #ingredient-list-container {

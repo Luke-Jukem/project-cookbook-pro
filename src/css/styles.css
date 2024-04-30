@@ -395,7 +395,7 @@
   color: var(--white);
   font-weight: 600;
   border-radius: 1rem;
-  margin-bottom: 1%;
+  margin: 1%;
   margin-left: 1%;
   width: 7rem;
   height: 2.5rem;
@@ -738,6 +738,7 @@
   color: var(--air-superiority-blue);
   font-size: 3.5rem;
   font-weight: 600;
+  text-align: center;
 }
 
 .btn-primary {

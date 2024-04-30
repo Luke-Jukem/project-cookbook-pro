@@ -75,6 +75,7 @@ const MealCard = ({ meal }) => {
               meal,
               "recipe"
             );
+            disabled={isSavedClicked}
             setSelectedMeal(null); //setting selected meal = null closes the RecipeDetails component
           }}
         >
@@ -93,6 +94,7 @@ const MealCard = ({ meal }) => {
           );
         }}
         style={{ width: "7rem" }}
+        disabled={isClicked}
       >
         <div>
           <span className="add-to-cart">Add to Cart</span>
@@ -182,6 +184,7 @@ const MealCard = ({ meal }) => {
                 );
               }}
               style={{ width: "7rem" }}
+              disabled={isClicked}
             >
               <div>
                 <span className="add-to-cart">Add to Cart</span>
