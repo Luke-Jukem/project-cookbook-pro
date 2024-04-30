@@ -79,13 +79,13 @@
   flex-direction: column;
   padding: 8px;
   height: 24rem;
-  overflow-y: auto;
   padding-bottom: 16px;
   margin-left: 1rem;
   background-color: var(--air-superiority-blue-lighter);
   color: var(--air-superiority-blue-darker-darker);
   border-radius: 1rem;
   border: 0.3rem outset var(--air-superiority-blue-lighter);
+  height: 58vh;
 }
 
 #ingredient-container input {
@@ -216,10 +216,6 @@
 
 .recipe-creation-field-row input {
   flex: 1;
-}
-
-#ingredient-title {
-  margin-bottom: 4px;
 }
 
 #ingredient-list-container {
