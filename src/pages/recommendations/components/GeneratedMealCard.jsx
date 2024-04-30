@@ -19,6 +19,7 @@ const GeneratedMealCard = ({ recipe }) => {
   const [imageURL, setImageURL] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
   const [isSaved, setIsSaved] = useState(recipe.isSaved || false); // Add this line
+  const [isDalleImageGenerated, setIsDalleImageGenerated] = useState(false); 
   const { user } = useAuth();
   const toggleModal = () => setIsModalOpen(!isModalOpen); // Toggle modal
 
@@ -30,6 +31,7 @@ const GeneratedMealCard = ({ recipe }) => {
 
   const generateDalleImage = async () => {
     try {
+      setIsDalleImageGenerated(true);
       const openai = new OpenAI({
         apiKey: process.env.REACT_APP_OPENAI_API_KEY,
         dangerouslyAllowBrowser: true,
@@ -112,6 +114,7 @@ const GeneratedMealCard = ({ recipe }) => {
           className="meal-card-button save"
           color="success"
           onClick={saveGPTResponse}
+          disabled={isSaved}
         >
           {isSaved ? "Saved" : "Save"}
         </Button>
@@ -119,8 +122,10 @@ const GeneratedMealCard = ({ recipe }) => {
           className="meal-card-button dalle"
           color="info"
           onClick={generateDalleImage}
-        >
-          Generate DALL-E Image
+          disabled={isDalleImageGenerated} // Disable the button if image is generated
+          >
+            {isDalleImageGenerated ? "Image Generated" : "Generate DALL-E Image"}
+          
         </Button>
         <div className="meal-card-reasoning">{recipe.inspirationReasoning}</div>
         {selectedMeal && (

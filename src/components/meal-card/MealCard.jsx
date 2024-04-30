@@ -159,6 +159,7 @@ const MealCard = ({ meal }) => {
                 );
               }}
               style={{ width: "3.6rem" }}
+              disabled={isSavedClicked}
             >
               <div>
                 <span className="add-to-saved">Save</span>
@@ -185,7 +186,7 @@ const MealCard = ({ meal }) => {
               <div>
                 <span className="add-to-cart">Add to Cart</span>
                 <span className="added">Added</span>
-                <FontAwesomeIcon icon={faCartShopping} />
+                <FontAwesomeIcon icon={faCartShopping} id="shopping-cart" />
                 <FontAwesomeIcon icon={faBox} />
               </div>
             </Button>
