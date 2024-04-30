@@ -10,22 +10,29 @@
   width: 2500px;
 }
 
-
 .input-form-container {
   margin: 3px;
   display: flex;
   flex-direction: column;
-  width: 350px;
+  width: 100%;
   box-sizing: content-box;
   text-align: left;
 }
 
 .macro-goals-display-container {
   display: block;
-  border: solid 2px;
+  border: solid 3px;
+  padding: 1%;
   margin-left: 10px;
   width: 290px;
   height: 180px;
   box-sizing: content-box;
   text-align: left;
+  width: 80%;
+}
+
+.macro-input-container {
+  width: 100%;
+  border: solid 3px;
+  padding: 2%;
 }
