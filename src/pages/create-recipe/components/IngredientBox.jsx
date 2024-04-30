@@ -10,6 +10,7 @@ const IngredientBox = ({
   removeIngredient,
   selectedIngredientData,
   setSelectedIngredientData,
+  invalidFields,
 }) => {
   const ingredientFields = [
     {
@@ -65,6 +66,7 @@ const IngredientBox = ({
             handleIngredientSubmit={handleIngredientSubmit}
             removeIngredient={removeIngredient}
             showRemoveButton={ingredients.length > 1}
+            invalidFields={invalidFields}
           />
         ))}
       </div>

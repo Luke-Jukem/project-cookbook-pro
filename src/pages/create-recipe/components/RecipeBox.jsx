@@ -6,6 +6,7 @@ const RecipeBox = ({
   recipeFormData,
   setRecipeFormData,
   handleSubmitRecipe,
+  invalidFields,
 }) => {
   const recipeFields = [
     {
@@ -61,6 +62,7 @@ const RecipeBox = ({
             [e.target.name]: e.target.value,
           })
         }
+        invalidFields={invalidFields}
       />
       <button
         className="create-recipe-button"

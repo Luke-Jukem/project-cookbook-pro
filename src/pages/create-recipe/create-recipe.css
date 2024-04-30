@@ -17,7 +17,7 @@
   --air-superiority-blue: #669bb7ff;
   --air-superiority-blue-lighter: #a9c6d6;
   --air-superiority-blue-lighter-lighter: #9bcae3;
-  --air-superiority-blue-darker: #375463;  
+  --air-superiority-blue-darker: #375463;
   --air-superiority-blue-darker-darker: #2d4855;
   --orange-grey: #80726a;
   --orange-grey-darker: #65574f;
@@ -63,10 +63,10 @@
   border: 0.3rem outset var(--air-superiority-blue);
 }
 
- #recipe-container input {
+#recipe-container input {
   border-radius: 0.5rem;
   border: none;
- }
+}
 
 #recipe-container select {
   border-radius: 0.5rem;
@@ -79,13 +79,13 @@
   flex-direction: column;
   padding: 8px;
   height: 24rem;
-  overflow-y: auto;
   padding-bottom: 16px;
   margin-left: 1rem;
   background-color: var(--air-superiority-blue-lighter);
   color: var(--air-superiority-blue-darker-darker);
   border-radius: 1rem;
   border: 0.3rem outset var(--air-superiority-blue-lighter);
+  height: 58vh;
 }
 
 #ingredient-container input {
@@ -218,10 +218,6 @@
   flex: 1;
 }
 
-#ingredient-title {
-  margin-bottom: 4px;
-}
-
 #ingredient-list-container {
   overflow: auto;
 }
@@ -328,4 +324,8 @@
 }
 #cheeser-input {
   text-align: center;
+}
+
+.invalid-input {
+  border: 2px solid red !important;
 }
