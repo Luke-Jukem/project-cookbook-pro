@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../../utils/AuthContext.js";
 import FirestoreListener from "../../../firebase/FirestoreListener.js";
-import "../macroGoals.css"
+import "../macroGoals.css";
 
 const DisplayGoals = ({ onEdit }) => {
-  
   const [goals, setGoals] = useState({});
   const { user } = useAuth();
   const firestoreListener = new FirestoreListener();
 
   useEffect(() => {
     if (user) {
-      const path = `Users/${user.uid}/Health/${user.uid}.HealthGoals`; 
+      const path = `Users/${user.uid}/Health/${user.uid}.HealthGoals`;
       const callback = (snapshot) => {
         if (snapshot.exists()) {
           setGoals(snapshot.data());
@@ -38,10 +37,10 @@ const DisplayGoals = ({ onEdit }) => {
         <li>Fat Goal (g): {goals?.fat || "N/A"}</li>
         <li>Sugar Goal (g): {goals?.sugar || "N/A"}</li>
       </ul>
-      <br/>
+      <br />
       <button onClick={onEdit}>Edit</button>
     </div>
   );
-}
+};
 
 export default DisplayGoals;

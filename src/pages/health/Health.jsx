@@ -159,22 +159,18 @@ const Health = ({ recipes, selectedDates }) => {
   };
 
   return (
-    <div className="grid-container">
-      <div id="square-one">
+    <div className="vert-column-container">
+      <div id="column-one">
         {/* Either display goals or prompt user to enter them */}
         {showGoals ? (
-          <div>
-            <DisplayGoals onEdit={() => setShowGoals(false)} />
-          </div>
+          <DisplayGoals onEdit={() => setShowGoals(false)} />
         ) : (
-          <div>
-            <MacroGoalForm onSubmit={() => setShowGoals(true)} />
-          </div>
+          <MacroGoalForm onSubmit={() => setShowGoals(true)} />
         )}
+        <br />
+        <br />
+        <br />
         <div className="explainations">
-          <br />
-          <br />
-          <br />
           <p>
             <strong>Calories:</strong> To maintain weight, aim for your daily
             energy expenditure. For weight loss, aim for a deficit of 500
@@ -202,7 +198,7 @@ const Health = ({ recipes, selectedDates }) => {
           </p>
         </div>
       </div>
-      <div id="square-two">
+      <div id="column-two">
         {/* Display total macros */}
         <div>
           <h3>Total Macros from selected days:</h3>
@@ -214,16 +210,13 @@ const Health = ({ recipes, selectedDates }) => {
         </div>
         <div>
           <h3>Recipes for selected range: </h3>
-          <br/>
+          <br />
           <ul>
             {recipeNutritionData.map((recipe, index) => (
               <li key={index}>
-                <b>{recipe.name}</b> - 
-                Calories: {recipe.calories} cals, 
-                Carbs: {recipe.carbohydrates} g, 
-                Protein: {recipe.protein} g, 
-                Sugar: {recipe.sugar} g, 
-                Fat: {recipe.fat} g
+                <b>{recipe.name}</b> - Calories: {recipe.calories} cals, Carbs:{" "}
+                {recipe.carbohydrates} g, Protein: {recipe.protein} g, Sugar:{" "}
+                {recipe.sugar} g, Fat: {recipe.fat} g
               </li>
             ))}
           </ul>
@@ -241,53 +234,56 @@ const Health = ({ recipes, selectedDates }) => {
         </p>
       </div>
       {/* Conditionally render Charts if user has selected a meal */}
-      <div id="square-three">
+      <div id="column-three">
         {totalMacros.calories > 0 && (
-          <div id="inside-square-three">
+          <div id="inside-column-three">
             <div>
-            <h1>Your macronutrient breakdown for the selected days (grams)</h1>
-            <p>Hover over sections of the graph for more details.</p>
-            <PieChart width={500} height={300}>
-              <Pie
-                dataKey="value"
-                isAnimationActive={false}
-                data={macroBreakdownData}
-                cx={200}
-                cy={200}
-                outerRadius={80}
-                label
-                stroke="black"
-                strokeWidth={2}
-              />
-              <Tooltip />
-            </PieChart>
-            <br />
-            <br />
+              <h1>
+                Your macronutrient breakdown for the selected days (grams)
+              </h1>
+              <p>Hover over sections of the graph for more details.</p>
+              <PieChart width={500} height={300}>
+                <Pie
+                  dataKey="value"
+                  isAnimationActive={false}
+                  data={macroBreakdownData}
+                  cx={200}
+                  cy={200}
+                  outerRadius={80}
+                  label
+                  stroke="black"
+                  strokeWidth={2}
+                />
+                <Tooltip />
+              </PieChart>
+              <br />
+              <br />
+              <br />
             </div>
             <div>
-            <h1>Progress - How do my planned meals line up with my goals?</h1>
-            <p>Hover over sections of the graph for more details.</p>
-            <br />
-            <BarChart
-              width={500}
-              height={300}
-              data={progressData}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="Goals" fill="green" />
-              <Bar dataKey="Planned" fill="black" />
-            </BarChart>
-          </div>
+              <h1>Progress - How do my planned meals line up with my goals?</h1>
+              <p>Hover over sections of the graph for more details.</p>
+              <br />
+              <BarChart
+                width={500}
+                height={300}
+                data={progressData}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="Goals" fill="green" />
+                <Bar dataKey="Planned" fill="black" />
+              </BarChart>
+            </div>
           </div>
         )}
       </div>
