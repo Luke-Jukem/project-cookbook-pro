@@ -218,9 +218,12 @@ const Health = ({ recipes, selectedDates }) => {
           <ul>
             {recipeNutritionData.map((recipe, index) => (
               <li key={index}>
-                <b>{recipe.name}</b> - Calories:{recipe.calories}, Carbs:
-                {recipe.carbohydrates}, Protein:{recipe.protein}, Sugar:
-                {recipe.sugar}, Fat:{recipe.fat}
+                <b>{recipe.name}</b> - 
+                Calories: {recipe.calories} cals, 
+                Carbs: {recipe.carbohydrates} g, 
+                Protein: {recipe.protein} g, 
+                Sugar: {recipe.sugar} g, 
+                Fat: {recipe.fat} g
               </li>
             ))}
           </ul>
