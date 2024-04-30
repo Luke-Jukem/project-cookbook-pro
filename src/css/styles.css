@@ -221,7 +221,10 @@
   font-size: 1.5rem;
   transform: translate(0%, 20%);
   color: transparent;
+  pointer-events: none;  
 }
+
+
 
 .card-button .fa-box {
   position: absolute;
@@ -229,6 +232,7 @@
   font-size: 0.875rem;
   transform: translate(-160%, -170%);
   color: transparent;
+  pointer-events: none;  
 }
 
 .card-button span {

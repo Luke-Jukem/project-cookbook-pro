@@ -73,6 +73,13 @@
   border: none;
 }
 
+#recipe-container textarea {
+  border-radius: 0.5rem;
+  border: none;
+  resize:none;
+  width: 100%;
+}
+
 #ingredient-container {
   flex: 2;
   display: flex;
