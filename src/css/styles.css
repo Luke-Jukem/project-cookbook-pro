@@ -393,7 +393,7 @@
   font-weight: 600;
   border-radius: 1rem;
   margin: 1%;
-  margin-left: 1%;
+  margin-left: 40%;
   width: 7rem;
   height: 2.5rem;
   border: none;
@@ -437,8 +437,19 @@
   border-top-left-radius: 0.9rem;
   border-top-right-radius: 0.9rem;
   border: none;
+  display: flex;
 }
 
+.cart-header h2 {
+  color: var(--white);
+  font-weight: 600;
+  font-size: 2rem;
+  margin-right: auto;
+}
+
+.cart-header button {
+  margin-left: auto;
+}
 .recipe-name {
   font-size: 1rem;
 }
@@ -804,4 +815,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+
+.close-button {
+  background-color: var(--atomic-tangerine-red) !important;
+  border: none !important;
+}
+
+.close-button:hover {
+  background-color: var(--atomic-tangerine-red-darker) !important;
+  border: none !important;
 }

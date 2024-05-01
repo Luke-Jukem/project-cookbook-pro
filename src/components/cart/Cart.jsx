@@ -27,7 +27,13 @@ const Cart = ({ modalOpen, setModalOpen, cartItems, type }) => {
   return (
     <Modal isOpen={modalOpen} toggle={() => setModalOpen(!modalOpen)} className="cart-modal">
       <div className="cart">
-        <h2 className="cart-header">Cart ({cartItems.length})</h2>
+        <div className="cart-header">
+          <h2>Cart ({cartItems.length})</h2>
+          <Button className="close-button" onClick={() => setModalOpen(!modalOpen)}>
+      Close
+    </Button>
+          </div>
+        
         <div className="items-in-cart">
         {cartItems.map((recipe, index) => (
           <div key={index} className="cart-display">
