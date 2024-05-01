@@ -345,3 +345,8 @@
 .invalid-input {
   border: 2px solid red !important;
 }
+
+#create-recipe-instructions {
+  text-align: center;
+  margin-top: 50%;
+}

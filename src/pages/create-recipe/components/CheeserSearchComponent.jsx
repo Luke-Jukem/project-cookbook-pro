@@ -36,7 +36,15 @@ const CheeserSearchComponent = ({ onIngredientSelect, onClear }) => {
         />
       </div>
       <div id="cheeser-list">
-        {searchTerm.length >= 3 && (
+        {searchTerm.length < 3 && (
+          <div id="create-recipe-instructions">
+            <h3>
+              Search for Ingredients above, and click them to add them to a
+              Recipe!
+            </h3>
+          </div>
+        )}
+        {searchTerm.length >= 3 && filteredIngredients.length > 0 && (
           <ul className="list-unstyled">
             {filteredIngredients.map(([id, name]) => (
               <li
