@@ -9,6 +9,7 @@
   margin-top: 150px;
   overflow-wrap: anywhere;
   background: white;
+  text-align:center;
 }
 
 .Title {
@@ -74,7 +75,7 @@
   border: none;
   padding: 10px 15px;
   text-align: center;
-  text-decoration: none;
+  text-decoration: none;  
   display: inline-block;
   cursor: pointer;
   border-radius: 5px;
@@ -85,7 +86,8 @@
 }
 
 body.loginPage {
-  background: url("../imgs/istockphoto-1155240408-1024x1024.png") center center
-    no-repeat fixed;
-  background-size: cover;
+  background-image: url('../imgs/login.png'); /* Adjust the path as necessary */
+  background-size: cover; /* Cover the entire size of the container */
+  background-repeat: no-repeat;
+  background-position: center;
 }
