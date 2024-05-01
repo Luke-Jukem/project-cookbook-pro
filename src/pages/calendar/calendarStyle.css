@@ -7,7 +7,7 @@
   --atomic-tangerine-2: #b9622b;
   --atomic-tangerine-2-darker: #914d23;
   --atomic-tangerine-2-darker-darker: #54290e;
-  --atomic-tangerine-very-light: #F2E3D5;
+  --atomic-tangerine-very-light: #f2e3d5;
   --atomic-tangerine-very-light-hover: #f9be86;
   --cerise: #d24970ff;
   --light-pink: #e387a1;
@@ -23,7 +23,7 @@
   --air-superiority-blue-darker-darker: #2d4855;
   --orange-grey: #80726a;
   --orange-grey-darker: #65574f;
-  --white: #F0F9F9;
+  --white: #f0f9f9;
   --white-darker: #898989;
   --gray: #e1e1e1;
 }
@@ -104,20 +104,20 @@
   transition-duration: 0.4s;
 }
 
-
 .lg-cal-btn {
-    margin-left: .4rem;
-    margin-right: .4rem;
-    font-size: 1.2rem;
-    border-radius: 0.2rem;
-    border-color: transparent;
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
-    background-color: var(--light-gray);
-    color: var(--air-superiority-blue-darker-darker);
-    transition: background-color 0.7s ease-out, color 0.7s !important;
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
+  font-size: 1.2rem;
+  border-radius: 0.2rem;
+  border-color: transparent;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  background-color: var(--light-gray);
+  color: var(--air-superiority-blue-darker-darker);
+  transition:
+    background-color 0.7s ease-out,
+    color 0.7s !important;
 }
-
 
 .lg-cal-btn:hover {
   background-color: var(--light-gray-darker);
@@ -229,7 +229,9 @@
 .react-calendar__tile--active {
   background: var(--atomic-tangerine) !important;
   color: var(--white) !important;
-  transition: color 0.3s, background-color 0.7s;
+  transition:
+    color 0.3s,
+    background-color 0.7s;
 }
 
 .react-calendar__tile--active:enabled:hover,
@@ -239,7 +241,7 @@
 }
 
 .react-calendar__tile--now {
-  background: var(--atomic-tangerine-very-light)!important;
+  background: var(--atomic-tangerine-very-light) !important;
   color: var(--atomic-tangerine-2) !important;
 }
 
@@ -391,9 +393,8 @@
   color: #999 !important;
 }
 
-
 .ReactModal__Content.ReactModal__Content--after-open {
-  border: 0.2rem inset var(--air-superiority-blue) !important; 
+  border: 0.2rem inset var(--air-superiority-blue) !important;
   background: var(--air-superiority-blue) !important;
   color: var(--white) !important;
   height: 70% !important;
@@ -404,8 +405,8 @@
   max-height: 25rem; /* Adjust the max height as needed */
   overflow-y: auto;
   border-radius: 1rem;
-  -ms-overflow-style: none !important;  /* IE and Edge */
-  scrollbar-width: none !important;  /* Firefox */
+  -ms-overflow-style: none !important; /* IE and Edge */
+  scrollbar-width: none !important; /* Firefox */
 }
 
 .selected-meals-container::-webkit-scrollbar {
@@ -413,5 +414,5 @@
 }
 
 .nutrition-title {
-font-weight: 600;
+  font-weight: 600;
 }

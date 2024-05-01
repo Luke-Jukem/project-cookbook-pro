@@ -35,11 +35,18 @@ const Cart = ({ modalOpen, setModalOpen, cartItems, type }) => {
   }, {});
 
   return (
-    <Modal isOpen={modalOpen} toggle={() => setModalOpen(!modalOpen)} className="cart-modal">
+    <Modal
+      isOpen={modalOpen}
+      toggle={() => setModalOpen(!modalOpen)}
+      className="cart-modal"
+    >
       <div className="cart">
         <div className="cart-header">
           <h2>Cart ({cartItems.length})</h2>
-          <Button className="close-button" onClick={() => setModalOpen(!modalOpen)}>
+          <Button
+            className="close-button"
+            onClick={() => setModalOpen(!modalOpen)}
+          >
             Close
           </Button>
         </div>

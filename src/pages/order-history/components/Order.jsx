@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import "../order-history.css";
 
 const Order = ({ recipeNames, ingredients, orderId }) => {
-
   const addClickedProperty = (ingredients) => {
-    return ingredients.map(ingredient => ({...ingredient, clicked: false}));
+    return ingredients.map((ingredient) => ({ ...ingredient, clicked: false }));
   };
 
   const [expanded, setExpanded] = useState(false);
-  const [parsedIngredients, setIngredients] = useState(addClickedProperty(ingredients));
-
+  const [parsedIngredients, setIngredients] = useState(
+    addClickedProperty(ingredients),
+  );
 
   const toggleExpand = () => {
     setExpanded(!expanded);
@@ -36,7 +36,10 @@ const Order = ({ recipeNames, ingredients, orderId }) => {
       <div className="clickable-area-header" onClick={toggleExpand}>
         <h2>Order Details {orderId}</h2>
       </div>
-      <div className="expand-content" style={{maxHeight: expanded ? 'fit-content' : '0'}}>
+      <div
+        className="expand-content"
+        style={{ maxHeight: expanded ? "fit-content" : "0" }}
+      >
         <div className="recipe-names">
           <h3>Recipe Names</h3>
           <ul>
@@ -53,11 +56,13 @@ const Order = ({ recipeNames, ingredients, orderId }) => {
             {ingredients &&
               Array.isArray(parsedIngredients) &&
               parsedIngredients.map((ingredient, index) => (
-                <li 
+                <li
                   key={index}
                   style={{
-                    textDecoration: ingredient.clicked ? "line-through" : "none",
-                    cursor: "pointer"
+                    textDecoration: ingredient.clicked
+                      ? "line-through"
+                      : "none",
+                    cursor: "pointer",
                   }}
                   onClick={() => handleItemClick(index)}
                 >
