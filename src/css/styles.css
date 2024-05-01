@@ -749,3 +749,28 @@
 .btn-primary:hover {
   background-color: var(--atomic-tangerine-2-darker) !important;
 }
+
+.motd-container {
+  display: flex;
+  justify-content:center;
+  padding: 2rem;
+  height: 28rem;
+}
+
+.motd {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.search-how-to {
+  width: 60%;
+  margin: auto
+}
+
+.motd-header{
+  text-align: center;
+}
+
+.card-body{
+  padding: 10px !important;
+}

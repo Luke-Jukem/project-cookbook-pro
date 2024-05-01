@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Container, Spinner } from "reactstrap";
 import MealCard from "../../components/meal-card/MealCard.jsx";
 import SearchBox from "./components/SearchBox.jsx";
@@ -8,11 +8,28 @@ import InfiniteScroll from "react-infinite-scroll-component";
 const Search = () => {
   const [searchResults, setSearchResults] = useState("initial page load");
   const [query, setQuery] = useState("");
-  const [numResults, setNumResults] = useState(-1);
+  const [numResults, setNumResults] = useState(-1);  
+  const [mealOfTheDay, setMealOfTheDay] = useState(null);
+  const [resultsLoaded, setResultsLoaded] = useState(false);
+
+  useEffect(() => {
+    const fetchMealOfTheDay = async () => {
+      try {
+        const mealDataManager = new MealDataManager();
+        const meal = await mealDataManager.getRandomMeal();
+        setMealOfTheDay(meal);
+      } catch (error) {
+        console.error("Error fetching meal of the day: ", error);
+      }
+    };
+
+    fetchMealOfTheDay();
+  }, []);
 
   const handleSearchResults = (results) => {
     setSearchResults(results.resultsList);
     setNumResults(results.totalResults);
+    setResultsLoaded(true);
   };
 
   const mealDataManager = new MealDataManager();
@@ -100,6 +117,32 @@ const Search = () => {
             setQuery={setQuery}
           />
         </Container>
+      </Row>
+      <Row>
+      {!resultsLoaded && (
+        <div className="motd-container">
+            {mealOfTheDay && (
+              <div className="motd">
+                <h2 className="motd-header">Meal of the day</h2>
+                <MealCard meal={mealOfTheDay} />
+              </div>
+            )}
+            <div className="search-how-to">
+            <h2>Find the recipes you need!</h2>
+            <p>
+              Welcome to our recipe search! Start your culinary adventure by
+              entering your search query in the box above. Need inspiration?
+              Take a look at our "Meal of the Day" for a delicious suggestion!
+            </p>
+            <h3>Search Tips:</h3>
+            <ul>
+              <li>Try searching by ingredients, dish names, or cuisine types.</li>
+              <li>Search up some of those leftover ingredients you have in your fridge!</li>
+              <li>Scroll through the results and click on a recipe card to view details.</li>
+            </ul>
+            </div>
+        </div>
+      )}
       </Row>
       <Row>
         <Container id="search-results-container" className="col-8">
