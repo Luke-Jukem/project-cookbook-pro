@@ -9,28 +9,6 @@ const OrderManager = ({ cartItems, setModalOpen, removeFromCart }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [orderData, setOrderData] = useState(null);
 
-  const validateSelectedDate = () => {
-    if (!selectedDate) {
-      console.log("No date selected");
-      return false;
-    }
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-    const yesterday = new Date(today.getTime() - oneDayInMilliseconds);
-
-    const selectedDateObj = new Date(selectedDate);
-    selectedDateObj.setHours(0, 0, 0, 0);
-
-    if (selectedDateObj < yesterday) {
-      console.log("Selected date is before today");
-      return false;
-    }
-
-    return true;
-  };
-
   const createOrder = async () => {
     if (!cartItems || !Array.isArray(cartItems)) {
       console.log("No items in cart or cartItems is not an array");
@@ -39,12 +17,8 @@ const OrderManager = ({ cartItems, setModalOpen, removeFromCart }) => {
 
     if (!cartItems.every((item) => item.name && item.ingredients)) {
       console.log(
-        "One or more items in cartItems does not have a name or ingredients",
+        "One or more items in cartItems does not have a name or ingredients"
       );
-      return;
-    }
-
-    if (!validateSelectedDate()) {
       return;
     }
 
@@ -88,7 +62,7 @@ const OrderManager = ({ cartItems, setModalOpen, removeFromCart }) => {
         userOrdersPath,
         orderId,
         orderData,
-        "order",
+        "order"
       );
       setOrderData(orderData);
       setSelectedDate(null);
@@ -116,7 +90,9 @@ const OrderManager = ({ cartItems, setModalOpen, removeFromCart }) => {
           onChange={(e) => setSelectedDate(e.target.value)}
         />
       </div>
-      <button className="submit-button" onClick={handleSubmit}>Submit</button>
+      <button className="submit-button" onClick={handleSubmit}>
+        Submit
+      </button>
       {orderData && <MailBox orderData={orderData} />}
     </>
   );
