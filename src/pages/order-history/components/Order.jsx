@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import "../order-history.css";
 
 const Order = ({ recipeNames, ingredients, orderId }) => {
-
   const addClickedProperty = (ingredients) => {
-    return ingredients.map(ingredient => ({...ingredient, clicked: false}));
+    return ingredients.map((ingredient) => ({ ...ingredient, clicked: false }));
   };
 
   const [expanded, setExpanded] = useState(false);
-  const [parsedIngredients, setIngredients] = useState(addClickedProperty(ingredients));
-
+  const [parsedIngredients, setIngredients] = useState(
+    addClickedProperty(ingredients),
+  );
 
   const toggleExpand = () => {
     setExpanded(!expanded);
@@ -21,17 +21,33 @@ const Order = ({ recipeNames, ingredients, orderId }) => {
     setIngredients(updatedIngredients);
   };
 
+  //getting count of each recipe
+  const recipeNamesWithCount = recipeNames.reduce((acc, recipeName) => {
+    if (acc[recipeName]) {
+      acc[recipeName] += 1;
+    } else {
+      acc[recipeName] = 1;
+    }
+    return acc;
+  }, {});
+
   return (
     <div className="order-container">
       <div className="clickable-area-header" onClick={toggleExpand}>
         <h2>Order Details {orderId}</h2>
       </div>
-      <div className="expand-content" style={{maxHeight: expanded ? 'fit-content' : '0'}}>
+      <div
+        className="expand-content"
+        style={{ maxHeight: expanded ? "fit-content" : "0" }}
+      >
         <div className="recipe-names">
           <h3>Recipe Names</h3>
           <ul>
-            {recipeNames &&
-              recipeNames.map((recipe, index) => <li key={index}>{recipe}</li>)}
+            {Object.entries(recipeNamesWithCount).map(([recipeName, count]) => (
+              <li key={recipeName}>
+                {recipeName} (Quantity: {count})
+              </li>
+            ))}
           </ul>
         </div>
         <div className="ingredients">
@@ -40,11 +56,13 @@ const Order = ({ recipeNames, ingredients, orderId }) => {
             {ingredients &&
               Array.isArray(parsedIngredients) &&
               parsedIngredients.map((ingredient, index) => (
-                <li 
+                <li
                   key={index}
                   style={{
-                    textDecoration: ingredient.clicked ? "line-through" : "none",
-                    cursor: "pointer"
+                    textDecoration: ingredient.clicked
+                      ? "line-through"
+                      : "none",
+                    cursor: "pointer",
                   }}
                   onClick={() => handleItemClick(index)}
                 >
