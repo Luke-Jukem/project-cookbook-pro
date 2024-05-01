@@ -31,10 +31,16 @@ const Order = ({ recipeNames, ingredients, orderId }) => {
     return acc;
   }, {});
 
+  const convertEpochTSToLocaleString = (orderId) => {
+    const timestamp = Number(orderId.split('-')[1]);
+    const date = new Date(timestamp);
+    return date.toLocaleString();
+  };
+
   return (
     <div className="order-container">
       <div className="clickable-area-header" onClick={toggleExpand}>
-        <h2>Order Details {orderId}</h2>
+        <h2>Order Details {convertEpochTSToLocaleString(orderId)}</h2>
       </div>
       <div
         className="expand-content"

@@ -55,7 +55,7 @@ const OrderManager = ({ cartItems, setModalOpen, removeFromCart }) => {
       ingredients: aggregateIngredients(cartItems),
     };
 
-    const orderId = `o-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    const orderId = `o-${Date.now()}`;
 
     try {
       await FirestoreService.createDocument(
