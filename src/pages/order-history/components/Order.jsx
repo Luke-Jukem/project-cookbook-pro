@@ -21,6 +21,16 @@ const Order = ({ recipeNames, ingredients, orderId }) => {
     setIngredients(updatedIngredients);
   };
 
+  //getting count of each recipe
+  const recipeNamesWithCount = recipeNames.reduce((acc, recipeName) => {
+    if (acc[recipeName]) {
+      acc[recipeName] += 1;
+    } else {
+      acc[recipeName] = 1;
+    }
+    return acc;
+  }, {});
+
   return (
     <div className="order-container">
       <div className="clickable-area-header" onClick={toggleExpand}>
@@ -30,8 +40,11 @@ const Order = ({ recipeNames, ingredients, orderId }) => {
         <div className="recipe-names">
           <h3>Recipe Names</h3>
           <ul>
-            {recipeNames &&
-              recipeNames.map((recipe, index) => <li key={index}>{recipe}</li>)}
+            {Object.entries(recipeNamesWithCount).map(([recipeName, count]) => (
+              <li key={recipeName}>
+                {recipeName} (Quantity: {count})
+              </li>
+            ))}
           </ul>
         </div>
         <div className="ingredients">
