@@ -9,27 +9,27 @@ const OrderManager = ({ cartItems, setModalOpen, removeFromCart }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [orderData, setOrderData] = useState(null);
 
-  const validateSelectedDate = () => {
-    if (!selectedDate) {
-      console.log("No date selected");
-      return false;
-    }
+  // const validateSelectedDate = () => {
+  //   if (!selectedDate) {
+  //     console.log("No date selected");
+  //     return false;
+  //   }
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-    const yesterday = new Date(today.getTime() - oneDayInMilliseconds);
+  //   const today = new Date();
+  //   today.setHours(0, 0, 0, 0);
+  //   const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
+  //   const yesterday = new Date(today.getTime() - oneDayInMilliseconds);
 
-    const selectedDateObj = new Date(selectedDate);
-    selectedDateObj.setHours(0, 0, 0, 0);
+  //   const selectedDateObj = new Date(selectedDate);
+  //   selectedDateObj.setHours(0, 0, 0, 0);
 
-    if (selectedDateObj < yesterday) {
-      console.log("Selected date is before today");
-      return false;
-    }
+  //   if (selectedDateObj < yesterday) {
+  //     console.log("Selected date is before today");
+  //     return false;
+  //   }
 
-    return true;
-  };
+  //   return true;
+  // };
 
   const createOrder = async () => {
     if (!cartItems || !Array.isArray(cartItems)) {
@@ -44,9 +44,9 @@ const OrderManager = ({ cartItems, setModalOpen, removeFromCart }) => {
       return;
     }
 
-    if (!validateSelectedDate()) {
-      return;
-    }
+    // if (!validateSelectedDate()) {
+    //   return;
+    // }
 
     saveOrder();
   };
