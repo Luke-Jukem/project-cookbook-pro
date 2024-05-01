@@ -221,9 +221,6 @@ const Health = ({ recipes, selectedDates }) => {
         ) : (
           <MacroGoalForm onSubmit={() => setShowGoals(true)} />
         )}
-        <br />
-        <br />
-        <br />
       </div>
       <div id="column-two">
         {/* Display total macros */}
