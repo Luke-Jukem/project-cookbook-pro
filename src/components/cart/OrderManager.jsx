@@ -116,7 +116,9 @@ const OrderManager = ({ cartItems, setModalOpen, removeFromCart }) => {
           onChange={(e) => setSelectedDate(e.target.value)}
         />
       </div> */}
-      <button className="submit-button" onClick={handleSubmit}>Submit</button>
+      <div className="submit-container">
+        <button className="submit-button" onClick={handleSubmit}>Submit</button>
+      </div>
       {orderData && <MailBox orderData={orderData} />}
     </>
   );
