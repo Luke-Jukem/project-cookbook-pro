@@ -17,6 +17,8 @@ import {
   Cell,
 } from "recharts";
 import "./health.css";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 
 const Health = ({ recipes, selectedDates }) => {
   // Firebase auth
@@ -171,30 +173,48 @@ const Health = ({ recipes, selectedDates }) => {
         <br />
         <br />
         <div className="explainations">
+          <h2>Tips for filling in Macros</h2>
+          <h6>Hover over each category for more information</h6>
           <p>
-            <strong>Calories:</strong> To maintain weight, aim for your daily
+            <Tippy
+              content="To maintain weight, aim for your daily
             energy expenditure. For weight loss, aim for a deficit of 500
-            calories per day.
-          </p>
-
-          <p>
-            <strong>Protein:</strong> To build muscle, aim for 1 gram per pound
-            of body weight. For general health, aim for 0.36 grams per pound.
+            calories per day."
+            >
+              <strong>CALORIES</strong>
+            </Tippy>
           </p>
           <p>
-            <strong>Carbohydrates:</strong> For an active lifestyle, aim for 3-5
-            grams per kilogram of body weight. For weight loss, aim for the
-            lower end of this range.
+            <Tippy
+              content="To build muscle, aim for 1 gram per
+              pound of body weight. For general health, aim for 0.36 grams per
+              pound."
+            >
+              <strong>PROTEIN</strong>
+            </Tippy>
           </p>
           <p>
-            <strong>Fat:</strong> For general health, aim for 20-35% of your
-            total daily calories. For a ketogenic diet, aim for 70-75% of your
-            total daily calories.
+            <Tippy
+              content="For an active lifestyle, aim for
+              3-5 grams per kilogram of body weight. For weight loss, aim for
+              the lower end of this range."
+            >
+              <strong>CARBOHYDRATES</strong>
+            </Tippy>
           </p>
           <p>
-            <strong>Sugar:</strong> For a healthy diet, aim for less than 10% of
-            your total daily calories from added sugars. For optimal health, aim
-            for less than 5%.
+            <Tippy content="For general health, aim for 20-35% of your
+              total daily calories. For a ketogenic diet, aim for 70-75% of your
+              total daily calories.">
+              <strong>FAT</strong> 
+            </Tippy>
+          </p>
+          <p>
+            <Tippy content="For a healthy diet, aim for less than 10%
+              of your total daily calories from added sugars. For optimal
+              health, aim for less than 5%.">
+              <strong>SUGAR</strong> 
+            </Tippy>
           </p>
         </div>
       </div>
