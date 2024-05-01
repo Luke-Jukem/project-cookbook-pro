@@ -163,15 +163,6 @@ const Health = ({ recipes, selectedDates }) => {
   return (
     <div className="vert-column-container">
       <div id="column-one">
-        {/* Either display goals or prompt user to enter them */}
-        {showGoals ? (
-          <DisplayGoals onEdit={() => setShowGoals(false)} />
-        ) : (
-          <MacroGoalForm onSubmit={() => setShowGoals(true)} />
-        )}
-        <br />
-        <br />
-        <br />
         <div className="explainations">
           <h2>Tips for filling in Macros</h2>
           <h6>Hover over each category for more information</h6>
@@ -203,20 +194,36 @@ const Health = ({ recipes, selectedDates }) => {
             </Tippy>
           </p>
           <p>
-            <Tippy content="For general health, aim for 20-35% of your
+            <Tippy
+              content="For general health, aim for 20-35% of your
               total daily calories. For a ketogenic diet, aim for 70-75% of your
-              total daily calories.">
-              <strong>FAT</strong> 
+              total daily calories."
+            >
+              <strong>FAT</strong>
             </Tippy>
           </p>
           <p>
-            <Tippy content="For a healthy diet, aim for less than 10%
+            <Tippy
+              content="For a healthy diet, aim for less than 10%
               of your total daily calories from added sugars. For optimal
-              health, aim for less than 5%.">
-              <strong>SUGAR</strong> 
+              health, aim for less than 5%."
+            >
+              <strong>SUGAR</strong>
             </Tippy>
           </p>
         </div>
+        <br />
+        <br />
+        <br />
+        {/* Either display goals or prompt user to enter them */}
+        {showGoals ? (
+          <DisplayGoals onEdit={() => setShowGoals(false)} />
+        ) : (
+          <MacroGoalForm onSubmit={() => setShowGoals(true)} />
+        )}
+        <br />
+        <br />
+        <br />
       </div>
       <div id="column-two">
         {/* Display total macros */}
