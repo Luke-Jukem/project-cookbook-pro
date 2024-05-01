@@ -75,9 +75,9 @@ const MealCard = ({ meal }) => {
               meal,
               "recipe"
             );
-            disabled={isSavedClicked}
             setSelectedMeal(null); //setting selected meal = null closes the RecipeDetails component
           }}
+          disabled={isSavedClicked}
         >
           Save Recipe
         </Button>

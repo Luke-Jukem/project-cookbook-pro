@@ -19,7 +19,7 @@ const GeneratedMealCard = ({ recipe }) => {
   const [imageURL, setImageURL] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
   const [isSaved, setIsSaved] = useState(recipe.isSaved || false); // Add this line
-  const [isDalleImageGenerated, setIsDalleImageGenerated] = useState(false); 
+  const [isDalleImageGenerated, setIsDalleImageGenerated] = useState(false);
   const { user } = useAuth();
   const toggleModal = () => setIsModalOpen(!isModalOpen); // Toggle modal
 
@@ -63,8 +63,15 @@ const GeneratedMealCard = ({ recipe }) => {
     try {
       const collectionPath = `Users/${user.uid}/generatedRecipes`;
 
-      const savedRecipe = { ...recipe, isSaved: true }; // Create a new object with isSaved set to true
-
+      // Create a new object with isSaved set to true and add IDs to ingredients
+      const savedRecipe = {
+        ...recipe,
+        isSaved: true,
+        ingredients: recipe.ingredients.map((ingredient, index) => ({
+          ...ingredient,
+          id: `i-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+        })),
+      };
       await FirestoreService.createDocument(
         collectionPath,
         savedRecipe.id,
@@ -107,7 +114,10 @@ const GeneratedMealCard = ({ recipe }) => {
         )}
       </div>
       <CardBody>
-        <Button className="meal-card-button details"  onClick={() => setSelectedMeal({ ...recipe })}>
+        <Button
+          className="meal-card-button details"
+          onClick={() => setSelectedMeal({ ...recipe })}
+        >
           Details
         </Button>
         <Button
@@ -123,9 +133,8 @@ const GeneratedMealCard = ({ recipe }) => {
           color="info"
           onClick={generateDalleImage}
           disabled={isDalleImageGenerated} // Disable the button if image is generated
-          >
-            {isDalleImageGenerated ? "Image Generated" : "Generate DALL-E Image"}
-          
+        >
+          {isDalleImageGenerated ? "Image Generated" : "Generate DALL-E Image"}
         </Button>
         <div className="meal-card-reasoning">{recipe.inspirationReasoning}</div>
         {selectedMeal && (
