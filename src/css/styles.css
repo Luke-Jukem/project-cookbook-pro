@@ -762,6 +762,21 @@
 .search-how-to {
   width: 60%;
   margin: auto;
+  background-color: var(--air-superiority-blue);
+  color: var(--white);
+  padding: 4rem;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  border: 0.5rem outset var(--air-superiority-blue);
+  border-radius: 1rem;
+}
+
+.search-how-to h2 {
+  font-weight: 600;
+}
+
+.search-how-to h3 {
+  font-weight: 600;
 }
 
 .motd-header {
@@ -772,6 +787,21 @@
   padding: 10px !important;
 }
 
-#search-random-button {
-  width: 100%;
+.search-random-button {
+  width: 90%;
+  background-color: var(--atomic-tangerine) !important;
+  color: var(--white) !important;
+  border: none !important;
+  transition: background-color 0.5s !important;
+}
+
+.search-random-button:hover {
+  background-color: var(--atomic-tangerine-darker) !important;
+  color: var(--white) !important;
+}
+
+.search-random-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

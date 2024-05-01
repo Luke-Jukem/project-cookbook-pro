@@ -132,9 +132,11 @@ const Search = () => {
         {!resultsLoaded && (
           <div className="motd-container">
             <div>
-              <Button id="search-random-button" onClick={handleFindMeal}>
-                Discover a Meal!
-              </Button>
+              <div className="search-random-button-container">
+                <Button className="search-random-button" onClick={handleFindMeal}>
+                  Discover a Meal!
+                </Button>
+              </div>
               {mealOfTheDay && (
                 <div className="motd">
                   <MealCard meal={mealOfTheDay} />
