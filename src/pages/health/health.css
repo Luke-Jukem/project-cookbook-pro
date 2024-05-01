@@ -95,6 +95,12 @@
   border: 0.4rem outset var(--air-superiority-blue);
 }
 
+
+.explainations p {
+ text-align: center;
+}
+
+
 .nutrition-modal-content {
   height: 35rem;
 }
