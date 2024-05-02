@@ -1,6 +1,6 @@
 <div align="center">
 
-# CookBook Pro
+# CookBook-Pro
 
 [![Report Issue on Jira](https://img.shields.io/badge/Report%20Issues-Jira-0052CC?style=flat&logo=jira-software)](https://temple-cis-projects-in-cs.atlassian.net/jira/software/c/projects/DT/issues)
 [![Deploy Docs](https://github.com/ApplebaumIan/tu-cis-4398-docs-template/actions/workflows/deploy.yml/badge.svg)](https://github.com/ApplebaumIan/tu-cis-4398-docs-template/actions/workflows/deploy.yml)
@@ -8,7 +8,7 @@
 
 </div>
 
-## Keywords
+## Welcome to CookBook-Pro!
 
 Section #, as well as any words that quickly give your peers insights into the application like programming language, development platform, type of application, etc.
 
@@ -40,23 +40,44 @@ Discuss what you need to develop this project. This includes background informat
 <tr>
     <td align="center">
         <a href="https://github.com/ApplebaumIan">
-            <img src="https://avatars.githubusercontent.com/u/9451941?v=4" width="100;" alt="ApplebaumIan"/>
+            <img src="https://avatars.githubusercontent.com/u/81384059" width="100;" alt="ApplebaumIan"/>
             <br />
-            <sub><b>Ian Tyler Applebaum</b></sub>
+            <sub><b>Mike Dantuono</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/leekd99">
-            <img src="https://avatars.githubusercontent.com/u/32583417?v=4" width="100;" alt="leekd99"/>
+            <img src="https://avatars.githubusercontent.com/u/81384059" width="100;" alt="leekd99"/>
             <br />
-            <sub><b>Kyle Dragon Lee</b></sub>
+            <sub><b>Evan Dorsey</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/thanhnguyen46">
-            <img src="https://avatars.githubusercontent.com/u/60533187?v=4" width="100;" alt="thanhnguyen46"/>
+            <img src="https://avatars.githubusercontent.com/u/49755778" width="100;" alt="thanhnguyen46"/>
             <br />
-            <sub><b>Thanh Nguyen</b></sub>
+            <sub><b>Shawn Dutill</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/thanhnguyen46">
+            <img src="https://avatars.githubusercontent.com/u/27174032" width="100;" alt="thanhnguyen46"/>
+            <br />
+            <sub><b>Ali Eskandary</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/thanhnguyen46">
+            <img src="https://avatars.githubusercontent.com/u/13108935" width="100;" alt="thanhnguyen46"/>
+            <br />
+            <sub><b>Ryan Lind</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/thanhnguyen46">
+            <img src="https://avatars.githubusercontent.com/u/122993381" width="100;" alt="thanhnguyen46"/>
+            <br />
+            <sub><b>Val Vardanyan</b></sub>
         </a>
     </td>
    </tr>
