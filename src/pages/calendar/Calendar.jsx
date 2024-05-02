@@ -81,6 +81,8 @@ const MyCalendar = () => {
 
   //adding a plan
   const addPlan = (recipe, autoAddToCart, addToCartTime) => {
+    //disable welcome message
+    setShowWelcome(false);
     const planDate = selectedDay.toISOString().split("T")[0];
     //checking for existing plans to avoid overwrites
     const existingPlan = plans.find((plan) => plan.date === planDate);
