@@ -417,3 +417,9 @@
 .nutrition-title {
   font-weight: 600;
 }
+
+.cal-welcome {
+  background-color: var(--air-superiority-blue-darker);
+  border-radius: 8px;
+  padding: 1%;
+}

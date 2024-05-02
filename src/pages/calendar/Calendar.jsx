@@ -36,6 +36,8 @@ const MyCalendar = () => {
   //nutritional modal recipes state
   const [nutritionRecipes, setnutritionRecipes] = useState([]);
   const firestoreListener = new FirestoreListener();
+  //welcome message
+  const [showWelcome, setShowWelcome] = useState(true);
 
   useEffect(() => {
     const userPlansPath = `Users/${user.uid}/Plans`;
@@ -309,12 +311,24 @@ const MyCalendar = () => {
                     plan.date === date.toISOString().split("T")[0] &&
                     plan.meals.length > 0
                 )
-            ) && (
+            ) ? (
               <button className="lg-cal-btn order" onClick={orderMeals}>
                 Order Meals
               </button>
+            ) : !showWelcome ? (
+              <button className="lg-cal-btn" onClick={() => setShowWelcome(true)}>?</button>
+            ) : (
+              <button className="lg-cal-btn" onClick={() => setShowWelcome(false)}>X</button>
             )
           }
+          {showWelcome && (
+            <div className="cal-welcome">
+              <h3>Welcome to the calendar!</h3>
+              <h5>Here, you can plan meals, view your meal history, order ingredients, and generate nutrition reports!</h5>
+              <h5>To select a date range, click on a start date, then hold the "shift" button and click on the end date.</h5>
+              <h5>Click "add meal" to get started!</h5>
+            </div>
+          )}
           <br />
           <div className="selected-meals-container">
             {
