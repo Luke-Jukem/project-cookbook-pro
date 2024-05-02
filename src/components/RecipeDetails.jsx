@@ -42,7 +42,7 @@ const RecipeDetails = ({ meal, buttonOptions, isOpen, saveData }) => {
         <Container className="d-flex justify-content-center mb-3">
           <img
             src={
-              meal.image === "generatedRecipeImage"
+              meal.image === "generatedRecipes"
                 ? generatedRecipeImage
                 : meal.image
                 ? meal.image
