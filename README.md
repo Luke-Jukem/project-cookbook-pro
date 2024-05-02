@@ -39,43 +39,43 @@ Discuss what you need to develop this project. This includes background informat
 <table>
 <tr>
     <td align="center">
-        <a href="https://github.com/ApplebaumIan">
-            <img src="https://avatars.githubusercontent.com/u/81384059" width="100;" alt="ApplebaumIan"/>
+        <a href="https://github.com/MikeDantuono">
+            <img src="https://avatars.githubusercontent.com/u/81384059" width="100;" alt="MikeDantuono"/>
             <br />
             <sub><b>Mike Dantuono</b></sub>
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/leekd99">
-            <img src="https://avatars.githubusercontent.com/u/81384059" width="100;" alt="leekd99"/>
+        <a href="https://github.com/evandorsey1">
+            <img src="https://avatars.githubusercontent.com/u/90412421" width="100;" alt="evandorsey1"/>
             <br />
             <sub><b>Evan Dorsey</b></sub>
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/thanhnguyen46">
-            <img src="https://avatars.githubusercontent.com/u/49755778" width="100;" alt="thanhnguyen46"/>
+        <a href="https://github.com/sdutill">
+            <img src="https://avatars.githubusercontent.com/u/49755778" width="100;" alt="sdutill"/>
             <br />
             <sub><b>Shawn Dutill</b></sub>
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/thanhnguyen46">
-            <img src="https://avatars.githubusercontent.com/u/27174032" width="100;" alt="thanhnguyen46"/>
+        <a href="https://github.com/aeskandary">
+            <img src="https://avatars.githubusercontent.com/u/27174032" width="100;" alt="aeskandary"/>
             <br />
             <sub><b>Ali Eskandary</b></sub>
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/thanhnguyen46">
-            <img src="https://avatars.githubusercontent.com/u/13108935" width="100;" alt="thanhnguyen46"/>
+        <a href="https://github.com/rltruth">
+            <img src="https://avatars.githubusercontent.com/u/13108935" width="100;" alt="rltruth"/>
             <br />
             <sub><b>Ryan Lind</b></sub>
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/thanhnguyen46">
-            <img src="https://avatars.githubusercontent.com/u/122993381" width="100;" alt="thanhnguyen46"/>
+        <a href="https://github.com/valvardanyan">
+            <img src="https://avatars.githubusercontent.com/u/122993381" width="100;" alt="valvardanyan"/>
             <br />
             <sub><b>Val Vardanyan</b></sub>
         </a>
