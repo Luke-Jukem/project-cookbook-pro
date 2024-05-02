@@ -816,7 +816,6 @@
   align-items: center;
 }
 
-
 .close-button {
   background-color: var(--atomic-tangerine-red) !important;
   border: none !important;
@@ -825,4 +824,8 @@
 .close-button:hover {
   background-color: var(--atomic-tangerine-red-darker) !important;
   border: none !important;
+}
+
+.mobile-container {
+  height: 100vh;
 }
