@@ -16,9 +16,47 @@ Section #, as well as any words that quickly give your peers insights into the a
 
 This document proposes a novel application of a text message (SMS or Email) read-out and hands-free call interacted between an Android Smartphone and an infotainment platform (headunit) in a car environment. When a phone receives an SMS or Email, the text message is transferred from the phone to the headunit through a Bluetooth connection. On the headunit, user can control which and when the received SMS or E-mail to be read out through the in-vehicle audio system. The user may press one button on the headunit to activate the hands-free feature to call back the SMS sender.
 
-## High Level Requirement
+## High Level Overview
 
-Describe the requirements – i.e., what the product does and how it does it from a user point of view – at a high level.
+### Search
+
+Discover new, mouthwatering recipes from our extensive collection of thousands of savory dishes.
+Explore recipe details, add favorites to your collection, or easily add ingredients to your cart.
+Simply type in your cravings and let the culinary adventure begin!
+
+### Recommendations
+
+Feeling adventurous? 
+Let our AI-powered recommendation system guide you!
+Whether you're craving a specific type of cuisine or seeking culinary inspiration, our recommendation engine will spark your imagination and delight your taste buds.
+Powered by GPT-4, ChefGPT will analyze your saved recipes and generate relevant breakfast, lunch, or dinner recipes.
+
+### Create Recipe
+
+Can't find that special recipe?
+Preserve your family favorites or unleash your creativity with our recipe creator.
+Add your own ingredients, instructions, and personal touches to create your modern-day cookbook.
+Keep track of and share your culinary masterpieces with ease.
+
+### Calendar
+
+Never forget a meal again!
+Plan your meals days, weeks, or even months in advance with our intuitive calendar feature.
+Then, generate nutrition reports or shopping lists for those plans directly from the calendar!
+From breakfast to dinner, your culinary journey starts here.
+
+### Nutrition Report
+
+Trying to get more shredded than shredded cheese?
+Abs are made in the kitchen. 
+Set and manage daily macronutrient goals, then see how your eating habits are measuring up.
+You can even generate nutrition reports for meals planned in the future to make sure you're aligning with your goals.
+
+### Ordering
+
+Tired of boring pen & paper shopping lists?
+Add saved, custom, or generated recipes to your cart, then order them to recieve an extensive ingredient list.
+Ingredient lists can be emailed to you or found in order history.
 
 ## Conceptual Design
 
