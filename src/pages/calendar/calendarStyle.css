@@ -354,6 +354,7 @@
 .meal-entry p {
   padding-left: 3%;
   vertical-align: center;
+  text-align: left;
   font-size: 1.2em;
 }
 
