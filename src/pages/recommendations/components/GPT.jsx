@@ -23,7 +23,6 @@ const GPT = () => {
     }
 
     const processResponseObject = (responseObject) => {
-      console.log(responseObject);
       if (!responseObject || !Array.isArray(responseObject.recipes)) {
         return null;
       }
@@ -66,7 +65,7 @@ const GPT = () => {
           ingredients: nullFilteredIngredients,
           cuisine: recipe.cuisine,
           dishType: recipe.dishType,
-          image: recipe.image || "",
+          image: "generatedRecipes",
           id: newRecipeId,
           savedRecipeInspiration: recipe.savedRecipeInspiration,
           inspirationReasoning: recipe.inspirationReasoning,

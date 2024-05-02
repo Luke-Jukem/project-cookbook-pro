@@ -123,6 +123,7 @@ class FirebaseConverter {
           cuisine: gptResponse.cuisine,
           dishType: gptResponse.dishType,
           id: gptResponse.id,
+          image: gptResponse.image,
           ingredients: convertedIngredients,
           inspirationReasoning: gptResponse.inspirationReasoning,
           savedRecipeInspiration: gptResponse.savedRecipeInspiration,
