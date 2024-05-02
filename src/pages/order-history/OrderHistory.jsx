@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Order from "./components/Order";
 import { useAuth } from "../../utils/AuthContext";
 import FirestoreService from "../../firebase/FirebaseService";
+import "./order-history.css";
 
 const OrderHistory = () => {
   const { user } = useAuth();
@@ -21,14 +22,19 @@ const OrderHistory = () => {
     }
   };
 
+  const sortedOrders = orderHistoryDocuments.sort((a, b) => {
+    // Assuming orderId is a string, use localeCompare for string comparison
+    return b.id.localeCompare(a.id);
+  });
+
   useEffect(() => {
     fetchOrderHistory();
   }, []);
 
   return (
-    <div>
+    <div className="order-history-container">
       <h1>Order History</h1>
-      {orderHistoryDocuments.map((order, index) => (
+      {sortedOrders.map((order, index) => (
         <Order
           key={index}
           recipeNames={order.data.recipeNames}

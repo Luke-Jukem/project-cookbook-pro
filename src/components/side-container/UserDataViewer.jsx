@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SavedMeals from "./SavedMeals";
 import CustomMeals from "./CustomMeals";
+import GeneratedMeals from "./GeneratedMeals";
 import { useAuth } from "../../utils/AuthContext";
 import styled from "styled-components";
 
@@ -29,26 +30,41 @@ const UserDataViewer = () => {
 
   return (
     <div>
-      <h4>
+      <h4 id="user-data-viewer-label">
         {user.displayName
           ? `${user.displayName.split(" ")[0]}'s Recipes`
           : "Your Saved Recipes"}
       </h4>
-      <ToggleContainer>
-        <ToggleButton
+      <ToggleContainer >
+        <ToggleButton id="toggle-button-custom"
           active={currentCollection === "custom" ? "true" : undefined}
           onClick={() => toggleCollection("custom")}
+          style={{ fontWeight: currentCollection === "custom" ? "bold" : "normal" }}
         >
           Custom
         </ToggleButton>
-        <ToggleButton
+        <ToggleButton id="toggle-button-saved"
           active={currentCollection === "saved" ? "true" : undefined}
           onClick={() => toggleCollection("saved")}
+          style={{ fontWeight: currentCollection === "saved" ? "bold" : "normal" }}
         >
           Saved
         </ToggleButton>
-      </ToggleContainer>
-      {currentCollection === "saved" ? <SavedMeals /> : <CustomMeals />}
+        <ToggleButton id="toggle-button-generated"
+          active={currentCollection === "generated" ? "true" : undefined}
+          onClick={() => toggleCollection("generated")}
+          style={{ fontWeight: currentCollection === "generated" ? "bold" : "normal" }}
+        >
+          GPT
+        </ToggleButton>
+        </ToggleContainer>
+      {currentCollection === "saved" ? (
+        <SavedMeals />
+      ) : currentCollection === "custom" ? (
+        <CustomMeals />
+      ) : (
+        <GeneratedMeals />
+      )}
     </div>
   );
 };

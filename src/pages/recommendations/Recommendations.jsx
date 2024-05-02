@@ -1,51 +1,61 @@
 import React, { useState } from "react";
 import GPT from "./components/GPT";
+import GptResponseRenderer from "./components/GptResponseRenderer";
+import "./recommendations.css";
 
 const Recommendations = () => {
-  const [toggle, setToggle] = useState(false);
+  const [recipeType, setRecipeType] = useState("");
+  const { response, error, loading, handleSubmit } = GPT();
 
-  function toggleRecommendations() {
-    setToggle(!toggle);
-  }
+  const isButtonActive = (type) => recipeType === type;
+
+  const handleRecipeTypeClick = (type) => {
+    setRecipeType(type);
+  };
+
+  const handleGenerateRecipe = () => {
+    handleSubmit(recipeType);
+  };
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.heading}>Welcome to the Recommendations Page</h1>
-      <div style={styles.centerContent}>
-        <button style={styles.button} onClick={toggleRecommendations}>
-          {toggle ? "Hide Recommendations" : "Show Recommendations"}
-        </button>
-        {toggle && <GPT />}
+    <div id="recommendations-container">
+      <div id="recommendations-header">
+        <div id="recommendations-heading">Generate Recipes from ChatGPT</div>
+        <div id="recipe-selection-container">
+          <p id="text">What should I make for ..?</p>
+          <button
+            className={`recipe-type-button ${
+              isButtonActive("Breakfast") ? "active" : ""
+            }`}
+            onClick={() => handleRecipeTypeClick("Breakfast")}
+          >
+            Breakfast
+          </button>
+          <button
+            className={`recipe-type-button ${
+              isButtonActive("Lunch") ? "active" : ""
+            }`}
+            onClick={() => handleRecipeTypeClick("Lunch")}
+          >
+            Lunch
+          </button>
+          <button
+            className={`recipe-type-button ${
+              isButtonActive("Dinner") ? "active" : ""
+            }`}
+            onClick={() => handleRecipeTypeClick("Dinner")}
+          >
+            Dinner
+          </button>
+          <button className={'generate-button'} onClick={handleGenerateRecipe}>Generate Recipe</button>
+        </div>
+      </div>
+      <div id="center-content">
+        {error && <div>Error: {error}</div>}
+        <GptResponseRenderer response={response} loading={loading} />
       </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100vh",
-  },
-  heading: {
-    fontSize: "24px",
-    marginBottom: "20px",
-  },
-  centerContent: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  button: {
-    backgroundColor: "#007bff",
-    color: "white",
-    padding: "10px 20px",
-    borderRadius: "5px",
-    cursor: "pointer",
-    marginBottom: "20px",
-  },
 };
 
 export default Recommendations;

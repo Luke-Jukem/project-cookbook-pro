@@ -110,6 +110,82 @@ class MealDataManager {
       throw error;
     }
   }
+
+  async fetchRecipeDetails(recipeId) {
+    const searchQuery = new URLSearchParams();
+    searchQuery.append("apiKey", this.spoonacularApi);
+
+    const fullUrl = `${
+      this.spoonacularURL
+    }/${recipeId}/nutritionWidget.json?${searchQuery.toString()}`;
+
+    try {
+      const response = await fetch(fullUrl);
+      const data = await response.json();
+
+      let sugar = "N/A";
+      for (const item of data.bad) {
+        if (item.title === "Sugar") {
+          sugar = item.amount;
+          break;
+        }
+      }
+
+      const nutritionInfo = {
+        calories: parseFloat(data.calories),
+        carbohydrates: parseFloat(data.carbs),
+        protein: parseFloat(data.protein),
+        sugar: sugar !== "N/A" ? parseFloat(sugar) : "N/A",
+        fat: parseFloat(data.fat),
+      };
+
+      return nutritionInfo;
+    } catch (error) {
+      console.error("Error fetching recipe details:", error);
+      throw error;
+    }
+  }
+
+  async getRandomMeal() {
+    const searchParams = new URLSearchParams({
+      apiKey: this.spoonacularApi,
+      number: "1", 
+    });
+
+    const url = `https://api.spoonacular.com/recipes/random?${searchParams.toString()}`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      const recipe = data.recipes[0];
+
+      const ingredients = recipe.extendedIngredients.map((ingredient) => {
+        return new Ingredient(
+          ingredient.amount,
+          ingredient.id,
+          ingredient.nameClean ? ingredient.nameClean : ingredient.name,
+          ingredient.unit
+        );
+      });
+
+      const randomMeal = new Recipe(
+        recipe.cuisines,
+        recipe.dishTypes,
+        recipe.id,
+        recipe.image,
+        ingredients,
+        recipe.analyzedInstructions,
+        recipe.title,
+        recipe.servings,
+        recipe.summary
+      );
+
+      return randomMeal;
+    } catch (error) {
+      console.error("Error fetching random meal:", error);
+      throw error;
+    }
+  }
 }
 
 export default MealDataManager;

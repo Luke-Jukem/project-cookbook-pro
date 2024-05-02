@@ -37,13 +37,13 @@ class FirestoreService {
         typeof collectionPath !== "string"
       ) {
         console.error(
-          "Invalid collection path. Collection path must be a string or an array of strings."
+          "Invalid collection path. Collection path must be a string or an array of strings.",
         );
         return null;
       }
 
       const docRef = doc(collectionRef, documentId).withConverter(
-        converter.objectConverter // Use the objectConverter for generic objects
+        converter.objectConverter, // Use the objectConverter for generic objects
       );
 
       // Convert the data using the objectConverter
@@ -60,7 +60,7 @@ class FirestoreService {
   static async updateDocument(collectionPath, documentId, data, dataType) {
     const firebaseConverter = new FirebaseConverter();
     const docRef = doc(firestoreDb, collectionPath, documentId).withConverter(
-      getConverter(dataType, firebaseConverter)
+      getConverter(dataType, firebaseConverter),
     );
     try {
       await updateDoc(docRef, data);
@@ -80,13 +80,13 @@ class FirestoreService {
         typeof collectionPath !== "string"
       ) {
         console.error(
-          "Invalid collection path. Collection path must be a string or an array of strings."
+          "Invalid collection path. Collection path must be a string or an array of strings.",
         );
         return null;
       }
 
       const docRef = doc(collectionRef, String(documentId)).withConverter(
-        converter.objectConverter // Use the objectConverter for generic objects
+        converter.objectConverter, // Use the objectConverter for generic objects
       );
 
       await deleteDoc(docRef);
@@ -106,13 +106,13 @@ class FirestoreService {
         typeof collectionPath !== "string"
       ) {
         console.error(
-          "Invalid collection path. Collection path must be a string or an array of strings."
+          "Invalid collection path. Collection path must be a string or an array of strings.",
         );
         return null;
       }
 
       const querySnapshot = await getDocs(
-        query(collectionRef.withConverter(converter))
+        query(collectionRef.withConverter(converter)),
       );
 
       const documents = [];
@@ -157,6 +157,10 @@ const getConverter = (dataType, firebaseConverter) => {
         objectConverter: firebaseConverter.goalsResponseConverter,
       };
 
+    case "plan":
+      return {
+        objectConverter: firebaseConverter.planConverter,
+      };
     default:
       return null;
   }

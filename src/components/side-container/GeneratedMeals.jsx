@@ -12,8 +12,8 @@ import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
-const SavedMeals = () => {
-  const [savedRecipes, setSavedRecipes] = useState([""]);
+const GeneratedMeals = () => {
+  const [generatedRecipes, setGeneratedRecipes] = useState([]);
   const [selectedMeal, setSelectedMeal] = useState(null);
 
   const { user } = useAuth();
@@ -21,19 +21,19 @@ const SavedMeals = () => {
 
   useEffect(() => {
     if (user) {
-      const userSavedRecipesPath = `Users/${user.uid}/SavedRecipes`;
+      const userGeneratedRecipesPath = `Users/${user.uid}/generatedRecipes`;
 
-      const unsubscribeFromSavedRecipes =
+      const unsubscribeFromGeneratedRecipes =
         firestoreListener.subscribeToCollection(
-          userSavedRecipesPath,
+          userGeneratedRecipesPath,
           (docs) => {
             const recipes = docs.map((doc) => doc);
-            setSavedRecipes(recipes);
+            setGeneratedRecipes(recipes);
           }
         );
 
       // Cleanup function
-      return unsubscribeFromSavedRecipes;
+      return unsubscribeFromGeneratedRecipes;
     }
   }, [user]);
 
@@ -48,6 +48,9 @@ const SavedMeals = () => {
         collectionPath,
         documentId,
         dataType
+      );
+      setGeneratedRecipes(
+        generatedRecipes.filter((recipe) => recipe.id !== documentId)
       );
     } catch (error) {
       console.error("Error deleting the document:", error);
@@ -81,9 +84,9 @@ const SavedMeals = () => {
         color="primary"
         onClick={() => {
           unsaveRecipeFromCurrentUser(
-            `Users/${user.uid}/SavedRecipes/`,
+            `Users/${user.uid}/generatedRecipes/`,
             String(selectedMeal.id),
-            "recipe"
+            "gptResponse"
           );
           setSelectedMeal(null);
         }}
@@ -94,10 +97,22 @@ const SavedMeals = () => {
         className={`primary-color card-button ${isClicked ? "clicked" : ""}`}
         onClick={() => {
           cartClick();
+          const sanitizedMeal = {
+            cuisine: selectedMeal.cuisine,
+            dishType: selectedMeal.dishType,
+            id: selectedMeal.id,
+            image: selectedMeal.image || "",
+            ingredients: selectedMeal.ingredients,
+            instructions: selectedMeal.instructions,
+            name: selectedMeal.name,
+            servings: selectedMeal.servings,
+            summary: selectedMeal.summary,
+            isSaved: selectedMeal.isSaved,
+          };
           saveData(
             `Users/${user.uid}/Cart/`,
-            String(selectedMeal.id),
-            selectedMeal,
+            String(sanitizedMeal.id),
+            sanitizedMeal,
             "recipe"
           );
         }}
@@ -127,10 +142,13 @@ const SavedMeals = () => {
           saveData={saveData}
         />
       )}
-      {savedRecipes.length === 0 ? (
-        <EmptyCollectionMessage collectionName="Saved Recipes" href="/search" />
+      {generatedRecipes.length === 0 ? (
+        <EmptyCollectionMessage
+          collectionName="Generated Recipes"
+          href="/recommendations"
+        />
       ) : (
-        savedRecipes.map((recipe, key) => {
+        generatedRecipes.map((recipe, key) => {
           return (
             <ListGroupItem
               action
@@ -146,4 +164,4 @@ const SavedMeals = () => {
   );
 };
 
-export default SavedMeals;
+export default GeneratedMeals;

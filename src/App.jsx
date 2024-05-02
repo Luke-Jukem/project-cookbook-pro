@@ -1,14 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import Home from "../src/pages/Home.jsx";
 import Search from "./pages/search/Search";
+import Calendar from "./pages/calendar/Calendar";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import MobileHeader from "./components/header/MobileHeader";
 import Header from "./components/header/Header";
+
 import Recomendations from "./pages/recommendations/Recommendations";
 import CreateRecipes from "./pages/create-recipe/CreateRecipes";
-import Health from "./pages/health/Health";
 import OrderHistory from "./pages/order-history/OrderHistory";
 import MainLayout from "./pages/MainLayout";
 import MobileLayout from "./pages/MobileLayout";
@@ -38,6 +39,14 @@ function App() {
             <Route
               path="/"
               element={
+                <MainLayout>
+                  <Home />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/"
+              element={
                 <Layout>
                   <Home />
                 </Layout>
@@ -62,14 +71,6 @@ function App() {
                   }
                 />
                 <Route
-                  path="/health"
-                  element={
-                    <Layout>
-                      <Health />
-                    </Layout>
-                  }
-                />
-                <Route
                   path="/create-recipe"
                   element={
                     <Layout>
@@ -83,6 +84,14 @@ function App() {
                     <Layout>
                       <OrderHistory />
                     </Layout>
+                  }
+                />
+                <Route
+                  path="/calendar"
+                  element={
+                    <MainLayout>
+                      <Calendar />
+                    </MainLayout>
                   }
                 />
               </>
