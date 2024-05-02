@@ -60,6 +60,8 @@ const MyCalendar = () => {
 
   //selecting days/date range
   const onClickDay = (value, event) => {
+    //disable welcome message
+    setShowWelcome(false);
     //if shift is held down and a date is clicked
     if (event.shiftKey && selectedDay) {
       //take the range from the selected day to the shift-clicked day
