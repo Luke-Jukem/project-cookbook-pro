@@ -81,8 +81,6 @@ const MyCalendar = () => {
 
   //adding a plan
   const addPlan = (recipe, autoAddToCart, addToCartTime) => {
-    //disable welcome message
-    setShowWelcome(false);
     const planDate = selectedDay.toISOString().split("T")[0];
     //checking for existing plans to avoid overwrites
     const existingPlan = plans.find((plan) => plan.date === planDate);
@@ -325,14 +323,24 @@ const MyCalendar = () => {
               <button className="lg-cal-btn" onClick={() => setShowWelcome(false)}>X</button>
             )
           }
-          {showWelcome && (
-            <div className="cal-welcome">
-              <h3>Welcome to the calendar!</h3>
-              <h5>Here, you can plan meals, view your meal history, order ingredients, and generate nutrition reports!</h5>
-              <h5>To select a date range, click on a start date, then hold the "shift" button and click on the end date.</h5>
-              <h5>Click "add meal" to get started!</h5>
-            </div>
-          )}
+          {
+            showWelcome &&
+            !(selectedDates.length > 0 ? selectedDates : [selectedDay]).some(
+              (date) =>
+                plans.some(
+                  (plan) =>
+                    plan.date === date.toISOString().split("T")[0] &&
+                    plan.meals.length > 0
+                )
+            ) && (
+              <div className="cal-welcome">
+                <h3>Welcome to the calendar!</h3>
+                <h5>Here, you can plan meals, view your meal history, order ingredients, and generate nutrition reports!</h5>
+                <h5>To select a date range, click on a start date, then hold the "shift" button and click on the end date.</h5>
+                <h5>Click "add meal" to get started!</h5>
+              </div>
+            )
+          }
           <br />
           <div className="selected-meals-container">
             {
