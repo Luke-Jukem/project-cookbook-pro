@@ -25,12 +25,16 @@ Explore recipe details, add favorites to your collection, or easily add ingredie
 Simply type in your cravings and let the culinary adventure begin!
 Not sure where to start? Check out the suggested meal option right under the search bar for inspiration!
 
+<img src="search.png" alt="Search" width="800">
+
 ### Recommendations
 
 Feeling adventurous? 
 Let our AI-powered recommendation system guide you!
 Whether you're craving a specific type of cuisine or seeking culinary inspiration, our recommendation engine will spark your imagination and delight your taste buds.
 Powered by GPT-4, ChefGPT will analyze your saved recipes and generate relevant breakfast, lunch, or dinner recipes.
+
+<img src="chef-gpt.png" alt="Recommendations" width="800">
 
 ### Create Recipe
 
@@ -39,12 +43,16 @@ Preserve your family favorites or unleash your creativity with our recipe creato
 Add your own ingredients, instructions, and personal touches to create your modern-day cookbook.
 Keep track of and share your culinary masterpieces with ease.
 
+<img src="create-recipe.png" alt="Create Recipe" width="800">
+
 ### Calendar
 
 Never forget a meal again!
 Plan your meals days, weeks, or even months in advance with our intuitive calendar feature.
 Then, generate nutrition reports or shopping lists for those plans directly from the calendar!
 From breakfast to dinner, your culinary journey starts here.
+
+<img src="calendar.png" alt="Calendar" width="800">
 
 ### Nutrition Report
 
@@ -53,11 +61,15 @@ Abs are made in the kitchen.
 Set and manage daily macronutrient goals, then see how your eating habits are measuring up.
 You can even generate nutrition reports for meals planned in the future to make sure you're aligning with your goals.
 
+<img src="nutrition-report.png" alt="Nutrition Report" width="800">
+
 ### Ordering
 
 Tired of boring pen & paper shopping lists?
 Add saved, custom, or generated recipes to your cart, then order them to recieve an extensive ingredient list.
 Ingredient lists can be emailed to you or found in order history.
+
+<img src="order.png" alt="Ordering" width="800">
 
 ## Conceptual Design
 
