@@ -4,6 +4,8 @@ import RecipeDetails from "../RecipeDetails.jsx";
 import OrderManager from "./OrderManager.jsx";
 import { useAuth } from "../../utils/AuthContext";
 import FirestoreService from "../../firebase/FirebaseService.js";
+import customRecipeImage from "../../imgs/custom-recipe-placeholder.png";
+import generatedRecipeImage from "../../imgs/generated-recipe-placeholder.png";
 
 const Cart = ({ modalOpen, setModalOpen, cartItems, type }) => {
   const [selectedMeal, setSelectedMeal] = useState(null);
@@ -53,7 +55,17 @@ const Cart = ({ modalOpen, setModalOpen, cartItems, type }) => {
         <div className="items-in-cart">
           {Object.entries(cartItemsWithCount).map(([id, recipe]) => (
             <div key={id} className="cart-display">
-              <img src={recipe.image} alt={recipe.name} />
+              <img
+                style={{ backgroundColor: "#f0f0f0", borderRadius: "8px" }}
+                src={
+                  recipe.image === "generatedRecipes"
+                    ? generatedRecipeImage
+                    : recipe.image
+                    ? recipe.image
+                    : customRecipeImage
+                }
+                alt={recipe.name}
+              />
               <div>
                 <h4 className="recipe-name">{recipe.name}</h4>
                 <p>Quantity: {recipe.count}</p>
