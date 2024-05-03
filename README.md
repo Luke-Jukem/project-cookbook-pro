@@ -9,8 +9,8 @@
 </div>
 
 ## Welcome to CookBook-Pro!
-
-Section #, as well as any words that quickly give your peers insights into the application like programming language, development platform, type of application, etc.
+### CIS 4398 Section 5
+Cookbook-Pro is our group's first soirée into the wide world of Web Applications. It's an AI enhanced Meal Planner / Nutrition Tracker / Shopping List Generator, and made with React, Node, & Firestore.
 
 ## Project Abstract
 
