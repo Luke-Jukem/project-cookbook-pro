@@ -2,19 +2,17 @@
 
 # CookBook-Pro
 
-[![Report Issue on Jira](https://img.shields.io/badge/Report%20Issues-Jira-0052CC?style=flat&logo=jira-software)](https://temple-cis-projects-in-cs.atlassian.net/jira/software/c/projects/DT/issues)
-[![Deploy Docs](https://github.com/ApplebaumIan/tu-cis-4398-docs-template/actions/workflows/deploy.yml/badge.svg)](https://github.com/ApplebaumIan/tu-cis-4398-docs-template/actions/workflows/deploy.yml)
-[![Documentation Website Link](https://img.shields.io/badge/-Documentation%20Website-brightgreen)](https://applebaumian.github.io/tu-cis-4398-docs-template/)
-
+[![Download Source Code](https://img.shields.io/badge/Download%20-%20Source%20Code%20%20-%20%23669bb7ff)](https://github.com/Capstone-Projects-2024-Spring/project-cookbook-pro/archive/refs/heads/main.zip)
 </div>
 
 ## Welcome to CookBook-Pro!
 ### CIS 4398 Section 5
-Cookbook-Pro is our group's first soirée into the wide world of Web Applications. It's an AI enhanced Meal Planner / Nutrition Tracker / Shopping List Generator, and made with React, Node, & Firestore.
+**Cookbook-Pro** is our group's first soirée into the wide world of Web Applications. It's an AI enhanced Meal Planner / Nutrition Tracker / Shopping List Generator, and made with React, Node, & Firestore.
 
 ## Project Abstract
 
-This document proposes a novel application of a text message (SMS or Email) read-out and hands-free call interacted between an Android Smartphone and an infotainment platform (headunit) in a car environment. When a phone receives an SMS or Email, the text message is transferred from the phone to the headunit through a Bluetooth connection. On the headunit, user can control which and when the received SMS or E-mail to be read out through the in-vehicle audio system. The user may press one button on the headunit to activate the hands-free feature to call back the SMS sender.
+**Cookbook-Pro** is a web-based application that serves as a comprehensive platform for discovering new recipes, planning meals, nutrition tracking, and shopping list generation. It is designed to streamline the user's cooking experience by providing a wide range of features powered by AI and modern web technologies. Simply put, it is a cookbook... for pros.
+
 
 ## High Level Overview
 
@@ -73,13 +71,13 @@ Ingredient lists can be emailed to you or found in order history.
 
 ## Conceptual Design
 
-Cookbook-Pro is a primarily web-based application, developed with [React](https://react.dev/) and [Node.js](https://nodejs.org/en). The backend of the web app consists of three different sections. The web portion of the application will use [Firebase](https://firebase.google.com/), a cloud platform developed by Google. Firebase provides Cookbook-Pro with free hosting and user authentication, as well as a NoSQL database, and serverless-compute. The [Spoonacular API](https://spoonacular.com/food-api) is utilized for the recipes that appear in the search feature, as well as for ingredient and nutritional data. The recommendation system uses [OpenAI's GPT-4](https://openai.com/index/gpt-4) and [DALL-E3](https://openai.com/index/dall-e-3) models to generate recipes and images. 
+**Cookbook-Pro** is a primarily web-based application, developed with [React](https://react.dev/) and [Node.js](https://nodejs.org/en). The backend of the web app consists of three different sections. The web portion of the application will use [Firebase](https://firebase.google.com/), a cloud platform developed by Google. Firebase provides **Cookbook-Pro** with free hosting and user authentication, as well as a NoSQL database, and serverless-compute. The [Spoonacular API](https://spoonacular.com/food-api) is utilized for the recipes that appear in the search feature, as well as for ingredient and nutritional data. The recommendation system uses [OpenAI's GPT-4](https://openai.com/index/gpt-4) and [DALL-E3](https://openai.com/index/dall-e-3) models to generate recipes and images. 
 
 ## Background
 
-Cookbook-Pro is designed to simplify a user's cooking endeavors by offering a comprehensive platform for managing, organizing, and discovering recipes. The digitization of the concept of a "cookbook" allows users to effortlessly search for recipes and perform a range of actions based on them that are not possible within a traditional cookbook. Upon visiting the website, users are presented with a home screen offering options to log in or sign up using their Google account. Once authenticated, users gain access to the full functionality of the app, with various tabs for easy navigation.
+**Cookbook-Pro** is designed to simplify a user's cooking endeavors by offering a comprehensive platform for managing, organizing, and discovering recipes. The digitization of the concept of a "cookbook" allows users to effortlessly search for recipes and perform a range of actions based on them that are not possible within a traditional cookbook. Upon visiting the website, users are presented with a home screen offering options to log in or sign up using their Google account. Once authenticated, users gain access to the full functionality of the app, with various tabs for easy navigation.
 
-Users can manage recipes by saving pre-existing ones, creating custom recipes, or saving recipes generated by ChatGPT. The application also allows users to create meal plans on the calendar, track them, order ingredient lists, and generate nutrition reports of their meals. The nutrition report section allows users to enter their daily macronutrient goals, creating a health baseline that can be later edited if needed. It also visualizes the nutritional data of their meals. Cookbook-Pro combines all these aspects to offer a modern take on the traditional cookbook, providing users with enhanced control and management over their recipes.
+Users can manage recipes by saving pre-existing ones, creating custom recipes, or saving recipes generated by ChatGPT. The application also allows users to create meal plans on the calendar, track them, order ingredient lists, and generate nutrition reports of their meals. The nutrition report section allows users to enter their daily macronutrient goals, creating a health baseline that can be later edited if needed. It also visualizes the nutritional data of their meals. **Cookbook-Pro** combines all these aspects to offer a modern take on the traditional cookbook, providing users with enhanced control and management over their recipes.
 
 
 ## Required Resources
