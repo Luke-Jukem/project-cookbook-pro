@@ -109,7 +109,7 @@ const CreateRecipes = () => {
     const missingIngredientFields = ingredients.reduce(
       (missing, ingredient, index) => {
         const missingFields = [];
-        if (!ingredient.amount)
+        if (!ingredient.amount || ingredient.amount <= 0)
           missingFields.push(`ingredients[${index}].amount`);
         if (!ingredient.name) missingFields.push(`ingredients[${index}].name`);
         if (!ingredient.unit) missingFields.push(`ingredients[${index}].unit`);

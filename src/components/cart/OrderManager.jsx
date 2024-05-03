@@ -55,7 +55,7 @@ const OrderManager = ({ cartItems, setModalOpen, removeFromCart }) => {
       ingredients: aggregateIngredients(cartItems),
     };
 
-    const orderId = `o-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    const orderId = `o-${Date.now()}`;
 
     try {
       await FirestoreService.createDocument(
@@ -82,17 +82,11 @@ const OrderManager = ({ cartItems, setModalOpen, removeFromCart }) => {
 
   return (
     <>
-      <div className="cart-date">
-        <div className="set-date">Set Date</div>
-        <input
-          type="date"
-          min={new Date().toISOString().split("T")[0]}
-          onChange={(e) => setSelectedDate(e.target.value)}
-        />
+      <div className="submit-container">
+        <button className="submit-button" onClick={handleSubmit}>
+          Submit
+        </button>
       </div>
-      <button className="submit-button" onClick={handleSubmit}>
-        Submit
-      </button>
       {orderData && <MailBox orderData={orderData} />}
     </>
   );

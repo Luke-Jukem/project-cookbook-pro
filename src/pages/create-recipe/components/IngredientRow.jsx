@@ -26,6 +26,20 @@ const IngredientRow = ({
     .filter((field) => field.startsWith(`ingredients[${index}]`))
     .map((field) => field.split(".")[1]);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setIngredients((prevIngredients) =>
+      prevIngredients.map((prevIngredient, i) =>
+        i === index
+          ? {
+              ...prevIngredient,
+              [name]: name === "amount" ? value.replace(/[^0-9.]/g, "") : value,
+            }
+          : prevIngredient
+      )
+    );
+  };
+
   return (
     <div className="ingredient-creation-label-row-container">
       <RemoveButton
@@ -36,16 +50,8 @@ const IngredientRow = ({
         className={"ingredient-creation-"}
         fields={ingredientFields}
         formData={ingredient}
-        defaultValues={{ amount: ingredient.amount || 1 }}
-        onChange={(e) =>
-          setIngredients((prevIngredients) =>
-            prevIngredients.map((prevIngredient, i) =>
-              i === index
-                ? { ...prevIngredient, [e.target.name]: e.target.value }
-                : prevIngredient
-            )
-          )
-        }
+        defaultValues={{ amount: ingredient.amount || "" }}
+        onChange={handleChange}
         onSubmit={handleIngredientSubmit}
         invalidFields={filteredInvalidFields}
       />

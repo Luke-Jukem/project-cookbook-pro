@@ -17,6 +17,8 @@ import {
   Cell,
 } from "recharts";
 import "./health.css";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 
 const Health = ({ recipes, selectedDates }) => {
   // Firebase auth
@@ -159,50 +161,68 @@ const Health = ({ recipes, selectedDates }) => {
   };
 
   return (
-    <div className="grid-container">
-      <div id="square-one">
-        {/* Either display goals or prompt user to enter them */}
-        {showGoals ? (
-          <div>
-            <DisplayGoals onEdit={() => setShowGoals(false)} />
-          </div>
-        ) : (
-          <div>
-            <MacroGoalForm onSubmit={() => setShowGoals(true)} />
-          </div>
-        )}
+    <div className="vert-column-container">
+      <div id="column-one">
         <div className="explainations">
-          <br />
-          <br />
-          <br />
+          <h2>Tips for filling in Macros</h2>
+          <h6>Hover over each category for more information</h6>
           <p>
-            <strong>Calories:</strong> To maintain weight, aim for your daily
+            <Tippy
+              content="To maintain weight, aim for your daily
             energy expenditure. For weight loss, aim for a deficit of 500
-            calories per day.
-          </p>
-
-          <p>
-            <strong>Protein:</strong> To build muscle, aim for 1 gram per pound
-            of body weight. For general health, aim for 0.36 grams per pound.
+            calories per day."
+            >
+              <strong>CALORIES</strong>
+            </Tippy>
           </p>
           <p>
-            <strong>Carbohydrates:</strong> For an active lifestyle, aim for 3-5
-            grams per kilogram of body weight. For weight loss, aim for the
-            lower end of this range.
+            <Tippy
+              content="To build muscle, aim for 1 gram per
+              pound of body weight. For general health, aim for 0.36 grams per
+              pound."
+            >
+              <strong>PROTEIN</strong>
+            </Tippy>
           </p>
           <p>
-            <strong>Fat:</strong> For general health, aim for 20-35% of your
-            total daily calories. For a ketogenic diet, aim for 70-75% of your
-            total daily calories.
+            <Tippy
+              content="For an active lifestyle, aim for
+              3-5 grams per kilogram of body weight. For weight loss, aim for
+              the lower end of this range."
+            >
+              <strong>CARBOHYDRATES</strong>
+            </Tippy>
           </p>
           <p>
-            <strong>Sugar:</strong> For a healthy diet, aim for less than 10% of
-            your total daily calories from added sugars. For optimal health, aim
-            for less than 5%.
+            <Tippy
+              content="For general health, aim for 20-35% of your
+              total daily calories. For a ketogenic diet, aim for 70-75% of your
+              total daily calories."
+            >
+              <strong>FAT</strong>
+            </Tippy>
+          </p>
+          <p>
+            <Tippy
+              content="For a healthy diet, aim for less than 10%
+              of your total daily calories from added sugars. For optimal
+              health, aim for less than 5%."
+            >
+              <strong>SUGAR</strong>
+            </Tippy>
           </p>
         </div>
+        <br />
+        <br />
+        <br />
+        {/* Either display goals or prompt user to enter them */}
+        {showGoals ? (
+          <DisplayGoals onEdit={() => setShowGoals(false)} />
+        ) : (
+          <MacroGoalForm onSubmit={() => setShowGoals(true)} />
+        )}
       </div>
-      <div id="square-two">
+      <div id="column-two">
         {/* Display total macros */}
         <div>
           <h3>Total Macros from selected days:</h3>
@@ -214,16 +234,13 @@ const Health = ({ recipes, selectedDates }) => {
         </div>
         <div>
           <h3>Recipes for selected range: </h3>
-          <br/>
+          <br />
           <ul>
             {recipeNutritionData.map((recipe, index) => (
               <li key={index}>
-                <b>{recipe.name}</b> - 
-                Calories: {recipe.calories} cals, 
-                Carbs: {recipe.carbohydrates} g, 
-                Protein: {recipe.protein} g, 
-                Sugar: {recipe.sugar} g, 
-                Fat: {recipe.fat} g
+                <b>{recipe.name}</b> - Calories: {recipe.calories} cals, Carbs:{" "}
+                {recipe.carbohydrates} g, Protein: {recipe.protein} g, Sugar:{" "}
+                {recipe.sugar} g, Fat: {recipe.fat} g
               </li>
             ))}
           </ul>
@@ -241,53 +258,56 @@ const Health = ({ recipes, selectedDates }) => {
         </p>
       </div>
       {/* Conditionally render Charts if user has selected a meal */}
-      <div id="square-three">
+      <div id="column-three">
         {totalMacros.calories > 0 && (
-          <div id="inside-square-three">
+          <div id="inside-column-three">
             <div>
-            <h1>Your macronutrient breakdown for the selected days (grams)</h1>
-            <p>Hover over sections of the graph for more details.</p>
-            <PieChart width={500} height={300}>
-              <Pie
-                dataKey="value"
-                isAnimationActive={false}
-                data={macroBreakdownData}
-                cx={200}
-                cy={200}
-                outerRadius={80}
-                label
-                stroke="black"
-                strokeWidth={2}
-              />
-              <Tooltip />
-            </PieChart>
-            <br />
-            <br />
+              <h1>
+                Your macronutrient breakdown for the selected days (grams)
+              </h1>
+              <p>Hover over sections of the graph for more details.</p>
+              <PieChart width={500} height={300}>
+                <Pie
+                  dataKey="value"
+                  isAnimationActive={false}
+                  data={macroBreakdownData}
+                  cx={200}
+                  cy={200}
+                  outerRadius={80}
+                  label
+                  stroke="black"
+                  strokeWidth={2}
+                />
+                <Tooltip />
+              </PieChart>
+              <br />
+              <br />
+              <br />
             </div>
             <div>
-            <h1>Progress - How do my planned meals line up with my goals?</h1>
-            <p>Hover over sections of the graph for more details.</p>
-            <br />
-            <BarChart
-              width={500}
-              height={300}
-              data={progressData}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="Goals" fill="green" />
-              <Bar dataKey="Planned" fill="black" />
-            </BarChart>
-          </div>
+              <h1>Progress - How do my planned meals line up with my goals?</h1>
+              <p>Hover over sections of the graph for more details.</p>
+              <br />
+              <BarChart
+                width={500}
+                height={300}
+                data={progressData}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="Goals" fill="green" />
+                <Bar dataKey="Planned" fill="black" />
+              </BarChart>
+            </div>
           </div>
         )}
       </div>

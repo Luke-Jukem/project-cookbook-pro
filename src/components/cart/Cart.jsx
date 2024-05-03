@@ -4,6 +4,8 @@ import RecipeDetails from "../RecipeDetails.jsx";
 import OrderManager from "./OrderManager.jsx";
 import { useAuth } from "../../utils/AuthContext";
 import FirestoreService from "../../firebase/FirebaseService.js";
+import customRecipeImage from "../../imgs/custom-recipe-placeholder.png";
+import generatedRecipeImage from "../../imgs/generated-recipe-placeholder.png";
 
 const Cart = ({ modalOpen, setModalOpen, cartItems, type }) => {
   const [selectedMeal, setSelectedMeal] = useState(null);
@@ -24,34 +26,66 @@ const Cart = ({ modalOpen, setModalOpen, cartItems, type }) => {
     await FirestoreService.deleteDocument(userCartPath, recipeId, "recipe");
   };
 
+  //for getting count of each recipe in cart
+  const cartItemsWithCount = cartItems.reduce((acc, recipe) => {
+    if (acc[recipe.id]) {
+      acc[recipe.id].count += 1;
+    } else {
+      acc[recipe.id] = { ...recipe, count: 1 };
+    }
+    return acc;
+  }, {});
+
   return (
-    <Modal isOpen={modalOpen} toggle={() => setModalOpen(!modalOpen)} className="cart-modal">
+    <Modal
+      isOpen={modalOpen}
+      toggle={() => setModalOpen(!modalOpen)}
+      className="cart-modal"
+    >
       <div className="cart">
-        <h2 className="cart-header">Cart ({cartItems.length})</h2>
+        <div className="cart-header">
+          <h2>Cart ({cartItems.length})</h2>
+          <Button
+            className="close-button"
+            onClick={() => setModalOpen(!modalOpen)}
+          >
+            Close
+          </Button>
+        </div>
         <div className="items-in-cart">
-        {cartItems.map((recipe, index) => (
-          <div key={index} className="cart-display">
-            <img src={recipe.image} alt={recipe.name} />
-            <div>
-              <h4 className="recipe-name">{recipe.name}</h4>
-              <p>{recipe.amount}</p>
-            </div>
-            <button
-              className="details-button"
-              onClick={() => setSelectedMeal(recipe)}
-            >
-              Details
-            </button>
-            {type !== "calendar" && ( //if the cart is being used from the calendar, don't show the remove button
+          {Object.entries(cartItemsWithCount).map(([id, recipe]) => (
+            <div key={id} className="cart-display">
+              <img
+                style={{ backgroundColor: "#f0f0f0", borderRadius: "8px" }}
+                src={
+                  recipe.image === "generatedRecipes"
+                    ? generatedRecipeImage
+                    : recipe.image
+                    ? recipe.image
+                    : customRecipeImage
+                }
+                alt={recipe.name}
+              />
+              <div>
+                <h4 className="recipe-name">{recipe.name}</h4>
+                <p>Quantity: {recipe.count}</p>
+              </div>
               <button
-                className="remove-button"
-                onClick={() => removeFromCart(recipe.id)}
+                className="details-button"
+                onClick={() => setSelectedMeal(recipe)}
               >
-                Remove
+                Details
               </button>
-            )}
-          </div>
-        ))}
+              {type !== "calendar" && (
+                <button
+                  className="remove-button"
+                  onClick={() => removeFromCart(id)}
+                >
+                  Remove
+                </button>
+              )}
+            </div>
+          ))}
         </div>
         <OrderManager
           cartItems={cartItems}

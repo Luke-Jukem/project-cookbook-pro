@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import Modal from "react-modal";
-import { eachDayOfInterval, startOfDay, isSameDay } from "date-fns";
+import { eachDayOfInterval, startOfDay, isSameDay, max, min } from "date-fns";
 import { Button } from "reactstrap";
 import MealForm from "./components/MealForm.jsx";
 import "./calendarStyle.css";
@@ -36,6 +36,8 @@ const MyCalendar = () => {
   //nutritional modal recipes state
   const [nutritionRecipes, setnutritionRecipes] = useState([]);
   const firestoreListener = new FirestoreListener();
+  //welcome message
+  const [showWelcome, setShowWelcome] = useState(true);
 
   useEffect(() => {
     const userPlansPath = `Users/${user.uid}/Plans`;
@@ -58,13 +60,16 @@ const MyCalendar = () => {
 
   //selecting days/date range
   const onClickDay = (value, event) => {
+    //disable welcome message
+    setShowWelcome(false);
     //if shift is held down and a date is clicked
     if (event.shiftKey && selectedDay) {
       //take the range from the selected day to the shift-clicked day
       const range = eachDayOfInterval({
-        start: startOfDay(selectedDay),
-        end: startOfDay(value),
+        start: min([startOfDay(selectedDay), startOfDay(value)]),
+        end: max([startOfDay(selectedDay), startOfDay(value)]),
       });
+
       setSelectedDates(range);
     } else {
       //otherwise just update selected with the clicked day
@@ -308,30 +313,52 @@ const MyCalendar = () => {
                     plan.date === date.toISOString().split("T")[0] &&
                     plan.meals.length > 0
                 )
-            ) && (
+            ) ? (
               <button className="lg-cal-btn order" onClick={orderMeals}>
                 Order Meals
               </button>
+            ) : !showWelcome ? (
+              <button className="lg-cal-btn" onClick={() => setShowWelcome(true)}>?</button>
+            ) : (
+              <button className="lg-cal-btn" onClick={() => setShowWelcome(false)}>X</button>
+            )
+          }
+          {
+            showWelcome &&
+            !(selectedDates.length > 0 ? selectedDates : [selectedDay]).some(
+              (date) =>
+                plans.some(
+                  (plan) =>
+                    plan.date === date.toISOString().split("T")[0] &&
+                    plan.meals.length > 0
+                )
+            ) && (
+              <div className="cal-welcome">
+                <h3>Welcome to the calendar!</h3>
+                <h5>Here, you can plan meals, view your meal history, order ingredients, and generate nutrition reports!</h5>
+                <h5>To select a date range, click on a start date, then hold the "shift" button and click on the end date.</h5>
+                <h5>Click "add meal" to get started!</h5>
+              </div>
             )
           }
           <br />
           <div className="selected-meals-container">
-          {
-            //if there are selected dates in array, display the meals of all of them
-            //otherwise, display the meals of the selected day
-            (selectedDates.length > 0 ? selectedDates : [selectedDay]).map(
-              (date) =>
-                plans
-                  .filter(
-                    (plan) => plan.date === date.toISOString().split("T")[0]
-                  )
-                  .map((plan, index) =>
-                    plan.meals.map((meal, mealIndex) =>
-                      renderPlan(date, plan, mealIndex)
+            {
+              //if there are selected dates in array, display the meals of all of them
+              //otherwise, display the meals of the selected day
+              (selectedDates.length > 0 ? selectedDates : [selectedDay]).map(
+                (date) =>
+                  plans
+                    .filter(
+                      (plan) => plan.date === date.toISOString().split("T")[0]
                     )
-                  )
-            )
-          }
+                    .map((plan, index) =>
+                      plan.meals.map((meal, mealIndex) =>
+                        renderPlan(date, plan, mealIndex)
+                      )
+                    )
+              )
+            }
           </div>
 
           {selectedMeal && (

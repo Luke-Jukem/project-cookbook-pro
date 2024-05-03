@@ -52,7 +52,7 @@ const IngredientBox = ({
           type="button"
           onClick={addIngredient}
         >
-          Add Ingr.
+          Add Ingredient
         </button>
       </div>
       <div id="ingredient-list-container">

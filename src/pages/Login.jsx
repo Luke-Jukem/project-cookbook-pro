@@ -57,9 +57,14 @@ var Login = () => {
   };
 
   return (
+    <div className="loginContainer">
     <div className="LogIn">
       <h1 className="Title">Log In</h1>
       <br />
+      <div>Welcome to Cookbook Pro!</div>
+      <br></br>
+
+      <br></br>
       <center>
         <button
           type="button"
@@ -69,46 +74,9 @@ var Login = () => {
           Log In with Google
         </button>
       </center>
-      <form>
-        <label className="Email">
-          Email<br></br>
-        </label>
-        <input
-          value={userEmail}
-          onChange={(e) => isUserEmail(e.target.value)}
-          className="getEmail"
-          type="text"
-          id="isEmail"
-          name="isEmail"
-        />
-        <br />
-        <label className="Password">
-          Password<br></br>
-        </label>
-        <input
-          value={userPassword}
-          onChange={(e) => isUserPassword(e.target.value)}
-          className="getPassword"
-          type="password"
-          id="isPassword"
-          name="isPassword"
-        />
-        <div className="InvalidInput">
-          <span style={{ color: "blue" }}>Forgot Password?</span>
-        </div>
-        {loginError ? <label className="isInvalid">{loginError}</label> : null}
-        <input
-          className="isValidate"
-          type="button"
-          id="isValid"
-          onClick={(e) => checkInput(e)}
-          value={"Log In"}
-        />
-      </form>
       <br />
-      <p style={{ textAlign: "center" }}>
-        <a href="/SignUp">Dont Have An Account? Create Account</a>
-      </p>
+      <div>Please sign-in with Google</div>
+    </div>
     </div>
   );
 };
