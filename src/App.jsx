@@ -4,11 +4,8 @@ import Home from "../src/pages/Home.jsx";
 import Search from "./pages/search/Search";
 import Calendar from "./pages/calendar/Calendar";
 import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
 import MobileHeader from "./components/header/MobileHeader";
 import Header from "./components/header/Header";
-
-import Recomendations from "./pages/recommendations/Recommendations";
 import CreateRecipes from "./pages/create-recipe/CreateRecipes";
 import OrderHistory from "./pages/order-history/OrderHistory";
 import MainLayout from "./pages/MainLayout";
@@ -34,7 +31,6 @@ function App() {
         <HeaderLayout />
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
           <Route element={<PrivateRoutes />}>
             <Route
               path="/"
@@ -59,14 +55,6 @@ function App() {
                   element={
                     <Layout>
                       <Search />
-                    </Layout>
-                  }
-                />
-                <Route
-                  path="/recommendations"
-                  element={
-                    <Layout>
-                      <Recomendations />
                     </Layout>
                   }
                 />

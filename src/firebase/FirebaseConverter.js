@@ -106,53 +106,6 @@ class FirebaseConverter {
       },
     };
 
-    this.gptResponseConverter = {
-      toFirestore: (gptResponse) => {
-        if (!gptResponse) {
-          console.error("GPT response is undefined or null");
-          return null;
-        }
-
-        const convertedIngredients = this.convertArray(
-          gptResponse.ingredients,
-          this.objectConverter
-        );
-
-        return {
-          name: gptResponse.name,
-          cuisine: gptResponse.cuisine,
-          dishType: gptResponse.dishType,
-          id: gptResponse.id,
-          image: gptResponse.image,
-          ingredients: convertedIngredients,
-          inspirationReasoning: gptResponse.inspirationReasoning,
-          savedRecipeInspiration: gptResponse.savedRecipeInspiration,
-          servings: gptResponse.servings,
-          summary: gptResponse.summary,
-        };
-      },
-      fromFirestore: (snapshot, options) => {
-        const data = snapshot.data(options);
-        const convertedIngredients = this.convertArray(
-          data.ingredients,
-          this.objectConverter
-        );
-
-        return {
-          name: data.name,
-          cuisine: data.cuisine,
-          dishType: data.dishType,
-          id: data.id,
-          image: data.image || "",
-          ingredients: convertedIngredients,
-          inspirationReasoning: data.inspirationReasoning,
-          savedRecipeInspiration: data.savedRecipeInspiration,
-          servings: data.servings,
-          summary: data.summary,
-        };
-      },
-    };
-
     this.goalsResponseConverter = {
       toFirestore: (goalsResponse) => {
         if (!goalsResponse) {

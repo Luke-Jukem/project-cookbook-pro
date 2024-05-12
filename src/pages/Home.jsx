@@ -18,20 +18,6 @@ const Home = () => {
           </p>
         </div>
         <div className="grid-item-home">
-          <a className="h2Style" href="/recommendations">
-            Recommendations
-          </a>
-          <p className="home-content">
-            Feeling adventurous?
-            <br></br>
-            Let our AI-powered recommendation system guide you!
-            <br></br>
-            Whether you're craving a specific type of cuisine or seeking
-            culinary inspiration, our recommendation engine will spark your
-            imagination and delight your taste buds.
-          </p>
-        </div>
-        <div className="grid-item-home">
           <a className="h2Style" href="/create-recipe">
             Create Recipe
           </a>
