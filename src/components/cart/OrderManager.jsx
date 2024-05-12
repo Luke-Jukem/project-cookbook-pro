@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../../utils/AuthContext.js";
 import FirestoreService from "../../firebase/FirebaseService.js";
-import MailBox from "./MailBox.jsx";
 
 const OrderManager = ({ cartItems, setModalOpen, removeFromCart }) => {
   const { user } = useAuth();
@@ -87,7 +86,6 @@ const OrderManager = ({ cartItems, setModalOpen, removeFromCart }) => {
           Submit
         </button>
       </div>
-      {orderData && <MailBox orderData={orderData} />}
     </>
   );
 };
