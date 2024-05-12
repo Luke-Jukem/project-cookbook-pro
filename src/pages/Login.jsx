@@ -9,7 +9,6 @@ import "../index";
 import "../css/LoginSignUp.css";
 import "../firebase/firebaseConfig.js";
 import "./search/Search.jsx";
-import "./SignUp";
 
 var Login = () => {
   const [userEmail, isUserEmail] = useState("");
@@ -58,25 +57,25 @@ var Login = () => {
 
   return (
     <div className="loginContainer">
-    <div className="LogIn">
-      <h1 className="Title">Log In</h1>
-      <br />
-      <div>Welcome to Cookbook Pro!</div>
-      <br></br>
+      <div className="LogIn">
+        <h1 className="Title">Log In</h1>
+        <br />
+        <div>Welcome to Cookbook Pro!</div>
+        <br></br>
 
-      <br></br>
-      <center>
-        <button
-          type="button"
-          className="googleSignInButton"
-          onClick={signInWithGoogle}
-        >
-          Log In with Google
-        </button>
-      </center>
-      <br />
-      <div>Please sign-in with Google</div>
-    </div>
+        <br></br>
+        <center>
+          <button
+            type="button"
+            className="googleSignInButton"
+            onClick={signInWithGoogle}
+          >
+            Log In with Google
+          </button>
+        </center>
+        <br />
+        <div>Please sign-in with Google</div>
+      </div>
     </div>
   );
 };
