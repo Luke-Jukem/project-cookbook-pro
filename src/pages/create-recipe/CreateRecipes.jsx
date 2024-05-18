@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RecipeBox from "./components/RecipeBox.jsx";
 import IngredientBox from "./components/IngredientBox.jsx";
-import CheeserSearchComponent from "./components/CheeserSearchComponent.jsx";
+import IngredientSearchComponent from "./components/IngredientSearch.jsx";
 import { useAuth } from "../../utils/AuthContext.js";
 import { Recipe } from "../../customObjects/Recipe.js";
 import { Ingredient } from "../../customObjects/Ingredient.js";
@@ -186,7 +186,7 @@ const CreateRecipes = () => {
 
   return (
     <div id="recipe-creation-container">
-      <CheeserSearchComponent
+      <IngredientSearchComponent
         onIngredientSelect={handleIngredientSelect}
         onClear={selectedIngredient === null}
       />
