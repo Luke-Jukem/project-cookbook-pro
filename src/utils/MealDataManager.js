@@ -84,7 +84,7 @@ class MealDataManager {
     }
   }
 
-  async searchIngredients(query, number = 25) {
+  async searchIngredients(query, number = 50) {
     const searchParams = new URLSearchParams({
       apiKey: this.spoonacularApi,
       query,
@@ -100,7 +100,7 @@ class MealDataManager {
       const searchResults = data.results.map((result) => {
         return new Ingredient(null, result.id, result.name, null, result.image);
       });
-
+      console.log(searchResults);
       return {
         results: searchResults,
         totalResults: data.totalResults,
@@ -149,7 +149,7 @@ class MealDataManager {
   async getRandomMeal() {
     const searchParams = new URLSearchParams({
       apiKey: this.spoonacularApi,
-      number: "1", 
+      number: "1",
     });
 
     const url = `https://api.spoonacular.com/recipes/random?${searchParams.toString()}`;
