@@ -63,14 +63,6 @@ const IngredientSearchComponent = ({ onIngredientSelect, onClear }) => {
                 key={ingredient.id}
                 onClick={() => handleIngredientClick(ingredient)}
               />
-              // <li
-              // className="ingredient-list-item"
-              // key={ingredient.id}
-              // onClick={() => handleIngredientClick(ingredient)}
-              // style={{ cursor: "pointer" }}
-              // >
-              // {ingredient.name}
-              // </li>
             ))}
           </ul>
         )}
