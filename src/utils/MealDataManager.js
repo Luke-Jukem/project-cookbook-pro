@@ -90,23 +90,53 @@ class MealDataManager {
       query,
       number: number.toString(),
     });
-
     const url = `https://api.spoonacular.com/food/ingredients/search?${searchParams.toString()}`;
-
     try {
       const response = await fetch(url);
       const data = await response.json();
 
-      const searchResults = data.results.map((result) => {
-        return new Ingredient(null, result.id, result.name, null, result.image);
+      // Fetch detailed info for each ingredient
+      const searchResultsPromises = data.results.map(async (result) => {
+        const detailedInfo = await this.fetchIngredientInfo(result.id);
+
+        return new Ingredient(
+          detailedInfo.id,
+          detailedInfo.name,
+          detailedInfo.image,
+          detailedInfo.nutrition
+        );
       });
-      console.log(searchResults);
+
+      const searchResults = await Promise.all(searchResultsPromises);
       return {
         results: searchResults,
         totalResults: data.totalResults,
       };
     } catch (error) {
       console.error("Error searching for ingredients:", error);
+      throw error;
+    }
+  }
+
+  async fetchIngredientInfo(ingredientId) {
+    const searchParams = new URLSearchParams({
+      apiKey: this.spoonacularApi,
+      amount: 1,
+      unit: "piece",
+    });
+    const url = `https://api.spoonacular.com/food/ingredients/${ingredientId}/information?${searchParams.toString()}`;
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      const ingredientInfo = {
+        id: data.id,
+        name: data.name,
+        nutrition: data.nutrition,
+      };
+      console.log(ingredientInfo);
+      return ingredientInfo;
+    } catch (error) {
+      console.error("Error fetching ingredient information:", error);
       throw error;
     }
   }

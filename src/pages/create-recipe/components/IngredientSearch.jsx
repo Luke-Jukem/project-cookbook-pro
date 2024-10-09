@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Input, Button } from "reactstrap";
 import MealDataManager from "../../../utils/MealDataManager";
 import ".././create-recipe.css";
+import IngredientSearchResult from "./IngredientSearchResult";
 
 const IngredientSearchComponent = ({ onIngredientSelect, onClear }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -57,14 +58,19 @@ const IngredientSearchComponent = ({ onIngredientSelect, onClear }) => {
         {searchResults.length > 0 && (
           <ul className="list-unstyled">
             {searchResults.map((ingredient) => (
-              <li
-                className="ingredient-list-item"
+              <IngredientSearchResult
+                ingredientData={ingredient}
                 key={ingredient.id}
                 onClick={() => handleIngredientClick(ingredient)}
-                style={{ cursor: "pointer" }}
-              >
-                {ingredient.name}
-              </li>
+              />
+              // <li
+              // className="ingredient-list-item"
+              // key={ingredient.id}
+              // onClick={() => handleIngredientClick(ingredient)}
+              // style={{ cursor: "pointer" }}
+              // >
+              // {ingredient.name}
+              // </li>
             ))}
           </ul>
         )}
